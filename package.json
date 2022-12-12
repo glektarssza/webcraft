@@ -31,6 +31,7 @@
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.2.1",
         "eslint-plugin-tsdoc": "^0.2.17",
+        "eslint-webpack-plugin": "^3.2.0",
         "fork-ts-checker-webpack-plugin": "^7.2.13",
         "postcss": "^8.4.20",
         "postcss-loader": "^7.0.2",

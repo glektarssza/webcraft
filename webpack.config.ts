@@ -1,4 +1,6 @@
-/// <reference types="Webpack-dev-server" />
+/// <reference types="webpack-dev-server" />
+import ESLintWebpackPlugin from 'eslint-webpack-plugin';
+import ForkTSCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import path from 'path';
 import {Configuration} from 'webpack';
 import webpackMerge from 'webpack-merge';
@@ -51,7 +53,17 @@ const common: Configuration = {
             }
         ]
     },
-    plugins: []
+    plugins: [
+        new ESLintWebpackPlugin({
+            files: path.resolve(__dirname, './src/ts/')
+        }),
+        new ForkTSCheckerWebpackPlugin({
+            async: true,
+            typescript: {
+                configFile: path.resolve(__dirname, './src/ts/tsconfig.json')
+            }
+        })
+    ]
 };
 
 const dev: Configuration = webpackMerge(common, {
