@@ -1,0 +1,36 @@
+name: Build
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v3
+      - id: setup_nodejs
+        name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 19.x
+          cache: yarn
+      - id: install_dependencies
+        name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - id: build
+        name: Build
+        run: yarn build
+      - id: upload_artifacts
+        name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist
