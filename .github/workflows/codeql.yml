@@ -33,9 +33,9 @@ jobs:
           queries: security-extended,security-and-quality
       - id: autobuild
         name: Autobuild
-        uses: github/codeql-actions/autobuild@v2
+        uses: github/codeql-action/autobuild@v2
       - id: perform_analysis
         name: Perform CodeQL Analysis
-        uses: github/codeql-actions/analyze@v2
+        uses: github/codeql-action/analyze@v2
         with:
           category: '/language:${{matrix.language}}'
