@@ -14,3 +14,7 @@
 # Packages #
 ## NodeJS ##
 node_modules/
+
+# Artifacts #
+## Build ##
+dist/
