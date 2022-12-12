@@ -50,6 +50,22 @@ const common: Configuration = {
                 test: /\.(css)$/,
                 exclude: /node_modules/,
                 use: ['css-loader', 'postcss-loader']
+            },
+            {
+                test: /\.(png|jpeg|jpg|bmp|gif)$/,
+                exclude: /node_modules/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'images/[contenthash][ext]'
+                }
+            },
+            {
+                test: /\.(eot|tff|otf|woff|woff2)$/,
+                exclude: /node_modules/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'fonts/[contenthash][ext]'
+                }
             }
         ]
     },
