@@ -13,10 +13,43 @@ const common: Configuration = {
         path: path.resolve(__dirname, './dist/')
     },
     resolve: {
-        extensions: ['.ts', '.js']
+        extensions: ['.tsx', '.ts', '.jsx', '.js']
     },
     module: {
-        rules: []
+        rules: [
+            {
+                enforce: 'pre',
+                test: /\.(tsx|ts|jsx|js|scss|sass|less|css)$/,
+                exclude: /node_modules/,
+                use: ['source-map-loader']
+            },
+            {
+                test: /\.(tsx|ts)$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true,
+                            configFile: path.resolve(
+                                __dirname,
+                                './src/ts/tsconfig.json'
+                            )
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(scss|sass)$/,
+                exclude: /node_modules/,
+                use: ['css-loader', 'postcss-loader', 'sass-loader']
+            },
+            {
+                test: /\.(css)$/,
+                exclude: /node_modules/,
+                use: ['css-loader', 'postcss-loader']
+            }
+        ]
     },
     plugins: []
 };
