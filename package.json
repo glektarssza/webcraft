@@ -38,6 +38,7 @@
         "prettier": "^2.8.1",
         "pug": "^3.0.2",
         "pug-plugin": "^4.5.0",
+        "rimraf": "^3.0.2",
         "sass": "^1.56.2",
         "sass-loader": "^13.2.0",
         "source-map-loader": "^4.0.1",
