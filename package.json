@@ -1,0 +1,23 @@
+{
+    "name": "webcraft",
+    "description": "A simple Minecraft clone that runs in a web browser.",
+    "version": "0.0.0",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "private": true,
+    "author": {
+        "name": "G'lek Tarssza",
+        "email": "glek@glektarssza.com",
+        "url": "http://glektarssza.com"
+    },
+    "homepage": "http://glektarssza.github.io/webcraft",
+    "bugs": {
+        "url": "https://github.com/glektarssza/webcraft/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/glektarssza/webcraft.git"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "devDependencies": {}
+}
