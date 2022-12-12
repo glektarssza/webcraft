@@ -1,7 +1,10 @@
 /// <reference types="webpack-dev-server" />
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="./pug-plugin.d.ts" />
 import ESLintWebpackPlugin from 'eslint-webpack-plugin';
 import ForkTSCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import path from 'path';
+import PugPlugin from 'pug-plugin';
 import {Configuration} from 'webpack';
 import webpackMerge from 'webpack-merge';
 
@@ -66,6 +69,11 @@ const common: Configuration = {
                 generator: {
                     filename: 'fonts/[contenthash][ext]'
                 }
+            },
+            {
+                test: /\.(pug)$/,
+                exclude: /node_modules/,
+                use: [PugPlugin.loader]
             }
         ]
     },
@@ -87,7 +95,7 @@ const dev: Configuration = webpackMerge(common, {
     mode: 'development',
     devtool: 'inline-source-map',
     output: {
-        filename: 'app.[contenthash].js'
+        filename: 'js/app.[contenthash].js'
     },
     devServer: {
         port: 8080,
@@ -97,7 +105,14 @@ const dev: Configuration = webpackMerge(common, {
     module: {
         rules: []
     },
-    plugins: []
+    plugins: [
+        new PugPlugin({
+            pretty: true,
+            extractCss: {
+                filename: 'css/app.[contenthash].css'
+            }
+        })
+    ]
 });
 
 const prod: Configuration = webpackMerge(common, {
@@ -105,12 +120,19 @@ const prod: Configuration = webpackMerge(common, {
     mode: 'production',
     devtool: 'hidden-source-map',
     output: {
-        filename: 'app.[contenthash].min.js'
+        filename: 'js/app.[contenthash].min.js'
     },
     module: {
         rules: []
     },
-    plugins: []
+    plugins: [
+        new PugPlugin({
+            pretty: true,
+            extractCss: {
+                filename: 'css/app.[contenthash].min.css'
+            }
+        })
+    ]
 });
 
 export default [dev, prod];
