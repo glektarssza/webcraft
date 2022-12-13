@@ -1,3 +1,5 @@
+import {Game} from './game';
+
 /**
  * An async function that waits for the DOM to become ready.
  *
@@ -46,7 +48,20 @@ async function domReady(timeout = Infinity): Promise<void> {
  */
 async function main(): Promise<void> {
     await domReady();
-    // TODO
+    const canvas =
+        (document.getElementById('canvas') ||
+            document.getElementsByTagName('canvas')[0]) ??
+        document.createElement('canvas');
+    if (!(canvas instanceof HTMLCanvasElement)) {
+        throw new Error('Could not find or create game canvas');
+    }
+    if (canvas.parentElement === null) {
+        canvas.id = 'gameCanvas';
+        document.body.appendChild(canvas);
+    }
+    const game = new Game(canvas);
+    game.init();
+    game.start();
 }
 
 main()
