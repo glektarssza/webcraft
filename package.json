@@ -28,7 +28,9 @@
         "rebuild:dev": "yarn clean && yarn build:dev",
         "rebuild:prod": "yarn clean && yarn build:prod"
     },
-    "dependencies": {},
+    "dependencies": {
+        "gl-matrix": "^3.4.3"
+    },
     "devDependencies": {
         "@types/node": "^18.11.13",
         "@types/webpack": "^5.28.0",

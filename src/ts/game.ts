@@ -1,3 +1,5 @@
+import {CubeRenderer} from './cubeRenderer';
+
 /**
  * The main game class.
  */
@@ -26,6 +28,11 @@ export class Game {
      * The WebGL rendering context.
      */
     public readonly gl: WebGLRenderingContext;
+
+    /**
+     * The cube renderer.
+     */
+    public readonly cubeRenderer: CubeRenderer;
 
     /**
      * Whether the game has been initialized.
@@ -69,6 +76,7 @@ export class Game {
         this._frameRequestID = null;
         this._lastFrameTimestamp = null;
         this.gl = gl;
+        this.cubeRenderer = new CubeRenderer(this.gl);
     }
 
     /**
@@ -148,6 +156,11 @@ export class Game {
      * Render the game.
      */
     private _render(): void {
+        const canvas = this.gl.canvas;
+        if (canvas instanceof HTMLCanvasElement) {
+            canvas.width = canvas.clientWidth;
+            canvas.height = canvas.clientHeight;
+        }
         this.gl.viewport(
             0,
             0,
@@ -160,7 +173,7 @@ export class Game {
             WebGLRenderingContext.COLOR_BUFFER_BIT |
                 WebGLRenderingContext.DEPTH_BUFFER_BIT
         );
-        // TODO
+        this.cubeRenderer.render();
     }
 
     private readonly _gameLoop = (): void => {
