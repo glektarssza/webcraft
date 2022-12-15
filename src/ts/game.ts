@@ -146,9 +146,10 @@ export class Game {
     /**
      * Update the game.
      *
-     * @param delta - The time since the last frame, in milliseconds.
+     * @param _delta - The time since the last frame, in milliseconds.
      */
-    private _update(delta: number): void {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    private _update(_delta: number): void {
         // TODO
     }
 
