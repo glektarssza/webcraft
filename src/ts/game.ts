@@ -1,4 +1,3 @@
-import {glMatrix, mat4, quat} from 'gl-matrix';
 import {Camera} from './camera';
 import {CubeRenderer} from './cubeRenderer';
 
@@ -161,11 +160,7 @@ export class Game {
         this.camera.aspectRatio =
             this.gl.drawingBufferWidth / this.gl.drawingBufferHeight;
         this.camera.position = [5, 5, 5];
-        quat.identity(this.camera.rotation);
-        quat.fromEuler(this.camera.rotation, -45, 45, 0);
-        console.log(this.camera.rotation);
         this.camera.lookAt([0, 0, 0]);
-        console.log(this.camera.rotation);
         this.camera.updateMatrices();
     }
 
