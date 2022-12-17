@@ -1,4 +1,5 @@
 import {mat4} from 'gl-matrix';
+import {Camera} from './camera';
 
 /**
  * A renderer for a cube.
@@ -71,7 +72,8 @@ export class CubeRenderer {
         uniform mat4 v_model;
         void main() {
             f_uv = v_uv;
-            gl_Position = v_projection * v_view * v_model * vec4(v_position, 1.0);
+            mat4 mvp = v_projection * v_view * v_model;
+            gl_Position = mvp * vec4(v_position, 1.0);
         }
     `;
 
@@ -285,7 +287,7 @@ export class CubeRenderer {
         );
     }
 
-    public render(): void {
+    public render(camera: Camera): void {
         const gl = this.gl;
         gl.useProgram(this.shader);
         gl.bindBuffer(WebGLRenderingContext.ARRAY_BUFFER, this.vbo);
@@ -320,21 +322,11 @@ export class CubeRenderer {
         const modelMat = mat4.create();
         const modelLocation = gl.getUniformLocation(this.shader, 'v_model');
         gl.uniformMatrix4fv(modelLocation, false, modelMat);
-        const viewMat = mat4.create();
-        mat4.lookAt(viewMat, [5, 5, 5], [0, 0, 0], [0, 1, 0]);
         const viewLocation = gl.getUniformLocation(this.shader, 'v_view');
-        gl.uniformMatrix4fv(viewLocation, false, viewMat);
-        const projMat = mat4.create();
-        mat4.perspective(
-            projMat,
-            (45 * Math.PI) / 180,
-            gl.drawingBufferWidth / gl.drawingBufferHeight,
-            0.1,
-            1000
-        );
+        gl.uniformMatrix4fv(viewLocation, false, camera.viewMatrix);
         const projLocation = gl.getUniformLocation(this.shader, 'v_projection');
+        gl.uniformMatrix4fv(projLocation, false, camera.projectionMatrix);
         gl.enable(WebGLRenderingContext.DEPTH_TEST);
-        gl.uniformMatrix4fv(projLocation, false, projMat);
         gl.drawElements(
             WebGLRenderingContext.TRIANGLES,
             36,

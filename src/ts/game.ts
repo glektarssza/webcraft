@@ -1,3 +1,5 @@
+import {glMatrix, mat4, quat} from 'gl-matrix';
+import {Camera} from './camera';
 import {CubeRenderer} from './cubeRenderer';
 
 /**
@@ -33,6 +35,11 @@ export class Game {
      * The cube renderer.
      */
     public readonly cubeRenderer: CubeRenderer;
+
+    /**
+     * The game camera.
+     */
+    public camera: Camera;
 
     /**
      * Whether the game has been initialized.
@@ -77,6 +84,7 @@ export class Game {
         this._lastFrameTimestamp = null;
         this.gl = gl;
         this.cubeRenderer = new CubeRenderer(this.gl);
+        this.camera = new Camera();
     }
 
     /**
@@ -150,7 +158,15 @@ export class Game {
      */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     private _update(_delta: number): void {
-        // TODO
+        this.camera.aspectRatio =
+            this.gl.drawingBufferWidth / this.gl.drawingBufferHeight;
+        this.camera.position = [5, 5, 5];
+        quat.identity(this.camera.rotation);
+        quat.fromEuler(this.camera.rotation, -45, 45, 0);
+        console.log(this.camera.rotation);
+        this.camera.lookAt([0, 0, 0]);
+        console.log(this.camera.rotation);
+        this.camera.updateMatrices();
     }
 
     /**
@@ -174,7 +190,7 @@ export class Game {
             WebGLRenderingContext.COLOR_BUFFER_BIT |
                 WebGLRenderingContext.DEPTH_BUFFER_BIT
         );
-        this.cubeRenderer.render();
+        this.cubeRenderer.render(this.camera);
     }
 
     private readonly _gameLoop = (): void => {
