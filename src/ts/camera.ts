@@ -1,4 +1,4 @@
-import {glMatrix, mat3, mat4, quat, vec3} from 'gl-matrix';
+import {glMatrix, mat4, quat, vec3} from 'gl-matrix';
 
 /**
  * An object which describes a viewport into a 3D scene.
