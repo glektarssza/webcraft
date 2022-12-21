@@ -1,4 +1,4 @@
-import {isRenderableComponent, Component, RenderableComponent} from '.';
+import {isRenderableComponent, Component} from '.';
 
 /**
  * The root entity type.
