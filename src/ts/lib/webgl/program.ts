@@ -298,38 +298,6 @@ export class Program extends Resource<WebGLProgram> {
         return this;
     }
 
-    public hasUniform(name: string): boolean {
-        if (this.isDisposed) {
-            return false;
-        }
-        if (this.native === null) {
-            return false;
-        }
-        if (!this.isLinked) {
-            return false;
-        }
-        return this._uniformMap.has(name);
-    }
-
-    public assignUniform1f(name: string, value: number): this {
-        if (this.isDisposed) {
-            throw new Error('Cannot assign uniform to a disposed program');
-        }
-        if (this.native === null) {
-            throw new Error('Cannot assign uniform to an invalid program');
-        }
-        if (!this.isLinked) {
-            throw new Error('Cannot assign uniform to an unlinked program');
-        }
-        if (!this.hasUniform(name)) {
-            throw new Error(
-                `Cannot assign uniform to unknown uniform: ${name}`
-            );
-        }
-        // TODO
-        return this;
-    }
-
     /**
      * Create the native WebGL resource that will be wrapped by this instance.
      *
