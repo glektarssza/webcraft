@@ -17,7 +17,7 @@ export class Entity {
     /**
      * A human-friendly name for this instance.
      */
-    public readonly name: string;
+    public name: string;
 
     /**
      * A shallow clone of the components attached to this instance.
