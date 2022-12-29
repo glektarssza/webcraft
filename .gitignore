@@ -10,3 +10,11 @@
 
 # Logs #
 *.log*
+
+# Packages #
+## NodeJS ##
+node_modules/
+
+# Artifacts #
+## Webpack ##
+dist/
