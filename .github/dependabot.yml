@@ -1,0 +1,8 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    ignore:
+      - dependency-type: development
+    schedule:
+      interval: daily
