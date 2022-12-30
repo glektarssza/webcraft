@@ -1,0 +1,17 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset='UTF-8')
+        meta(name='application-name' content='Webcraft')
+        meta(name='description' content='A simple Minecraft clone that runs in a web browser.')
+        meta(name='keywords' content='minecraft, webcraft, game, clone, voxel, webgl, web, browser, typescript, canvas')
+        meta(name='author' content='G\'lek Tarssza <glek@glektarssza.com>')
+        meta(name='generator' content='Webpack')
+        meta(name='robots' content='index, nofollow')
+        meta(name='viewport' content='width=device-width, initial-scale=1.0')
+        title Webcraft
+        link(rel='stylesheet' href=require('./scss/index.scss'))
+        script(src=require('./ts/index.ts'))
+    body
+        div#app
+            canvas#gameCanvas
