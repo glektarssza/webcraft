@@ -23,9 +23,12 @@ jobs:
         with:
           node-version: 19
           cache: yarn
+      - id: install
+        name: Install
+        run: yarn install --frozen-lockfile
       - id: build
         name: Build
-        run: yarn build
+        run: yarn run build
       - id: upload-artifacts
         name: Upload Artifacts
         uses: actions/upload-artifact@v3
