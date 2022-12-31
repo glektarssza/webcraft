@@ -18,7 +18,16 @@
         "type": "git",
         "url": "https://github.com/glektarssza/webcraft.git"
     },
-    "scripts": {},
+    "scripts": {
+        "lint": "eslint --ext .ts,.js ./src/ts/",
+        "build": "yarn build:prod",
+        "build:prod": "webpack-cli --config-name prod",
+        "build:dev": "webpack-cli --config-name dev",
+        "clean": "rimraf ./dist/",
+        "rebuild": "yarn clean && yarn build",
+        "rebuild:prod": "yarn clean && yarn build:prod",
+        "rebuild:dev": "yarn clean && yarn build:dev"
+    },
     "dependencies": {},
     "devDependencies": {
         "@types/node": "^18.11.18",
