@@ -1,0 +1,63 @@
+name: NodeJS
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v3
+      - id: setup-nodejs
+        name: Setup NodeJS
+        uses: actions/setup-node
+        with:
+          node-version: 19
+          cache: yarn
+      - id: build
+        name: Build
+        run: yarn build
+      - id: upload-artifacts
+        name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-prod
+          path: dist
+  deploy:
+    name: Deploy
+    if: ${{github.event_name == 'push' && github.ref == 'refs/heads/main'}}
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{steps.deploy-pages.outputs.page_url}}
+    steps:
+      - id: download-artifacts
+        name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: dist-prod
+          path: dist
+      - id: prepare-upload
+        name: Prepare Upload
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: dist
+      - id: deploy-pages
+        name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
