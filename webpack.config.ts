@@ -63,6 +63,22 @@ const common: Configuration = {
                 test: /\.(pug)$/,
                 exclude: /node_modules/,
                 use: [PugPlugin.loader]
+            },
+            {
+                test: /\.(png|jpg|jpeg|gif|svg|webp)$/,
+                exclude: /node_modules/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'img/[name].[contenthash][ext]'
+                }
+            },
+            {
+                test: /\.(ttf|otf|woff|woff2|eot)$/,
+                exclude: /node_modules/,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'fonts/[name].[contenthash][ext]'
+                }
             }
         ]
     },
