@@ -1,0 +1,24 @@
+{
+    "name": "webcraft",
+    "description": "A simple Minecraft clone written in TypeScript using WebGL.",
+    "version": "0.0.0",
+    "license": "MIT",
+    "private": true,
+    "author": {
+        "name": "G'lek Tarssza",
+        "email": "glek@glektarssza.com",
+        "url": "https://glektarssza.com"
+    },
+    "homepage": "https://glektarssza.github.io/webcraft/",
+    "bugs": {
+        "url": "https://github.com/glektarssza/webcraft/issues"
+    },
+    "repository": {
+        "type": "git",
+        "directory": "./app/",
+        "url": "https://github.com/glektarssza/webcraft"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "devDependencies": {}
+}
