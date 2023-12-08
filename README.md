@@ -5,7 +5,7 @@ A simple Minecraft clone written in TypeScript using WebGL.
 <!-- omit in toc -->
 ## Table of Contents ##
 
-* [Silent Gear Calculator](#silent-gear-calculator)
+* [Webcraft](#webcraft)
     * [License](#license)
 
 ## License ##
