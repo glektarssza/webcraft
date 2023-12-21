@@ -33,3 +33,18 @@ tags
 
 # Logs #
 *.log*
+
+# Packages #
+## NodeJS ##
+node_modules/
+
+# Caches #
+## ESLint ##
+.eslintcache
+
+# Artifacts #
+## Webpack ##
+dist/
+
+## Coverage ##
+coverage/
