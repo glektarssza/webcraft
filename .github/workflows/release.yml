@@ -1,0 +1,64 @@
+name: Release
+on:
+  release:
+    types:
+      - published
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - id: checkout-repository
+        name: Checkout repository
+        uses: actions/checkout@v4
+      - id: setup-nodejs
+        name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
+      - id: install-dependencies
+        name: Install dependencies
+        run: pnpm -r install
+      - id: run-build
+        name: Run build
+        run: pnpm -r --filter=webcraft run build
+      - id: upload-production-arifacts
+        name: Upload production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: prod
+          path: ./app/dist/prod/
+          if-no-files-found: error
+          #-- Account for binary files (images, sounds, fonts, etc.)
+          compression-level: 0
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      id-token: write
+      pages: write
+    needs:
+      - build
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: download-production-arifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: prod
+          path: dist
+      - id: upload-github-pages-artifacts
+        name: Upload GitHub Pages artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deploy
+        name: Deploy
+        uses: actions/deploy-pages@v4
