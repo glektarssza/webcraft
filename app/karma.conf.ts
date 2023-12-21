@@ -53,7 +53,6 @@ function getConfig(config: Config) {
                 included: true
             }
         ],
-        failOnEmptyTestSuite: false,
         reporters: ['spec', 'coverage-istanbul'],
         webpack: webpackConfig,
         coverageIstanbulReporter: {
