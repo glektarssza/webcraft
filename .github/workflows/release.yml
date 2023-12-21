@@ -1,0 +1,79 @@
+name: Release
+on:
+  release:
+    types:
+      - published
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - id: checkout-repository
+        name: Checkout repository
+        uses: actions/checkout@v4
+      - id: setup-nodejs
+        name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - id: setup-pnpm
+        name: Setup pnpm
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: latest
+          run_install: false
+      - id: get-pnpm-store-directory
+        name: Get pnpm store directory
+        run: echo "pnpm-store-path=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
+      - id: setup-pnpm-cache
+        name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{steps.get-pnpm-store-directory.outputs.pnpm-store-path}}
+          key: ${{runner.os}}-pnpm-store-${{hashFiles('**/pnpm-lock.yaml')}}
+          restore-keys: |
+            ${{runner.os}}-pnpm-store-
+      - id: install-dependencies
+        name: Install dependencies
+        run: pnpm -r install
+      - id: run-build
+        name: Run build
+        run: pnpm -r --filter=webcraft run build
+      - id: upload-production-arifacts
+        name: Upload production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: prod
+          path: ./app/dist/prod/
+          if-no-files-found: error
+          #-- Account for binary files (images, sounds, fonts, etc.)
+          compression-level: 0
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      id-token: write
+      pages: write
+    needs:
+      - build
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: download-production-arifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: prod
+          path: dist
+      - id: upload-github-pages-artifacts
+        name: Upload GitHub Pages artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deploy
+        name: Deploy
+        uses: actions/deploy-pages@v4
