@@ -43,5 +43,8 @@ node_modules/
 .eslintcache
 
 # Artifacts #
+## Webpack ##
+dist/
+
 ## Coverage ##
 coverage/
