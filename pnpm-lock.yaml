@@ -170,7 +170,7 @@ importers:
         specifier: ^10.0.6
         version: 10.0.6
       '@types/node':
-        specifier: 20.10.4
+        specifier: ^20.10.4
         version: 20.10.4
       '@types/sinon':
         specifier: ^17.0.2
@@ -179,31 +179,31 @@ importers:
         specifier: ^3.2.12
         version: 3.2.12
       '@types/webpack':
-        specifier: 5.28.5
+        specifier: ^5.28.5
         version: 5.28.5(webpack-cli@5.1.4)
       '@types/webpack-node-externals':
         specifier: ^3.0.4
         version: 3.0.4(webpack-cli@5.1.4)
       '@typescript-eslint/eslint-plugin':
-        specifier: 6.13.2
+        specifier: ^6.13.2
         version: 6.13.2(@typescript-eslint/parser@6.13.2)(eslint@8.55.0)(typescript@5.3.3)
       '@typescript-eslint/parser':
-        specifier: 6.13.2
+        specifier: ^6.13.2
         version: 6.13.2(eslint@8.55.0)(typescript@5.3.3)
       chai:
         specifier: ^4.3.10
         version: 4.3.10
       eslint:
-        specifier: 8.55.0
+        specifier: ^8.55.0
         version: 8.55.0
       eslint-config-prettier:
-        specifier: 9.1.0
+        specifier: ^9.1.0
         version: 9.1.0(eslint@8.55.0)
       eslint-plugin-prettier:
-        specifier: 5.0.1
+        specifier: ^5.0.1
         version: 5.0.1(eslint-config-prettier@9.1.0)(eslint@8.55.0)(prettier@3.1.0)
       eslint-plugin-tsdoc:
-        specifier: 0.2.17
+        specifier: ^0.2.17
         version: 0.2.17
       eslint-webpack-plugin:
         specifier: ^4.0.1
@@ -257,7 +257,7 @@ importers:
         specifier: ^9.5.1
         version: 9.5.1(typescript@5.3.3)(webpack@5.89.0)
       ts-node:
-        specifier: 10.9.2
+        specifier: ^10.9.2
         version: 10.9.2(@types/node@20.10.4)(typescript@5.3.3)
       tsconfig-paths-webpack-plugin:
         specifier: ^4.1.0
