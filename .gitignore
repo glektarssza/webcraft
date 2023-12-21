@@ -41,3 +41,7 @@ node_modules/
 # Caches #
 ## ESLint ##
 .eslintcache
+
+# Artifacts #
+## Coverage ##
+coverage/
