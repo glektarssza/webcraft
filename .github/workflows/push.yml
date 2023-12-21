@@ -20,8 +20,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: pnpm
-          cache-dependency-path: ./pnpm-lock.yaml
+      - id: setup-pnpm
+        name: Setup pnpm
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: latest
+          run_install: false
+      - id: get-pnpm-store-directory
+        name: Get pnpm store directory
+        run: echo "pnpm-store-path=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
+      - id: setup-pnpm-cache
+        name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{steps.get-pnpm-store-directory.outputs.pnpm-store-path}}
+          key: ${{runner.os}}-pnpm-store-${{hashFiles('**/pnpm-lock.yaml')}}
+          restore-keys: |
+            ${{runner.os}}-pnpm-store-
       - id: install-dependencies
         name: Install dependencies
         run: pnpm -r install
@@ -42,8 +57,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: pnpm
-          cache-dependency-path: ./pnpm-lock.yaml
+      - id: setup-pnpm
+        name: Setup pnpm
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          version: latest
+          run_install: false
+      - id: get-pnpm-store-directory
+        name: Get pnpm store directory
+        run: echo "pnpm-store-path=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
+      - id: setup-pnpm-cache
+        name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          path: ${{steps.get-pnpm-store-directory.outputs.pnpm-store-path}}
+          key: ${{runner.os}}-pnpm-store-${{hashFiles('**/pnpm-lock.yaml')}}
+          restore-keys: |
+            ${{runner.os}}-pnpm-store-
       - id: install-dependencies
         name: Install dependencies
         run: pnpm -r install
