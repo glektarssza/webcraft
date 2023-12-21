@@ -37,3 +37,7 @@ tags
 # Packages #
 ## NodeJS ##
 node_modules/
+
+# Caches #
+## ESLint ##
+.eslintcache
