@@ -84,7 +84,7 @@ const config: Configuration = {
         new ESLintWebpackPlugin({
             cache: false,
             extensions: ['.tsx', '.ts'],
-            files: [path.resolve(__dirname, './src/ts')]
+            files: [path.resolve(__dirname, './src/ts/')]
         })
     ]
 };
