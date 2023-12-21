@@ -1,5 +1,6 @@
 //-- NPM Packages
 import chai, {expect} from 'chai';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import {Faker, en, en_CA, en_US, base} from '@faker-js/faker';
@@ -12,6 +13,7 @@ chai.use(sinonChai);
 /**
  * The fake data generator.
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const faker = new Faker({
     locale: [en_CA, en_US, en, base]
 });
