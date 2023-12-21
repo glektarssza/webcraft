@@ -57,7 +57,7 @@ function getConfig(config: Config) {
         webpack: webpackConfig,
         coverageIstanbulReporter: {
             reports: ['text', 'html'],
-            dir: path.resolve(__dirname, './.coverage/'),
+            dir: path.resolve(__dirname, './coverage/'),
             combineBrowserReports: true,
             fixWebpackSourcePaths: true,
             'report-config': {
