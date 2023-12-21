@@ -48,3 +48,25 @@ jobs:
       - id: run-tests
         name: Run tests
         run: pnpm -r run test:ci
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - id: checkout-repository
+        name: Checkout repository
+        uses: actions/checkout@v4
+      - id: setup-nodejs
+        name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
+      - id: install-dependencies
+        name: Install dependencies
+        run: pnpm -r install
+      - id: run-build
+        name: Run build
+        run: pnpm -r --filter=webcraft run build
