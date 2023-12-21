@@ -12,9 +12,9 @@ import webpackMerge from 'webpack-merge';
 import common from './webpack.config.common';
 
 /**
- * The production Webpack configuration.
+ * The testing Webpack configuration.
  */
-const prod: Configuration = webpackMerge(common, {
+const test: Configuration = webpackMerge(common, {
     name: 'test',
     mode: 'development',
     devtool: 'inline-source-map',
@@ -28,8 +28,22 @@ const prod: Configuration = webpackMerge(common, {
     module: {
         rules: [
             {
-                test: /tests(\\|\/).+\.(tsx|ts)$/,
+                enforce: 'post',
+                test: /src(\\|\/).+\.(tsx|ts)$/,
                 exclude: /node_modules/,
+                use: [
+                    {
+                        loader: '@jsdevtools/coverage-istanbul-loader',
+                        options: {
+                            esModules: true,
+                            produceSourceMap: true
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(tsx|ts)$/,
+                exclude: /node_modules|src/,
                 use: [
                     {
                         loader: 'ts-loader',
@@ -62,9 +76,9 @@ const prod: Configuration = webpackMerge(common, {
         }),
         new ESLintWebpackPlugin({
             extensions: ['.tsx', '.ts'],
-            files: path.resolve(__dirname, './tests/')
+            files: [path.resolve(__dirname, './tests/')]
         })
     ]
 });
 
-export default prod;
+export default test;
