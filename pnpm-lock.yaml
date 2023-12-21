@@ -109,6 +109,9 @@ importers:
       puppeteer:
         specifier: ^21.6.1
         version: 21.6.1(typescript@5.3.3)
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.5
       sass:
         specifier: ^1.69.5
         version: 1.69.5
@@ -5092,6 +5095,14 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
+    dev: true
+
+  /rimraf@5.0.5:
+    resolution: {integrity: sha512-CqDakW+hMe/Bz202FPEymy68P+G50RfMQK+Qo5YUqc9SPipvbGjCGKd0RSKEelbsfQuw3g5NZDSrlZZAJurH1A==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dependencies:
+      glob: 10.3.10
     dev: true
 
   /run-applescript@5.0.0:
