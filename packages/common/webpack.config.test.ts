@@ -64,7 +64,7 @@ const test: Configuration = webpackMerge(common, {
             async: true,
             devServer: false,
             typescript: {
-                configFile: path.resolve(__dirname, './src/ts/tsconfig.json')
+                configFile: path.resolve(__dirname, './src/tsconfig.json')
             }
         }),
         new ForkTSCheckerWebpackPlugin({

@@ -46,5 +46,9 @@ node_modules/
 ## Webpack ##
 dist/
 
+## TypeScript ##
+lib/
+types/
+
 ## Coverage ##
 coverage/
