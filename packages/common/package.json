@@ -31,7 +31,7 @@
         "test:watch": "pnpm run test:base --single-run --browsers ChromeHeadless --auto-watch",
         "test:debug": "pnpm run test:base start",
         "test:base": "karma",
-        "lint": "pnpm run lint:cache ./src/ts/ ./tests/",
+        "lint": "pnpm run lint:cache ./src/ ./tests/",
         "lint:cache": "pnpm run lint:base --cache",
         "lint:base": "eslint --ext .tsx,.ts,.jsx,.js",
         "dev": "webpack serve --config ./webpack.config.dev.ts",
