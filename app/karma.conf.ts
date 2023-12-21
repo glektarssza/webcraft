@@ -60,6 +60,7 @@ function getConfig(config: Config) {
             dir: path.resolve(__dirname, './coverage/'),
             combineBrowserReports: true,
             fixWebpackSourcePaths: true,
+            skipFilesWithNoCoverage: true,
             'report-config': {
                 html: {
                     subdir: 'html'
