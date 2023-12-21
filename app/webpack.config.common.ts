@@ -15,6 +15,7 @@ import {Configuration} from 'webpack';
  */
 const config: Configuration = {
     context: __dirname,
+    target: 'browserslist:> 0.5%, last 2 versions, not dead',
     resolve: {
         extensions: ['.tsx', '.ts', '.jsx', '.js'],
         plugins: [
