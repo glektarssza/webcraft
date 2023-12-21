@@ -19,6 +19,14 @@
         "url": "https://github.com/glektarssza/webcraft"
     },
     "scripts": {
+        "test": "pnpm run test:ci",
+        "test:ci": "karma start --single-run --browsers ChromeHeadless",
+        "test:watch": "pnpm run test:base --single-run --browsers ChromeHeadless --auto-watch",
+        "test:debug": "pnpm run test:base start",
+        "test:base": "karma",
+        "lint": "pnpm run lint:cache ./src/ts/ ./tests/",
+        "lint:cache": "pnpm run lint:base --cache",
+        "lint:base": "eslint --ext .tsx,.ts,.jsx,.js",
         "dev": "webpack serve --config ./webpack.config.dev.ts",
         "build": "pnpm run build:prod",
         "build:all": "pnpm run build:dev && pnpm run build:prod",
