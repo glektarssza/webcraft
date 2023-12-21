@@ -21,7 +21,7 @@ const test: Configuration = webpackMerge(common, {
     resolve: {
         plugins: [
             new TSConfigPathsWebpackPlugin({
-                configFile: path.resolve(__dirname, './src/ts/tsconfig.json')
+                configFile: path.resolve(__dirname, './tests/tsconfig.json')
             })
         ]
     },
