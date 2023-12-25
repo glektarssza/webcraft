@@ -49,6 +49,7 @@ dist/
 ## TypeScript ##
 lib/
 types/
+*.tsbuildinfo
 
 ## Coverage ##
 coverage/
