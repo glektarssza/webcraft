@@ -4,8 +4,18 @@ import {isEmptyOrWhitespaceString, isString} from '../typeUtils';
  * A base error class which all other error classes should extend.
  */
 export class BaseError extends Error {
+    /**
+     * The inner error that caused this instance to be created.
+     */
     public readonly inner?: Error | undefined;
 
+    /**
+     * Create a new instance.
+     *
+     * @param message - A string describing the nature of the error.
+     * @param inner - The inner error that caused the new instance to be
+     * created.
+     */
     public constructor(message?: string, inner?: Error) {
         super(message);
         this.name = 'BaseError';
@@ -255,5 +265,3 @@ declare global {
         prepareStackTrace?(err: Error, stackTraces: V8.CallSite[]): any;
     }
 }
-
-export default BaseError;
