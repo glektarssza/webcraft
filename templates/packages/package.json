@@ -15,7 +15,7 @@
     },
     "repository": {
         "type": "git",
-        "directory": "./app/",
+        "directory": "./templates/packages/",
         "url": "https://github.com/glektarssza/webcraft"
     },
     "main": "./dist/prod/webcraft-package-template.min.js",
