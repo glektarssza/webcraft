@@ -1,6 +1,6 @@
 {
-    "name": "webcraft-common",
-    "description": "Common code for the Webcraft project.",
+    "name": "webcraft-webgl",
+    "description": "A WebGL wrapper library for the Webcraft project.",
     "version": "0.0.0",
     "license": "MIT",
     "private": true,
@@ -15,15 +15,15 @@
     },
     "repository": {
         "type": "git",
-        "directory": "./app/",
+        "directory": "./packages/webgl/",
         "url": "https://github.com/glektarssza/webcraft"
     },
-    "main": "./dist/prod/webcraft-common.min.js",
+    "main": "./dist/prod/webcraft-webgl.min.js",
     "module": "./lib/index.js",
     "exports": {
-        "development": "./dist/dev/webcraft-common.js",
+        "development": "./dist/dev/webcraft-webgl.js",
         "types": "./types/index.d.ts",
-        "default": "./dist/prod/webcraft-common.min.js"
+        "default": "./dist/prod/webcraft-webgl.min.js"
     },
     "scripts": {
         "test": "pnpm run test:ci",
