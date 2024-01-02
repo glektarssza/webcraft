@@ -38,6 +38,26 @@ describe('module:webcraft-common.errors', () => {
                 //-- Then
                 expect(e.argumentName).to.equal(argumentName);
             });
+            it('should pass a default message on to the base class', () => {
+                //-- Given
+                const argumentName = faker.lorem.word();
+                const actualValue = faker.number.int();
+                const minimumValue = faker.number.int();
+                const maximumValue = faker.number.int();
+
+                //-- When
+                const e = new ArgumentRangeError(
+                    argumentName,
+                    actualValue,
+                    minimumValue,
+                    maximumValue
+                );
+
+                //-- Then
+                expect(e.message).to.equal(
+                    `Invalid argument "${argumentName}" (value "${actualValue.toString()}" is outside of the allowed range of "${minimumValue.toString()}" to "${maximumValue.toString()}")`
+                );
+            });
             it('should pass the message to the base class', () => {
                 //-- Given
                 const argumentName = faker.lorem.word();

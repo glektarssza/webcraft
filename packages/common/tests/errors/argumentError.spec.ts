@@ -18,6 +18,18 @@ const faker = new Faker({
 describe('module:webcraft-common.errors', () => {
     describe('.ArgumentError', () => {
         describe('.constructor()', () => {
+            it('should pass a default message on to the base class', () => {
+                //-- Given
+                const argumentName = faker.lorem.word();
+
+                //-- When
+                const e = new ArgumentError(argumentName);
+
+                //-- Then
+                expect(e.message).to.equal(
+                    `Invalid argument "${argumentName}"`
+                );
+            });
             it('should pass the message to the base class', () => {
                 //-- Given
                 const argumentName = faker.lorem.word();

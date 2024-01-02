@@ -29,6 +29,18 @@ describe('module:webcraft-common.errors', () => {
                 //-- Then
                 expect(e.argumentName).to.equal(argumentName);
             });
+            it('should pass a default message on to the base class', () => {
+                //-- Given
+                const argumentName = faker.lorem.word();
+
+                //-- When
+                const e = new ArgumentNilError(argumentName);
+
+                //-- Then
+                expect(e.message).to.equal(
+                    `Invalid argument "${argumentName}" (value is null or undefined)`
+                );
+            });
             it('should pass the message to the base class', () => {
                 //-- Given
                 const argumentName = faker.lorem.word();
