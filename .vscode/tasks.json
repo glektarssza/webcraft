@@ -1,0 +1,39 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "pnpm:install",
+            "detail": "Run the pnpm `install` command.",
+            "icon": {
+                "id": "desktop-download",
+                "color": "terminal.ansiWhite"
+            },
+            "group": "none",
+            "dependsOn": [],
+            "dependsOrder": "sequence",
+            "isBackground": false,
+            "hide": false,
+            "type": "shell",
+            "command": "pnpm",
+            "args": [
+                "-r",
+                "install"
+            ],
+            "options": {},
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "folderOpen"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
