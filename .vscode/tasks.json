@@ -1,0 +1,155 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "pnpm:install",
+            "detail": "Run the pnpm `install` command.",
+            "icon": {
+                "id": "desktop-download",
+                "color": "terminal.ansiWhite"
+            },
+            "group": "none",
+            "dependsOn": [],
+            "dependsOrder": "sequence",
+            "isBackground": false,
+            "hide": false,
+            "type": "shell",
+            "command": "pnpm",
+            "args": [
+                "-r",
+                "install"
+            ],
+            "options": {},
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "folderOpen"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:test",
+            "detail": "Run the pnpm `test` command.",
+            "icon": {
+                "id": "beaker",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "isDefault": true,
+                "kind": "test"
+            },
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "dependsOrder": "sequence",
+            "isBackground": false,
+            "hide": false,
+            "type": "shell",
+            "command": "pnpm",
+            "args": [
+                "-r",
+                "test"
+            ],
+            "options": {},
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:lint",
+            "detail": "Run the pnpm `lint` command.",
+            "icon": {
+                "id": "search-fuzzy",
+                "color": "terminal.ansiWhite"
+            },
+            "group": "none",
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "dependsOrder": "sequence",
+            "isBackground": false,
+            "hide": false,
+            "type": "shell",
+            "command": "pnpm",
+            "args": [
+                "-r",
+                "lint"
+            ],
+            "options": {},
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:build",
+            "detail": "Run the pnpm `build` command.",
+            "icon": {
+                "id": "combine",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "isDefault": true,
+                "kind": "build"
+            },
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "dependsOrder": "sequence",
+            "isBackground": false,
+            "hide": false,
+            "type": "shell",
+            "command": "pnpm",
+            "args": [
+                "-r",
+                "--filter=webcraft",
+                "run",
+                "build"
+            ],
+            "options": {},
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": []
+        }
+    ]
+}
