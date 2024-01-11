@@ -109,6 +109,47 @@
                 "clear": true
             },
             "problemMatcher": []
+        },
+        {
+            "label": "pnpm:build",
+            "detail": "Run the pnpm `build` command.",
+            "icon": {
+                "id": "combine",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "isDefault": true,
+                "kind": "build"
+            },
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "dependsOrder": "sequence",
+            "isBackground": false,
+            "hide": false,
+            "type": "shell",
+            "command": "pnpm",
+            "args": [
+                "-r",
+                "--filter=webcraft",
+                "run",
+                "build"
+            ],
+            "options": {},
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": []
         }
     ]
 }
