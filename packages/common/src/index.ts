@@ -7,3 +7,4 @@ export {
     OperationError,
     StateError
 } from './errors';
+export {Disposable} from './disposable';
