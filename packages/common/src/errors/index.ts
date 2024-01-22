@@ -1,7 +1,7 @@
-export {BaseError} from './errors';
+export {BaseError} from './baseError';
 
 /**
- * A module which contains common code and utilities for the Webcraft project.
+ * A module which contains the custom error classes.
  */
 const m = {};
 
