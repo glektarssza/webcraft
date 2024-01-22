@@ -8,3 +8,4 @@ export {
     StateError
 } from './errors';
 export {Disposable} from './disposable';
+export {isArrayOfType} from './utils';
