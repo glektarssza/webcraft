@@ -9,6 +9,7 @@ export {
 } from './errors';
 export {Disposable} from './disposable';
 export {
+    isArray,
     isBigint,
     isBoolean,
     isError,

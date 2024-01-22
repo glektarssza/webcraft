@@ -151,6 +151,18 @@ const m = {
      */
     isError(value: object): value is Error {
         return value instanceof Error;
+    },
+
+    /**
+     * Check if a value is an array.
+     *
+     * @param value - The value to check.
+     *
+     * @returns `true` if the value is an array; `false` otherwise.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    isArray(value: object): value is any[] {
+        return Array.isArray(value);
     }
 };
 
@@ -167,6 +179,7 @@ export function getTestModule() {
 
 /* eslint-disable no-empty-pattern,@typescript-eslint/unbound-method */
 export const {
+    isArray,
     isBigint,
     isBoolean,
     isError,
