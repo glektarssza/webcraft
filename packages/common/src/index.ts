@@ -3,6 +3,7 @@ export {
     ArgumentNilError,
     ArgumentRangeError,
     BaseError,
+    DisposedError,
     OperationError,
     StateError
 } from './errors';
