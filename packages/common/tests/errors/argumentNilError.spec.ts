@@ -4,7 +4,7 @@ import sinonChai from 'sinon-chai';
 import {Faker, en, en_CA, en_US, base} from '@faker-js/faker';
 
 //-- Project Code
-import {ArgumentError} from '@src/errors/argumentError';
+import {ArgumentNilError} from '@src/errors/argumentNilError';
 
 chai.use(sinonChai);
 
@@ -16,7 +16,7 @@ const faker = new Faker({
 });
 
 describe('module:webcraft-common.errors', () => {
-    describe('class:ArgumentError', () => {
+    describe('class:ArgumentNilError', () => {
         describe('.constructor()', () => {
             it('should pass the `message` parameter to the base class', () => {
                 //-- Given
@@ -24,7 +24,7 @@ describe('module:webcraft-common.errors', () => {
                 const message = faker.lorem.sentence();
 
                 //-- When
-                const r = new ArgumentError(argumentName, message);
+                const r = new ArgumentNilError(argumentName, message);
 
                 //-- Then
                 expect(r.message).to.equal(message);
@@ -34,11 +34,11 @@ describe('module:webcraft-common.errors', () => {
                 const argumentName = faker.database.column();
 
                 //-- When
-                const r = new ArgumentError(argumentName);
+                const r = new ArgumentNilError(argumentName);
 
                 //-- Then
                 expect(r.message).to.equal(
-                    `Invalid argument "${argumentName}"`
+                    `Invalid argument "${argumentName}" (null or undefined)`
                 );
             });
             it('should pass the `inner` parameter to the base class', () => {
@@ -47,7 +47,7 @@ describe('module:webcraft-common.errors', () => {
                 const inner = new Error();
 
                 //-- When
-                const r = new ArgumentError(argumentName, undefined, inner);
+                const r = new ArgumentNilError(argumentName, undefined, inner);
 
                 //-- Then
                 expect(r.inner).to.equal(inner);
@@ -57,30 +57,30 @@ describe('module:webcraft-common.errors', () => {
                 const argumentName = faker.database.column();
 
                 //-- When
-                const r = new ArgumentError(argumentName);
+                const r = new ArgumentNilError(argumentName);
 
                 //-- Then
                 expect(r.inner).to.be.undefined;
             });
-            it('should set the `argumentName` property to the given value', () => {
+            it('should pass the `argumentName` property to the base class', () => {
                 //-- Given
                 const argumentName = faker.database.column();
 
                 //-- When
-                const r = new ArgumentError(argumentName);
+                const r = new ArgumentNilError(argumentName);
 
                 //-- Then
                 expect(r.argumentName).to.equal(argumentName);
             });
-            it('should set the `name` property to `ArgumentError`', () => {
+            it('should set the `name` property to `ArgumentNilError`', () => {
                 //-- Given
                 const argumentName = faker.database.column();
 
                 //-- When
-                const r = new ArgumentError(argumentName);
+                const r = new ArgumentNilError(argumentName);
 
                 //-- Then
-                expect(r.name).to.equal(ArgumentError.name);
+                expect(r.name).to.equal(ArgumentNilError.name);
             });
         });
     });

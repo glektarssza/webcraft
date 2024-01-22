@@ -1,4 +1,4 @@
-export {ArgumentError, BaseError} from './errors';
+export {ArgumentError, ArgumentNilError, BaseError} from './errors';
 
 /**
  * A module which contains common code and utilities for the Webcraft project.
