@@ -17,7 +17,7 @@ export class OperationError extends BaseError {
      * @param inner - The error which caused the new instance to be created.
      */
     public constructor(operationName: string, message?: string, inner?: Error) {
-        super(message ?? ``, inner);
+        super(message ?? `Operation "${operationName}" failed`, inner);
         this.operationName = operationName;
     }
 }
