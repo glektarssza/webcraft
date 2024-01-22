@@ -21,23 +21,3 @@ export class ArgumentError extends BaseError {
         this.argumentName = argumentName;
     }
 }
-
-/**
- * A module which contains the {@link ArgumentError | argument error} class.
- */
-const m = {};
-
-/**
- * Get the module object for use in unit tests.
- *
- * @returns The module object for use in unit tests.
- *
- * @internal
- */
-export function getTestModule() {
-    return m;
-}
-
-/* eslint-disable no-empty-pattern */
-export const {} = m;
-/* eslint-enable no-empty-pattern */

@@ -224,23 +224,3 @@ declare global {
         captureStackTrace?(err: object, errCtor?: Function): void;
     }
 }
-
-/**
- * A module which contains the {@link BaseError | base error} class.
- */
-const m = {};
-
-/**
- * Get the module object for use in unit tests.
- *
- * @returns The module object for use in unit tests.
- *
- * @internal
- */
-export function getTestModule() {
-    return m;
-}
-
-/* eslint-disable no-empty-pattern */
-export const {} = m;
-/* eslint-enable no-empty-pattern */
