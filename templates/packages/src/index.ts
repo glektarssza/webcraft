@@ -1,5 +1,5 @@
 /**
- * A module which contains common code and utilities for the Webcraft project.
+ * A module which contains some code.
  */
 const m = {
     /**
