@@ -2,5 +2,6 @@ export {
     ArgumentError,
     ArgumentNilError,
     ArgumentRangeError,
-    BaseError
+    BaseError,
+    OperationError
 } from './errors';
