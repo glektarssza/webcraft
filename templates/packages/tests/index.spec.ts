@@ -1,12 +1,12 @@
 //-- NPM Packages
 import chai, {expect} from 'chai';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import {Faker, en, en_CA, en_US, base} from '@faker-js/faker';
 
 //-- Project Code
-import * as lib from '@src';
+import {getTestModule} from '@src/index';
+
+const module = getTestModule();
 
 chai.use(sinonChai);
 
@@ -24,7 +24,7 @@ describe('module:webcraft-package-template', () => {
             //-- Given
 
             //-- When
-            const r = lib.helloWorld();
+            const r = module.helloWorld();
 
             //-- Then
             expect(r).to.equal('Hello world!');
