@@ -54,6 +54,12 @@
         "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev",
         "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod"
     },
+    "dependencies": {
+        "ramda": "^0.29.1"
+    },
+    "optionalDependencies": {
+        "@types/ramda": "^0.29.10"
+    },
     "devDependencies": {
         "@faker-js/faker": "^8.3.1",
         "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
