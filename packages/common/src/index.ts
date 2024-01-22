@@ -1,1 +1,6 @@
-export {ArgumentError, ArgumentNilError, BaseError} from './errors';
+export {
+    ArgumentError,
+    ArgumentNilError,
+    ArgumentRangeError,
+    BaseError
+} from './errors';
