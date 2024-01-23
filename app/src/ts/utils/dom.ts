@@ -62,6 +62,29 @@ const m = {
             return elem;
         }
         return document.body;
+    },
+
+    displayError(title: string, desc: string, stack?: string): void {
+        const titleElem = document.getElementById('error-title');
+        if (titleElem !== null) {
+            titleElem.innerText = title;
+        }
+        const descElem = document.getElementById('error-desc');
+        if (descElem !== null) {
+            descElem.innerText = desc;
+        }
+        const stackElem = document.getElementById('error-stack');
+        if (stackElem !== null && stack !== undefined) {
+            stackElem.innerText = stack;
+        }
+        const containerElem = document.getElementById('error-container');
+        if (containerElem) {
+            containerElem.classList.remove('no-display');
+        }
+        const rootElems = Array.from(document.body.children);
+        rootElems
+            .filter((item) => containerElem !== null && item !== containerElem)
+            .forEach((item) => item.classList.add('no-display'));
     }
 };
 
@@ -70,5 +93,5 @@ export function getTestModule() {
 }
 
 /* eslint-disable no-empty-pattern,@typescript-eslint/unbound-method */
-export const {getRootElement, ready} = m;
+export const {displayError, getRootElement, ready} = m;
 /* eslint-enable no-empty-pattern,@typescript-eslint/unbound-method */

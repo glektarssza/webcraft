@@ -1,1 +1,1 @@
-export {getRootElement, ready} from './dom';
+export {displayError, getRootElement, ready} from './dom';
