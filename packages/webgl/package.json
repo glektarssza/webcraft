@@ -20,6 +20,7 @@
     },
     "main": "./dist/prod/webcraft-webgl.min.js",
     "module": "./lib/index.js",
+    "types": "./types/index.d.ts",
     "exports": {
         "development": "./dist/dev/webcraft-webgl.js",
         "types": "./types/index.d.ts",
