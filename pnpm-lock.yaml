@@ -305,6 +305,135 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
 
+  packages/webgl:
+    devDependencies:
+      '@faker-js/faker':
+        specifier: ^8.3.1
+        version: 8.3.1
+      '@jsdevtools/coverage-istanbul-loader':
+        specifier: ^3.0.5
+        version: 3.0.5
+      '@types/chai':
+        specifier: ^4.3.11
+        version: 4.3.11
+      '@types/karma':
+        specifier: ^6.3.8
+        version: 6.3.8
+      '@types/mocha':
+        specifier: ^10.0.6
+        version: 10.0.6
+      '@types/node':
+        specifier: ^20.10.4
+        version: 20.10.7
+      '@types/sinon':
+        specifier: ^17.0.2
+        version: 17.0.2
+      '@types/sinon-chai':
+        specifier: ^3.2.12
+        version: 3.2.12
+      '@types/webpack':
+        specifier: ^5.28.5
+        version: 5.28.5(webpack-cli@5.1.4)
+      '@types/webpack-node-externals':
+        specifier: ^3.0.4
+        version: 3.0.4(webpack-cli@5.1.4)
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^6.13.2
+        version: 6.18.0(@typescript-eslint/parser@6.18.0)(eslint@8.56.0)(typescript@5.3.3)
+      '@typescript-eslint/parser':
+        specifier: ^6.13.2
+        version: 6.18.0(eslint@8.56.0)(typescript@5.3.3)
+      chai:
+        specifier: ^4.3.10
+        version: 4.3.10
+      eslint:
+        specifier: ^8.55.0
+        version: 8.56.0
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@8.56.0)
+      eslint-plugin-prettier:
+        specifier: ^5.0.1
+        version: 5.1.2(eslint-config-prettier@9.1.0)(eslint@8.56.0)(prettier@3.1.1)
+      eslint-plugin-tsdoc:
+        specifier: ^0.2.17
+        version: 0.2.17
+      eslint-webpack-plugin:
+        specifier: ^4.0.1
+        version: 4.0.1(eslint@8.56.0)(webpack@5.89.0)
+      fork-ts-checker-webpack-plugin:
+        specifier: ^9.0.2
+        version: 9.0.2(typescript@5.3.3)(webpack@5.89.0)
+      karma:
+        specifier: ^6.4.2
+        version: 6.4.2
+      karma-chrome-launcher:
+        specifier: ^3.2.0
+        version: 3.2.0
+      karma-coverage-istanbul-reporter:
+        specifier: ^3.0.3
+        version: 3.0.3
+      karma-mocha:
+        specifier: ^2.0.1
+        version: 2.0.1
+      karma-sourcemap-loader:
+        specifier: ^0.4.0
+        version: 0.4.0
+      karma-spec-reporter:
+        specifier: ^0.0.36
+        version: 0.0.36(karma@6.4.2)
+      karma-webpack:
+        specifier: ^5.0.0
+        version: 5.0.0(webpack@5.89.0)
+      mocha:
+        specifier: ^10.2.0
+        version: 10.2.0
+      prettier:
+        specifier: ^3.1.0
+        version: 3.1.1
+      puppeteer:
+        specifier: ^21.6.1
+        version: 21.7.0(typescript@5.3.3)
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.5
+      sinon:
+        specifier: ^17.0.1
+        version: 17.0.1
+      sinon-chai:
+        specifier: ^3.7.0
+        version: 3.7.0(chai@4.3.10)(sinon@17.0.1)
+      source-map-loader:
+        specifier: ^4.0.1
+        version: 4.0.2(webpack@5.89.0)
+      ts-loader:
+        specifier: ^9.5.1
+        version: 9.5.1(typescript@5.3.3)(webpack@5.89.0)
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@20.10.7)(typescript@5.3.3)
+      tsconfig-paths-webpack-plugin:
+        specifier: ^4.1.0
+        version: 4.1.0
+      typescript:
+        specifier: ^5.3.3
+        version: 5.3.3
+      webpack:
+        specifier: ^5.89.0
+        version: 5.89.0(webpack-cli@5.1.4)
+      webpack-cli:
+        specifier: ^5.1.4
+        version: 5.1.4(webpack-dev-server@4.15.1)(webpack@5.89.0)
+      webpack-dev-server:
+        specifier: ^4.15.1
+        version: 4.15.1(webpack-cli@5.1.4)(webpack@5.89.0)
+      webpack-merge:
+        specifier: ^5.10.0
+        version: 5.10.0
+      webpack-node-externals:
+        specifier: ^3.0.0
+        version: 3.0.0
+
 packages:
 
   /@aashutoshrathi/word-wrap@1.2.6:
@@ -1409,12 +1538,12 @@ packages:
       negotiator: 0.6.3
     dev: true
 
-  /acorn-import-assertions@1.9.0(acorn@8.11.2):
+  /acorn-import-assertions@1.9.0(acorn@8.11.3):
     resolution: {integrity: sha512-cmMwop9x+8KFhxvKrKfPYmN6/pKTYYHBqLa0DfvVZcKMJWNyWLnaqND7dx/qn66R7ewM1UX5XMaDVP5wlVTaVA==}
     peerDependencies:
       acorn: ^8
     dependencies:
-      acorn: 8.11.2
+      acorn: 8.11.3
     dev: true
 
   /acorn-jsx@5.3.2(acorn@8.11.3):
@@ -6173,8 +6302,8 @@ packages:
       '@webassemblyjs/ast': 1.11.6
       '@webassemblyjs/wasm-edit': 1.11.6
       '@webassemblyjs/wasm-parser': 1.11.6
-      acorn: 8.11.2
-      acorn-import-assertions: 1.9.0(acorn@8.11.2)
+      acorn: 8.11.3
+      acorn-import-assertions: 1.9.0(acorn@8.11.3)
       browserslist: 4.22.2
       chrome-trace-event: 1.0.3
       enhanced-resolve: 5.15.0
