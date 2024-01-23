@@ -306,6 +306,10 @@ importers:
         version: 3.0.0
 
   packages/webgl:
+    dependencies:
+      webcraft-common:
+        specifier: workspace:^0.0.0
+        version: link:../common
     devDependencies:
       '@faker-js/faker':
         specifier: ^8.3.1
