@@ -1,7 +1,7 @@
 import {Disposable} from 'webcraft-common';
 
 /**
- * A WebGL rendering context.
+ * A wrapper around a WebGL rendering context.
  */
 export class Context implements Disposable {
     /**
