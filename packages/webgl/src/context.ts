@@ -1,4 +1,5 @@
 import {Disposable} from 'webcraft-common';
+import {ErrorCode} from './errorCode';
 
 /**
  * A wrapper around a WebGL rendering context.
@@ -37,6 +38,15 @@ export class Context implements Disposable {
     public constructor(native: WebGLRenderingContext) {
         this.native = native;
         this._disposed = false;
+    }
+
+    /**
+     * Get the last error that occurred.
+     *
+     * @returns An error code for the last error that occurred.
+     */
+    public getError(): ErrorCode {
+        return this.native.getError();
     }
 
     /**
