@@ -16,67 +16,71 @@ const faker = new Faker({
 });
 
 describe('module:webcraft-common.errors', () => {
-    describe('.ArgumentError', () => {
+    describe('class:ArgumentError', () => {
         describe('.constructor()', () => {
-            it('should pass a default message on to the base class', () => {
+            it('should pass the `message` parameter to the base class', () => {
                 //-- Given
-                const argumentName = faker.lorem.word();
+                const argumentName = faker.database.column();
+                const message = faker.lorem.sentence();
 
                 //-- When
-                const e = new ArgumentError(argumentName);
+                const r = new ArgumentError(argumentName, message);
 
                 //-- Then
-                expect(e.message).to.equal(
+                expect(r.message).to.equal(message);
+            });
+            it('should pass a default `message` parameter to the base class if none is provided', () => {
+                //-- Given
+                const argumentName = faker.database.column();
+
+                //-- When
+                const r = new ArgumentError(argumentName);
+
+                //-- Then
+                expect(r.message).to.equal(
                     `Invalid argument "${argumentName}"`
                 );
             });
-            it('should pass the message to the base class', () => {
+            it('should pass the `inner` parameter to the base class', () => {
                 //-- Given
-                const argumentName = faker.lorem.word();
-                const message = faker.lorem.sentence();
+                const argumentName = faker.database.column();
+                const inner = new Error();
 
                 //-- When
-                const e = new ArgumentError(argumentName, message);
+                const r = new ArgumentError(argumentName, undefined, inner);
 
                 //-- Then
-                expect(e.message).to.equal(message);
+                expect(r.inner).to.equal(inner);
             });
-            it('should pass the inner error to the base class', () => {
+            it('should pass an `undefined` `inner` parameter to the base class if none is provided', () => {
                 //-- Given
-                const argumentName = faker.lorem.word();
-                const inner = new Error(faker.lorem.sentence());
+                const argumentName = faker.database.column();
 
                 //-- When
-                const e = new ArgumentError(
-                    argumentName,
-                    faker.lorem.sentence(),
-                    inner
-                );
+                const r = new ArgumentError(argumentName);
 
                 //-- Then
-                expect(e.inner).to.equal(inner);
+                expect(r.inner).to.be.undefined;
+            });
+            it('should set the `argumentName` property to the given value', () => {
+                //-- Given
+                const argumentName = faker.database.column();
+
+                //-- When
+                const r = new ArgumentError(argumentName);
+
+                //-- Then
+                expect(r.argumentName).to.equal(argumentName);
             });
             it('should set the `name` property to `ArgumentError`', () => {
                 //-- Given
-                const argumentName = faker.lorem.word();
-                const message = faker.lorem.sentence();
+                const argumentName = faker.database.column();
 
                 //-- When
-                const e = new ArgumentError(argumentName, message);
+                const r = new ArgumentError(argumentName);
 
                 //-- Then
-                expect(e.name).to.equal('ArgumentError');
-            });
-            it('should set the `argumentName` property to the provided value', () => {
-                //-- Given
-                const argumentName = faker.lorem.word();
-                const message = faker.lorem.sentence();
-
-                //-- When
-                const e = new ArgumentError(argumentName, message);
-
-                //-- Then
-                expect(e.argumentName).to.equal(argumentName);
+                expect(r.name).to.equal(ArgumentError.name);
             });
         });
     });

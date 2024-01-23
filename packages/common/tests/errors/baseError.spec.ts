@@ -1,6 +1,6 @@
 //-- NPM Packages
 import chai, {expect} from 'chai';
-import sinon, {SinonStub} from 'sinon';
+import {stub, SinonStub} from 'sinon';
 import sinonChai from 'sinon-chai';
 import {Faker, en, en_CA, en_US, base} from '@faker-js/faker';
 
@@ -17,14 +17,21 @@ const faker = new Faker({
 });
 
 describe('module:webcraft-common.errors', () => {
-    describe('.BaseError', () => {
+    describe('class:BaseError', () => {
         describe('.constructor()', () => {
             let captureStackTraceStub: SinonStub<
-                Parameters<typeof Error.captureStackTrace>,
-                ReturnType<typeof Error.captureStackTrace>
+                Parameters<Required<ErrorConstructor>['captureStackTrace']>,
+                ReturnType<Required<ErrorConstructor>['captureStackTrace']>
             >;
             before(() => {
-                captureStackTraceStub = sinon.stub(Error, 'captureStackTrace');
+                // HACK: Force types to align
+                captureStackTraceStub = stub(
+                    Error,
+                    'captureStackTrace'
+                ) as SinonStub<
+                    Parameters<Required<ErrorConstructor>['captureStackTrace']>,
+                    ReturnType<Required<ErrorConstructor>['captureStackTrace']>
+                >;
             });
             beforeEach(() => {
                 captureStackTraceStub.reset();
@@ -34,71 +41,65 @@ describe('module:webcraft-common.errors', () => {
             after(() => {
                 captureStackTraceStub.restore();
             });
-            it('should pass the message to the base class', () => {
+            it('should pass the `message` parameter to the base class', () => {
                 //-- Given
                 const message = faker.lorem.sentence();
                 captureStackTraceStub.returns();
 
                 //-- When
-                const e = new BaseError(message);
+                const r = new BaseError(message);
 
                 //-- Then
-                expect(e.message).to.equal(message);
+                expect(r.message).to.equal(message);
             });
-            it('should set the `name` property to `BaseError`', () => {
+            it('should set the `inner` property to `undefined` if no value is given', () => {
                 //-- Given
-                const message = faker.lorem.sentence();
                 captureStackTraceStub.returns();
 
                 //-- When
-                const e = new BaseError(message);
+                const r = new BaseError();
 
                 //-- Then
-                expect(e.name).to.equal('BaseError');
+                expect(r.inner).to.be.undefined;
             });
-            it('should set the `inner` property to `undefined` by default', () => {
+            it('should set the `inner` property to the given value', () => {
                 //-- Given
-                const message = faker.lorem.sentence();
+                const inner = new Error();
                 captureStackTraceStub.returns();
 
                 //-- When
-                const e = new BaseError(message);
+                const r = new BaseError(undefined, inner);
 
                 //-- Then
-                expect(e.inner).to.be.undefined;
+                expect(r.inner).to.equal(inner);
             });
-            it('should set the `inner` property to the value given', () => {
+            it('should set the `name` property to the name of the constructor', () => {
                 //-- Given
-                const message = faker.lorem.sentence();
-                const inner = new Error(faker.lorem.sentence());
+                class TestError extends BaseError {}
                 captureStackTraceStub.returns();
 
                 //-- When
-                const e = new BaseError(message, inner);
+                const r = new TestError();
 
                 //-- Then
-                expect(e.inner).to.equal(inner);
+                expect(r.name).to.equal(TestError.name);
             });
-            it('should call `Error.captureStackTrace()` if it exists', () => {
+            it('should call `captureStackTrace` if it is available', () => {
                 //-- Given
-                const message = faker.lorem.sentence();
                 captureStackTraceStub.returns();
 
                 //-- When
-                const e = new BaseError(message);
+                const r = new BaseError();
 
                 //-- Then
-                expect(
-                    captureStackTraceStub
-                ).to.have.been.calledOnceWithExactly(e, e.constructor);
+                expect(captureStackTraceStub).to.have.been.calledOnceWith(r);
             });
-            it('should not call `Error.captureStackTrace()` if it does not exist', () => {
+            it('should not call `captureStackTrace` if it is not available', () => {
                 //-- Given
-                const message = faker.lorem.sentence();
                 captureStackTraceStub.value(undefined);
 
                 //-- When
-                new BaseError(message);
+                new BaseError();
 
                 //-- Then
                 expect(captureStackTraceStub).to.not.have.been.called;

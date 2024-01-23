@@ -1,65 +1,56 @@
 import {ArgumentError} from './argumentError';
 
 /**
- * An interface for objects that can be converted to a string.
- */
-export interface CanBeStringified {
-    /**
-     * Convert the object to a string.
-     */
-    toString(): string;
-}
-
-/**
- * An error thrown when an argument is outside of the allowed range.
+ * An error that is produced when an argument is outside of the allowed range of
+ * values.
  *
- * @typeparam T - The type of the argument that was outside of the allowed
- * range.
+ * @typeParam T - The type of value of the argument.
  */
-export class ArgumentRangeError<
-    T extends CanBeStringified
-> extends ArgumentError {
+export class ArgumentRangeError<T> extends ArgumentError {
     /**
      * The actual value of the argument.
      */
     public readonly actualValue: T;
 
     /**
-     * The minimum allowed value of the argument.
+     * The minimum allowed value that the argument could have had.
      */
     public readonly minimumValue: T;
 
     /**
-     * The maximum allowed value of the argument.
+     * The maximum allowed value that the argument could have had.
      */
     public readonly maximumValue: T;
 
     /**
      * Create a new instance.
      *
-     * @param argumentName - The name of the argument that was outside of the
-     * allowed range.
+     * @param actualValue - The actual value of the argument.
+     * @param minimumValue - The minimum allowed value that the argument could
+     * have had.
+     * @param maximumValue - The maximum allowed value that the argument could
+     * have had.
+     * @param argumentName - The name of the argument that was invalid.
      * @param message - A string describing the nature of the error.
-     * @param inner - The inner error that caused the new instance to be
-     * created.
+     * @param inner - The error which caused the new instance to be created.
      */
     public constructor(
-        argumentName: string,
         actualValue: T,
         minimumValue: T,
         maximumValue: T,
+        argumentName: string,
         message?: string,
         inner?: Error
     ) {
         super(
             argumentName,
             message ??
-                `Invalid argument "${argumentName}" (value "${actualValue.toString()}" is outside of the allowed range of "${minimumValue.toString()}" to "${maximumValue.toString()}")`,
+                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+                `Invalid argument "${argumentName}" (value "${actualValue}" is outside the allowed range of "${minimumValue}" to "${maximumValue}")`,
             inner
         );
         this.actualValue = actualValue;
         this.minimumValue = minimumValue;
         this.maximumValue = maximumValue;
-        this.name = 'ArgumentRangeError';
     }
 }

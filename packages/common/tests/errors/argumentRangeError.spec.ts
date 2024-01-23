@@ -16,169 +16,293 @@ const faker = new Faker({
 });
 
 describe('module:webcraft-common.errors', () => {
-    describe('.ArgumentRangeError', () => {
+    describe('class:ArgumentRangeError', () => {
         describe('.constructor()', () => {
-            it('should pass the argument name to the base class', () => {
+            it('should pass the `message` parameter to the base class', () => {
                 //-- Given
-                const argumentName = faker.lorem.word();
+                const actualValue = faker.number.int({
+                    min: 20,
+                    max: 40
+                });
+                const minimumValue =
+                    actualValue -
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const maximumValue =
+                    actualValue +
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const argumentName = faker.database.column();
                 const message = faker.lorem.sentence();
-                const actualValue = faker.number.int();
-                const minimumValue = faker.number.int();
-                const maximumValue = faker.number.int();
 
                 //-- When
-                const e = new ArgumentRangeError(
-                    argumentName,
+                const r = new ArgumentRangeError(
                     actualValue,
                     minimumValue,
                     maximumValue,
+                    argumentName,
                     message
                 );
 
                 //-- Then
-                expect(e.argumentName).to.equal(argumentName);
+                expect(r.message).to.equal(message);
             });
-            it('should pass a default message on to the base class', () => {
+            it('should pass a default `message` parameter to the base class if none is provided', () => {
                 //-- Given
-                const argumentName = faker.lorem.word();
-                const actualValue = faker.number.int();
-                const minimumValue = faker.number.int();
-                const maximumValue = faker.number.int();
+                const actualValue = faker.number.int({
+                    min: 20,
+                    max: 40
+                });
+                const minimumValue =
+                    actualValue -
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const maximumValue =
+                    actualValue +
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const argumentName = faker.database.column();
 
                 //-- When
-                const e = new ArgumentRangeError(
-                    argumentName,
-                    actualValue,
-                    minimumValue,
-                    maximumValue
-                );
-
-                //-- Then
-                expect(e.message).to.equal(
-                    `Invalid argument "${argumentName}" (value "${actualValue.toString()}" is outside of the allowed range of "${minimumValue.toString()}" to "${maximumValue.toString()}")`
-                );
-            });
-            it('should pass the message to the base class', () => {
-                //-- Given
-                const argumentName = faker.lorem.word();
-                const message = faker.lorem.sentence();
-                const actualValue = faker.number.int();
-                const minimumValue = faker.number.int();
-                const maximumValue = faker.number.int();
-
-                //-- When
-                const e = new ArgumentRangeError(
-                    argumentName,
+                const r = new ArgumentRangeError(
                     actualValue,
                     minimumValue,
                     maximumValue,
-                    message
+                    argumentName
                 );
 
                 //-- Then
-                expect(e.message).to.equal(message);
+                expect(r.message).to.equal(
+                    `Invalid argument "${argumentName}" (value "${actualValue}" is outside the allowed range of "${minimumValue}" to "${maximumValue}")`
+                );
             });
-            it('should pass the inner error to the base class', () => {
+            it('should pass the `inner` parameter to the base class', () => {
                 //-- Given
-                const argumentName = faker.lorem.word();
-                const message = faker.lorem.sentence();
-                const actualValue = faker.number.int();
-                const minimumValue = faker.number.int();
-                const maximumValue = faker.number.int();
-                const inner = new Error(faker.lorem.sentence());
+                const actualValue = faker.number.int({
+                    min: 20,
+                    max: 40
+                });
+                const minimumValue =
+                    actualValue -
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const maximumValue =
+                    actualValue +
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const argumentName = faker.database.column();
+                const inner = new Error();
 
                 //-- When
-                const e = new ArgumentRangeError(
-                    argumentName,
+                const r = new ArgumentRangeError(
                     actualValue,
                     minimumValue,
                     maximumValue,
-                    message,
+                    argumentName,
+                    undefined,
                     inner
                 );
 
                 //-- Then
-                expect(e.inner).to.equal(inner);
+                expect(r.inner).to.equal(inner);
+            });
+            it('should pass an `undefined` `inner` parameter to the base class if none is provided', () => {
+                //-- Given
+                const actualValue = faker.number.int({
+                    min: 20,
+                    max: 40
+                });
+                const minimumValue =
+                    actualValue -
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const maximumValue =
+                    actualValue +
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const argumentName = faker.database.column();
+
+                //-- When
+                const r = new ArgumentRangeError(
+                    actualValue,
+                    minimumValue,
+                    maximumValue,
+                    argumentName
+                );
+
+                //-- Then
+                expect(r.inner).to.be.undefined;
+            });
+            it('should pass the `argumentName` property to the base class', () => {
+                //-- Given
+                const actualValue = faker.number.int({
+                    min: 20,
+                    max: 40
+                });
+                const minimumValue =
+                    actualValue -
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const maximumValue =
+                    actualValue +
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const argumentName = faker.database.column();
+
+                //-- When
+                const r = new ArgumentRangeError(
+                    actualValue,
+                    minimumValue,
+                    maximumValue,
+                    argumentName
+                );
+
+                //-- Then
+                expect(r.argumentName).to.equal(argumentName);
+            });
+            it('should set the `actualValue` property to the given value', () => {
+                //-- Given
+                const actualValue = faker.number.int({
+                    min: 20,
+                    max: 40
+                });
+                const minimumValue =
+                    actualValue -
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const maximumValue =
+                    actualValue +
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const argumentName = faker.database.column();
+
+                //-- When
+                const r = new ArgumentRangeError(
+                    actualValue,
+                    minimumValue,
+                    maximumValue,
+                    argumentName
+                );
+
+                //-- Then
+                expect(r.actualValue).to.equal(actualValue);
+            });
+            it('should set the `minimumValue` property to the given value', () => {
+                //-- Given
+                const actualValue = faker.number.int({
+                    min: 20,
+                    max: 40
+                });
+                const minimumValue =
+                    actualValue -
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const maximumValue =
+                    actualValue +
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const argumentName = faker.database.column();
+
+                //-- When
+                const r = new ArgumentRangeError(
+                    actualValue,
+                    minimumValue,
+                    maximumValue,
+                    argumentName
+                );
+
+                //-- Then
+                expect(r.minimumValue).to.equal(minimumValue);
+            });
+            it('should set the `maximumValue` property to the given value', () => {
+                //-- Given
+                const actualValue = faker.number.int({
+                    min: 20,
+                    max: 40
+                });
+                const minimumValue =
+                    actualValue -
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const maximumValue =
+                    actualValue +
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const argumentName = faker.database.column();
+
+                //-- When
+                const r = new ArgumentRangeError(
+                    actualValue,
+                    minimumValue,
+                    maximumValue,
+                    argumentName
+                );
+
+                //-- Then
+                expect(r.maximumValue).to.equal(maximumValue);
             });
             it('should set the `name` property to `ArgumentRangeError`', () => {
                 //-- Given
-                const argumentName = faker.lorem.word();
-                const message = faker.lorem.sentence();
-                const actualValue = faker.number.int();
-                const minimumValue = faker.number.int();
-                const maximumValue = faker.number.int();
+                const actualValue = faker.number.int({
+                    min: 20,
+                    max: 40
+                });
+                const minimumValue =
+                    actualValue -
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const maximumValue =
+                    actualValue +
+                    faker.number.int({
+                        min: 1,
+                        max: 20
+                    });
+                const argumentName = faker.database.column();
 
                 //-- When
-                const e = new ArgumentRangeError(
-                    argumentName,
+                const r = new ArgumentRangeError(
                     actualValue,
                     minimumValue,
                     maximumValue,
-                    message
+                    argumentName
                 );
 
                 //-- Then
-                expect(e.name).to.equal('ArgumentRangeError');
-            });
-            it('should set the `actualValue` property to the provided value', () => {
-                //-- Given
-                const argumentName = faker.lorem.word();
-                const message = faker.lorem.sentence();
-                const actualValue = faker.number.int();
-                const minimumValue = faker.number.int();
-                const maximumValue = faker.number.int();
-
-                //-- When
-                const e = new ArgumentRangeError(
-                    argumentName,
-                    actualValue,
-                    minimumValue,
-                    maximumValue,
-                    message
-                );
-
-                //-- Then
-                expect(e.actualValue).to.equal(actualValue);
-            });
-            it('should set the `minimumValue` property to the provided value', () => {
-                //-- Given
-                const argumentName = faker.lorem.word();
-                const message = faker.lorem.sentence();
-                const actualValue = faker.number.int();
-                const minimumValue = faker.number.int();
-                const maximumValue = faker.number.int();
-
-                //-- When
-                const e = new ArgumentRangeError(
-                    argumentName,
-                    actualValue,
-                    minimumValue,
-                    maximumValue,
-                    message
-                );
-
-                //-- Then
-                expect(e.minimumValue).to.equal(minimumValue);
-            });
-            it('should set the `maximumValue` property to the provided value', () => {
-                //-- Given
-                const argumentName = faker.lorem.word();
-                const message = faker.lorem.sentence();
-                const actualValue = faker.number.int();
-                const minimumValue = faker.number.int();
-                const maximumValue = faker.number.int();
-
-                //-- When
-                const e = new ArgumentRangeError(
-                    argumentName,
-                    actualValue,
-                    minimumValue,
-                    maximumValue,
-                    message
-                );
-
-                //-- Then
-                expect(e.maximumValue).to.equal(maximumValue);
+                expect(r.name).to.equal(ArgumentRangeError.name);
             });
         });
     });

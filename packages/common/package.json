@@ -28,7 +28,7 @@
     "scripts": {
         "test": "pnpm run test:ci",
         "test:ci": "karma start --single-run --browsers ChromeHeadless",
-        "test:watch": "pnpm run test:base --single-run --browsers ChromeHeadless --auto-watch",
+        "test:watch": "pnpm run test:base start --browsers ChromeHeadless --auto-watch",
         "test:debug": "pnpm run test:base start",
         "test:base": "karma",
         "lint": "pnpm run lint:cache ./src/ ./tests/",
@@ -53,6 +53,12 @@
         "rebuild:types": "pnpm run clean:types && pnpm run build:types",
         "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev",
         "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod"
+    },
+    "dependencies": {
+        "ramda": "^0.29.1"
+    },
+    "optionalDependencies": {
+        "@types/ramda": "^0.29.10"
     },
     "devDependencies": {
         "@faker-js/faker": "^8.3.1",

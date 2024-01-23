@@ -30,7 +30,7 @@ const test: Configuration = webpackMerge(common, {
             {
                 enforce: 'post',
                 test: /\.(tsx|ts)$/,
-                exclude: /node_modules|tests/,
+                exclude: /node_modules|tests|(index\.ts$)/,
                 use: [
                     {
                         loader: '@jsdevtools/coverage-istanbul-loader',

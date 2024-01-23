@@ -1,115 +1,35 @@
-import {isEmptyOrWhitespaceString, isString} from '../typeUtils';
-
 /**
- * A base error class which all other error classes should extend.
+ * A basic error type that other errors can extend from.
  */
 export class BaseError extends Error {
     /**
-     * The inner error that caused this instance to be created.
+     * The error which caused this instance to be created.
      */
-    public readonly inner?: Error | undefined;
+    public readonly inner?: Error;
 
     /**
      * Create a new instance.
      *
      * @param message - A string describing the nature of the error.
-     * @param inner - The inner error that caused the new instance to be
-     * created.
+     * @param inner - The error which caused the new instance to be created.
      */
     public constructor(message?: string, inner?: Error) {
         super(message);
-        this.name = 'BaseError';
+        this.name = this.constructor.name;
         this.inner = inner;
-        if (Error.captureStackTrace) {
+        if (
+            Error.captureStackTrace !== undefined &&
+            Error.captureStackTrace !== null
+        ) {
             Error.captureStackTrace(this, this.constructor);
         }
     }
 }
 
-/**
- * Format the base part of an error.
- *
- * @param error - The error to format.
- *
- * @returns The formatted error.
- */
-function formatErrorBase(error: Error): string {
-    if (isEmptyOrWhitespaceString(error.name)) {
-        return 'Error';
-    }
-    if (isEmptyOrWhitespaceString(error.message)) {
-        return error.name;
-    }
-    return `${error.name}: ${error.message}`;
-}
-
-/**
- * Format the stack part of an error.
- *
- * @param callSites - The call sites to format.
- *
- * @returns The formatted stack.
- */
-function formatErrorStack(callSites: V8.CallSite[]): string {
-    return callSites
-        .map((callSite) => {
-            const functionName = callSite.getFunctionName();
-            const typeName = callSite.getTypeName();
-            const methodName = callSite.getMethodName();
-            const fileName = callSite.getFileName();
-            const lineNumber = callSite.getLineNumber();
-            const columnNumber = callSite.getColumnNumber();
-            const evalOrigin = callSite.getEvalOrigin();
-            const isTopLevel = callSite.isToplevel();
-            const isEval = callSite.isEval();
-            const isNative = callSite.isNative();
-            const isConstructor = callSite.isConstructor();
-            const formattedCallSite = [
-                isString(functionName) &&
-                !isEmptyOrWhitespaceString(functionName)
-                    ? `at ${functionName} `
-                    : '',
-                typeName ? `(${typeName})` : '',
-                methodName ? `.${methodName}` : '',
-                fileName ? ` (${fileName}:${lineNumber}:${columnNumber})` : '',
-                evalOrigin
-                    ? ` (eval at ${evalOrigin}, <anonymous>:${lineNumber}:${columnNumber})`
-                    : '',
-                isTopLevel ? ' (top level)' : '',
-                isEval ? ' (eval at <anonymous>)' : '',
-                isNative ? ' (native)' : '',
-                isConstructor ? ' (constructor)' : ''
-            ].join('');
-            return formattedCallSite.trim();
-        })
-        .join('\n');
-}
-
-/**
- * Format an error.
- *
- * @param error - The error to format.
- * @param callSites - The call sites to format.
- *
- * @returns The formatted error.
- */
-function formatError(error: Error, callSites: V8.CallSite[]): string {
-    const base = formatErrorBase(error);
-    const stack = formatErrorStack(callSites).replace(/\n/g, '\n\t');
-    if (error instanceof BaseError && error.inner) {
-        const inner = formatError(error.inner, callSites);
-        return `${base}\n\t${stack}\nCaused by: ${inner}`;
-    }
-    return `${base}\n\t${stack}`;
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-Error.prepareStackTrace = formatError;
-
 // eslint-disable-next-line @typescript-eslint/no-namespace
-declare namespace V8 {
+declare module V8 {
     /**
-     * A single call site within a stack trace.
+     * An interface representing a V8 engine call site.
      */
     export interface CallSite {
         /**
@@ -122,146 +42,185 @@ declare namespace V8 {
         /**
          * Get the type of the `this` keyword.
          *
-         * This value is retrieved from the `name` property of the constructor
-         * of the object which the `this` keyword refers to. If no such property
-         * is available the the value in the object's `[[Class]]` internal
-         * property is returned.
+         * This is the `name` property of the function held in the `constructor`
+         * property of the `this` keyword, if available. If not available the
+         * value of the internal `[[Class]]` property is provided.
          *
          * @returns The type of the `this` keyword.
          */
         getTypeName(): string | null;
 
         /**
-         * Get the function this instance is from inside of.
+         * Get the function that this instance was inside of.
          *
-         * @returns The function this instance is from inside of.
+         * @returns The function that this instance was inside of.
          */
         // eslint-disable-next-line @typescript-eslint/ban-types
         getFunction(): Function | undefined;
 
         /**
-         * The name of the current function, typically its `name` property.
+         * Get the name of the function that this instance was inside of.
          *
-         * If a name property is not available an attempt will be made to try
-         * to infer a name from the function's context.
+         * Typically this is the value of the `name` property. If this property
+         * is not available an attempt will be made to infer a name from the
+         * context of the function.
          *
-         * @returns The name of the current function.
+         * @returns The name of the function that this instance was inside of.
          */
         getFunctionName(): string | null;
 
         /**
-         * Get name of the property in the object that contains the current
-         * function.
+         * Get the name of the file the instance is in, if it was in a script.
          *
-         * @returns The name of the property in the object that contains the
-         * current function.
-         */
-        getMethodName(): string | null;
-
-        /**
-         * Get the name of the script from where the function originated.
-         *
-         * @returns The name of the script from where the function originated.
+         * @returns The name of the file the instance is in.
          */
         getFileName(): string | undefined;
 
         /**
-         * Get the line number for the current call site.
+         * Get the line number of the instance, if it was in a script.
          *
-         * This value is only available if the function was defined in a script.
-         *
-         * @returns The line number for the current call site.
+         * @returns The line number of the instance.
          */
         getLineNumber(): number | null;
 
         /**
-         * Get the column number for the current call site.
+         * Get the column number of the instance, if it was in a script.
          *
-         * This value is only available if the function was defined in a script.
-         *
-         * @returns The column number for the current call site.
+         * @returns The column number of the instance.
          */
         getColumnNumber(): number | null;
 
         /**
-         * Get the originating location for the current call site if the
-         * function was defined in an `eval` call.
+         * Get the origin of the instance, if it was inside of an `eval`
+         * statement.
          *
-         * @returns The originating location for the current call site.
+         * @returns The origin of the instance.
          */
         getEvalOrigin(): string | undefined;
 
         /**
-         * Get whether this is a top-level invocation.
+         * Get if this instance is in a top-level context.
          *
-         * An invocation is considered "top-level" if the `this` keyword is a
-         * reference to the global object.
-         *
-         * @returns Whether this is a top-level invocation.
+         * @returns `true` if the `this` keyword is the global object; `false`
+         * otherwise.
          */
         isToplevel(): boolean;
 
         /**
-         * Get whether this call takes place inside an `eval` call.
+         * Get if this instance was inside an `eval` statement.
          *
-         * @returns Whether this call takes place inside an `eval` call.
+         * @returns `true` if this instance was inside an `eval` statement;
+         * `false` otherwise.
          */
         isEval(): boolean;
 
         /**
-         * Get whether this call takes place in native V8 code.
+         * Get if this instance was inside native V8 code.
          *
-         * @returns Whether this call takes place in native V8 code.
+         * @returns `true` if this instance was inside native V8 code; `false`
+         * otherwise.
          */
         isNative(): boolean;
 
         /**
-         * Get whether this is a constructor call.
+         * Get if this instance was inside a constructor.
          *
-         * @returns Whether this is a constructor call.
+         * @returns `true` if this instance was inside a constructor; `false`
+         * otherwise.
          */
         isConstructor(): boolean;
+
+        /**
+         * Get if this instance was inside an asynchronous call.
+         *
+         * @returns `true` if this instance was inside an asynchronous call;
+         * `false` otherwise.
+         */
+        isAsync(): boolean;
+
+        /**
+         * Get if this instance was inside an asynchronous {@link Promise.all}
+         * call.
+         *
+         * @returns `true` if this instance was inside an asynchronous
+         * {@link Promise.all} call; `false` otherwise.
+         */
+        isPromiseAll(): boolean;
+
+        /**
+         * Get the index of the promise inside an asynchronous
+         * {@link Promise.all} call that was being executed.
+         *
+         * @returns the index of the promise inside an asynchronous
+         * {@link Promise.all} call that was being executed.
+         */
+        getPromiseIndex(): number | null;
+
+        /**
+         * TODO: Document
+         */
+        getScriptNameOrSourceURL(): string;
+
+        /**
+         * TODO: Document
+         */
+        getScriptHash(): string;
+
+        /**
+         * TODO: Document
+         */
+        getEnclosingColumnNumber(): number;
+
+        /**
+         * TODO: Document
+         */
+        getEnclosingLineNumber(): number;
+
+        /**
+         * TODO: Document
+         */
+        getPosition(): number;
+
+        /**
+         * TODO: Document
+         */
+        toString(): string;
     }
 }
 
 declare global {
     interface ErrorConstructor {
         /**
-         * The maximum number of call sites to collect into a stack trace.
+         * The maximum number of call sites to collect when gathering a stack
+         * trace.
          *
-         * A value of zero will disable stack trace collection.
+         * A non-finite, negative, or value of zero will cause no stack trace to
+         * be collected.
          *
-         * A value of `Infinity` will collect all call sites.
+         * A value of `Infinity` will cause all call sites to be collected.
          */
         stackTraceLimit?: number;
 
         /**
-         * Capture a stack trace onto the `.stack` property of the target
-         * object.
+         * A user-overridable function to customize the formatting of stack
+         * traces.
          *
-         * @param targetObject - Object to be modified to include a `.stack`
-         * property.
-         * @param constructorOpt - A constructor function that delimits the
-         * initial location to capture the stack trace from.
+         * @param err - The error for which the stack trace is being collected.
+         * @param stackTrace - An array of call sites representing the collected
+         * stack trace.
+         *
+         * @returns A value representing the formatted stack trace.
          */
-        captureStackTrace(
-            targetObject: object,
-            // eslint-disable-next-line @typescript-eslint/ban-types
-            constructorOpt?: Function
-        ): void;
+        prepareStackTrace?(err: Error, stackTrace: V8.CallSite[]): unknown;
 
         /**
-         * An optional, developer-provided function to customize the format of
-         * a collected stack trace.
+         * Capture a stack trace.
          *
-         * @param err - The error object which the formatted stack trace will be
-         * attached to.
-         * @param stackTraces - A list of call site objects representing the
-         * stack trace which has been collected.
-         *
-         * @returns The formatted stack trace.
+         * @param err - The object to capture the stack trace to.
+         * @param errCtor - The constructor of the `err` object. Represents a
+         * stopping point when collecting a stack trace.
          */
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        prepareStackTrace?(err: Error, stackTraces: V8.CallSite[]): any;
+        // eslint-disable-next-line @typescript-eslint/ban-types
+        captureStackTrace?(err: object, errCtor?: Function): void;
     }
 }

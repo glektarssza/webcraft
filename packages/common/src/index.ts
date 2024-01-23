@@ -1,2 +1,10 @@
-export * as errors from './errors';
-export * from './disposable';
+export {
+    ArgumentError,
+    ArgumentNilError,
+    ArgumentRangeError,
+    BaseError,
+    DisposedError,
+    OperationError,
+    StateError
+} from './errors';
+export {Disposable} from './disposable';

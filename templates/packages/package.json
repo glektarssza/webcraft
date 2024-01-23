@@ -28,7 +28,7 @@
     "scripts": {
         "test": "pnpm run test:ci",
         "test:ci": "karma start --single-run --browsers ChromeHeadless",
-        "test:watch": "pnpm run test:base --single-run --browsers ChromeHeadless --auto-watch",
+        "test:watch": "pnpm run test:base start --browsers ChromeHeadless --auto-watch",
         "test:debug": "pnpm run test:base start",
         "test:base": "karma",
         "lint": "pnpm run lint:cache ./src/ ./tests/",

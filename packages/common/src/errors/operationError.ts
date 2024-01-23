@@ -1,7 +1,7 @@
 import {BaseError} from './baseError';
 
 /**
- * An error thrown when an operation fails.
+ * A base class for all operation-related errors to extend from.
  */
 export class OperationError extends BaseError {
     /**
@@ -14,16 +14,10 @@ export class OperationError extends BaseError {
      *
      * @param operationName - The name of the operation that failed.
      * @param message - A string describing the nature of the error.
-     * @param inner - The inner error that caused the new instance to be
-     * created.
+     * @param inner - The error which caused the new instance to be created.
      */
     public constructor(operationName: string, message?: string, inner?: Error) {
-        super(
-            message ??
-                `An error occurred during the execution of "${operationName}"`,
-            inner
-        );
+        super(message ?? `Operation "${operationName}" failed`, inner);
         this.operationName = operationName;
-        this.name = 'OperationError';
     }
 }
