@@ -10,7 +10,7 @@ export class Context implements Disposable {
     private _disposed: boolean;
 
     /**
-     * The native WebGL rendering context this instance wraps.
+     * The native WebGL rendering context wrapped by this instance.
      */
     public readonly native: WebGLRenderingContext;
 
@@ -31,8 +31,8 @@ export class Context implements Disposable {
     /**
      * Create a new instance.
      *
-     * @param native - The native WebGL rendering context that the new instance
-     * will wrap.
+     * @param native - The native WebGL rendering context that will be wrapped
+     * by the new instance.
      */
     public constructor(native: WebGLRenderingContext) {
         this.native = native;
