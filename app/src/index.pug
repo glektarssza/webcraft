@@ -8,3 +8,11 @@ html(lang='en')
         script(src=require('./ts/index.ts'))
     body
         div#app
+        div#error-container.container.no-display
+            div.error-container
+                div#error-title-container.error-title
+                    h3#error-title
+                div#error-desc-container.error-desc
+                    p#error-desc
+                div#error-stack-container.error-stack
+                    code#error-stack

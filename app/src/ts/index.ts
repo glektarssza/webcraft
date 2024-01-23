@@ -5,7 +5,7 @@ import zip from 'lodash/zip';
 import {mat4, vec3} from 'wgpu-matrix';
 
 //-- Project Code
-import {getRootElement, ready} from './utils';
+import {displayError, getRootElement, ready} from './utils';
 
 /**
  * The entrypoint for the application.
@@ -461,5 +461,5 @@ main()
     .catch((err: Error) => {
         console.error('Fatal error during startup');
         console.error(err);
-        // TODO: Display in DOM
+        displayError('Fatal Error', err.message, err.stack);
     });
