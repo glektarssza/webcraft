@@ -98,6 +98,7 @@ describe('module:webcraft-webgl', () => {
             });
         });
         describe('.dispose()', () => {
+            it('should do nothing if the instance has already been disposed');
             it('should set the `isDisposed` property to `true`', () => {
                 //-- Given
                 const native = createStubInstance(WebGLRenderingContext);
