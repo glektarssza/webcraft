@@ -10,7 +10,7 @@ Common code for the Webcraft project.
 
 ## License ##
 
-Copyright (c) 2023 G'lek Tarssza
+Copyright (c) 2023-2024 G'lek Tarssza
 
 Licensed under the MIT License.
 
