@@ -61,7 +61,7 @@ export class Buffer extends Resource<WebGLBuffer> {
                 paramName = WebGLRenderingContext.ARRAY_BUFFER_BINDING;
                 break;
             case BufferTarget.ElementArrayBuffer:
-                paramName = WebGLRenderingContext.ELEMENT_ARRAY_BUFFER;
+                paramName = WebGLRenderingContext.ELEMENT_ARRAY_BUFFER_BINDING;
                 break;
         }
         return this.context.native.getParameter(paramName) === this.native;
