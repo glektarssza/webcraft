@@ -47,6 +47,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^6.18.0
         version: 6.18.0(eslint@8.56.0)(typescript@5.3.3)
+      '@webgpu/types':
+        specifier: ^0.1.40
+        version: 0.1.40
       chai:
         specifier: ^4.3.10
         version: 4.3.10
@@ -1328,6 +1331,10 @@ packages:
       pug: 3.0.2
       webpack: 5.89.0(webpack-cli@5.1.4)
       webpack-merge: 5.10.0
+    dev: true
+
+  /@webgpu/types@0.1.40:
+    resolution: {integrity: sha512-/BBkHLS6/eQjyWhY2H7Dx5DHcVrS2ICj9owvSRdgtQT6KcafLZA86tPze0xAOsd4FbsYKCUBUQyNi87q7gV7kw==}
     dev: true
 
   /@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4)(webpack@5.89.0):
