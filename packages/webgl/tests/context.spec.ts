@@ -2,21 +2,12 @@
 import chai, {expect} from 'chai';
 import {createStubInstance} from 'sinon';
 import sinonChai from 'sinon-chai';
-import {Faker, en, en_CA, en_US, base} from '@faker-js/faker';
 
 //-- Project Code
 import {Context} from '@src/context';
 import {ErrorCode} from '@src/errorCode';
 
 chai.use(sinonChai);
-
-/**
- * The fake data generator.
- */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const faker = new Faker({
-    locale: [en_CA, en_US, en, base]
-});
 
 describe('module:webcraft-webgl', () => {
     describe('class:Context', () => {
