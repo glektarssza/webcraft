@@ -6,3 +6,4 @@ export {Resource, ValidWebGLResources} from './resource';
 export {Buffer} from './buffer';
 export {ShaderType} from './shaderType';
 export {Shader} from './shader';
+export {Program} from './program';
