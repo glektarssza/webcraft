@@ -1,3 +1,4 @@
+//-- Project Code
 import {DisposedError, OperationError, StateError} from 'webcraft-common';
 import {Context} from './context';
 import {Resource} from './resource';
