@@ -6,12 +6,17 @@ import sinonChai from 'sinon-chai';
 //-- Project Code
 import {Context} from '@src/context';
 import {ErrorCode} from '@src/errorCode';
-import {Resource} from '../src/resource';
+import {Resource} from '@src/resource';
 
 chai.use(sinonChai);
 
 describe('module:webcraft-webgl', () => {
     describe('class:Context', () => {
+        class TestResource extends Resource<WebGLBuffer> {
+            public constructor(context: Context) {
+                super(context);
+            }
+        }
         describe('.resources', () => {
             it('should be an empty list by default', () => {
                 //-- Given
@@ -28,11 +33,6 @@ describe('module:webcraft-webgl', () => {
                 //-- Given
                 const native = createStubInstance(WebGLRenderingContext);
                 const context = new Context(native);
-                class TestResource extends Resource<WebGLBuffer> {
-                    public constructor(context: Context) {
-                        super(context);
-                    }
-                }
                 const resource = new TestResource(context);
                 Reflect.set(context, '_resources', [resource]);
 
@@ -46,11 +46,6 @@ describe('module:webcraft-webgl', () => {
                 //-- Given
                 const native = createStubInstance(WebGLRenderingContext);
                 const context = new Context(native);
-                class TestResource extends Resource<WebGLBuffer> {
-                    public constructor(context: Context) {
-                        super(context);
-                    }
-                }
                 const resource = new TestResource(context);
                 const resources = [resource];
                 Reflect.set(context, '_resources', resources);
@@ -153,11 +148,6 @@ describe('module:webcraft-webgl', () => {
                 //-- Given
                 const native = createStubInstance(WebGLRenderingContext);
                 const context = new Context(native);
-                class TestResource extends Resource<WebGLBuffer> {
-                    public constructor(context: Context) {
-                        super(context);
-                    }
-                }
                 const resource = new TestResource(context);
                 const disposeStub = stub(resource, 'dispose');
                 Reflect.set(context, '_resources', [resource]);
@@ -173,11 +163,6 @@ describe('module:webcraft-webgl', () => {
                 //-- Given
                 const native = createStubInstance(WebGLRenderingContext);
                 const context = new Context(native);
-                class TestResource extends Resource<WebGLBuffer> {
-                    public constructor(context: Context) {
-                        super(context);
-                    }
-                }
                 const resource = new TestResource(context);
                 const disposeStub = stub(resource, 'dispose');
                 Reflect.set(context, '_resources', [resource]);
@@ -192,11 +177,7 @@ describe('module:webcraft-webgl', () => {
                 //-- Given
                 const native = createStubInstance(WebGLRenderingContext);
                 const context = new Context(native);
-                class TestResource extends Resource<WebGLBuffer> {
-                    public constructor(context: Context) {
-                        super(context);
-                    }
-                }
+
                 const resource = new TestResource(context);
                 Reflect.set(context, '_resources', [resource]);
 
