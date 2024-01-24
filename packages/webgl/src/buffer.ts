@@ -35,6 +35,12 @@ export class Buffer extends Resource<WebGLBuffer> {
      * The number of bytes in VRAM allocated to this instance.
      */
     public get allocatedSize(): number | null {
+        if (this.isDisposed) {
+            return null;
+        }
+        if (this.native === null) {
+            return null;
+        }
         return this._allocatedSize;
     }
 
@@ -42,6 +48,12 @@ export class Buffer extends Resource<WebGLBuffer> {
      * The currently configured usage hint for the instance.
      */
     public get usageHint(): BufferUsageHint | null {
+        if (this.isDisposed) {
+            return null;
+        }
+        if (this.native === null) {
+            return null;
+        }
         return this._usageHint;
     }
 
