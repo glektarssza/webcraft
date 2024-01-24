@@ -78,9 +78,9 @@ jobs:
       - id: install-dependencies
         name: Install dependencies
         run: pnpm -r install
-      - id: build-typescript-types
-        name: Build Typescript Types
-        run: pnpm -r run build:types
+      - id: run-build
+        name: Run build
+        run: pnpm -r run build
       - id: run-tests
         name: Run tests
         run: pnpm -r run test:ci
