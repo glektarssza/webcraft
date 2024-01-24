@@ -1,5 +1,6 @@
 import {Disposable} from 'webcraft-common';
 import {ErrorCode} from './errorCode';
+import {Resource, ValidWebGLResources} from './resource';
 
 /**
  * A wrapper around a WebGL rendering context.
@@ -11,9 +12,21 @@ export class Context implements Disposable {
     private _disposed: boolean;
 
     /**
+     * An list of resources owned by this instance.
+     */
+    private readonly _resources: Resource<ValidWebGLResources>[];
+
+    /**
      * The native WebGL rendering context wrapped by this instance.
      */
     public readonly native: WebGLRenderingContext;
+
+    /**
+     * An list of resources owned by this instance.
+     */
+    public get resources(): Resource<ValidWebGLResources>[] {
+        return this._resources.slice();
+    }
 
     /**
      * Whether this instance has been lost.
@@ -38,6 +51,7 @@ export class Context implements Disposable {
     public constructor(native: WebGLRenderingContext) {
         this.native = native;
         this._disposed = false;
+        this._resources = [];
     }
 
     /**
@@ -58,7 +72,10 @@ export class Context implements Disposable {
         if (this.isDisposed) {
             return;
         }
-        // TODO
+        this._resources.forEach((resource) => {
+            resource.dispose();
+        });
+        this._resources.length = 0;
         this._disposed = true;
     }
 }
