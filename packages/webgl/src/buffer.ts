@@ -355,6 +355,7 @@ export class Buffer extends Resource<WebGLBuffer> {
                 offset,
                 0,
                 this.allocatedSize - data.byteLength,
+                'offset',
                 'Offset must be inside the allocation bounds'
             );
         }
