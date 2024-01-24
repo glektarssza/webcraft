@@ -38,6 +38,9 @@ jobs:
       - id: install-dependencies
         name: Install dependencies
         run: pnpm -r install
+      - id: build-typescript-types
+        name: Build Typescript Types
+        run: pnpm -r run build:types
       - id: run-linter
         name: Run linter
         run: pnpm -r run lint
@@ -75,6 +78,9 @@ jobs:
       - id: install-dependencies
         name: Install dependencies
         run: pnpm -r install
+      - id: run-build
+        name: Run build
+        run: pnpm -r --filter=webcraft^... run build
       - id: run-tests
         name: Run tests
         run: pnpm -r run test:ci
@@ -114,4 +120,4 @@ jobs:
         run: pnpm -r install
       - id: run-build
         name: Run build
-        run: pnpm -r --filter=webcraft run build
+        run: pnpm -r run build
