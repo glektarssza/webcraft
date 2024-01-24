@@ -77,7 +77,7 @@ describe('module:webcraft-webgl', () => {
                 expect(r).to.be.null;
                 expect(nativeContext.getShaderSource).to.not.have.been.called;
             });
-            it('should be set the `null` if no source code has been uploaded to the instance yet', () => {
+            it('should be set to `null` if no source code has been uploaded to the instance yet', () => {
                 //-- Given
                 const type = faker.helpers.arrayElement(shaderTypes);
                 nativeContext.createShader.withArgs(type).returns(native);
@@ -90,7 +90,7 @@ describe('module:webcraft-webgl', () => {
                 //-- Then
                 expect(r).to.be.null;
             });
-            it('should be set the source code uploaded to the instance', () => {
+            it('should be set to the source code uploaded to the instance', () => {
                 //-- Given
                 const type = faker.helpers.arrayElement(shaderTypes);
                 nativeContext.createShader.withArgs(type).returns(native);
@@ -136,7 +136,7 @@ describe('module:webcraft-webgl', () => {
                 expect(r).to.be.null;
                 expect(nativeContext.getShaderInfoLog).to.not.have.been.called;
             });
-            it('should be set the `null` if the instance has not been compiled yet', () => {
+            it('should be set to `null` if the instance has not been compiled yet', () => {
                 //-- Given
                 const type = faker.helpers.arrayElement(shaderTypes);
                 nativeContext.createShader.withArgs(type).returns(native);
@@ -149,7 +149,7 @@ describe('module:webcraft-webgl', () => {
                 //-- Then
                 expect(r).to.be.null;
             });
-            it('should be set the information log from the last call to compile the instance', () => {
+            it('should be set to the information log from the last call to compile the instance', () => {
                 //-- Given
                 const type = faker.helpers.arrayElement(shaderTypes);
                 nativeContext.createShader.withArgs(type).returns(native);
