@@ -80,7 +80,7 @@ jobs:
         run: pnpm -r install
       - id: run-build
         name: Run build
-        run: pnpm -r run build
+        run: pnpm -r --filter=webcraft^... run build
       - id: run-tests
         name: Run tests
         run: pnpm -r run test:ci
