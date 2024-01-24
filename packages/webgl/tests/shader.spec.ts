@@ -49,7 +49,7 @@ describe('module:webcraft-webgl', () => {
             });
         });
         describe('.sourceCode', () => {
-            it('should return `null` if the instance is disposed', () => {
+            it('should set to `null` if the instance is disposed', () => {
                 //-- Given
                 const type = faker.helpers.arrayElement(shaderTypes);
                 nativeContext.createShader.withArgs(type).returns(native);
@@ -63,7 +63,7 @@ describe('module:webcraft-webgl', () => {
                 expect(r).to.be.null;
                 expect(nativeContext.getShaderSource).to.not.have.been.called;
             });
-            it('should return `null` if the instance does not wrap a valid WebGL shader', () => {
+            it('should set to `null` if the instance does not wrap a valid WebGL shader', () => {
                 //-- Given
                 const type = faker.helpers.arrayElement(shaderTypes);
                 nativeContext.createShader.withArgs(type).returns(native);
@@ -108,7 +108,7 @@ describe('module:webcraft-webgl', () => {
             });
         });
         describe('.infoLog', () => {
-            it('should return `null` if the instance is disposed', () => {
+            it('should set to `null` if the instance is disposed', () => {
                 //-- Given
                 const type = faker.helpers.arrayElement(shaderTypes);
                 nativeContext.createShader.withArgs(type).returns(native);
@@ -122,7 +122,7 @@ describe('module:webcraft-webgl', () => {
                 expect(r).to.be.null;
                 expect(nativeContext.getShaderInfoLog).to.not.have.been.called;
             });
-            it('should return `null` if the instance does not wrap a valid WebGL shader', () => {
+            it('should set to `null` if the instance does not wrap a valid WebGL shader', () => {
                 //-- Given
                 const type = faker.helpers.arrayElement(shaderTypes);
                 nativeContext.createShader.withArgs(type).returns(native);
@@ -167,7 +167,7 @@ describe('module:webcraft-webgl', () => {
             });
         });
         describe('.isCompiled', () => {
-            it('should return `false` if the instance is disposed', () => {
+            it('should set to `false` if the instance is disposed', () => {
                 //-- Given
                 const type = faker.helpers.arrayElement(shaderTypes);
                 nativeContext.createShader.withArgs(type).returns(native);
@@ -182,7 +182,7 @@ describe('module:webcraft-webgl', () => {
                 expect(nativeContext.getShaderParameter).to.not.have.been
                     .called;
             });
-            it('should return `false` if the instance does not wrap a valid WebGL shader', () => {
+            it('should set to `false` if the instance does not wrap a valid WebGL shader', () => {
                 //-- Given
                 const type = faker.helpers.arrayElement(shaderTypes);
                 nativeContext.createShader.withArgs(type).returns(native);
