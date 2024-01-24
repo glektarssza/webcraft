@@ -10,7 +10,13 @@ import {Buffer} from '@src/buffer';
 import {BufferTarget} from '@src/bufferTarget';
 import {BufferUsageHint} from '@src/bufferUsageHint';
 import {Context} from '@src/context';
-import {DisposedError, OperationError, StateError} from 'webcraft-common';
+import {
+    ArgumentError,
+    ArgumentRangeError,
+    DisposedError,
+    OperationError,
+    StateError
+} from 'webcraft-common';
 
 chai.use(sinonChai);
 
@@ -584,74 +590,1058 @@ describe('module:webcraft-webgl', () => {
             });
         });
         describe('.allocate()', () => {
-            it(
-                'should throw a `DisposedError` if the instance has been disposed'
-            );
-            it(
-                'should throw a `StateError` if the instance does not wrap a valid WebGL buffer'
-            );
-            it(
-                'should throw a `StateError` if the instance is not bound to its target'
-            );
-            it(
-                'should allocate the requested amount of space in VRAM for the instance'
-            );
-            it('should throw an `OperationError` if a WebGL error occurs');
-            it('should set the `allocatedSize` property to the requested size');
-            it('should set the `usageHint` property to the configured value');
+            it('should throw a `DisposedError` if the instance has been disposed', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_disposed', true);
+                const sizeBytes = faker.number.int({
+                    min: 128,
+                    max: 1024
+                });
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+
+                //-- When
+                try {
+                    buffer.allocate(sizeBytes, usageHint);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(DisposedError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('allocate');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'Cannot allocate a disposed WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should throw a `StateError` if the instance does not wrap a valid WebGL buffer', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_native', null);
+                const sizeBytes = faker.number.int({
+                    min: 128,
+                    max: 1024
+                });
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+
+                //-- When
+                try {
+                    buffer.allocate(sizeBytes, usageHint);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(StateError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('allocate');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'Cannot allocate an invalid WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should throw a `StateError` if the instance is not bound to its target', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter.withArgs(bindingParam).returns(null);
+                const sizeBytes = faker.number.int({
+                    min: 128,
+                    max: 1024
+                });
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+
+                //-- When
+                try {
+                    buffer.allocate(sizeBytes, usageHint);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(StateError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('allocate');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'Cannot allocate an unbound WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should allocate the requested amount of space in VRAM for the instance', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                nativeContext.getError.returns(WebGLRenderingContext.NO_ERROR);
+                const sizeBytes = faker.number.int({
+                    min: 128,
+                    max: 1024
+                });
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+
+                //-- When
+                buffer.allocate(sizeBytes, usageHint);
+
+                //-- Then
+                expect(
+                    nativeContext.bufferData
+                ).to.have.been.calledOnceWithExactly(
+                    target,
+                    sizeBytes,
+                    usageHint
+                );
+            });
+            it('should use the static draw usage hint by default', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                nativeContext.getError.returns(WebGLRenderingContext.NO_ERROR);
+                const sizeBytes = faker.number.int({
+                    min: 128,
+                    max: 1024
+                });
+
+                //-- When
+                buffer.allocate(sizeBytes);
+
+                //-- Then
+                expect(
+                    nativeContext.bufferData
+                ).to.have.been.calledOnceWithExactly(
+                    target,
+                    sizeBytes,
+                    BufferUsageHint.StaticDraw
+                );
+            });
+            it('should throw an `OperationError` if a WebGL error occurs', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                nativeContext.getError.returns(
+                    WebGLRenderingContext.INVALID_ENUM
+                );
+                const sizeBytes = faker.number.int({
+                    min: 128,
+                    max: 1024
+                });
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+
+                //-- When
+                try {
+                    buffer.allocate(sizeBytes, usageHint);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('allocate');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'An error occurred while allocating a WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should set the `allocatedSize` property to the requested size', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                nativeContext.getError.returns(WebGLRenderingContext.NO_ERROR);
+                const sizeBytes = faker.number.int({
+                    min: 128,
+                    max: 1024
+                });
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+
+                //-- When
+                buffer.allocate(sizeBytes, usageHint);
+
+                //-- Then
+                expect(buffer.allocatedSize).to.equal(sizeBytes);
+            });
+            it('should set the `usageHint` property to the configured value', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                nativeContext.getError.returns(WebGLRenderingContext.NO_ERROR);
+                const sizeBytes = faker.number.int({
+                    min: 128,
+                    max: 1024
+                });
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+
+                //-- When
+                buffer.allocate(sizeBytes, usageHint);
+
+                //-- Then
+                expect(buffer.usageHint).to.equal(usageHint);
+            });
         });
         describe('.uploadData()', () => {
-            it(
-                'should throw a `DisposedError` if the instance has been disposed'
-            );
-            it(
-                'should throw a `StateError` if the instance does not wrap a valid WebGL buffer'
-            );
-            it(
-                'should throw a `StateError` if the instance is not bound to its target'
-            );
-            it('should upload the given data into the instance');
-            it('should throw an `OperationError` if a WebGL error occurs');
-            it(
-                'should set the `allocatedSize` property to the size of the data uploaded'
-            );
-            it('should set the `usageHint` property to the configured value');
+            it('should throw a `DisposedError` if the instance has been disposed', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_disposed', true);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+
+                //-- When
+                try {
+                    buffer.uploadData(data, usageHint);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(DisposedError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('uploadData');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'Cannot upload data to a disposed WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should throw a `StateError` if the instance does not wrap a valid WebGL buffer', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_native', null);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+
+                //-- When
+                try {
+                    buffer.uploadData(data, usageHint);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(StateError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('uploadData');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'Cannot upload data to an invalid WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should throw a `StateError` if the instance is not bound to its target', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter.withArgs(bindingParam).returns(null);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+
+                //-- When
+                try {
+                    buffer.uploadData(data, usageHint);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(StateError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('uploadData');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'Cannot upload data to an unbound WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should upload the given data into the instance', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+                nativeContext.bufferData
+                    .withArgs(target, data, usageHint)
+                    .returns();
+                nativeContext.getError.returns(WebGLRenderingContext.NO_ERROR);
+
+                //-- When
+                buffer.uploadData(data, usageHint);
+
+                //-- Then
+                expect(
+                    nativeContext.bufferData
+                ).to.have.been.calledOnceWithExactly(target, data, usageHint);
+            });
+            it('should use the static draw usage hint by default', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                nativeContext.bufferData
+                    .withArgs(target, data, BufferUsageHint.StaticDraw)
+                    .returns();
+                nativeContext.getError.returns(WebGLRenderingContext.NO_ERROR);
+
+                //-- When
+                buffer.uploadData(data);
+
+                //-- Then
+                expect(
+                    nativeContext.bufferData
+                ).to.have.been.calledOnceWithExactly(
+                    target,
+                    data,
+                    BufferUsageHint.StaticDraw
+                );
+            });
+            it('should throw an `OperationError` if a WebGL error occurs', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+                nativeContext.bufferData
+                    .withArgs(target, data, usageHint)
+                    .returns();
+                nativeContext.getError.returns(
+                    WebGLRenderingContext.INVALID_ENUM
+                );
+
+                //-- When
+                try {
+                    buffer.uploadData(data, usageHint);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('uploadData');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'An error occurred while uploading data to a WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should set the `allocatedSize` property to the size of the data uploaded', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+                nativeContext.bufferData
+                    .withArgs(target, data, usageHint)
+                    .returns();
+                nativeContext.getError.returns(WebGLRenderingContext.NO_ERROR);
+
+                //-- When
+                buffer.uploadData(data, usageHint);
+
+                //-- Then
+                expect(buffer.allocatedSize).to.equal(data.byteLength);
+            });
+            it('should set the `usageHint` property to the configured value', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+                nativeContext.bufferData
+                    .withArgs(target, data, usageHint)
+                    .returns();
+                nativeContext.getError.returns(WebGLRenderingContext.NO_ERROR);
+
+                //-- When
+                buffer.uploadData(data, usageHint);
+
+                //-- Then
+                expect(buffer.usageHint).to.equal(usageHint);
+            });
         });
         describe('.uploadSubData()', () => {
-            it(
-                'should throw a `DisposedError` if the instance has been disposed'
-            );
-            it(
-                'should throw a `StateError` if the instance does not wrap a valid WebGL buffer'
-            );
-            it(
-                'should throw a `StateError` if the instance is not bound to its target'
-            );
-            it(
-                'should throw a `StateError` if the instance has not been allocated yet'
-            );
-            it(
-                'should throw an `ArgumentError` if the given offset is a non-finite value'
-            );
-            it(
-                'should throw an `ArgumentRangeError` if the given offset is less than zero'
-            );
-            it(
-                'should throw an `ArgumentRangeError` if the given offset is greater than the allocation size minus the data size'
-            );
-            it('should upload the given data into the instance');
-            it('should throw an `OperationError` if a WebGL error occurs');
+            it('should throw a `DisposedError` if the instance has been disposed', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_disposed', true);
+                const allocatedSize = faker.number.int({
+                    min: 512,
+                    max: 2048
+                });
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const offset = faker.number.int({
+                    min: 0,
+                    max: allocatedSize - data.byteLength
+                });
+
+                //-- When
+                try {
+                    buffer.uploadSubData(data, offset);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(DisposedError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('uploadSubData');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'Cannot upload sub data to a disposed WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should throw a `StateError` if the instance does not wrap a valid WebGL buffer', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_native', null);
+                const allocatedSize = faker.number.int({
+                    min: 512,
+                    max: 2048
+                });
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const offset = faker.number.int({
+                    min: 0,
+                    max: allocatedSize - data.byteLength
+                });
+
+                //-- When
+                try {
+                    buffer.uploadSubData(data, offset);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(StateError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('uploadSubData');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'Cannot upload sub data to an invalid WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should throw a `StateError` if the instance is not bound to its target', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter.withArgs(bindingParam).returns(null);
+                const allocatedSize = faker.number.int({
+                    min: 512,
+                    max: 2048
+                });
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const offset = faker.number.int({
+                    min: 0,
+                    max: allocatedSize - data.byteLength
+                });
+
+                //-- When
+                try {
+                    buffer.uploadSubData(data, offset);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(StateError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('uploadSubData');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'Cannot upload sub data to an unbound WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should throw a `StateError` if the instance has not been allocated yet', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_allocatedSize', null);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                const allocatedSize = faker.number.int({
+                    min: 512,
+                    max: 2048
+                });
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const offset = faker.number.int({
+                    min: 0,
+                    max: allocatedSize - data.byteLength
+                });
+
+                //-- When
+                try {
+                    buffer.uploadSubData(data, offset);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(StateError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('uploadSubData');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'Cannot upload sub data to an unallocated WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should throw an `ArgumentError` if the given offset is a non-finite value', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                const allocatedSize = faker.number.int({
+                    min: 512,
+                    max: 2048
+                });
+                Reflect.set(buffer, '_allocatedSize', allocatedSize);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const offset = Infinity;
+
+                //-- When
+                try {
+                    buffer.uploadSubData(data, offset);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(ArgumentError);
+                    expect(ex)
+                        .to.have.a.property('argumentName')
+                        .which.equals('offset');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals('Offset must be a finite number');
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should throw an `ArgumentRangeError` if the given offset is less than zero', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                const allocatedSize = faker.number.int({
+                    min: 512,
+                    max: 2048
+                });
+                Reflect.set(buffer, '_allocatedSize', allocatedSize);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const offset = faker.number.int({
+                    min: -64,
+                    max: -8
+                });
+
+                //-- When
+                try {
+                    buffer.uploadSubData(data, offset);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(ArgumentRangeError);
+                    expect(ex)
+                        .to.have.a.property('argumentName')
+                        .which.equals('offset');
+                    expect(ex)
+                        .to.have.a.property('actualValue')
+                        .which.equals(offset);
+                    expect(ex)
+                        .to.have.a.property('minimumValue')
+                        .which.equals(0);
+                    expect(ex)
+                        .to.have.a.property('maximumValue')
+                        .which.equals(allocatedSize - data.byteLength);
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'Offset must be inside the allocation bounds'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should throw an `ArgumentRangeError` if the given offset is greater than the allocation size minus the data size', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                const allocatedSize = faker.number.int({
+                    min: 512,
+                    max: 2048
+                });
+                Reflect.set(buffer, '_allocatedSize', allocatedSize);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const offset = faker.number.int({
+                    min: allocatedSize + 8,
+                    max: allocatedSize * 4
+                });
+
+                //-- When
+                try {
+                    buffer.uploadSubData(data, offset);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(ArgumentRangeError);
+                    expect(ex)
+                        .to.have.a.property('argumentName')
+                        .which.equals('offset');
+                    expect(ex)
+                        .to.have.a.property('actualValue')
+                        .which.equals(offset);
+                    expect(ex)
+                        .to.have.a.property('minimumValue')
+                        .which.equals(0);
+                    expect(ex)
+                        .to.have.a.property('maximumValue')
+                        .which.equals(allocatedSize - data.byteLength);
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'Offset must be inside the allocation bounds'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should upload the given data into the instance', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                nativeContext.getError.returns(WebGLRenderingContext.NO_ERROR);
+                const allocatedSize = faker.number.int({
+                    min: 512,
+                    max: 2048
+                });
+                Reflect.set(buffer, '_allocatedSize', allocatedSize);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const offset = faker.number.int({
+                    min: 0,
+                    max: allocatedSize - data.byteLength
+                });
+
+                //-- When
+                buffer.uploadSubData(data, offset);
+
+                //-- Then
+                expect(
+                    nativeContext.bufferSubData
+                ).to.have.been.calledOnceWithExactly(target, offset, data);
+            });
+            it('should use an offset of zero by default', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                nativeContext.getError.returns(WebGLRenderingContext.NO_ERROR);
+                const allocatedSize = faker.number.int({
+                    min: 512,
+                    max: 2048
+                });
+                Reflect.set(buffer, '_allocatedSize', allocatedSize);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+
+                //-- When
+                buffer.uploadSubData(data);
+
+                //-- Then
+                expect(
+                    nativeContext.bufferSubData
+                ).to.have.been.calledOnceWithExactly(target, 0, data);
+            });
+            it('should throw an `OperationError` if a WebGL error occurs', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                nativeContext.getError.returns(
+                    WebGLRenderingContext.INVALID_ENUM
+                );
+                const allocatedSize = faker.number.int({
+                    min: 512,
+                    max: 2048
+                });
+                Reflect.set(buffer, '_allocatedSize', allocatedSize);
+                const data = new Float32Array(
+                    faker.helpers.multiple(faker.number.float, {
+                        count: {
+                            min: 8,
+                            max: 64
+                        }
+                    })
+                );
+                const offset = faker.number.int({
+                    min: 0,
+                    max: allocatedSize - data.byteLength
+                });
+
+                //-- When
+                try {
+                    buffer.uploadSubData(data, offset);
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('uploadSubData');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'An error occurred while uploading sub data to a WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
         });
         describe('.dispose()', () => {
-            it('should do nothing if the instance has already been disposed');
-            it(
-                'should delete the native WebGL buffer if the instance wraps one'
-            );
-            it(
-                'should not delete the native WebGL buffer if the instance does not wrap one'
-            );
-            it('should set the `allocatedSize` property to `null`');
-            it('should set the `usageHint` property to `null`');
+            it('should do nothing if the instance has already been disposed', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_disposed', true);
+
+                //-- When
+                buffer.dispose();
+
+                //-- Then
+                expect(nativeContext.deleteBuffer).to.not.have.been.called;
+            });
+            it('should delete the native WebGL buffer if the instance wraps one', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.deleteBuffer.withArgs(native).returns();
+
+                //-- When
+                buffer.dispose();
+
+                //-- Then
+                expect(
+                    nativeContext.deleteBuffer
+                ).to.have.been.calledOnceWithExactly(native);
+            });
+            it('should not delete the native WebGL buffer if the instance does not wrap one', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_native', null);
+
+                //-- When
+                buffer.dispose();
+
+                //-- Then
+                expect(nativeContext.deleteBuffer).to.not.have.been.called;
+            });
+            it('should set the `allocatedSize` property to `null`', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                const allocatedSize = faker.number.int({
+                    min: 512,
+                    max: 2048
+                });
+                Reflect.set(buffer, '_allocatedSize', allocatedSize);
+
+                //-- When
+                buffer.dispose();
+
+                //-- Then
+                expect(buffer.allocatedSize).to.be.null;
+            });
+            it('should set the `usageHint` property to `null`', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                const usageHint = faker.helpers.arrayElement(bufferUsageHints);
+                Reflect.set(buffer, '_usageHint', usageHint);
+
+                //-- When
+                buffer.dispose();
+
+                //-- Then
+                expect(buffer.usageHint).to.be.null;
+            });
         });
     });
 });
