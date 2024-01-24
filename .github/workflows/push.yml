@@ -40,6 +40,9 @@ jobs:
       - id: install-dependencies
         name: Install dependencies
         run: pnpm -r install
+      - id: build-typescript-types
+        name: Build Typescript Types
+        run: pnpm -r run build:types
       - id: run-linter
         name: Run linter
         run: pnpm -r run lint
@@ -77,6 +80,9 @@ jobs:
       - id: install-dependencies
         name: Install dependencies
         run: pnpm -r install
+      - id: build-typescript-types
+        name: Build Typescript Types
+        run: pnpm -r run build:types
       - id: run-tests
         name: Run tests
         run: pnpm -r run test:ci
