@@ -450,7 +450,7 @@ describe('module:webcraft-webgl', () => {
                     expect(ex).to.be.an.instanceOf(OperationError);
                     expect(ex)
                         .to.have.a.property('operationName')
-                        .which.equals('unbind');
+                        .which.equals('bind');
                     expect(ex)
                         .to.have.a.property('message')
                         .which.equals(
