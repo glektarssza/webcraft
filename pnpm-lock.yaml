@@ -20,6 +20,9 @@ importers:
       webcraft-common:
         specifier: workspace:^0.0.0
         version: link:../packages/common
+      webcraft-webgl:
+        specifier: workspace:^0.0.0
+        version: link:../packages/webgl
       wgpu-matrix:
         specifier: ^2.5.1
         version: 2.5.1
