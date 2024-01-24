@@ -63,6 +63,33 @@ describe('module:webcraft-webgl', () => {
             });
         });
         describe('.allocatedSize', () => {
+            it('should return `null` if the instance is disposed', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_disposed', true);
+
+                //-- When
+                const r = buffer.allocatedSize;
+
+                //-- Then
+                expect(r).to.be.null;
+            });
+            it('should return `null` if the instance does not wrap a valid WebGL buffer', () => {
+                //-- Given
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_native', null);
+
+                //-- When
+                const r = buffer.allocatedSize;
+
+                //-- Then
+                expect(r).to.be.null;
+            });
             it('should be set to `null` if the instance has not been allocated yet', () => {
                 //-- Given
                 const target = faker.helpers.arrayElement(bufferTargets);
