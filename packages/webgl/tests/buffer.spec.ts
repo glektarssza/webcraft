@@ -10,7 +10,7 @@ import {Buffer} from '@src/buffer';
 import {BufferTarget} from '@src/bufferTarget';
 import {BufferUsageHint} from '@src/bufferUsageHint';
 import {Context} from '@src/context';
-import {OperationError} from 'webcraft-common';
+import {DisposedError, OperationError, StateError} from 'webcraft-common';
 
 chai.use(sinonChai);
 
@@ -344,28 +344,244 @@ describe('module:webcraft-webgl', () => {
             });
         });
         describe('.bind()', () => {
-            it(
-                'should throw a `DisposedError` if the instance has been disposed'
-            );
-            it(
-                'should throw a `StateError` if the instance does not wrap a valid WebGL buffer'
-            );
-            it(
-                'should do nothing if the instance is already bound to its target'
-            );
-            it('should bind the instance to its target');
-            it('should throw an `OperationError` if a WebGL error occurs');
+            it('should throw a `DisposedError` if the instance has been disposed', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_disposed', true);
+
+                //-- When
+                try {
+                    buffer.bind();
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(DisposedError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('bind');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals('Cannot bind a disposed WebGL buffer');
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should throw a `StateError` if the instance does not wrap a valid WebGL buffer', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_native', null);
+
+                //-- When
+                try {
+                    buffer.bind();
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(StateError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('bind');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals('Cannot bind an invalid WebGL buffer');
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should do nothing if the instance is already bound to its target', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+
+                //-- When
+                buffer.bind();
+
+                //-- Then
+                expect(nativeContext.bindBuffer).to.not.have.been.called;
+            });
+            it('should bind the instance to its target', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter.withArgs(bindingParam).returns(null);
+                nativeContext.getError.returns(WebGLRenderingContext.NO_ERROR);
+
+                //-- When
+                buffer.bind();
+
+                //-- Then
+                expect(
+                    nativeContext.bindBuffer
+                ).to.have.been.calledOnceWithExactly(target, native);
+            });
+            it('should throw an `OperationError` if a WebGL error occurs', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter.withArgs(bindingParam).returns(null);
+                nativeContext.getError.returns(
+                    WebGLRenderingContext.INVALID_ENUM
+                );
+
+                //-- When
+                try {
+                    buffer.bind();
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('unbind');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'An error occurred while binding a WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
         });
         describe('.unbind()', () => {
-            it(
-                'should throw a `DisposedError` if the instance has been disposed'
-            );
-            it(
-                'should throw a `StateError` if the instance does not wrap a valid WebGL buffer'
-            );
-            it('should do nothing if the instance is not bound to its target');
-            it('should unbind the instance from its target');
-            it('should throw an `OperationError` if a WebGL error occurs');
+            it('should throw a `DisposedError` if the instance has been disposed', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_disposed', true);
+
+                //-- When
+                try {
+                    buffer.unbind();
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(StateError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('unbind');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals('Cannot unbind a disposed WebGL buffer');
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should throw a `StateError` if the instance does not wrap a valid WebGL buffer', () => {
+                //-- Given
+                const target = faker.helpers.arrayElement(bufferTargets);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                Reflect.set(buffer, '_native', null);
+
+                //-- When
+                try {
+                    buffer.unbind();
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(StateError);
+                    expect(ex)
+                        .to.have.a.property('objectType')
+                        .which.equals('Buffer');
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('unbind');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals('Cannot unbind an invalid WebGL buffer');
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
+            it('should do nothing if the instance is not bound to its target', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter.withArgs(bindingParam).returns(null);
+
+                //-- When
+                buffer.unbind();
+
+                //-- Then
+                expect(nativeContext.bindBuffer).to.not.have.been.called;
+            });
+            it('should unbind the instance from its target', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                nativeContext.getError.returns(WebGLRenderingContext.NO_ERROR);
+
+                //-- When
+                buffer.unbind();
+
+                //-- Then
+                expect(
+                    nativeContext.bindBuffer
+                ).to.have.been.calledOnceWithExactly(target, null);
+            });
+            it('should throw an `OperationError` if a WebGL error occurs', () => {
+                //-- Given
+                const [target, bindingParam] =
+                    faker.helpers.arrayElement(bufferParams);
+                nativeContext.createBuffer.returns(native);
+                const buffer = new Buffer(context, target);
+                nativeContext.getParameter
+                    .withArgs(bindingParam)
+                    .returns(native);
+                nativeContext.getError.returns(
+                    WebGLRenderingContext.INVALID_ENUM
+                );
+
+                //-- When
+                try {
+                    buffer.unbind();
+                } catch (ex) {
+                    //-- Then
+                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex)
+                        .to.have.a.property('operationName')
+                        .which.equals('unbind');
+                    expect(ex)
+                        .to.have.a.property('message')
+                        .which.equals(
+                            'An error occurred while unbinding a WebGL buffer'
+                        );
+                    return;
+                }
+
+                expect.fail('Function did not throw when it should have');
+            });
         });
         describe('.allocate()', () => {
             it(
