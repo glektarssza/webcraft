@@ -158,4 +158,19 @@ export class Shader extends Resource<WebGLShader> {
             );
         }
     }
+
+    /**
+     * Dispose of this instance and release any resources it is managing.
+     *
+     * This method, is possible, should not throw any errors.
+     */
+    public override dispose(): void {
+        if (this.isDisposed) {
+            return;
+        }
+        if (this.native !== null) {
+            this.context.native.deleteShader(this.native);
+        }
+        super.dispose();
+    }
 }
