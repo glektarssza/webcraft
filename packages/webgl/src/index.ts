@@ -1,4 +1,5 @@
 export {ErrorCode} from './errorCode';
+export {WebGLError} from './errors';
 export {BufferTarget} from './bufferTarget';
 export {BufferUsageHint} from './bufferUsageHint';
 export {Context} from './context';
