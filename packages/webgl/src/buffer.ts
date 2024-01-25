@@ -3,9 +3,9 @@ import {
     ArgumentError,
     ArgumentRangeError,
     DisposedError,
-    OperationError,
     StateError
 } from 'webcraft-common';
+import {WebGLError} from './errors/webglError';
 import {Context} from './context';
 import {Resource} from './resource';
 import {BufferTarget} from './bufferTarget';
@@ -86,14 +86,15 @@ export class Buffer extends Resource<WebGLBuffer> {
      * instance.
      * @param target - The target the new instance will bind to.
      *
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if the native WebGL buffer resource fails to be created.
      */
     public constructor(context: Context, target: BufferTarget) {
         super(context);
         this._native = this.context.native.createBuffer();
         if (this.native === null) {
-            throw new OperationError(
+            throw new WebGLError(
+                this.context.getError(),
                 'createBuffer',
                 'Failed to create native WebGL buffer resource'
             );
@@ -112,7 +113,7 @@ export class Buffer extends Resource<WebGLBuffer> {
      * Thrown if the instance is disposed.
      * @throws `StateError`
      * Thrown if the instance does not wrap a valid WebGL buffer resource.
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if a WebGL error occurs during the operation.
      */
     public bind(): void {
@@ -136,7 +137,8 @@ export class Buffer extends Resource<WebGLBuffer> {
         this.context.native.bindBuffer(this.target, this.native);
         const err = this.context.getError();
         if (err !== ErrorCode.NoError) {
-            throw new OperationError(
+            throw new WebGLError(
+                err,
                 'bind',
                 'An error occurred while binding a WebGL buffer'
             );
@@ -153,7 +155,7 @@ export class Buffer extends Resource<WebGLBuffer> {
      * Thrown if the instance is disposed.
      * @throws `StateError`
      * Thrown if the instance does not wrap a valid WebGL buffer resource.
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if a WebGL error occurs during the operation.
      */
     public unbind(): void {
@@ -177,7 +179,8 @@ export class Buffer extends Resource<WebGLBuffer> {
         this.context.native.bindBuffer(this.target, null);
         const err = this.context.getError();
         if (err !== ErrorCode.NoError) {
-            throw new OperationError(
+            throw new WebGLError(
+                err,
                 'unbind',
                 'An error occurred while unbinding a WebGL buffer'
             );
@@ -197,7 +200,7 @@ export class Buffer extends Resource<WebGLBuffer> {
      * @throws `StateError`
      * Thrown if the instance is not bound to its
      * {@link Buffer.target | target}.
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if a WebGL error occurs during the operation.
      */
     public allocate(
@@ -228,7 +231,8 @@ export class Buffer extends Resource<WebGLBuffer> {
         this.context.native.bufferData(this.target, sizeBytes, usageHint);
         const err = this.context.getError();
         if (err !== ErrorCode.NoError) {
-            throw new OperationError(
+            throw new WebGLError(
+                err,
                 'allocate',
                 'An error occurred while allocating a WebGL buffer'
             );
@@ -253,7 +257,7 @@ export class Buffer extends Resource<WebGLBuffer> {
      * @throws `StateError`
      * Thrown if the instance is not bound to its
      * {@link Buffer.target | target}.
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if a WebGL error occurs during the operation.
      */
     public uploadData(
@@ -284,7 +288,8 @@ export class Buffer extends Resource<WebGLBuffer> {
         this.context.native.bufferData(this.target, data, usageHint);
         const err = this.context.getError();
         if (err !== ErrorCode.NoError) {
-            throw new OperationError(
+            throw new WebGLError(
+                err,
                 'uploadData',
                 'An error occurred while uploading data to a WebGL buffer'
             );
@@ -315,7 +320,7 @@ export class Buffer extends Resource<WebGLBuffer> {
      * @throws `ArgumentRangeError`
      * Thrown if the `offset` is less than `0` or greater than the size of the
      * allocation minus the length of the data to upload.
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if a WebGL error occurs during the operation.
      */
     public uploadSubData(data: BufferSource, offset = 0): void {
@@ -362,7 +367,8 @@ export class Buffer extends Resource<WebGLBuffer> {
         this.context.native.bufferSubData(this.target, offset, data);
         const err = this.context.getError();
         if (err !== ErrorCode.NoError) {
-            throw new OperationError(
+            throw new WebGLError(
+                err,
                 'uploadSubData',
                 'An error occurred while uploading sub data to a WebGL buffer'
             );

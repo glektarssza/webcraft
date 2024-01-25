@@ -10,11 +10,11 @@ import {Buffer} from '@src/buffer';
 import {BufferTarget} from '@src/bufferTarget';
 import {BufferUsageHint} from '@src/bufferUsageHint';
 import {Context} from '@src/context';
+import {WebGLError} from '@src/errors/webglError';
 import {
     ArgumentError,
     ArgumentRangeError,
     DisposedError,
-    OperationError,
     StateError
 } from 'webcraft-common';
 
@@ -23,7 +23,6 @@ chai.use(sinonChai);
 /**
  * The fake data generator.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const faker = new Faker({
     locale: [en_CA, en_US, en, base]
 });
@@ -291,17 +290,20 @@ describe('module:webcraft-webgl', () => {
                 //-- Then
                 expect(r.native).to.equal(native);
             });
-            it('should throw an `OperationError` if the native WebGL buffer fails to be created', () => {
+            it('should throw an `WebGLError` if the native WebGL buffer fails to be created', () => {
                 //-- Given
                 const target = faker.helpers.arrayElement(bufferTargets);
                 nativeContext.createBuffer.returns(null);
+                nativeContext.getError.returns(
+                    WebGLRenderingContext.INVALID_OPERATION
+                );
 
                 //-- When
                 try {
                     new Buffer(context, target);
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('createBuffer');
@@ -437,7 +439,7 @@ describe('module:webcraft-webgl', () => {
                     nativeContext.bindBuffer
                 ).to.have.been.calledOnceWithExactly(target, native);
             });
-            it('should throw an `OperationError` if a WebGL error occurs', () => {
+            it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
                 const [target, bindingParam] =
                     faker.helpers.arrayElement(bufferParams);
@@ -453,7 +455,7 @@ describe('module:webcraft-webgl', () => {
                     buffer.bind();
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('bind');
@@ -556,7 +558,7 @@ describe('module:webcraft-webgl', () => {
                     nativeContext.bindBuffer
                 ).to.have.been.calledOnceWithExactly(target, null);
             });
-            it('should throw an `OperationError` if a WebGL error occurs', () => {
+            it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
                 const [target, bindingParam] =
                     faker.helpers.arrayElement(bufferParams);
@@ -574,7 +576,7 @@ describe('module:webcraft-webgl', () => {
                     buffer.unbind();
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('unbind');
@@ -748,7 +750,7 @@ describe('module:webcraft-webgl', () => {
                     BufferUsageHint.StaticDraw
                 );
             });
-            it('should throw an `OperationError` if a WebGL error occurs', () => {
+            it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
                 const [target, bindingParam] =
                     faker.helpers.arrayElement(bufferParams);
@@ -771,7 +773,7 @@ describe('module:webcraft-webgl', () => {
                     buffer.allocate(sizeBytes, usageHint);
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('allocate');
@@ -1011,7 +1013,7 @@ describe('module:webcraft-webgl', () => {
                     BufferUsageHint.StaticDraw
                 );
             });
-            it('should throw an `OperationError` if a WebGL error occurs', () => {
+            it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
                 const [target, bindingParam] =
                     faker.helpers.arrayElement(bufferParams);
@@ -1041,7 +1043,7 @@ describe('module:webcraft-webgl', () => {
                     buffer.uploadData(data, usageHint);
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('uploadData');
@@ -1519,7 +1521,7 @@ describe('module:webcraft-webgl', () => {
                     nativeContext.bufferSubData
                 ).to.have.been.calledOnceWithExactly(target, 0, data);
             });
-            it('should throw an `OperationError` if a WebGL error occurs', () => {
+            it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
                 const [target, bindingParam] =
                     faker.helpers.arrayElement(bufferParams);
@@ -1554,7 +1556,7 @@ describe('module:webcraft-webgl', () => {
                     buffer.uploadSubData(data, offset);
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('uploadSubData');
