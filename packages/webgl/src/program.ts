@@ -226,10 +226,7 @@ export class Program extends Resource<WebGLProgram> {
                 'An error occurred while detaching a shader from a WebGL program'
             );
         }
-        const i = this._attachedShaders.indexOf(shader);
-        if (i >= 0) {
-            this._attachedShaders.splice(i, 1);
-        }
+        this._attachedShaders.splice(this._attachedShaders.indexOf(shader), 1);
     }
 
     /**
