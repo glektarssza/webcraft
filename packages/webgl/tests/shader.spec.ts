@@ -8,14 +8,14 @@ import {Faker, en, en_CA, en_US, base} from '@faker-js/faker';
 import {Shader} from '@src/shader';
 import {ShaderType} from '@src/shaderType';
 import {Context} from '@src/context';
-import {DisposedError, OperationError, StateError} from 'webcraft-common';
+import {WebGLError} from '@src/errors/webglError';
+import {DisposedError, StateError} from 'webcraft-common';
 
 chai.use(sinonChai);
 
 /**
  * The fake data generator.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const faker = new Faker({
     locale: [en_CA, en_US, en, base]
 });
@@ -251,7 +251,7 @@ describe('module:webcraft-webgl', () => {
                 //-- Then
                 expect(r.native).to.equal(native);
             });
-            it('should throw an `OperationError` if the native WebGL shader fails to be created', () => {
+            it('should throw an `WebGLError` if the native WebGL shader fails to be created', () => {
                 //-- Given
                 const type = faker.helpers.arrayElement(shaderTypes);
                 nativeContext.createShader.withArgs(type).returns(null);
@@ -261,7 +261,7 @@ describe('module:webcraft-webgl', () => {
                     new Shader(context, type);
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('createShader');
@@ -367,7 +367,7 @@ describe('module:webcraft-webgl', () => {
                     nativeContext.shaderSource
                 ).to.have.been.calledOnceWithExactly(native, sourceCode);
             });
-            it('should throw an `OperationError` if a WebGL error occurs', () => {
+            it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
                 const type = faker.helpers.arrayElement(shaderTypes);
                 nativeContext.createShader.withArgs(type).returns(native);
@@ -385,7 +385,7 @@ describe('module:webcraft-webgl', () => {
                     shader.uploadSourceCode(sourceCode);
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('uploadSourceCode');
@@ -504,7 +504,7 @@ describe('module:webcraft-webgl', () => {
                     nativeContext.compileShader
                 ).to.have.been.calledOnceWithExactly(native);
             });
-            it('should throw an `OperationError` if a WebGL error occurs', () => {
+            it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
                 const type = faker.helpers.arrayElement(shaderTypes);
                 nativeContext.createShader.withArgs(type).returns(native);
@@ -523,7 +523,7 @@ describe('module:webcraft-webgl', () => {
                     shader.compile();
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('compile');

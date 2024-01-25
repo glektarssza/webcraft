@@ -1,4 +1,5 @@
-import {DisposedError, OperationError, StateError} from 'webcraft-common';
+import {DisposedError, StateError} from 'webcraft-common';
+import {WebGLError} from './errors/webglError';
 import {Context} from './context';
 import {Resource} from './resource';
 import {ShaderType} from './shaderType';
@@ -70,7 +71,8 @@ export class Shader extends Resource<WebGLShader> {
         super(context);
         this._native = this.context.native.createShader(type);
         if (this.native === null) {
-            throw new OperationError(
+            throw new WebGLError(
+                this.context.getError(),
                 'createShader',
                 'Failed to create native WebGL shader resource'
             );
@@ -108,7 +110,8 @@ export class Shader extends Resource<WebGLShader> {
         this.context.native.shaderSource(this.native, sourceCode);
         const err = this.context.getError();
         if (err !== ErrorCode.NoError) {
-            throw new OperationError(
+            throw new WebGLError(
+                err,
                 'uploadSourceCode',
                 'An error occurred while uploading source code to a WebGL shader'
             );
@@ -152,7 +155,8 @@ export class Shader extends Resource<WebGLShader> {
         this.context.native.compileShader(this.native);
         const err = this.context.getError();
         if (err !== ErrorCode.NoError) {
-            throw new OperationError(
+            throw new WebGLError(
+                err,
                 'compile',
                 'An error occurred while compiling a WebGL shader'
             );
