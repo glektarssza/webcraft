@@ -64,7 +64,7 @@ export class Shader extends Resource<WebGLShader> {
      * @param type - The type of WebGL shader that will be wrapped by the new
      * instance.
      *
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if the native WebGL shader resource fails to be created.
      */
     public constructor(context: Context, type: ShaderType) {
@@ -89,7 +89,7 @@ export class Shader extends Resource<WebGLShader> {
      * Thrown if the instance is disposed.
      * @throws `StateError`
      * Thrown if the instance does not wrap a valid WebGL shader resource.
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if a WebGL error occurs during the operation.
      */
     public uploadSourceCode(sourceCode: string): void {
@@ -127,7 +127,7 @@ export class Shader extends Resource<WebGLShader> {
      * Thrown if the instance does not wrap a valid WebGL shader resource.
      * @throws `StateError`
      * Thrown if the instance does not have any source code uploaded to it.
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if a WebGL error occurs during the operation.
      */
     public compile(): void {
