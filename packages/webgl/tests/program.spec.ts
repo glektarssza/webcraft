@@ -7,16 +7,16 @@ import {Faker, en, en_CA, en_US, base} from '@faker-js/faker';
 //-- Project Code
 import {Program} from '@src/program';
 import {Context} from '@src/context';
-import {DisposedError, OperationError, StateError} from 'webcraft-common';
 import {Shader} from '@src/shader';
 import {ShaderType} from '@src/shaderType';
+import {WebGLError} from '@src/errors/webglError';
+import {DisposedError, StateError} from 'webcraft-common';
 
 chai.use(sinonChai);
 
 /**
  * The fake data generator.
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const faker = new Faker({
     locale: [en_CA, en_US, en, base]
 });
@@ -262,7 +262,7 @@ describe('module:webcraft-webgl', () => {
                 //-- Then
                 expect(program.native).to.equal(native);
             });
-            it('should throw an `OperationError` if the native WebGL program fails to be created', () => {
+            it('should throw an `WebGLError` if the native WebGL program fails to be created', () => {
                 //-- Given
                 nativeContext.createProgram.returns(null);
 
@@ -271,7 +271,7 @@ describe('module:webcraft-webgl', () => {
                     new Program(context);
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('createProgram');
@@ -544,7 +544,7 @@ describe('module:webcraft-webgl', () => {
                     nativeContext.attachShader
                 ).to.have.been.calledOnceWithExactly(native, nativeShader);
             });
-            it('should throw an `OperationError` if a WebGL error occurs', () => {
+            it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
                 const nativeShader = {} as WebGLShader;
                 const shaderType = faker.helpers.arrayElement(shaderTypes);
@@ -563,7 +563,7 @@ describe('module:webcraft-webgl', () => {
                     program.attachShader(shader);
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('attachShader');
@@ -771,7 +771,7 @@ describe('module:webcraft-webgl', () => {
                     nativeContext.detachShader
                 ).to.have.been.calledOnceWithExactly(native, nativeShader);
             });
-            it('should throw an `OperationError` if a WebGL error occurs', () => {
+            it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
                 const nativeShader = {} as WebGLShader;
                 const shaderType = faker.helpers.arrayElement(shaderTypes);
@@ -791,7 +791,7 @@ describe('module:webcraft-webgl', () => {
                     program.detachShader(shader);
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('detachShader');
@@ -926,7 +926,7 @@ describe('module:webcraft-webgl', () => {
                     nativeContext.linkProgram
                 ).to.have.been.calledOnceWithExactly(native);
             });
-            it('should throw an `OperationError` if a WebGL error occurs', () => {
+            it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
                 const nativeShader = {} as WebGLShader;
                 const shaderType = faker.helpers.arrayElement(shaderTypes);
@@ -946,7 +946,7 @@ describe('module:webcraft-webgl', () => {
                     program.link();
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('link');
@@ -1083,7 +1083,7 @@ describe('module:webcraft-webgl', () => {
                     nativeContext.useProgram
                 ).to.have.been.calledOnceWithExactly(native);
             });
-            it('should throw an `OperationError` if a WebGL error occurs', () => {
+            it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
                 nativeContext.createProgram.returns(native);
                 const program = new Program(context);
@@ -1099,7 +1099,7 @@ describe('module:webcraft-webgl', () => {
                     program.activate();
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('activate');
@@ -1239,7 +1239,7 @@ describe('module:webcraft-webgl', () => {
                     nativeContext.useProgram
                 ).to.have.been.calledOnceWithExactly(null);
             });
-            it('should throw an `OperationError` if a WebGL error occurs', () => {
+            it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
                 nativeContext.createProgram.returns(native);
                 const program = new Program(context);
@@ -1258,7 +1258,7 @@ describe('module:webcraft-webgl', () => {
                     program.deactivate();
                 } catch (ex) {
                     //-- Then
-                    expect(ex).to.be.an.instanceOf(OperationError);
+                    expect(ex).to.be.an.instanceOf(WebGLError);
                     expect(ex)
                         .to.have.a.property('operationName')
                         .which.equals('deactivate');

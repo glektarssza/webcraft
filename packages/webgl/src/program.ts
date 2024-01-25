@@ -1,5 +1,6 @@
 //-- Project Code
-import {DisposedError, OperationError, StateError} from 'webcraft-common';
+import {DisposedError, StateError} from 'webcraft-common';
+import {WebGLError} from './errors/webglError';
 import {Context} from './context';
 import {Resource} from './resource';
 import {Shader} from './shader';
@@ -80,7 +81,8 @@ export class Program extends Resource<WebGLProgram> {
         super(context);
         this._native = this.context.native.createProgram();
         if (this.native === null) {
-            throw new OperationError(
+            throw new WebGLError(
+                this.context.getError(),
                 'createProgram',
                 'Failed to create native WebGL program resource'
             );
@@ -158,7 +160,8 @@ export class Program extends Resource<WebGLProgram> {
         this.context.native.attachShader(this.native, shader.native);
         const err = this.context.getError();
         if (err !== ErrorCode.NoError) {
-            throw new OperationError(
+            throw new WebGLError(
+                err,
                 'attachShader',
                 'An error occurred while attaching a shader to a WebGL program'
             );
@@ -217,15 +220,13 @@ export class Program extends Resource<WebGLProgram> {
         this.context.native.detachShader(this.native, shader.native);
         const err = this.context.getError();
         if (err !== ErrorCode.NoError) {
-            throw new OperationError(
+            throw new WebGLError(
+                err,
                 'detachShader',
                 'An error occurred while detaching a shader from a WebGL program'
             );
         }
-        const i = this._attachedShaders.indexOf(shader);
-        if (i >= 0) {
-            this._attachedShaders.splice(i, 1);
-        }
+        this._attachedShaders.splice(this._attachedShaders.indexOf(shader), 1);
     }
 
     /**
@@ -265,7 +266,8 @@ export class Program extends Resource<WebGLProgram> {
         this.context.native.linkProgram(this.native);
         const err = this.context.getError();
         if (err !== ErrorCode.NoError) {
-            throw new OperationError(
+            throw new WebGLError(
+                err,
                 'link',
                 'An error occurred while linking a WebGL program'
             );
@@ -312,7 +314,8 @@ export class Program extends Resource<WebGLProgram> {
         this.context.native.useProgram(this.native);
         const err = this.context.getError();
         if (err !== ErrorCode.NoError) {
-            throw new OperationError(
+            throw new WebGLError(
+                err,
                 'activate',
                 'An error occurred while activating a WebGL program'
             );
@@ -359,7 +362,8 @@ export class Program extends Resource<WebGLProgram> {
         this.context.native.useProgram(null);
         const err = this.context.getError();
         if (err !== ErrorCode.NoError) {
-            throw new OperationError(
+            throw new WebGLError(
+                err,
                 'deactivate',
                 'An error occurred while deactivating a WebGL program'
             );
