@@ -74,7 +74,7 @@ export class Program extends Resource<WebGLProgram> {
      * @param context - The WebGL rendering context that will own the new
      * instance.
      *
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if the native WebGL buffer resource fails to be created.
      */
     public constructor(context: Context) {
@@ -122,7 +122,7 @@ export class Program extends Resource<WebGLProgram> {
      * Thrown if the shader is disposed.
      * @throws `StateError`
      * Thrown if the shader does not wrap a valid WebGL shader resource.
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if a WebGL error occurs during the operation.
      */
     public attachShader(shader: Shader): void {
@@ -182,7 +182,7 @@ export class Program extends Resource<WebGLProgram> {
      * Thrown if the shader is disposed.
      * @throws `StateError`
      * Thrown if the shader does not wrap a valid WebGL shader resource.
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if a WebGL error occurs during the operation.
      */
     public detachShader(shader: Shader): void {
@@ -238,7 +238,7 @@ export class Program extends Resource<WebGLProgram> {
      * Thrown if the instance does not wrap a valid WebGL program resource.
      * @throws `StateError`
      * Thrown if the instance does not have any shaders attached to it.
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if a WebGL error occurs during the operation.
      */
     public link(): void {
@@ -283,7 +283,7 @@ export class Program extends Resource<WebGLProgram> {
      * Thrown if the instance does not wrap a valid WebGL program resource.
      * @throws `StateError`
      * Thrown if the instance is not linked.
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if a WebGL error occurs during the operation.
      */
     public activate(): void {
@@ -331,7 +331,7 @@ export class Program extends Resource<WebGLProgram> {
      * Thrown if the instance does not wrap a valid WebGL program resource.
      * @throws `StateError`
      * Thrown if the instance is not linked.
-     * @throws `OperationError`
+     * @throws `WebGLError`
      * Thrown if a WebGL error occurs during the operation.
      */
     public deactivate(): void {
