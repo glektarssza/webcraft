@@ -48,6 +48,8 @@ dist/
 
 ## TypeScript ##
 lib/
+!packages/**/src/lib/
+!app/src/ts/lib/
 types/
 *.tsbuildinfo
 
