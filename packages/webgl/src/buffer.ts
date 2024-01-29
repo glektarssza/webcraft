@@ -355,7 +355,7 @@ export class Buffer extends Resource<WebGLBuffer> {
         if (!isFinite(offset)) {
             throw new ArgumentError('offset', 'Offset must be a finite number');
         }
-        if (offset < 0 || offset >= this.allocatedSize - data.byteLength) {
+        if (offset < 0 || offset > this.allocatedSize - data.byteLength) {
             throw new ArgumentRangeError(
                 offset,
                 0,
