@@ -38,6 +38,16 @@ const dev: Configuration = webpackMerge(common, {
         rules: []
     },
     plugins: [
+        {
+            apply(compiler) {
+                compiler.hooks.watchRun.tap({name: 'ProgressPlugin'}, () => {
+                    console.log('Preparing to compile from watch event');
+                });
+                compiler.hooks.done.tap({name: 'ProgressPlugin'}, () => {
+                    console.log('Done compilation');
+                });
+            }
+        },
         new ForkTSCheckerWebpackPlugin({
             async: true,
             devServer: true,

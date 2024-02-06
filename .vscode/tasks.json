@@ -47,7 +47,8 @@
                 "kind": "test"
             },
             "dependsOn": [
-                "pnpm:install"
+                "pnpm:install",
+                "pnpm:build"
             ],
             "dependsOrder": "sequence",
             "isBackground": false,
@@ -150,6 +151,99 @@
                 "clear": true
             },
             "problemMatcher": []
+        },
+        {
+            "label": "pnpm:dev",
+            "detail": "Run the pnpm `build` command.",
+            "icon": {
+                "id": "debug-alt",
+                "color": "terminal.ansiWhite"
+            },
+            "group": "none",
+            "dependsOn": [
+                "pnpm:install",
+                "pnpm:build",
+            ],
+            "dependsOrder": "sequence",
+            "isBackground": true,
+            "hide": false,
+            "type": "shell",
+            "command": "pnpm",
+            "args": [
+                "-r",
+                "--filter=webcraft",
+                "run",
+                "dev"
+            ],
+            "options": {},
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": true,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": [
+                {
+                    "background": {
+                        "activeOnStart": false,
+                        "beginsPattern": {
+                            "regexp": "Preparing to compile from watch event"
+                        },
+                        "endsPattern": {
+                            "regexp": "Done compilation"
+                        }
+                    },
+                    "applyTo": "allDocuments",
+                    "fileLocation": "autoDetect",
+                    "owner": "external",
+                    "source": "ts-loader",
+                    "severity": "error",
+                    "pattern": [
+                        {
+                            "regexp": "[tsl] (\\w+) in (.+)(\\(\\d+(,\\d+)?\\))",
+                            "severity": 1,
+                            "file": 2,
+                            "location": 3
+                        },
+                        {
+                            "regexp": "\\s+(TS\\d+): (.+)",
+                            "code": 1,
+                            "message": 2
+                        }
+                    ]
+                },
+                {
+                    "applyTo": "allDocuments",
+                    "fileLocation": "autoDetect",
+                    "owner": "external",
+                    "source": "webpack-eslint",
+                    "severity": "error",
+                    "pattern": [
+                        {
+                            "regexp": "(\\w+) in \\[eslint\\]",
+                            "severity": 1
+                        },
+                        {
+                            "regexp": ".+",
+                            "file": 0
+                        },
+                        {
+                            "regexp": "\\s+(\\d+)(:(\\d+))?\\s+(\\w+)\\s+(.+)",
+                            "line": 1,
+                            "column": 3,
+                            "severity": 4,
+                            "message": 5
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
