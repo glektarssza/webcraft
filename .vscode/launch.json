@@ -18,6 +18,21 @@
             "type": "msedge",
             "request": "attach",
             "name": "Attach to Edge"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome against localhost",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}",
+            "preLaunchTask": "pnpm:dev",
+            "pauseForSourceMap": true,
+            "userDataDir": false
+        },
+        {
+            "type": "chrome",
+            "request": "attach",
+            "name": "Attach to Chrome"
         }
     ]
 }
