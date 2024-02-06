@@ -11,8 +11,7 @@
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}",
             "preLaunchTask": "pnpm:dev",
-            "pauseForSourceMap": true,
-            "userDataDir": false
+            "pauseForSourceMap": true
         },
         {
             "type": "msedge",
@@ -26,8 +25,7 @@
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}",
             "preLaunchTask": "pnpm:dev",
-            "pauseForSourceMap": true,
-            "userDataDir": false
+            "pauseForSourceMap": true
         },
         {
             "type": "chrome",
