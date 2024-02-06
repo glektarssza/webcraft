@@ -51,9 +51,6 @@ importers:
       '@types/sinon':
         specifier: ^17.0.3
         version: 17.0.3
-      '@types/sinon-chai':
-        specifier: ^3.2.12
-        version: 3.2.12
       '@types/webpack':
         specifier: ^5.28.5
         version: 5.28.5(webpack-cli@5.1.4)
@@ -144,9 +141,6 @@ importers:
       sinon:
         specifier: ^17.0.1
         version: 17.0.1
-      sinon-chai:
-        specifier: ^3.7.0
-        version: 3.7.0(chai@4.3.10)(sinon@17.0.1)
       source-map-loader:
         specifier: ^5.0.0
         version: 5.0.0(webpack@5.89.0)
