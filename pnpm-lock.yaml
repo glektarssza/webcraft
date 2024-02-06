@@ -18,10 +18,10 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       webcraft-common:
-        specifier: workspace:^
+        specifier: workspace:^0.0.0
         version: link:../packages/common
       webcraft-webgl:
-        specifier: workspace:^
+        specifier: workspace:^0.0.0
         version: link:../packages/webgl
       wgpu-matrix:
         specifier: ^2.5.1
@@ -303,7 +303,7 @@ importers:
   packages/webgl:
     dependencies:
       webcraft-common:
-        specifier: workspace:^
+        specifier: workspace:^0.0.0
         version: link:../common
     devDependencies:
       '@faker-js/faker':
