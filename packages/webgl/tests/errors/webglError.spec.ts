@@ -1,13 +1,10 @@
 //-- NPM Packages
-import chai, {expect} from 'chai';
-import sinonChai from 'sinon-chai';
+import {expect} from 'chai';
 import {Faker, en, en_CA, en_US, base} from '@faker-js/faker';
 
 //-- Project Code
 import {WebGLError} from '@src/errors/webglError';
 import {ErrorCode} from '@src/errorCode';
-
-chai.use(sinonChai);
 
 /**
  * The fake data generator.

@@ -1,7 +1,6 @@
 //-- NPM Packages
-import chai, {expect} from 'chai';
+import {expect} from 'chai';
 import {createStubInstance, match, SinonStubbedInstance} from 'sinon';
-import sinonChai from 'sinon-chai';
 import {Faker, en, en_CA, en_US, base} from '@faker-js/faker';
 import zip from 'lodash/zip';
 
@@ -17,8 +16,6 @@ import {
     DisposedError,
     StateError
 } from 'webcraft-common';
-
-chai.use(sinonChai);
 
 /**
  * The fake data generator.
@@ -214,7 +211,9 @@ describe('module:webcraft-webgl', () => {
 
                 //-- Then
                 expect(r).to.be.false;
-                expect(nativeContext.getParameter).to.not.have.been.called;
+                expect(nativeContext.getParameter).to.satisfy(
+                    () => nativeContext.getParameter.notCalled
+                );
             });
             it('should return `false` if the instance does not wrap a valid WebGL buffer', () => {
                 //-- Given
@@ -228,7 +227,9 @@ describe('module:webcraft-webgl', () => {
 
                 //-- Then
                 expect(r).to.be.false;
-                expect(nativeContext.getParameter).to.not.have.been.called;
+                expect(nativeContext.getParameter).to.satisfy(
+                    () => nativeContext.getParameter.notCalled
+                );
             });
             it('should be set to `true` if the instance is bound to its target', () => {
                 //-- Given
@@ -245,9 +246,11 @@ describe('module:webcraft-webgl', () => {
 
                 //-- Then
                 expect(r).to.be.true;
-                expect(
-                    nativeContext.getParameter
-                ).to.have.been.calledOnceWithExactly(bindingParam);
+                expect(nativeContext.getParameter).to.satisfy(() =>
+                    nativeContext.getParameter.calledOnceWithExactly(
+                        bindingParam
+                    )
+                );
             });
             it('should be set to `false` if the instance is not bound to its target', () => {
                 //-- Given
@@ -262,9 +265,11 @@ describe('module:webcraft-webgl', () => {
 
                 //-- Then
                 expect(r).to.be.false;
-                expect(
-                    nativeContext.getParameter
-                ).to.have.been.calledOnceWithExactly(bindingParam);
+                expect(nativeContext.getParameter).to.satisfy(() =>
+                    nativeContext.getParameter.calledOnceWithExactly(
+                        bindingParam
+                    )
+                );
             });
         });
         describe('.constructor()', () => {
@@ -420,7 +425,9 @@ describe('module:webcraft-webgl', () => {
                 buffer.bind();
 
                 //-- Then
-                expect(nativeContext.bindBuffer).to.not.have.been.called;
+                expect(nativeContext.bindBuffer).to.satisfy(
+                    () => nativeContext.bindBuffer.notCalled
+                );
             });
             it('should bind the instance to its target', () => {
                 //-- Given
@@ -435,9 +442,12 @@ describe('module:webcraft-webgl', () => {
                 buffer.bind();
 
                 //-- Then
-                expect(
-                    nativeContext.bindBuffer
-                ).to.have.been.calledOnceWithExactly(target, native);
+                expect(nativeContext.bindBuffer).to.satisfy(() =>
+                    nativeContext.bindBuffer.calledOnceWithExactly(
+                        target,
+                        native
+                    )
+                );
             });
             it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
@@ -537,7 +547,9 @@ describe('module:webcraft-webgl', () => {
                 buffer.unbind();
 
                 //-- Then
-                expect(nativeContext.bindBuffer).to.not.have.been.called;
+                expect(nativeContext.bindBuffer).to.satisfy(
+                    () => nativeContext.bindBuffer.notCalled
+                );
             });
             it('should unbind the instance from its target', () => {
                 //-- Given
@@ -554,9 +566,9 @@ describe('module:webcraft-webgl', () => {
                 buffer.unbind();
 
                 //-- Then
-                expect(
-                    nativeContext.bindBuffer
-                ).to.have.been.calledOnceWithExactly(target, null);
+                expect(nativeContext.bindBuffer).to.satisfy(() =>
+                    nativeContext.bindBuffer.calledOnceWithExactly(target, null)
+                );
             });
             it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
@@ -715,12 +727,13 @@ describe('module:webcraft-webgl', () => {
                 buffer.allocate(sizeBytes, usageHint);
 
                 //-- Then
-                expect(
-                    nativeContext.bufferData
-                ).to.have.been.calledOnceWithExactly(
-                    target,
-                    sizeBytes,
-                    usageHint
+                expect(nativeContext.bufferData).to.satisfy(() =>
+                    nativeContext.bufferData.calledOnceWithExactly(
+                        target,
+                        // HACK: Sinon TypeScript typings don't like methods with multiple overrides
+                        sizeBytes as unknown as BufferSource,
+                        usageHint
+                    )
                 );
             });
             it('should use the static draw usage hint by default', () => {
@@ -742,12 +755,13 @@ describe('module:webcraft-webgl', () => {
                 buffer.allocate(sizeBytes);
 
                 //-- Then
-                expect(
-                    nativeContext.bufferData
-                ).to.have.been.calledOnceWithExactly(
-                    target,
-                    sizeBytes,
-                    BufferUsageHint.StaticDraw
+                expect(nativeContext.bufferData).to.satisfy(() =>
+                    nativeContext.bufferData.calledOnceWithExactly(
+                        target,
+                        // HACK: Sinon TypeScript typings don't like methods with multiple overrides
+                        sizeBytes as unknown as BufferSource,
+                        BufferUsageHint.StaticDraw
+                    )
                 );
             });
             it('should throw an `WebGLError` if a WebGL error occurs', () => {
@@ -975,9 +989,13 @@ describe('module:webcraft-webgl', () => {
                 buffer.uploadData(data, usageHint);
 
                 //-- Then
-                expect(
-                    nativeContext.bufferData
-                ).to.have.been.calledOnceWithExactly(target, data, usageHint);
+                expect(nativeContext.bufferData).to.satisfy(() =>
+                    nativeContext.bufferData.calledOnceWithExactly(
+                        target,
+                        data,
+                        usageHint
+                    )
+                );
             });
             it('should use the static draw usage hint by default', () => {
                 //-- Given
@@ -1005,12 +1023,12 @@ describe('module:webcraft-webgl', () => {
                 buffer.uploadData(data);
 
                 //-- Then
-                expect(
-                    nativeContext.bufferData
-                ).to.have.been.calledOnceWithExactly(
-                    target,
-                    data,
-                    BufferUsageHint.StaticDraw
+                expect(nativeContext.bufferData).to.satisfy(() =>
+                    nativeContext.bufferData.calledOnceWithExactly(
+                        target,
+                        data,
+                        BufferUsageHint.StaticDraw
+                    )
                 );
             });
             it('should throw an `WebGLError` if a WebGL error occurs', () => {
@@ -1485,9 +1503,13 @@ describe('module:webcraft-webgl', () => {
                 buffer.uploadSubData(data, offset);
 
                 //-- Then
-                expect(
-                    nativeContext.bufferSubData
-                ).to.have.been.calledOnceWithExactly(target, offset, data);
+                expect(nativeContext.bufferSubData).to.satisfy(() =>
+                    nativeContext.bufferSubData.calledOnceWithExactly(
+                        target,
+                        offset,
+                        data
+                    )
+                );
             });
             it('should use an offset of zero by default', () => {
                 //-- Given
@@ -1517,9 +1539,13 @@ describe('module:webcraft-webgl', () => {
                 buffer.uploadSubData(data);
 
                 //-- Then
-                expect(
-                    nativeContext.bufferSubData
-                ).to.have.been.calledOnceWithExactly(target, 0, data);
+                expect(nativeContext.bufferSubData).to.satisfy(() =>
+                    nativeContext.bufferSubData.calledOnceWithExactly(
+                        target,
+                        0,
+                        data
+                    )
+                );
             });
             it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
@@ -1583,7 +1609,9 @@ describe('module:webcraft-webgl', () => {
                 buffer.dispose();
 
                 //-- Then
-                expect(nativeContext.deleteBuffer).to.not.have.been.called;
+                expect(nativeContext.deleteBuffer).to.satisfy(
+                    () => nativeContext.deleteBuffer.notCalled
+                );
             });
             it('should delete the native WebGL buffer if the instance wraps one', () => {
                 //-- Given
@@ -1596,9 +1624,9 @@ describe('module:webcraft-webgl', () => {
                 buffer.dispose();
 
                 //-- Then
-                expect(
-                    nativeContext.deleteBuffer
-                ).to.have.been.calledOnceWithExactly(native);
+                expect(nativeContext.deleteBuffer).to.satisfy(() =>
+                    nativeContext.deleteBuffer.calledOnceWithExactly(native)
+                );
             });
             it('should not delete the native WebGL buffer if the instance does not wrap one', () => {
                 //-- Given
@@ -1611,7 +1639,9 @@ describe('module:webcraft-webgl', () => {
                 buffer.dispose();
 
                 //-- Then
-                expect(nativeContext.deleteBuffer).to.not.have.been.called;
+                expect(nativeContext.deleteBuffer).to.satisfy(
+                    () => nativeContext.deleteBuffer.notCalled
+                );
             });
             it('should set the `allocatedSize` property to `null`', () => {
                 //-- Given
