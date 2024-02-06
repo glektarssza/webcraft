@@ -1,7 +1,6 @@
 //-- NPM Packages
-import chai, {expect} from 'chai';
+import {expect} from 'chai';
 import {createStubInstance, SinonStubbedInstance} from 'sinon';
-import sinonChai from 'sinon-chai';
 import {Faker, en, en_CA, en_US, base} from '@faker-js/faker';
 
 //-- Project Code
@@ -10,8 +9,6 @@ import {ShaderType} from '@src/shaderType';
 import {Context} from '@src/context';
 import {WebGLError} from '@src/errors/webglError';
 import {DisposedError, StateError} from 'webcraft-common';
-
-chai.use(sinonChai);
 
 /**
  * The fake data generator.
@@ -61,7 +58,9 @@ describe('module:webcraft-webgl', () => {
 
                 //-- Then
                 expect(r).to.be.null;
-                expect(nativeContext.getShaderSource).to.not.have.been.called;
+                expect(nativeContext.getShaderSource).to.satisfy(
+                    () => nativeContext.getShaderSource.notCalled
+                );
             });
             it('should set to `null` if the instance does not wrap a valid WebGL shader', () => {
                 //-- Given
@@ -75,7 +74,9 @@ describe('module:webcraft-webgl', () => {
 
                 //-- Then
                 expect(r).to.be.null;
-                expect(nativeContext.getShaderSource).to.not.have.been.called;
+                expect(nativeContext.getShaderSource).to.satisfy(
+                    () => nativeContext.getShaderSource.notCalled
+                );
             });
             it('should be set to `null` if no source code has been uploaded to the instance yet', () => {
                 //-- Given
@@ -120,7 +121,9 @@ describe('module:webcraft-webgl', () => {
 
                 //-- Then
                 expect(r).to.be.null;
-                expect(nativeContext.getShaderInfoLog).to.not.have.been.called;
+                expect(nativeContext.getShaderInfoLog).to.satisfy(
+                    () => nativeContext.getShaderInfoLog.notCalled
+                );
             });
             it('should set to `null` if the instance does not wrap a valid WebGL shader', () => {
                 //-- Given
@@ -134,7 +137,9 @@ describe('module:webcraft-webgl', () => {
 
                 //-- Then
                 expect(r).to.be.null;
-                expect(nativeContext.getShaderInfoLog).to.not.have.been.called;
+                expect(nativeContext.getShaderInfoLog).to.satisfy(
+                    () => nativeContext.getShaderInfoLog.notCalled
+                );
             });
             it('should be set to `null` if the instance has not been compiled yet', () => {
                 //-- Given
@@ -179,8 +184,9 @@ describe('module:webcraft-webgl', () => {
 
                 //-- Then
                 expect(r).to.be.false;
-                expect(nativeContext.getShaderParameter).to.not.have.been
-                    .called;
+                expect(nativeContext.getShaderParameter).to.satisfy(
+                    () => nativeContext.getShaderParameter.notCalled
+                );
             });
             it('should set to `false` if the instance does not wrap a valid WebGL shader', () => {
                 //-- Given
@@ -194,8 +200,9 @@ describe('module:webcraft-webgl', () => {
 
                 //-- Then
                 expect(r).to.be.false;
-                expect(nativeContext.getShaderParameter).to.not.have.been
-                    .called;
+                expect(nativeContext.getShaderParameter).to.satisfy(
+                    () => nativeContext.getShaderParameter.notCalled
+                );
             });
             it('should be set to `false` if the instance has not been compiled yet', () => {
                 //-- Given
@@ -363,9 +370,12 @@ describe('module:webcraft-webgl', () => {
                 shader.uploadSourceCode(sourceCode);
 
                 //-- Then
-                expect(
-                    nativeContext.shaderSource
-                ).to.have.been.calledOnceWithExactly(native, sourceCode);
+                expect(nativeContext.shaderSource).to.satisfy(() =>
+                    nativeContext.shaderSource.calledOnceWithExactly(
+                        native,
+                        sourceCode
+                    )
+                );
             });
             it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
@@ -500,9 +510,9 @@ describe('module:webcraft-webgl', () => {
                 shader.compile();
 
                 //-- Then
-                expect(
-                    nativeContext.compileShader
-                ).to.have.been.calledOnceWithExactly(native);
+                expect(nativeContext.compileShader).to.satisfy(() =>
+                    nativeContext.compileShader.calledOnceWithExactly(native)
+                );
             });
             it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
@@ -550,7 +560,9 @@ describe('module:webcraft-webgl', () => {
                 shader.dispose();
 
                 //-- Then
-                expect(nativeContext.deleteShader).to.not.have.been.called;
+                expect(nativeContext.deleteShader).to.satisfy(
+                    () => nativeContext.deleteShader.notCalled
+                );
             });
             it('should do nothing if the instance does not wrap a valid WebGL shader object', () => {
                 //-- Given
@@ -563,7 +575,9 @@ describe('module:webcraft-webgl', () => {
                 shader.dispose();
 
                 //-- Then
-                expect(nativeContext.deleteShader).to.not.have.been.called;
+                expect(nativeContext.deleteShader).to.satisfy(
+                    () => nativeContext.deleteShader.notCalled
+                );
             });
             it('should delete the wrapped WebGL shader object', () => {
                 //-- Given
@@ -575,9 +589,9 @@ describe('module:webcraft-webgl', () => {
                 shader.dispose();
 
                 //-- Then
-                expect(
-                    nativeContext.deleteShader
-                ).to.have.been.calledOnceWithExactly(native);
+                expect(nativeContext.deleteShader).to.satisfy(() =>
+                    nativeContext.deleteShader.calledOnceWithExactly(native)
+                );
             });
         });
     });

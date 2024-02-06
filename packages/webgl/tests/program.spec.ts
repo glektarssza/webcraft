@@ -1,7 +1,6 @@
 //-- NPM Packages
-import chai, {expect} from 'chai';
+import {expect} from 'chai';
 import {createStubInstance, SinonStubbedInstance} from 'sinon';
-import sinonChai from 'sinon-chai';
 import {Faker, en, en_CA, en_US, base} from '@faker-js/faker';
 
 //-- Project Code
@@ -11,8 +10,6 @@ import {Shader} from '@src/shader';
 import {ShaderType} from '@src/shaderType';
 import {WebGLError} from '@src/errors/webglError';
 import {DisposedError, StateError} from 'webcraft-common';
-
-chai.use(sinonChai);
 
 /**
  * The fake data generator.
@@ -454,7 +451,9 @@ describe('module:webcraft-webgl', () => {
                 program.attachShader(shader);
 
                 //-- Then
-                expect(nativeContext.attachShader).to.not.have.been.called;
+                expect(nativeContext.attachShader).to.satisfy(
+                    () => nativeContext.attachShader.notCalled
+                );
             });
             it('should throw a `DisposedError` if the given shader has been disposed', () => {
                 //-- Given
@@ -540,9 +539,12 @@ describe('module:webcraft-webgl', () => {
                 program.attachShader(shader);
 
                 //-- Then
-                expect(
-                    nativeContext.attachShader
-                ).to.have.been.calledOnceWithExactly(native, nativeShader);
+                expect(nativeContext.attachShader).to.satisfy(() =>
+                    nativeContext.attachShader.calledOnceWithExactly(
+                        native,
+                        nativeShader
+                    )
+                );
             });
             it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
@@ -680,7 +682,9 @@ describe('module:webcraft-webgl', () => {
                 program.detachShader(shader);
 
                 //-- Then
-                expect(nativeContext.detachShader).to.not.have.been.called;
+                expect(nativeContext.detachShader).to.satisfy(
+                    () => nativeContext.detachShader.notCalled
+                );
             });
             it('should throw a `DisposedError` if the given shader has been disposed', () => {
                 //-- Given
@@ -767,9 +771,12 @@ describe('module:webcraft-webgl', () => {
                 program.detachShader(shader);
 
                 //-- Then
-                expect(
-                    nativeContext.detachShader
-                ).to.have.been.calledOnceWithExactly(native, nativeShader);
+                expect(nativeContext.detachShader).to.satisfy(() =>
+                    nativeContext.detachShader.calledOnceWithExactly(
+                        native,
+                        nativeShader
+                    )
+                );
             });
             it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
@@ -922,9 +929,9 @@ describe('module:webcraft-webgl', () => {
                 program.link();
 
                 //-- Then
-                expect(
-                    nativeContext.linkProgram
-                ).to.have.been.calledOnceWithExactly(native);
+                expect(nativeContext.linkProgram).to.satisfy(() =>
+                    nativeContext.linkProgram.calledOnceWithExactly(native)
+                );
             });
             it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
@@ -1064,7 +1071,9 @@ describe('module:webcraft-webgl', () => {
                 program.activate();
 
                 //-- Then
-                expect(nativeContext.useProgram).to.not.have.been.called;
+                expect(nativeContext.useProgram).to.satisfy(
+                    () => nativeContext.useProgram.notCalled
+                );
             });
             it('should activate the instance', () => {
                 //-- Given
@@ -1079,9 +1088,9 @@ describe('module:webcraft-webgl', () => {
                 program.activate();
 
                 //-- Then
-                expect(
-                    nativeContext.useProgram
-                ).to.have.been.calledOnceWithExactly(native);
+                expect(nativeContext.useProgram).to.satisfy(() =>
+                    nativeContext.useProgram.calledOnceWithExactly(native)
+                );
             });
             it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
@@ -1217,7 +1226,9 @@ describe('module:webcraft-webgl', () => {
                 program.deactivate();
 
                 //-- Then
-                expect(nativeContext.useProgram).to.not.have.been.called;
+                expect(nativeContext.useProgram).to.satisfy(
+                    () => nativeContext.useProgram.notCalled
+                );
             });
             it('should deactivate the instance', () => {
                 //-- Given
@@ -1235,9 +1246,9 @@ describe('module:webcraft-webgl', () => {
                 program.deactivate();
 
                 //-- Then
-                expect(
-                    nativeContext.useProgram
-                ).to.have.been.calledOnceWithExactly(null);
+                expect(nativeContext.useProgram).to.satisfy(() =>
+                    nativeContext.useProgram.calledOnceWithExactly(null)
+                );
             });
             it('should throw an `WebGLError` if a WebGL error occurs', () => {
                 //-- Given
@@ -1284,7 +1295,9 @@ describe('module:webcraft-webgl', () => {
                 program.dispose();
 
                 //-- Then
-                expect(nativeContext.deleteProgram).to.not.have.been.called;
+                expect(nativeContext.deleteProgram).to.satisfy(
+                    () => nativeContext.deleteProgram.notCalled
+                );
             });
             it('should do nothing if the instance does not wrap a valid native WebGL program', () => {
                 //-- Given
@@ -1296,7 +1309,9 @@ describe('module:webcraft-webgl', () => {
                 program.dispose();
 
                 //-- Then
-                expect(nativeContext.deleteProgram).to.not.have.been.called;
+                expect(nativeContext.deleteProgram).to.satisfy(
+                    () => nativeContext.deleteProgram.notCalled
+                );
             });
             it('should delete the native WebGL program', () => {
                 //-- Given
@@ -1307,9 +1322,9 @@ describe('module:webcraft-webgl', () => {
                 program.dispose();
 
                 //-- Then
-                expect(
-                    nativeContext.deleteProgram
-                ).to.have.been.calledOnceWithExactly(native);
+                expect(nativeContext.deleteProgram).to.satisfy(() =>
+                    nativeContext.deleteProgram.calledOnceWithExactly(native)
+                );
             });
             it('should set the `attachedShaders` list to an empty list', () => {
                 //-- Given

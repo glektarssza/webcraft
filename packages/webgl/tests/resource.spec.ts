@@ -1,13 +1,10 @@
 //-- NPM Packages
-import chai, {expect} from 'chai';
+import {expect} from 'chai';
 import {createStubInstance} from 'sinon';
-import sinonChai from 'sinon-chai';
 
 //-- Project Code
 import {Resource} from '@src/resource';
 import {Context} from '@src/context';
-
-chai.use(sinonChai);
 
 describe('module:webcraft-webgl', () => {
     describe('abstract class:Resource', () => {
