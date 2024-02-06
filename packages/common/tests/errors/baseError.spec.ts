@@ -1,13 +1,10 @@
 //-- NPM Packages
-import chai, {expect} from 'chai';
+import {expect} from 'chai';
 import {stub, SinonStub} from 'sinon';
-import sinonChai from 'sinon-chai';
 import {Faker, en, en_CA, en_US, base} from '@faker-js/faker';
 
 //-- Project Code
 import {BaseError} from '@src/errors/baseError';
-
-chai.use(sinonChai);
 
 /**
  * The fake data generator.
@@ -92,7 +89,9 @@ describe('module:webcraft-common.errors', () => {
                 const r = new BaseError();
 
                 //-- Then
-                expect(captureStackTraceStub).to.have.been.calledOnceWith(r);
+                expect(captureStackTraceStub).to.satisfy(() =>
+                    captureStackTraceStub.calledOnceWithExactly(r, BaseError)
+                );
             });
             it('should not call `captureStackTrace` if it is not available', () => {
                 //-- Given
@@ -102,7 +101,9 @@ describe('module:webcraft-common.errors', () => {
                 new BaseError();
 
                 //-- Then
-                expect(captureStackTraceStub).to.not.have.been.called;
+                expect(captureStackTraceStub).to.satisfy(
+                    () => captureStackTraceStub.notCalled
+                );
             });
         });
     });
