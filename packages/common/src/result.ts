@@ -363,7 +363,45 @@ export class Result<T, E> implements Cloneable<Result<T, E>> {
         return Result.fromSuccess<T, F>(this._value!);
     }
 
-    // TODO: Transpose
+    /**
+     * Transpose this instance into an {@link Optional} of a {@link Result} if
+     * it contains an {@link Optional} as its value.
+     *
+     * The following rules determine the return value:
+     *
+     * * This instance contains an error value -\> a new {@link Optional}
+     *   containing a new {@link Result} containing the error value.
+     * * This instance contains a success value and that value is an
+     *   {@link Optional} containing no value -\> a new {@link Optional}
+     *   containing no value.
+     * * This instance contains a success value and that value is an
+     *   {@link Optional} containing some value -\> a new {@link Optional}
+     *   containing a new {@link Result} containing the success value.
+     *
+     * @returns A new {@link Result} following the rules above.
+     *
+     * @throws `Error`
+     * Thrown if this instance contains some value and that value is not an
+     * instance of the {@link Result} class.
+     */
+    public transpose(this: Result<Optional<T>, E>): Optional<Result<T, E>> {
+        if (this.isError) {
+            return Optional.fromValue<Result<T, E>>(
+                Result.fromError<T, E>(this._error!)
+            );
+        }
+        if (this._value instanceof Optional) {
+            if (this._value.isEmpty) {
+                return Optional.empty<Result<T, E>>();
+            }
+            return Optional.fromValue<Result<T, E>>(
+                Result.fromSuccess<T, E>(this._value.unwrapUnchecked())
+            );
+        }
+        throw new Error(
+            'Cannot transpose Result::Success (value is not an Optional)'
+        );
+    }
 
     /**
      * Unwrap the success value contained in this instance.
