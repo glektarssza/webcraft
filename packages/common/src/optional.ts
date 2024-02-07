@@ -1,6 +1,7 @@
 //-- Project Code
 import {Cloneable} from './cloneable';
 import {Mapper, Predicate, Zipper} from './functional';
+import {Result} from './result';
 
 /**
  * A class that represents an optional value.
@@ -330,8 +331,44 @@ export class Optional<T> implements Cloneable<Optional<T>> {
         return mapperFunc(this._value!);
     }
 
-    // TODO: okOr
-    // TODO: okOrElse
+    /**
+     * Map this instance into a {@link Result} that contains either the value
+     * contained in this instance if it contains some value or the given error
+     * value if it contains no value.
+     *
+     * @param error - The error value to use if this instance contains no value.
+     *
+     * @returns A new {@link Result} containing a success value of the value
+     * contained in this instance if it contains some value; a new
+     * {@link Result} containing the an error value of the given error
+     * otherwise.
+     */
+    public okOr<E>(error: E): Result<T, E> {
+        if (this.isEmpty) {
+            return Result.fromError<T, E>(error);
+        }
+        return Result.fromSuccess<T, E>(this._value!);
+    }
+
+    /**
+     * Map this instance into a {@link Result} that contains either the value
+     * contained in this instance if it contains some value or the result of
+     * calling the given function if it contains no value.
+     *
+     * @param errorFunc - The function to call and use the result of if this
+     * instance contains no value.
+     *
+     * @returns A new {@link Result} containing a success value of the value
+     * contained in this instance if it contains some value; a new
+     * {@link Result} containing the result of calling the given function
+     * otherwise.
+     */
+    public okOrElse<E>(errorFunc: () => E): Result<T, E> {
+        if (this.isEmpty) {
+            return Result.fromError<T, E>(errorFunc());
+        }
+        return Result.fromSuccess<T, E>(this._value!);
+    }
 
     /**
      * Get an {@link Optional} containing the value contained in the given
@@ -414,6 +451,46 @@ export class Optional<T> implements Cloneable<Optional<T>> {
         const r = Optional.fromNullable<T>(this._value);
         this._value = null;
         return r;
+    }
+
+    /**
+     * Transpose this instance into a {@link Result} of an {@link Optional} if
+     * it contains a {@link Result} as its value.
+     *
+     * The following rules determine the return value:
+     *
+     * * This instance contains no value -\> a new {@link Result} containing a
+     *   new {@link Optional} containing no value.
+     * * This instance contains some value and that value is a {@link Result}
+     *   containing a success value -\> a new {@link Result} containing a new
+     *   {@link Optional} containing the success value.
+     * * This instance contains some value and that value is a {@link Result}
+     *   containing an error value -\> a new {@link Result} containing the error
+     *   value.
+     *
+     * @returns A new {@link Result} following the rules above.
+     *
+     * @throws `Error`
+     * Thrown if this instance contains some value and that value is not an
+     * instance of the {@link Result} class.
+     */
+    public transpose<E>(this: Optional<Result<T, E>>): Result<Optional<T>, E> {
+        if (this.isEmpty) {
+            return Result.fromSuccess<Optional<T>, E>(Optional.empty<T>());
+        }
+        if (this._value instanceof Result) {
+            if (this._value.isSuccess) {
+                return Result.fromSuccess<Optional<T>, E>(
+                    Optional.fromValue<T>(this._value.unwrapUnchecked())
+                );
+            }
+            return Result.fromError<Optional<T>, E>(
+                this._value.unwrapErrUnchecked()
+            );
+        }
+        throw new Error(
+            'Cannot transpose Optional::Some (value is not a Result)'
+        );
     }
 
     // TODO: transpose
