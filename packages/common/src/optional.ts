@@ -271,18 +271,18 @@ export class Optional<T> implements Cloneable<Optional<T>> {
      *
      * @typeParam U - The type to map the value into.
      *
-     * @param mapper - The function to use to map the value contained in this
+     * @param mapperFunc - The function to use to map the value contained in this
      * instance.
      *
      * @returns A new {@link Optional} containing the mapped value if this
      * instance contains some value; a new {@link Optional} containing no value
      * otherwise.
      */
-    public map<U>(mapper: Mapper<T, U>): Optional<U> {
+    public map<U>(mapperFunc: Mapper<T, U>): Optional<U> {
         if (this.isEmpty) {
             return Optional.empty<U>();
         }
-        return Optional.fromValue<U>(mapper(this._value!));
+        return Optional.fromValue<U>(mapperFunc(this._value!));
     }
 
     /**
@@ -293,17 +293,17 @@ export class Optional<T> implements Cloneable<Optional<T>> {
      *
      * @param defaultValue - The value to return if this instance contains no
      * value.
-     * @param mapper - The function to use to map the value contained in this
+     * @param mapperFunc - The function to use to map the value contained in this
      * instance.
      *
      * @returns The mapped value if this instance contains some value; the given
      * default value otherwise.
      */
-    public mapOr<U>(defaultValue: U, mapper: Mapper<T, U>): U {
+    public mapOr<U>(defaultValue: U, mapperFunc: Mapper<T, U>): U {
         if (this.isEmpty) {
             return defaultValue;
         }
-        return mapper(this._value!);
+        return mapperFunc(this._value!);
     }
 
     /**
@@ -314,22 +314,36 @@ export class Optional<T> implements Cloneable<Optional<T>> {
      *
      * @param defaultValueFunc - The function to return the result of if this
      * instance contains no value.
-     * @param mapper - The function to use to map the value contained in this
+     * @param mapperFunc - The function to use to map the value contained in this
      * instance.
      *
      * @returns The mapped value if this instance contains some value; the
      * result of calling the given default value function otherwise.
      */
-    public mapOrElse<U>(defaultValueFunc: () => U, mapper: Mapper<T, U>): U {
+    public mapOrElse<U>(
+        defaultValueFunc: () => U,
+        mapperFunc: Mapper<T, U>
+    ): U {
         if (this.isEmpty) {
             return defaultValueFunc();
         }
-        return mapper(this._value!);
+        return mapperFunc(this._value!);
     }
 
     // TODO: okOr
     // TODO: okOrElse
 
+    /**
+     * Get an {@link Optional} containing the value contained in the given
+     * {@link Optional} if this instance contains no value.
+     *
+     * @param optb - The {@link Optional} to return the value of if this
+     * instance contains no value.
+     *
+     * @returns A new {@link Optional} containing the value contained in the
+     * given {@link Optional} if this instance contains no value; a new
+     * {@link Optional} containing some value otherwise.
+     */
     public or(optb: Optional<T>): Optional<T> {
         if (this.isEmpty) {
             return Optional.fromNullable<T>(optb._value);
@@ -337,6 +351,17 @@ export class Optional<T> implements Cloneable<Optional<T>> {
         return Optional.fromNullable<T>(this._value);
     }
 
+    /**
+     * Get an {@link Optional} containing the value from the result of calling
+     * the given function if this instance contains no value.
+     *
+     * @param optbFunc - The function to call to get the {@link Optional} to
+     * return the value of (wrapped in a new {@link Optional}) if this instance
+     * contains no value.
+     *
+     * @returns The result of calling the given function if this instance
+     * contains no value; a new {@link Optional} containing no value otherwise.
+     */
     public orElse(optbFunc: () => Optional<T>): Optional<T> {
         if (this.isEmpty) {
             return optbFunc();
