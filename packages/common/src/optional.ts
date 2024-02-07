@@ -493,8 +493,6 @@ export class Optional<T> implements Cloneable<Optional<T>> {
         );
     }
 
-    // TODO: transpose
-
     /**
      * Unwrap the value contained in this instance.
      *
