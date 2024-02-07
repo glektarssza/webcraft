@@ -20,3 +20,17 @@ export type Predicate<T> = (value: T) => boolean;
  * @returns The mapped value.
  */
 export type Mapper<T, U> = (value: T) => U;
+
+/**
+ * Zip two values together into a combined value.
+ *
+ * @typeParam T - The first type to combine.
+ * @typeParam U - The second type to combine.
+ * @typeParam R - The combined type.
+ *
+ * @param valueA - The first value to combine.
+ * @param valueB - The second value to combine.
+ *
+ * @returns The combined values.
+ */
+export type Zipper<T, U, R = [T, U]> = (valueA: T, valueB: U) => R;
