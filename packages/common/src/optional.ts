@@ -429,8 +429,8 @@ export class Optional<T> implements Cloneable<Optional<T>> {
      * Unwrap the value contained in this instance or return the result of
      * calling the given default value function.
      *
-     * @param defaultValueFunc - The default value function to return the result of
-     * calling if this instance contains no value.
+     * @param defaultValueFunc - The default value function to return the result
+     * of calling if this instance contains no value.
      *
      * @returns The value contained in this instance if it contains some value;
      * the result of calling the given default value function otherwise.
