@@ -271,8 +271,8 @@ export class Optional<T> implements Cloneable<Optional<T>> {
      *
      * @typeParam U - The type to map the value into.
      *
-     * @param mapperFunc - The function to use to map the value contained in this
-     * instance.
+     * @param mapperFunc - The function to use to map the value contained in
+     * this instance.
      *
      * @returns A new {@link Optional} containing the mapped value if this
      * instance contains some value; a new {@link Optional} containing no value
@@ -293,8 +293,8 @@ export class Optional<T> implements Cloneable<Optional<T>> {
      *
      * @param defaultValue - The value to return if this instance contains no
      * value.
-     * @param mapperFunc - The function to use to map the value contained in this
-     * instance.
+     * @param mapperFunc - The function to use to map the value contained in
+     * this instance.
      *
      * @returns The mapped value if this instance contains some value; the given
      * default value otherwise.
@@ -314,8 +314,8 @@ export class Optional<T> implements Cloneable<Optional<T>> {
      *
      * @param defaultValueFunc - The function to return the result of if this
      * instance contains no value.
-     * @param mapperFunc - The function to use to map the value contained in this
-     * instance.
+     * @param mapperFunc - The function to use to map the value contained in
+     * this instance.
      *
      * @returns The mapped value if this instance contains some value; the
      * result of calling the given default value function otherwise.
