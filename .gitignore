@@ -34,6 +34,9 @@ tags
 # Logs #
 *.log*
 
+# Local Environment #
+.env*
+
 # Packages #
 ## NodeJS ##
 node_modules/
