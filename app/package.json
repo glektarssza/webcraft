@@ -52,6 +52,7 @@
         "fork-ts-checker-webpack-plugin": "^9.0.2",
         "postcss": "^8.4.37",
         "postcss-loader": "^8.1.1",
+        "pug": "^3.0.2",
         "pug-plugin": "^5.0.3",
         "sass": "^1.72.0",
         "sass-loader": "^14.1.1",
