@@ -57,7 +57,7 @@
         "suppressImplicitAnyIndexErrors": false,
         "target": "ES2018",
         "tsBuildInfoFile": ".tsbuildinfo",
-        "useDefineForClassFields": true,
+        "useDefineForClassFields": false,
         "useUnknownInCatchVariables": true
     },
     "exclude": [
