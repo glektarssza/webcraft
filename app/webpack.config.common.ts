@@ -15,7 +15,7 @@ import './pug-plugin';
  */
 const config: Configuration = {
     context: path.resolve(__dirname),
-    target: 'browserlist:> 0.5%, last 2 versions, not dead',
+    target: 'browserslist:> 0.5%, last 2 versions, not dead',
     resolve: {
         extensions: ['.ts', '.js'],
         plugins: [
