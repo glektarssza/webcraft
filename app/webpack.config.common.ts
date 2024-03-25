@@ -5,7 +5,7 @@ import * as path from 'node:path';
 import ESLintWebpackPlugin from 'eslint-webpack-plugin';
 import PugPlugin from 'pug-plugin';
 import TSConfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-import {Configuration} from 'webpack';
+import type {Configuration} from 'webpack';
 
 //-- Project Code
 import './pug-plugin';

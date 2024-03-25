@@ -5,7 +5,7 @@ import * as path from 'node:path';
 import ForkTSCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import ESLintWebpackPlugin from 'eslint-webpack-plugin';
 import TSConfigPathsWebpackPlugin from 'tsconfig-paths-webpack-plugin';
-import {Configuration} from 'webpack';
+import type {Configuration} from 'webpack';
 import webpackMerge from 'webpack-merge';
 
 //-- Project Code

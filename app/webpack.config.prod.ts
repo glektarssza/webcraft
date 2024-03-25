@@ -4,7 +4,7 @@ import * as path from 'node:path';
 //-- NPM Packages
 import ForkTSCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import PugPlugin from 'pug-plugin';
-import {Configuration} from 'webpack';
+import type {Configuration} from 'webpack';
 import webpackMerge from 'webpack-merge';
 
 //-- Project Code
