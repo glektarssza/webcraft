@@ -19,6 +19,11 @@
         "url": "https://github.com/glektarssza/webcraft"
     },
     "scripts": {
+        "test": "pnpm run test:base",
+        "test:ci": "pnpm run test:coverage",
+        "test:watch": "pnpm run test:base --watch",
+        "test:coverage": "pnpm run test:base --coverage",
+        "test:base": "wtr",
         "lint": "pnpm run lint:cache ./src/ts/ ./tests/",
         "lint:cache": "pnpm run lint:base --cache",
         "lint:base": "eslint --ext .tsx,.ts,.jsx,.js",
