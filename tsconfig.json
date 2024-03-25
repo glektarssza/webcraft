@@ -5,7 +5,7 @@
     "compilerOptions": {
         "allowArbitraryExtensions": false,
         "allowImportingTsExtensions": false,
-        "allowSyntheticDefaultImports": false,
+        "allowSyntheticDefaultImports": true,
         "allowJs": false,
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
@@ -39,7 +39,7 @@
         "noUncheckedIndexedAccess": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "preserveConstEnums": false,
+        "preserveConstEnums": true,
         "preserveSymlinks": false,
         "preserveValueImports": false,
         "preserveWatchOutput": false,
