@@ -20,6 +20,7 @@
     },
     "scripts": {},
     "devDependencies": {
+        "@jsdevtools/coverage-istanbul-loader": "^3.0.5",
         "@types/node": "^20.11.30",
         "@types/webpack": "^5.28.5",
         "@typescript-eslint/eslint-plugin": "^7.2.0",
@@ -31,6 +32,7 @@
         "eslint-plugin-prettier": "^5.1.3",
         "eslint-plugin-tsdoc": "^0.2.17",
         "eslint-webpack-plugin": "^4.1.0",
+        "fork-ts-checker-webpack-plugin": "^9.0.2",
         "postcss": "^8.4.37",
         "postcss-loader": "^8.1.1",
         "pug-plugin": "^5.0.3",
