@@ -6,8 +6,8 @@ const {esbuildPlugin} = require('@web/dev-server-esbuild');
 const {summaryReporter} = require('@web/test-runner');
 
 module.exports = {
-    hostname: '::1',
-    port: 8085,
+    port: 11000 + Math.round(Math.random() * 50000),
+    concurrency: 1,
     files: ['./tests/**/*.spec.ts', '!**/node_modules/**/*'],
     puppeteer: true,
     nodeResolve: true,
