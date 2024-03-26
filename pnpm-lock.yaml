@@ -113,6 +113,9 @@ importers:
       pug-plugin:
         specifier: ^5.0.3
         version: 5.0.3(webpack@5.90.3)
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.5
       sass:
         specifier: ^1.72.0
         version: 1.72.0
@@ -147,7 +150,92 @@ importers:
         specifier: ^5.10.0
         version: 5.10.0
 
-  packages/common: {}
+  packages/common:
+    devDependencies:
+      '@faker-js/faker':
+        specifier: ^8.4.1
+        version: 8.4.1
+      '@types/chai':
+        specifier: ^4.3.14
+        version: 4.3.14
+      '@types/mocha':
+        specifier: ^10.0.6
+        version: 10.0.6
+      '@types/node':
+        specifier: ^20.11.30
+        version: 20.11.30
+      '@types/sinon':
+        specifier: ^17.0.3
+        version: 17.0.3
+      '@types/webpack':
+        specifier: ^5.28.5
+        version: 5.28.5(webpack-cli@5.1.4)
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^7.2.0
+        version: 7.2.0(@typescript-eslint/parser@7.2.0)(eslint@8.57.0)(typescript@5.4.2)
+      '@typescript-eslint/parser':
+        specifier: ^7.2.0
+        version: 7.2.0(eslint@8.57.0)(typescript@5.4.2)
+      '@web/dev-server-esbuild':
+        specifier: ^1.0.2
+        version: 1.0.2
+      '@web/test-runner':
+        specifier: ^0.18.1
+        version: 0.18.1
+      '@web/test-runner-puppeteer':
+        specifier: ^0.16.0
+        version: 0.16.0(typescript@5.4.2)
+      chai:
+        specifier: ^5.1.0
+        version: 5.1.0
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.0(eslint@8.57.0)
+      eslint-plugin-prettier:
+        specifier: ^5.1.3
+        version: 5.1.3(eslint-config-prettier@9.1.0)(eslint@8.57.0)(prettier@3.2.5)
+      eslint-plugin-tsdoc:
+        specifier: ^0.2.17
+        version: 0.2.17
+      eslint-webpack-plugin:
+        specifier: ^4.1.0
+        version: 4.1.0(eslint@8.57.0)(webpack@5.90.3)
+      fork-ts-checker-webpack-plugin:
+        specifier: ^9.0.2
+        version: 9.0.2(typescript@5.4.2)(webpack@5.90.3)
+      rimraf:
+        specifier: ^5.0.5
+        version: 5.0.5
+      sinon:
+        specifier: ^17.0.1
+        version: 17.0.1
+      source-map-loader:
+        specifier: ^5.0.0
+        version: 5.0.0(webpack@5.90.3)
+      ts-loader:
+        specifier: ^9.5.1
+        version: 9.5.1(typescript@5.4.2)(webpack@5.90.3)
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@20.11.30)(typescript@5.4.2)
+      typescript:
+        specifier: ^5.4.2
+        version: 5.4.2
+      webpack:
+        specifier: ^5.90.3
+        version: 5.90.3(webpack-cli@5.1.4)
+      webpack-cli:
+        specifier: ^5.1.4
+        version: 5.1.4(webpack-dev-server@5.0.4)(webpack@5.90.3)
+      webpack-dev-server:
+        specifier: ^5.0.4
+        version: 5.0.4(webpack-cli@5.1.4)(webpack@5.90.3)
+      webpack-merge:
+        specifier: ^5.10.0
+        version: 5.10.0
 
 packages:
 
