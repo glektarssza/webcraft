@@ -1,18 +1,30 @@
 {
+    "buildOptions": {
+        "incremental": true
+    },
     "compilerOptions": {
+        "allowArbitraryExtensions": false,
+        "allowImportingTsExtensions": false,
         "allowSyntheticDefaultImports": true,
+        "allowJs": false,
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
+        "allowUmdGlobalAccess": false,
         "alwaysStrict": true,
+        "checkJs": false,
         "emitDecoratorMetadata": true,
         "esModuleInterop": true,
         "exactOptionalPropertyTypes": true,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
+        "importHelpers": false,
+        "importsNotUsedAsValues": "remove",
         "incremental": true,
         "inlineSourceMap": true,
         "inlineSources": true,
+        "keyofStringsOnly": false,
         "module": "CommonJS",
+        "moduleDetection": "auto",
         "moduleResolution": "Node",
         "newLine": "LF",
         "noEmitOnError": true,
@@ -27,9 +39,15 @@
         "noUncheckedIndexedAccess": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
+        "preserveConstEnums": true,
+        "preserveSymlinks": false,
+        "preserveValueImports": false,
+        "preserveWatchOutput": false,
         "pretty": true,
         "removeComments": true,
         "resolveJsonModule": false,
+        "resolvePackageJsonExports": false,
+        "resolvePackageJsonImports": false,
         "strict": true,
         "strictBindCallApply": true,
         "strictFunctionTypes": true,
@@ -38,10 +56,21 @@
         "suppressExcessPropertyErrors": false,
         "suppressImplicitAnyIndexErrors": false,
         "target": "ES2018",
-        "useDefineForClassFields": true,
+        "tsBuildInfoFile": ".tsbuildinfo",
+        "useDefineForClassFields": false,
         "useUnknownInCatchVariables": true
     },
     "exclude": [
         "node_modules"
-    ]
+    ],
+    "ts-node": {
+        "transpileOnly": false,
+        "pretty": true,
+        "experimentalResolver": true,
+        "esm": false,
+        "logError": true
+    },
+    "typeAcquisition": {
+        "enable": true
+    }
 }

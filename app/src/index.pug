@@ -2,17 +2,16 @@ doctype html
 html(lang='en')
     head
         meta(charset='UTF-8')
-        meta(name='application-name' content='Webcraft')
+        meta(name='application-name', content='Webcraft')
+        meta(name='description', content='A simple Minecraft clone written in TypeScript using WebGL.')
+        meta(name='author', content="G'lek Tarssza")
+        meta(name='generator', content='Webpack')
+        meta(name='keywords', content='game,minecraft,clone,voxel,3d,typescript,webgl')
+        meta(name='color-scheme', content='normal')
+        meta(name='robots', content='index,nofollow,noarchive')
+        meta(name='viewport', content='width=device-width,height=device-height,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no')
         title Webcraft
         link(rel='stylesheet', href=require('./scss/index.scss'))
         script(src=require('./ts/index.ts'))
     body
         div#app
-        div#error-container.container.no-display
-            div.error-container
-                div#error-title-container.error-title
-                    h3#error-title
-                div#error-desc-container.error-desc
-                    p#error-desc
-                div#error-stack-container.error-stack
-                    code#error-stack

@@ -1,6 +1,6 @@
 {
-    "name": "webcraft-common",
-    "description": "The common library for the Webcraft project.",
+    "name": "webcraft-package-template",
+    "description": "A template for new packages for the Webcraft project.",
     "version": "0.0.0",
     "license": "MIT",
     "private": true,
@@ -15,15 +15,15 @@
     },
     "repository": {
         "type": "git",
-        "directory": "./packages/common/",
+        "directory": "./templates/package/",
         "url": "https://github.com/glektarssza/webcraft"
     },
-    "main": "./dist/prod/webcraft-common.min.js",
+    "main": "./dist/prod/webcraft-package-template.min.js",
     "types": "./types/index.d.ts",
     "exports": {
-        "development": "./dist/dev/webcraft-common.js",
-        "production": "./dist/prod/webcraft-common.js",
-        "default": "./dist/prod/webcraft-common.min.js"
+        "development": "./dist/dev/webcraft-package-template.js",
+        "production": "./dist/prod/webcraft-package-template.js",
+        "default": "./dist/prod/webcraft-package-template.min.js"
     },
     "scripts": {
         "test": "pnpm run test:base",

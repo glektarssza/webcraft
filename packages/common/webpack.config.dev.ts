@@ -1,11 +1,11 @@
 //-- NodeJS
-import path from 'node:path';
+import * as path from 'node:path';
 
 //-- NPM Packages
 import ForkTSCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import {Configuration} from 'webpack';
+import type {Configuration} from 'webpack';
 import webpackMerge from 'webpack-merge';
-import webpackNodeExternals from 'webpack-node-externals';
+import 'webpack-dev-server';
 
 //-- Project Code
 import common from './webpack.config.common';
@@ -13,33 +13,31 @@ import common from './webpack.config.common';
 /**
  * The development Webpack configuration.
  */
-const dev: Configuration = webpackMerge(common, {
+const config: Configuration = webpackMerge(common, {
     name: 'dev',
     mode: 'development',
     devtool: 'inline-source-map',
-    resolve: {},
-    entry: {
-        index: './src/index.ts'
+    devServer: {
+        port: 8080,
+        hot: false,
+        liveReload: false
     },
+    resolve: {},
+    entry: './src/index.ts',
     output: {
         clean: true,
         path: path.resolve(__dirname, './dist/dev/'),
         filename: 'webcraft-common.js',
-        globalObject: 'this',
         library: {
             name: {
-                root: 'webcraftCommon',
                 amd: 'webcraft-common',
-                commonjs: 'webcraft-common'
+                commonjs: 'webcraft-common',
+                root: 'webcraftCommon'
             },
-            type: 'umd'
+            type: 'umd',
+            umdNamedDefine: true
         }
     },
-    externals: [
-        webpackNodeExternals({
-            importType: 'umd'
-        })
-    ],
     module: {
         rules: []
     },
@@ -54,4 +52,4 @@ const dev: Configuration = webpackMerge(common, {
     ]
 });
 
-export default dev;
+export default config;

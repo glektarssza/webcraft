@@ -1,14 +1,8 @@
-export {
-    ArgumentError,
-    ArgumentNilError,
-    ArgumentRangeError,
-    BaseError,
-    DisposedError,
-    OperationError,
-    StateError
-} from './errors';
-export {Mapper, Predicate, Zipper} from './functional';
-export {Cloneable} from './cloneable';
-export {Disposable} from './disposable';
-export {Optional} from './optional';
-export {Result} from './result';
+/**
+ * Get the message "Hello world!".
+ *
+ * @returns The message "Hello world!".
+ */
+export function helloWorld(): string {
+    return 'Hello world!';
+}

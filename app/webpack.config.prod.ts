@@ -1,13 +1,10 @@
-//-- Type Definitions
-import './pug-plugin';
-
 //-- NodeJS
-import path from 'node:path';
+import * as path from 'node:path';
 
 //-- NPM Packages
 import ForkTSCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import PugPlugin from 'pug-plugin';
-import {Configuration} from 'webpack';
+import type {Configuration} from 'webpack';
 import webpackMerge from 'webpack-merge';
 
 //-- Project Code
@@ -16,7 +13,7 @@ import common from './webpack.config.common';
 /**
  * The production Webpack configuration.
  */
-const prod: Configuration = webpackMerge(common, {
+const config: Configuration = webpackMerge(common, {
     name: 'prod',
     mode: 'production',
     devtool: 'hidden-source-map',
@@ -40,15 +37,15 @@ const prod: Configuration = webpackMerge(common, {
             }
         }),
         new PugPlugin({
-            pretty: false,
+            pretty: true,
             css: {
-                filename: 'css/app.[contenthash].min.css'
+                filename: 'css/app.[contenthash].css'
             },
             js: {
-                filename: 'js/app.[contenthash].min.js'
+                filename: 'js/app.[contenthash].js'
             }
         })
     ]
 });
 
-export default prod;
+export default config;

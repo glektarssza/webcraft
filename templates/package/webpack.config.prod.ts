@@ -21,12 +21,12 @@ const config: Configuration = webpackMerge(common, {
     output: {
         clean: true,
         path: path.resolve(__dirname, './dist/prod/'),
-        filename: 'webcraft-common.min.js',
+        filename: 'webcraft-package-template.min.js',
         library: {
             name: {
-                amd: 'webcraft-common',
-                commonjs: 'webcraft-common',
-                root: 'webcraftCommon'
+                amd: 'webcraft-package-template',
+                commonjs: 'webcraft-package-template',
+                root: 'webcraftPackageTemplate'
             },
             type: 'umd',
             umdNamedDefine: true

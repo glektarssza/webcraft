@@ -1,15 +1,12 @@
-//-- Type Definitions
-import 'webpack-dev-server';
-import './pug-plugin';
-
 //-- NodeJS
-import path from 'node:path';
+import * as path from 'node:path';
 
 //-- NPM Packages
 import ForkTSCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import PugPlugin from 'pug-plugin';
-import {Configuration} from 'webpack';
+import type {Configuration} from 'webpack';
 import webpackMerge from 'webpack-merge';
+import 'webpack-dev-server';
 
 //-- Project Code
 import common from './webpack.config.common';
@@ -17,7 +14,7 @@ import common from './webpack.config.common';
 /**
  * The development Webpack configuration.
  */
-const dev: Configuration = webpackMerge(common, {
+const config: Configuration = webpackMerge(common, {
     name: 'dev',
     mode: 'development',
     devtool: 'inline-source-map',
@@ -38,16 +35,6 @@ const dev: Configuration = webpackMerge(common, {
         rules: []
     },
     plugins: [
-        {
-            apply(compiler) {
-                compiler.hooks.watchRun.tap({name: 'ProgressPlugin'}, () => {
-                    console.log('Preparing to compile from watch event');
-                });
-                compiler.hooks.done.tap({name: 'ProgressPlugin'}, () => {
-                    console.log('Done compilation');
-                });
-            }
-        },
         new ForkTSCheckerWebpackPlugin({
             async: true,
             devServer: true,
@@ -67,4 +54,4 @@ const dev: Configuration = webpackMerge(common, {
     ]
 });
 
-export default dev;
+export default config;

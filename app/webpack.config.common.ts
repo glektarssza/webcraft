@@ -1,28 +1,22 @@
-//-- Type Definitions
-import './pug-plugin';
-
 //-- NodeJS
-import path from 'node:path';
+import * as path from 'node:path';
 
 //-- NPM Packages
 import ESLintWebpackPlugin from 'eslint-webpack-plugin';
 import PugPlugin from 'pug-plugin';
-import TSConfigPathsWebpackPlugin from 'tsconfig-paths-webpack-plugin';
-import {Configuration} from 'webpack';
+import type {Configuration} from 'webpack';
+
+//-- Project Code
+import './pug-plugin';
 
 /**
- * The common configuration elements for Webpack.
+ * The common Webpack configuration elements.
  */
 const config: Configuration = {
-    context: __dirname,
+    context: path.resolve(__dirname),
     target: 'browserslist:> 0.5%, last 2 versions, not dead',
     resolve: {
-        extensions: ['.tsx', '.ts', '.jsx', '.js'],
-        plugins: [
-            new TSConfigPathsWebpackPlugin({
-                configFile: path.resolve(__dirname, './src/ts/tsconfig.json')
-            })
-        ]
+        extensions: ['.ts', '.js']
     },
     module: {
         rules: [
@@ -84,7 +78,7 @@ const config: Configuration = {
     plugins: [
         new ESLintWebpackPlugin({
             cache: false,
-            extensions: ['.tsx', '.ts'],
+            extensions: ['.ts'],
             files: [path.resolve(__dirname, './src/ts/')]
         })
     ]

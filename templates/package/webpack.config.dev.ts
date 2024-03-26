@@ -5,28 +5,34 @@ import * as path from 'node:path';
 import ForkTSCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import type {Configuration} from 'webpack';
 import webpackMerge from 'webpack-merge';
+import 'webpack-dev-server';
 
 //-- Project Code
 import common from './webpack.config.common';
 
 /**
- * The production Webpack configuration.
+ * The development Webpack configuration.
  */
 const config: Configuration = webpackMerge(common, {
-    name: 'prod',
-    mode: 'production',
-    devtool: 'hidden-source-map',
+    name: 'dev',
+    mode: 'development',
+    devtool: 'inline-source-map',
+    devServer: {
+        port: 8080,
+        hot: false,
+        liveReload: false
+    },
     resolve: {},
     entry: './src/index.ts',
     output: {
         clean: true,
-        path: path.resolve(__dirname, './dist/prod/'),
-        filename: 'webcraft-common.min.js',
+        path: path.resolve(__dirname, './dist/dev/'),
+        filename: 'webcraft-package-template.js',
         library: {
             name: {
-                amd: 'webcraft-common',
-                commonjs: 'webcraft-common',
-                root: 'webcraftCommon'
+                amd: 'webcraft-package-template',
+                commonjs: 'webcraft-package-template',
+                root: 'webcraftPackageTemplate'
             },
             type: 'umd',
             umdNamedDefine: true
@@ -38,7 +44,7 @@ const config: Configuration = webpackMerge(common, {
     plugins: [
         new ForkTSCheckerWebpackPlugin({
             async: true,
-            devServer: false,
+            devServer: true,
             typescript: {
                 configFile: path.resolve(__dirname, './src/tsconfig.json')
             }

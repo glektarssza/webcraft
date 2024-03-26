@@ -1,1 +1,0 @@
-export {WebGLError} from './webglError';

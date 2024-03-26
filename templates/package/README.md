@@ -1,11 +1,11 @@
-# Webcraft - Common Library #
+# Webcraft - Package Template #
 
-The common library for the Webcraft project.
+A template for new packages for the Webcraft project.
 
 <!-- omit in toc -->
 ## Table of Contents ##
 
-* [Webcraft - Common Library](#webcraft---common-library)
+* [Webcraft - Package Template](#webcraft---package-template)
     * [License](#license)
 
 ## License ##
