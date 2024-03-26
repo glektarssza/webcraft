@@ -83,7 +83,7 @@ jobs:
         run: pnpm -r --filter=webcraft^... run build
       - id: check-ports
         name: Check ports
-        run: sudo netstat -tulpn | grep LISTEN
+        run: sudo netstat -tulpn
       - id: run-tests
         name: Run tests
         run: pnpm -r run test:ci
