@@ -4,7 +4,6 @@ import * as path from 'node:path';
 //-- NPM Packages
 import ESLintWebpackPlugin from 'eslint-webpack-plugin';
 import PugPlugin from 'pug-plugin';
-import TSConfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import type {Configuration} from 'webpack';
 
 //-- Project Code
@@ -17,12 +16,7 @@ const config: Configuration = {
     context: path.resolve(__dirname),
     target: 'browserslist:> 0.5%, last 2 versions, not dead',
     resolve: {
-        extensions: ['.ts', '.js'],
-        plugins: [
-            new TSConfigPathsPlugin({
-                configFile: path.resolve(__dirname, './src/ts/tsconfig.json')
-            })
-        ]
+        extensions: ['.ts', '.js']
     },
     module: {
         rules: [
