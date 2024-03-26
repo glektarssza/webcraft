@@ -81,6 +81,9 @@ jobs:
       - id: run-build
         name: Run build
         run: pnpm -r --filter=webcraft^... run build
+      - id: check-ports
+        name: Check ports
+        run: sudo netstat -tulpn | grep LISTEN
       - id: run-tests
         name: Run tests
         run: pnpm -r run test:ci
