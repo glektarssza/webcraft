@@ -37,7 +37,7 @@
         "clean:dev": "rimraf ./dist/dev/",
         "clean:prod": "rimraf ./dist/prod/",
         "rebuild": "pnpm run rebuild:prod",
-        "rebuild:all": "pnpm run rebuild:dev && pnpm run rebuild:prod",
+        "rebuild:all": "pnpm run clean:all && pnpm run build:all",
         "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev",
         "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod"
     },
