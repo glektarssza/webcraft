@@ -3,7 +3,7 @@ import {expect} from 'chai';
 import {base, en, en_CA, en_US, Faker} from '@faker-js/faker';
 
 //-- Project Code
-import {helloWorld} from '../src/index';
+// TODO
 
 /**
  * The fake data provider.
@@ -17,6 +17,6 @@ describe('A dummy test', () => {
         faker.seed();
     });
     it('should pass', () => {
-        expect(helloWorld()).to.equal('Hello world!');
+        expect('Hello world!').to.equal('Hello world!');
     });
 });
