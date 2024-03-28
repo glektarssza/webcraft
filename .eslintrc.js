@@ -6,11 +6,7 @@ module.exports = {
         tsconfigRootDir: __dirname,
         project: ['./tsconfig.json']
     },
-    plugins: [
-        '@typescript-eslint',
-        'tsdoc',
-        'prettier'
-    ],
+    plugins: ['@typescript-eslint', 'tsdoc', 'prettier'],
     extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
@@ -19,6 +15,7 @@ module.exports = {
     ],
     rules: {
         'tsdoc/syntax': 'warn',
-        'prettier/prettier': 'error'
+        'prettier/prettier': 'error',
+        '@typescript-eslint/restrict-template-expressions': 'off'
     }
 };
