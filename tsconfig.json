@@ -14,7 +14,7 @@
         "checkJs": false,
         "emitDecoratorMetadata": true,
         "esModuleInterop": true,
-        "exactOptionalPropertyTypes": true,
+        "exactOptionalPropertyTypes": false,
         "experimentalDecorators": true,
         "forceConsistentCasingInFileNames": true,
         "importHelpers": false,
