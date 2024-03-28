@@ -1,0 +1,83 @@
+{
+    "name": "webcraft-webgl",
+    "description": "A thin wrapper library around the WebGL APIs.",
+    "version": "0.0.0",
+    "license": "MIT",
+    "private": true,
+    "author": {
+        "name": "G'lek Tarssza",
+        "email": "glek@glektarssza.com",
+        "url": "https://glektarssza.com"
+    },
+    "homepage": "https://glektarssza.github.io/webcraft/",
+    "bugs": {
+        "url": "https://github.com/glektarssza/webcraft/issues"
+    },
+    "repository": {
+        "type": "git",
+        "directory": "./packages/webgl/",
+        "url": "https://github.com/glektarssza/webcraft"
+    },
+    "main": "./dist/prod/webcraft-webgl.min.js",
+    "types": "./types/index.d.ts",
+    "exports": {
+        "development": "./dist/dev/webcraft-webgl.js",
+        "production": "./dist/prod/webcraft-webgl.js",
+        "default": "./dist/prod/webcraft-webgl.min.js"
+    },
+    "scripts": {
+        "test": "pnpm run test:base",
+        "test:ci": "pnpm run test:coverage",
+        "test:watch": "pnpm run test:base --watch",
+        "test:coverage": "pnpm run test:base --coverage",
+        "test:base": "wtr",
+        "lint": "pnpm run lint:cache ./src/ ./tests/",
+        "lint:cache": "pnpm run lint:base --cache",
+        "lint:base": "eslint --ext .tsx,.ts,.jsx,.js",
+        "build": "pnpm run build:all",
+        "build:all": "pnpm run build:types && pnpm run build:dev && pnpm run build:prod",
+        "build:types": "tsc --project ./src/ --declaration --emitDeclarationOnly --declarationDir ./types/",
+        "build:dev": "webpack build --config ./webpack.config.dev.ts",
+        "build:prod": "webpack build --config ./webpack.config.prod.ts",
+        "clean": "pnpm run clean:all",
+        "clean:all": "pnpm run clean:types && pnpm run clean:dev && pnpm run clean:prod",
+        "clean:types": "rimraf ./types/",
+        "clean:dev": "rimraf ./dist/dev/",
+        "clean:prod": "rimraf ./dist/prod/",
+        "rebuild": "pnpm run rebuild:all",
+        "rebuild:all": "pnpm run clean:all && pnpm run build:all",
+        "rebuild:types": "pnpm run clean:types && pnpm run build:types",
+        "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev",
+        "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod"
+    },
+    "devDependencies": {
+        "@faker-js/faker": "^8.4.1",
+        "@types/chai": "^4.3.14",
+        "@types/mocha": "^10.0.6",
+        "@types/node": "^20.11.30",
+        "@types/sinon": "^17.0.3",
+        "@types/webpack": "^5.28.5",
+        "@typescript-eslint/eslint-plugin": "^7.2.0",
+        "@typescript-eslint/parser": "^7.2.0",
+        "@web/dev-server-esbuild": "^1.0.2",
+        "@web/test-runner": "^0.18.1",
+        "@web/test-runner-puppeteer": "^0.16.0",
+        "chai": "^5.1.0",
+        "eslint": "^8.57.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.1.3",
+        "eslint-plugin-tsdoc": "^0.2.17",
+        "eslint-webpack-plugin": "^4.1.0",
+        "fork-ts-checker-webpack-plugin": "^9.0.2",
+        "rimraf": "^5.0.5",
+        "sinon": "^17.0.1",
+        "source-map-loader": "^5.0.0",
+        "ts-loader": "^9.5.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.2",
+        "webpack": "^5.90.3",
+        "webpack-cli": "^5.1.4",
+        "webpack-dev-server": "^5.0.4",
+        "webpack-merge": "^5.10.0"
+    }
+}
