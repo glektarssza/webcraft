@@ -18,6 +18,9 @@
         "url": "https://github.com/glektarssza/webcraft"
     },
     "scripts": {},
-    "dependencies": {},
-    "devDependencies": {}
+    "devDependencies": {
+        "@types/node": "^20.12.11",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.5"
+    }
 }
