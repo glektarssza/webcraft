@@ -23,7 +23,19 @@
         "lint:ci": "npm run lint:base -- ./src/",
         "lint:cache": "npm run lint:base -- --cache",
         "lint:base": "eslint",
-        "dev": "vite serve"
+        "dev": "vite serve",
+        "build": "npm run build:prod",
+        "build:all": "npm run build:prod && npm run build:dev",
+        "build:prod": "vite build --mode production",
+        "build:dev": "vite build --mode development",
+        "clean": "npm run clean:prod",
+        "clean:all": "rimraf ./dist/",
+        "clean:prod": "rimraf ./dist/",
+        "clean:dev": "rimraf ./dist/",
+        "rebuild": "npm run clean && npm run build",
+        "rebuild:all": "npm run clean:all && npm run build:all",
+        "rebuild:prod": "npm run clean:prod && npm run build:prod",
+        "rebuild:dev": "npm run clean:dev && npm run build:dev"
     },
     "devDependencies": {
         "@types/node": "^20.12.11",
