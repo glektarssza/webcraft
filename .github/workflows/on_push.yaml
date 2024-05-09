@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: On Push
+on:
+  push:
+    branches:
+      - '*'
+    tags:
+      - '*'
+jobs:
+  build:
+    name: Build
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: true
+      matrix:
+        build-config:
+          - development
+          - production
+    uses: ./.github/workflows/build.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
+    with:
+      build-config: ${{matrix.build-config}}
+  lint:
+    name: Lint
+    permissions:
+      contents: read
+    uses: ./.github/workflows/lint.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
