@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+#-- Determine script directory
+SCRIPT_SOURCE="${BASH_SOURCE[0]}"
+while [ -L "${SCRIPT_SOURCE}" ]; do
+  SCRIPT_DIR=$( cd -P "$( dirname "${SCRIPT_SOURCE}" )" >/dev/null 2>&1 && pwd )
+  SCRIPT_SOURCE=$(readlink "${SCRIPT_SOURCE}")
+  [[ "${SCRIPT_SOURCE}" != /* ]] && SCRIPT_SOURCE="${SCRIPT_DIR}/${SCRIPT_SOURCE}"
+done
+SCRIPT_DIR=$( cd -P "$( dirname "${SCRIPT_SOURCE}" )" >/dev/null 2>&1 && pwd )
+
+#-- Setup projec paths
+PROJECT_ROOT="${SCRIPT_DIR}/.."
+
+#-- Source Husky's script files
+source "${SCRIPT_DIR}/_/husky.sh"
+
+STAGED_FILES=( $(git diff --staged --name-only --diff-filter=d | xargs) )
+FILES_TO_LINT=( )
+
+for FILE in ${STAGED_FILES[@]}; do
+    if [[ "${FILE}" =~ \.tsx?$ ]]; then
+        FILES_TO_LINT+=( "${FILE}" )
+    fi
+done
+
+if [[ ${#FILES_TO_LINT[@]} == 0 ]]; then
+    echo "No files to lint"
+    exit 0
+else
+    echo "Found ${#FILES_TO_LINT[@]} source files to lint..."
+fi
+
+npm run lint:cache -- ${FILES_TO_LINT[@]}
+
+EXIT_CODE=$?
+
+if [[ ${EXIT_CODE} != 0 ]]; then
+    echo "Lint failed!"
+    exit ${EXIT_CODE}
+else
+    echo "Lint succeeded"
+    exit 0
+fi
