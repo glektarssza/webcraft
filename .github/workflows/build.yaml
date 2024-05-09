@@ -1,0 +1,63 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Build
+on:
+  workflow_call:
+    inputs:
+      build-config:
+        description: >
+          The configuration to build the project under. Valid options are:
+          * `development` - Create a development build.
+          * `production` - Create a production build.
+        type: string
+        required: true
+    secrets:
+      github-token:
+        description: >
+          The GitHub access token to use for authenticated GitHub operations.
+        required: true
+    outputs:
+      artifact-id:
+        description: >
+          The ID of the artifact uploaded as a result of this workflow.
+        value: ${{jobs.build.outputs.artifact-id}}
+      artifact-name:
+        description: >
+          The name of the artifact uploaded as a result of this workflow.
+        value: ${{jobs.build.outputs.artifact-name}}
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    outputs:
+      artifact-id: ${{steps.upload-artifacts.outputs.artifact-id}}
+      artifact-name: dist-${{inputs.build-config == 'development' && 'dev' || 'prod'}}
+    steps:
+      - id: checkout-repository
+        name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          repository: glektarssza/webgpu-samples
+          token: ${{secrets.github-token}}
+          lfs: true
+      - id: setup-nodejs
+        name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          token: ${{secrets.github-token}}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - id: install-dependencies
+        name: Install dependencies
+        run: npm clean-install
+      - id: build
+        name: Build
+        run: npm run build
+      - id: upload-artifacts
+        name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{inputs.build-config == 'development' && 'dev' || 'prod'}}
+          path: ./dist/${{inputs.build-config == 'development' && 'dev' || 'prod'}}

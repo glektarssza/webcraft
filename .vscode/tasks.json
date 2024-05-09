@@ -1,0 +1,34 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "npm:install",
+            "detail": "Install project dependencies with npm.",
+            "icon": {
+                "id": "cloud-download",
+                "color": "terminal.ansiWhite"
+            },
+            "group": "none",
+            "isBackground": false,
+            "promptOnClose": false,
+            "dependsOn": [],
+            "dependsOrder": "sequence",
+            "type": "shell",
+            "command": "npm install",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "folderOpen"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        }
+    ]
+}

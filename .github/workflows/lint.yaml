@@ -1,0 +1,37 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Lint
+on:
+  workflow_call:
+    secrets:
+      github-token:
+        description: >
+          The GitHub access token to use for authenticated GitHub operations.
+        required: true
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - id: checkout-repository
+        name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          repository: glektarssza/webgpu-samples
+          token: ${{secrets.github-token}}
+          lfs: true
+      - id: setup-nodejs
+        name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          token: ${{secrets.github-token}}
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - id: install-dependencies
+        name: Install dependencies
+        run: npm clean-install
+      - id: build
+        name: Build
+        run: npm run lint:ci
