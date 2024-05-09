@@ -22,7 +22,8 @@
         "lint": "npm run lint:cache -- ./src/",
         "lint:ci": "npm run lint:base -- ./src/",
         "lint:cache": "npm run lint:base -- --cache",
-        "lint:base": "eslint"
+        "lint:base": "eslint",
+        "dev": "vite serve"
     },
     "devDependencies": {
         "@types/node": "^20.12.11",
