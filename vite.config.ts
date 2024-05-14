@@ -1,4 +1,5 @@
 //-- NPM Packages
+import replacePlugin from '@rollup/plugin-replace';
 import {UserConfig, defineConfig} from 'vite';
 
 /**
@@ -23,7 +24,17 @@ const config = defineConfig(({command, mode}) => {
         preview: {
             port: 8080,
             strictPort: true
-        }
+        },
+        plugins: [
+            replacePlugin({
+                preventAssignment: true,
+                values: {
+                    'process.env.FAKER_SEED': JSON.stringify(
+                        process.env['FAKER_SEED']
+                    )
+                }
+            })
+        ]
     };
     if (command === 'serve') {
         generatedConfig.mode = 'development';
