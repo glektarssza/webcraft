@@ -4,6 +4,13 @@ on:
     types:
       - published
 jobs:
+  test:
+    name: Test
+    permissions:
+      contents: read
+    uses: ./.github/workflows/test.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
   build:
     name: Build
     permissions:
@@ -21,6 +28,7 @@ jobs:
       id-token: write
       pages: write
     needs:
+      - test
       - build
     environment:
       name: github-pages

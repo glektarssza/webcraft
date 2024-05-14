@@ -29,3 +29,10 @@ jobs:
     uses: ./.github/workflows/lint.yaml
     secrets:
       github-token: ${{secrets.GITHUB_TOKEN}}
+  test:
+    name: Test
+    permissions:
+      contents: read
+    uses: ./.github/workflows/test.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
