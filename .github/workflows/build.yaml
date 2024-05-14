@@ -38,7 +38,7 @@ jobs:
         name: Checkout repository
         uses: actions/checkout@v4
         with:
-          repository: glektarssza/webgpu-samples
+          repository: glektarssza/webcraft
           token: ${{secrets.github-token}}
           lfs: true
       - id: setup-nodejs
