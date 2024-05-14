@@ -437,6 +437,40 @@
                 "clear": false
             },
             "problemMatcher": []
+        },
+        {
+            "label": "npm:dev",
+            "detail": "Run the project using vite in development mode.",
+            "icon": {
+                "id": "debug-alt",
+                "color": "terminal.ansiCyan"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "isBackground": true,
+            "promptOnClose": false,
+            "dependsOn": [
+                "npm:install"
+            ],
+            "dependsOrder": "sequence",
+            "type": "shell",
+            "command": "npm run dev",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
         }
     ]
 }
