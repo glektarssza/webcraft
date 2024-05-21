@@ -4,6 +4,9 @@ import {
     vitePlugin
 } from '@remcovaes/web-test-runner-vite-plugin';
 
+/**
+ * @type {import('@web/test-runner').TestRunnerConfig}
+ */
 export default {
     files: './tests/**/*.spec.ts',
     nodeResolve: true,
