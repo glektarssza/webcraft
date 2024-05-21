@@ -48,3 +48,6 @@ dist/
 
 # Coverage #
 coverage/
+
+# Environment #
+.envrc
