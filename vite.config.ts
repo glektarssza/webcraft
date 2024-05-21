@@ -1,11 +1,18 @@
 //-- NPM Packages
 import replacePlugin from '@rollup/plugin-replace';
-import {UserConfig, defineConfig} from 'vite';
+import {UserConfig, createLogger, defineConfig} from 'vite';
+
+/**
+ * Whether Vite is running in a unit testing environment.
+ */
+const isUnitTesting = process.env['VITE_UNIT_TESTING'] === 'true';
 
 /**
  * The ViteJS configuration.
  */
 const config = defineConfig(({command, mode}) => {
+    let loadedModules = 0;
+    const customLogger = createLogger('info');
     const generatedConfig: UserConfig = {
         appType: 'spa',
         clearScreen: false,
@@ -26,6 +33,30 @@ const config = defineConfig(({command, mode}) => {
             strictPort: true
         },
         plugins: [
+            {
+                name: 'progress-plugin',
+                apply() {
+                    return !isUnitTesting;
+                },
+                load: {
+                    order: 'post',
+                    handler() {
+                        if (loadedModules <= 0) {
+                            customLogger.info('Starting module loading...');
+                        }
+                        loadedModules++;
+                    }
+                },
+                transform: {
+                    order: 'post',
+                    handler() {
+                        loadedModules--;
+                        if (loadedModules <= 0) {
+                            customLogger.info('Transforms completed');
+                        }
+                    }
+                }
+            },
             replacePlugin({
                 preventAssignment: true,
                 values: {
