@@ -81,13 +81,13 @@ jobs:
           path: ./dist/${{matrix.build-config == 'development' && 'dev' || 'prod'}}
       - id: upload-pages-artifacts
         name: Upload Pages artifacts
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && matrix.build-config == 'production'
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist/${{matrix.build-config == 'development' && 'dev' || 'prod'}}
       - id: publish-github-pages-preview
         name: Publish GitHub Pages preview
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && matrix.build-config == 'production'
         uses: actions/deploy-pages@v4
         with:
           preview: true
