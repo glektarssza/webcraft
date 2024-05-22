@@ -25,7 +25,7 @@ jobs:
     name: Publish
     runs-on: ubuntu-latest
     permissions:
-      actions: read
+      actions: write
       contents: read
       id-token: write
       pages: write
