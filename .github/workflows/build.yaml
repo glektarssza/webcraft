@@ -70,7 +70,7 @@ jobs:
         run: npm clean-install
       - id: build
         name: Build
-        run: npm run build
+        run: npm run build:${{matrix.build-config == 'development' && 'dev' || 'prod'}}
       - id: upload-artifacts
         name: Upload artifacts
         uses: actions/upload-artifact@v4
