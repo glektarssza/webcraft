@@ -40,6 +40,9 @@ jobs:
       contents: read
       id-token: write
       pages: write
+    environment:
+      name: github-pages-preview
+      url: ${{steps.publish-github-pages-preview.outputs.page_url}}
     outputs:
       artifact-id: ${{steps.upload-artifacts.outputs.artifact-id}}
       artifact-name: dist-${{matrix.build-config == 'development' && 'dev' || 'prod'}}
