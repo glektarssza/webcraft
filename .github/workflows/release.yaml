@@ -3,6 +3,9 @@ on:
   release:
     types:
       - published
+concurrency:
+  cancel-in-progress: false
+  group: release
 jobs:
   test:
     name: Test
@@ -25,7 +28,7 @@ jobs:
     name: Publish
     runs-on: ubuntu-latest
     permissions:
-      actions: read
+      actions: write
       contents: read
       id-token: write
       pages: write
