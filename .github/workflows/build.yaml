@@ -1,6 +1,11 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Build
 on:
+  push:
+    branches:
+      - '*'
+    tags:
+      - '*'
   workflow_call:
     inputs:
       build-config:
@@ -14,7 +19,6 @@ on:
       github-token:
         description: >
           The GitHub access token to use for authenticated GitHub operations.
-        required: true
     outputs:
       artifact-id:
         description: >
@@ -29,24 +33,33 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     permissions:
+      actions: write
       contents: read
     outputs:
       artifact-id: ${{steps.upload-artifacts.outputs.artifact-id}}
-      artifact-name: dist-${{inputs.build-config == 'development' && 'dev' || 'prod'}}
+      artifact-name: dist-${{matrix.build-config == 'development' && 'dev' || 'prod'}}
+    strategy:
+      fail-fast: true
+      matrix:
+        build-config:
+          - development
+          - production
+        exclude:
+          - build-config: ${{inputs.build-config == 'development' && 'production' || 'development'}}
     steps:
       - id: checkout-repository
         name: Checkout repository
         uses: actions/checkout@v4
         with:
           repository: glektarssza/webcraft
-          token: ${{secrets.github-token}}
+          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
           lfs: true
       - id: setup-nodejs
         name: Setup NodeJS
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          token: ${{secrets.github-token}}
+          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
           cache: npm
           cache-dependency-path: package-lock.json
       - id: install-dependencies
@@ -59,5 +72,5 @@ jobs:
         name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: dist-${{inputs.build-config == 'development' && 'dev' || 'prod'}}
-          path: ./dist/${{inputs.build-config == 'development' && 'dev' || 'prod'}}
+          name: dist-${{matrix.build-config == 'development' && 'dev' || 'prod'}}
+          path: ./dist/${{matrix.build-config == 'development' && 'dev' || 'prod'}}
