@@ -3,6 +3,9 @@ on:
   release:
     types:
       - published
+concurrency:
+  cancel-in-progress: false
+  group: release
 jobs:
   test:
     name: Test
