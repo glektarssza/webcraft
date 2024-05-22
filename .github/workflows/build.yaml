@@ -48,7 +48,7 @@ jobs:
           - development
           - production
         exclude:
-          - build-config: ${{inputs.build-config == 'development' && 'production' || 'development'}}
+          - build-config: ${{(inputs.build-config == 'development' && 'production') || (inputs.build-config == 'production' && 'development') || ''}}
     steps:
       - id: checkout-repository
         name: Checkout repository
