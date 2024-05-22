@@ -1,0 +1,1 @@
+export {waitForDOMReady} from './dom';
