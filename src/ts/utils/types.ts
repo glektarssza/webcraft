@@ -4,7 +4,7 @@
 export type TimerID = ReturnType<(typeof globalThis)['setTimeout']>;
 
 /**
- * A module which provides various type-related functionality.
+ * A module which provides various utility types.
  */
 const m = {};
 

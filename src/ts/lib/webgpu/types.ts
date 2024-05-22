@@ -1,7 +1,10 @@
-export {waitForDOMReady} from './dom';
+/**
+ * A canvas which a WebGPU context can render to.
+ */
+export type Canvas = HTMLCanvasElement | OffscreenCanvas;
 
 /**
- * A module which provides various utility functionality.
+ * A module which provides various WebGPU types.
  */
 const m = {};
 

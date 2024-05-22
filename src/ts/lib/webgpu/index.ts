@@ -1,7 +1,5 @@
-export {waitForDOMReady} from './dom';
-
 /**
- * A module which provides various utility functionality.
+ * A module which provides various WebGPU functionality.
  */
 const m = {};
 

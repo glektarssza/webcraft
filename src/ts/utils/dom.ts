@@ -1,5 +1,5 @@
 //-- Project Code
-import {TimerID} from './types';
+import type {TimerID} from './types';
 
 /**
  * A module which provides various DOM-related functionality.
