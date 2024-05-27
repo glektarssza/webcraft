@@ -2,7 +2,7 @@
     Webcraft
 </h1>
 <p align="center">
-    <img src="https://github.com/glektarssza/webcraft/raw/main/logo.png" alt="Logo" width="200" />
+    <img src="https://github.com/glektarssza/webcraft/raw/main/logo.svg" alt="Logo" width="200" />
 </p>
 <p align="center">
     <a href="https://github.com/glektarssza/webcraft/actions/workflows/build.yaml">
