@@ -1,6 +1,10 @@
 {
+    "scripts": {
+        "prepare": "husky"
+    },
     "devDependencies": {
         "@types/node": "^20.12.13",
+        "husky": "^9.0.11",
         "ts-node": "^10.9.2",
         "typescript": "^5.4.5"
     }
