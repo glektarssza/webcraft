@@ -9,6 +9,12 @@
         "email": "glek@glektarssza.com",
         "url": "https://glektarssza.com"
     },
+    "files": [
+        "dist",
+        "LICENSE.md",
+        "README.md",
+        "package.json"
+    ],
     "type": "module",
     "exports": {
         ".": {
