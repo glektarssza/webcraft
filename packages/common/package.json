@@ -33,9 +33,21 @@
         "lint:ci": "pnpm run lint:base ./src/",
         "lint:cache": "pnpm run lint:base --cache",
         "lint:base": "eslint",
-        "build": "pnpm run build:prod",
+        "build": "pnpm run build:prod && pnpm run build:types",
+        "build:all": "pnpm run build:dev && pnpm run build:prod && pnpm run build:types",
+        "build:types": "tsc --project ./src/ --declaration --emitDeclarationOnly --outDir ./dist/types/",
         "build:dev": "vite build --mode development",
-        "build:prod": "vite build --mode production"
+        "build:prod": "vite build --mode production",
+        "clean": "pnpm run clean:prod && pnpm run clean:types",
+        "clean:all": "pnpm run clean:dev && pnpm run clean:prod && pnpm run clean:types",
+        "clean:types": "rimraf ./dist/types/",
+        "clean:dev": "rimraf ./dist/dev/",
+        "clean:prod": "rimraf ./dist/prod/",
+        "rebuild": "pnpm run clean && pnpm run build",
+        "rebuild:all": "pnpm run clean:all && pnpm run build:all",
+        "rebuild:types": "pnpm run clean:types && pnpm run build:types",
+        "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev",
+        "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod"
     },
     "devDependencies": {
         "@remcovaes/web-test-runner-vite-plugin": "^1.2.1",
