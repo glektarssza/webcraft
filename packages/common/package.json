@@ -10,6 +10,19 @@
         "url": "https://glektarssza.com"
     },
     "type": "module",
+    "exports": {
+        ".": {
+            "default": "./dist/prod/webcraft-common.umd.cjs",
+            "import": "./dist/prod/webcraft-common.js",
+            "require": "./dist/prod/webcraft-common.umd.cjs",
+            "node": null,
+            "types": "./dist/types/index.d.ts",
+            "development": {
+                "import": "./dist/dev/webcraft-common.js",
+                "require": "./dist/dev/webcraft-common.umd.cjs"
+            }
+        }
+    },
     "keywords": [
         "webcraft",
         "common",
