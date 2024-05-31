@@ -15,6 +15,9 @@ const config = defineConfig(({command, mode}) => {
         appType: 'spa',
         clearScreen: false,
         mode,
+        optimizeDeps: {
+            entries: ['./tests/**/*.spec.ts']
+        },
         resolve: {
             extensions: ['.ts', '.js']
         },
@@ -32,23 +35,7 @@ const config = defineConfig(({command, mode}) => {
                 }
             }
         },
-        server: {
-            hmr: false,
-            port: 8080
-        },
-        preview: {
-            port: 8080
-        },
-        plugins: [
-            replacePlugin({
-                preventAssignment: true,
-                values: {
-                    'process.env.FAKER_SEED': JSON.stringify(
-                        process.env['FAKER_SEED']
-                    )
-                }
-            })
-        ]
+        plugins: []
     };
     if (command === 'serve') {
         generatedConfig.mode = 'development';
@@ -60,6 +47,18 @@ const config = defineConfig(({command, mode}) => {
         generatedConfig.build!.outDir = './dist/prod/';
         generatedConfig.build!.minify = true;
         generatedConfig.base = '/webcraft/';
+    }
+    if (isUnitTesting) {
+        generatedConfig.plugins!.push(
+            replacePlugin({
+                preventAssignment: true,
+                values: {
+                    'process.env.FAKER_SEED': JSON.stringify(
+                        process.env['FAKER_SEED']
+                    )
+                }
+            })
+        );
     }
     return generatedConfig;
 });
