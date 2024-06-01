@@ -52,6 +52,9 @@
         "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev",
         "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod"
     },
+    "dependencies": {
+        "@glektarssza/webcraft-common": "workspace:*"
+    },
     "devDependencies": {
         "@remcovaes/web-test-runner-vite-plugin": "^1.2.1",
         "@rollup/plugin-replace": "^5.0.5",
