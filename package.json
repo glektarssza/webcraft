@@ -1,7 +1,11 @@
 {
     "scripts": {
         "prepare": "husky",
-        "dev": "pnpm -r --filter @glektarssza/webcraft run dev"
+        "dev": "pnpm -r --filter @glektarssza/webcraft run dev",
+        "lint": "pnpm - run lint",
+        "lint:ci": "pnpm -r run lint:ci",
+        "lint:cache": "pnpm -r run lint:cache",
+        "lint:base": "pnpm -r run lint:base"
     },
     "devDependencies": {
         "@types/node": "^20.12.13",
