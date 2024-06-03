@@ -45,6 +45,9 @@ jobs:
       - id: install-dependencies
         name: Install dependencies
         run: pnpm -r install
+      - id: ensure-puppeteer-brower-installed
+        name: Ensure Puppeteer browser installed
+        run: pnpm dlx puppeteer browsers install chrome
       - id: pre-build-types
         name: Pre-build types
         run: pnpm -r --filter '@glektarssza/webcraft^...' run build:types
