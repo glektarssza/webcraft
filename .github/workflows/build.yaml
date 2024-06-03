@@ -77,9 +77,12 @@ jobs:
       - id: pre-build-types
         name: Pre-build types
         run: pnpm -r --filter '@glektarssza/webcraft^...' run build:types
+      - id: pre-build-packages
+        name: Pre-build packages
+        run: pnpm -r --filter '@glektarssza/webcraft^...' run build:all
       - id: build
         name: Build
-        run: pnpm -r --filter '@glektarssza/webcraft...' run build:${{matrix.build-config == 'development' && 'dev' || 'prod'}}
+        run: pnpm -r --filter '@glektarssza/webcraft' run build:${{matrix.build-config == 'development' && 'dev' || 'prod'}}
       - id: upload-artifacts
         name: Upload artifacts
         uses: actions/upload-artifact@v4
