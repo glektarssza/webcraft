@@ -33,6 +33,66 @@
                 "clear": false
             },
             "problemMatcher": []
+        },
+        {
+            "label": "pnpm:dev",
+            "detail": "Run the project in development mode using pnpm.",
+            "icon": {
+                "id": "debug-alt",
+                "color": "terminal.ansiCyan"
+            },
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "dependsOrder": "sequence",
+            "group": "none",
+            "isBackground": true,
+            "promptOnClose": false,
+            "type": "shell",
+            "command": "pnpm",
+            "args": [
+                "run",
+                "dev"
+            ],
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": [
+                {
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": {
+                            "regexp": "^Starting compilation\\.\\.\\.$"
+                        },
+                        "endsPattern": {
+                            "regexp": "(^Compilation complete$)|(ready in \\d+ ms)"
+                        }
+                    },
+                    "applyTo": "allDocuments",
+                    "fileLocation": "autoDetect",
+                    "owner": "external",
+                    "source": "vite",
+                    "severity": "info",
+                    "pattern": {
+                        "regexp": "^(.+):(\\d+):(\\d+):\\s+(ERROR):\\s+(.+)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
+                }
+            ]
         }
     ]
 }
