@@ -1,16 +1,10 @@
+//-- Project Code
+export * as utils from './utils';
+
 /**
  * The main entry point for the common package.
  */
-const m = {
-    /**
-     * Get the greeting message.
-     *
-     * @returns The greeting message.
-     */
-    getMessage(): string {
-        return 'Hello, world!';
-    }
-};
+const m = {};
 
 /**
  * Get the internal module for unit testing.
@@ -24,5 +18,5 @@ export function getInternalModule(): typeof m {
 }
 
 /* eslint-disable no-empty-pattern, @typescript-eslint/unbound-method */
-export const {getMessage} = m;
+export const {} = m;
 /* eslint-enable no-empty-pattern, @typescript-eslint/unbound-method */

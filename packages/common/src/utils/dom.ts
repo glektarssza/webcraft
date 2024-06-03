@@ -197,6 +197,42 @@ const m = {
         globalThis.document.removeEventListener(event, callback, options);
     },
 
+    /**
+     * Add an event listener to the global window.
+     *
+     * @typeParam TEvent - The type of the event to listen for.
+     *
+     * @param event - The event to listen for.
+     * @param callback - The function to call when the event is triggered.
+     * @param options - An options object that specifies characteristics about
+     * the event listener.
+     */
+    addWindowEventListener<TEvent extends keyof WindowEventMap>(
+        event: TEvent,
+        callback: (this: Window, event: WindowEventMap[TEvent]) => unknown,
+        options?: boolean | AddEventListenerOptions
+    ): void {
+        globalThis.window.addEventListener(event, callback, options);
+    },
+
+    /**
+     * Remove an event listener to the global window.
+     *
+     * @typeParam TEvent - The type of the event to listen for.
+     *
+     * @param event - The event to listen for.
+     * @param callback - The function to call when the event is triggered.
+     * @param options - An options object that specifies characteristics about
+     * the event listener.
+     */
+    removeWindowEventListener<TEvent extends keyof WindowEventMap>(
+        event: TEvent,
+        callback: (this: Window, event: WindowEventMap[TEvent]) => unknown,
+        options?: boolean | AddEventListenerOptions
+    ): void {
+        globalThis.window.removeEventListener(event, callback, options);
+    },
+
     async waitForDOMReady(timeout: number = Infinity): Promise<void> {
         if (m.getDocumentReadyState() === 'complete') {
             return;
@@ -245,11 +281,17 @@ export function getInternalModule(): typeof m {
 
 /* eslint-disable no-empty-pattern, @typescript-eslint/unbound-method */
 export const {
+    addDocumentEventListener,
+    addWindowEventListener,
     cancelAnimationFrame,
     clearInterval,
     clearTimeout,
+    getDocumentReadyState,
+    removeDocumentEventListener,
+    removeWindowEventListener,
     requestAnimationFrame,
     setInterval,
-    setTimeout
+    setTimeout,
+    waitForDOMReady
 } = m;
 /* eslint-enable no-empty-pattern, @typescript-eslint/unbound-method */
