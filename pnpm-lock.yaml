@@ -27,15 +27,27 @@ importers:
         specifier: workspace:*
         version: link:../packages/common
     devDependencies:
+      '@faker-js/faker':
+        specifier: ^8.4.1
+        version: 8.4.1
       '@remcovaes/web-test-runner-vite-plugin':
         specifier: ^1.2.1
         version: 1.2.1(vite@5.2.12(@types/node@20.12.13)(sass@1.77.3))
       '@rollup/plugin-replace':
         specifier: ^5.0.5
         version: 5.0.5(rollup@4.18.0)
+      '@types/chai':
+        specifier: ^4.3.16
+        version: 4.3.16
+      '@types/mocha':
+        specifier: ^10.0.6
+        version: 10.0.6
       '@types/node':
         specifier: ^20.12.13
         version: 20.12.13
+      '@types/sinon':
+        specifier: ^17.0.3
+        version: 17.0.3
       '@typescript-eslint/eslint-plugin':
         specifier: ^7.11.0
         version: 7.11.0(@typescript-eslint/parser@7.11.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
@@ -48,6 +60,9 @@ importers:
       '@web/test-runner-puppeteer':
         specifier: ^0.16.0
         version: 0.16.0(typescript@5.4.5)
+      chai:
+        specifier: ^5.1.1
+        version: 5.1.1
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
@@ -60,6 +75,9 @@ importers:
       eslint-plugin-tsdoc:
         specifier: ^0.3.0
         version: 0.3.0
+      mocha:
+        specifier: ^10.4.0
+        version: 10.4.0
       prettier:
         specifier: ^3.2.5
         version: 3.2.5
@@ -69,6 +87,9 @@ importers:
       rimraf:
         specifier: ^5.0.7
         version: 5.0.7
+      sinon:
+        specifier: ^18.0.0
+        version: 18.0.0
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@types/node@20.12.13)(typescript@5.4.5)
