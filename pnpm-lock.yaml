@@ -9,14 +9,14 @@ importers:
   .:
     devDependencies:
       '@types/node':
-        specifier: ^20.12.13
-        version: 20.12.13
+        specifier: ^20.14.0
+        version: 20.14.0
       husky:
         specifier: ^9.0.11
         version: 9.0.11
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@types/node@20.12.13)(typescript@5.4.5)
+        version: 10.9.2(@types/node@20.14.0)(typescript@5.4.5)
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -32,7 +32,7 @@ importers:
         version: 8.4.1
       '@remcovaes/web-test-runner-vite-plugin':
         specifier: ^1.2.1
-        version: 1.2.1(vite@5.2.12(@types/node@20.12.13)(sass@1.77.3))
+        version: 1.2.1(vite@5.2.12(@types/node@20.14.0)(sass@1.77.4))
       '@rollup/plugin-replace':
         specifier: ^5.0.5
         version: 5.0.5(rollup@4.18.0)
@@ -43,8 +43,8 @@ importers:
         specifier: ^10.0.6
         version: 10.0.6
       '@types/node':
-        specifier: ^20.12.13
-        version: 20.12.13
+        specifier: ^20.14.0
+        version: 20.14.0
       '@types/sinon':
         specifier: ^17.0.3
         version: 17.0.3
@@ -71,7 +71,7 @@ importers:
         version: 9.1.0(eslint@8.57.0)
       eslint-plugin-prettier:
         specifier: ^5.1.3
-        version: 5.1.3(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.2.5)
+        version: 5.1.3(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.3.0)
       eslint-plugin-tsdoc:
         specifier: ^0.3.0
         version: 0.3.0
@@ -79,8 +79,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0
       prettier:
-        specifier: ^3.2.5
-        version: 3.2.5
+        specifier: ^3.3.0
+        version: 3.3.0
       prettier-eslint:
         specifier: ^16.3.0
         version: 16.3.0
@@ -92,13 +92,13 @@ importers:
         version: 18.0.0
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@types/node@20.12.13)(typescript@5.4.5)
+        version: 10.9.2(@types/node@20.14.0)(typescript@5.4.5)
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
       vite:
         specifier: ^5.2.12
-        version: 5.2.12(@types/node@20.12.13)(sass@1.77.3)
+        version: 5.2.12(@types/node@20.14.0)(sass@1.77.4)
 
   packages/common:
     devDependencies:
@@ -107,7 +107,7 @@ importers:
         version: 8.4.1
       '@remcovaes/web-test-runner-vite-plugin':
         specifier: ^1.2.1
-        version: 1.2.1(vite@5.2.12(@types/node@20.12.13)(sass@1.77.3))
+        version: 1.2.1(vite@5.2.12(@types/node@20.14.0)(sass@1.77.4))
       '@rollup/plugin-replace':
         specifier: ^5.0.5
         version: 5.0.5(rollup@4.18.0)
@@ -118,8 +118,8 @@ importers:
         specifier: ^10.0.6
         version: 10.0.6
       '@types/node':
-        specifier: ^20.12.13
-        version: 20.12.13
+        specifier: ^20.14.0
+        version: 20.14.0
       '@types/sinon':
         specifier: ^17.0.3
         version: 17.0.3
@@ -146,7 +146,7 @@ importers:
         version: 9.1.0(eslint@8.57.0)
       eslint-plugin-prettier:
         specifier: ^5.1.3
-        version: 5.1.3(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.2.5)
+        version: 5.1.3(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.3.0)
       eslint-plugin-tsdoc:
         specifier: ^0.3.0
         version: 0.3.0
@@ -154,8 +154,8 @@ importers:
         specifier: ^10.4.0
         version: 10.4.0
       prettier:
-        specifier: ^3.2.5
-        version: 3.2.5
+        specifier: ^3.3.0
+        version: 3.3.0
       prettier-eslint:
         specifier: ^16.3.0
         version: 16.3.0
@@ -167,13 +167,13 @@ importers:
         version: 18.0.0
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@types/node@20.12.13)(typescript@5.4.5)
+        version: 10.9.2(@types/node@20.14.0)(typescript@5.4.5)
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
       vite:
         specifier: ^5.2.12
-        version: 5.2.12(@types/node@20.12.13)(sass@1.77.3)
+        version: 5.2.12(@types/node@20.14.0)(sass@1.77.4)
 
 packages:
 
@@ -637,8 +637,8 @@ packages:
   '@types/mocha@10.0.6':
     resolution: {integrity: sha512-dJvrYWxP/UcXm36Qn36fxhUKu8A/xMRXVT2cliFF1Z7UA9liG5Psj3ezNSZw+5puH2czDXRLcXQxf8JbJt0ejg==}
 
-  '@types/node@20.12.13':
-    resolution: {integrity: sha512-gBGeanV41c1L171rR7wjbMiEpEI/l5XFQdLLfhr/REwpgDy/4U8y89+i8kRiLzDyZdOkXh+cRaTetUnCYutoXA==}
+  '@types/node@20.14.0':
+    resolution: {integrity: sha512-5cHBxFGJx6L4s56Bubp4fglrEpmyJypsqI6RgzMfBHWUJQGWAAi8cWcgetEbZXHYXo9C2Fa4EEds/uSyS4cxmA==}
 
   '@types/parse5@6.0.3':
     resolution: {integrity: sha512-SuT16Q1K51EAVPz1K29DJ/sXjhSQ0zjvsypYJ6tlwVsRV9jwW5Adq2ch8Dq8kDBCkYnELS7N7VNCSB5nC56t/g==}
@@ -2064,8 +2064,8 @@ packages:
     resolution: {integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==}
     engines: {node: '>=6.0.0'}
 
-  prettier@3.2.5:
-    resolution: {integrity: sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==}
+  prettier@3.3.0:
+    resolution: {integrity: sha512-J9odKxERhCQ10OC2yb93583f6UnYutOeiV5i0zEDS7UGTdUt0u+y8erxl3lBKvwo/JHyyoEdXjwp4dke9oyZ/g==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -2179,8 +2179,8 @@ packages:
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  sass@1.77.3:
-    resolution: {integrity: sha512-WJHo+jmFp0dwRuymPmIovuxHaBntcCyja5hCB0yYY9wWrViEp4kF5Cdai98P72v6FzroPuABqu+ddLMbQWmwzA==}
+  sass@1.77.4:
+    resolution: {integrity: sha512-vcF3Ckow6g939GMA4PeU7b2K/9FALXk2KF9J87txdHzXbUF9XRQRwSxcAs/fGaTnJeBFd7UoV22j3lzMLdM0Pw==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -2786,9 +2786,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@remcovaes/web-test-runner-vite-plugin@1.2.1(vite@5.2.12(@types/node@20.12.13)(sass@1.77.3))':
+  '@remcovaes/web-test-runner-vite-plugin@1.2.1(vite@5.2.12(@types/node@20.14.0)(sass@1.77.4))':
     dependencies:
-      vite: 5.2.12(@types/node@20.12.13)(sass@1.77.3)
+      vite: 5.2.12(@types/node@20.14.0)(sass@1.77.4)
 
   '@rollup/plugin-node-resolve@15.2.3(rollup@4.18.0)':
     dependencies:
@@ -2898,27 +2898,27 @@ snapshots:
 
   '@types/accepts@1.3.7':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
 
   '@types/babel__code-frame@7.0.6': {}
 
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
 
   '@types/chai@4.3.16': {}
 
   '@types/co-body@6.1.3':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
       '@types/qs': 6.9.15
 
   '@types/command-line-args@5.2.3': {}
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
 
   '@types/content-disposition@0.5.8': {}
 
@@ -2929,7 +2929,7 @@ snapshots:
       '@types/connect': 3.4.38
       '@types/express': 4.17.21
       '@types/keygrip': 1.0.6
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
 
   '@types/debounce@1.2.4': {}
 
@@ -2937,7 +2937,7 @@ snapshots:
 
   '@types/express-serve-static-core@4.19.2':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
       '@types/qs': 6.9.15
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
@@ -2978,13 +2978,13 @@ snapshots:
       '@types/http-errors': 2.0.4
       '@types/keygrip': 1.0.6
       '@types/koa-compose': 3.2.8
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
 
   '@types/mime@1.3.5': {}
 
   '@types/mocha@10.0.6': {}
 
-  '@types/node@20.12.13':
+  '@types/node@20.14.0':
     dependencies:
       undici-types: 5.26.5
 
@@ -2999,12 +2999,12 @@ snapshots:
   '@types/send@0.17.4':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
 
   '@types/serve-static@1.15.7':
     dependencies:
       '@types/http-errors': 2.0.4
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
       '@types/send': 0.17.4
 
   '@types/sinon@17.0.3':
@@ -3015,11 +3015,11 @@ snapshots:
 
   '@types/ws@7.4.7':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
     optional: true
 
   '@typescript-eslint/eslint-plugin@7.11.0(@typescript-eslint/parser@7.11.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)':
@@ -3548,7 +3548,7 @@ snapshots:
 
   chrome-launcher@0.15.2:
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -3795,10 +3795,10 @@ snapshots:
     dependencies:
       eslint: 8.57.0
 
-  eslint-plugin-prettier@5.1.3(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.2.5):
+  eslint-plugin-prettier@5.1.3(eslint-config-prettier@9.1.0(eslint@8.57.0))(eslint@8.57.0)(prettier@3.3.0):
     dependencies:
       eslint: 8.57.0
-      prettier: 3.2.5
+      prettier: 3.3.0
       prettier-linter-helpers: 1.0.0
       synckit: 0.8.8
     optionalDependencies:
@@ -4603,7 +4603,7 @@ snapshots:
       indent-string: 4.0.0
       lodash.merge: 4.6.2
       loglevel-colored-level-prefix: 1.0.0
-      prettier: 3.2.5
+      prettier: 3.3.0
       pretty-format: 29.7.0
       require-relative: 0.8.7
       typescript: 5.4.5
@@ -4615,7 +4615,7 @@ snapshots:
     dependencies:
       fast-diff: 1.3.0
 
-  prettier@3.2.5: {}
+  prettier@3.3.0: {}
 
   pretty-format@29.7.0:
     dependencies:
@@ -4760,7 +4760,7 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass@1.77.3:
+  sass@1.77.4:
     dependencies:
       chokidar: 3.6.0
       immutable: 4.3.6
@@ -4950,14 +4950,14 @@ snapshots:
     dependencies:
       typescript: 5.4.5
 
-  ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5):
+  ts-node@10.9.2(@types/node@20.14.0)(typescript@5.4.5):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
       acorn: 8.11.3
       acorn-walk: 8.3.2
       arg: 4.1.3
@@ -5020,15 +5020,15 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vite@5.2.12(@types/node@20.12.13)(sass@1.77.3):
+  vite@5.2.12(@types/node@20.14.0)(sass@1.77.4):
     dependencies:
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.18.0
     optionalDependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.14.0
       fsevents: 2.3.3
-      sass: 1.77.3
+      sass: 1.77.4
 
   vue-eslint-parser@9.4.2(eslint@8.57.0):
     dependencies:
