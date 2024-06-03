@@ -48,4 +48,6 @@ jobs:
       - id: pre-build-dependencies
         name: Pre-build dependencies
         run: pnpm -r --filter '@glektarssza/webcraft^...' run build:all
+      - id: lint
+        name: Lint
         run: pnpm -r run lint:ci
