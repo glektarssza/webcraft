@@ -14,6 +14,7 @@ on:
       github-token:
         description: >
           The GitHub access token to use for authenticated GitHub operations.
+        required: false
 jobs:
   lint:
     name: Lint
@@ -28,6 +29,11 @@ jobs:
           repository: glektarssza/webcraft
           token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
           lfs: true
+      - id: setup-pnpm
+        name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
       - id: setup-nodejs
         name: Setup NodeJS
         uses: actions/setup-node@v4
