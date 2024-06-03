@@ -76,7 +76,7 @@ jobs:
         run: pnpm -r install
       - id: build
         name: Build
-        run: pnpm -r --filter '@glektarssza/webcraft' run build:${{matrix.build-config == 'development' && 'dev' || 'prod'}}
+        run: pnpm -r --filter '@glektarssza/webcraft...' run build:${{matrix.build-config == 'development' && 'dev' || 'prod'}}
       - id: upload-artifacts
         name: Upload artifacts
         uses: actions/upload-artifact@v4
