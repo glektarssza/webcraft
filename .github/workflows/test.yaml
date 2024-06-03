@@ -45,9 +45,9 @@ jobs:
       - id: install-dependencies
         name: Install dependencies
         run: pnpm -r install
-      - id: pre-build-dependencies
-        name: Pre-build dependencies
-        run: pnpm -r --filter '@glektarssza/webcraft^...' run build:all
+      - id: pre-build-types
+        name: Pre-build types
+        run: pnpm -r --filter '@glektarssza/webcraft^...' run build:types
       - id: test
         name: Test
         run: pnpm -r run test:ci
