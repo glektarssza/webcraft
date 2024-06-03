@@ -45,6 +45,7 @@ jobs:
       - id: install-dependencies
         name: Install dependencies
         run: pnpm -r install
-      - id: build
-        name: Build
+      - id: pre-build-dependencies
+        name: Pre-build dependencies
+        run: pnpm -r --filter '@glektarssza/webcraft^...' run build:all
         run: pnpm -r run lint:ci
