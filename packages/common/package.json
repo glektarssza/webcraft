@@ -68,6 +68,7 @@
         "test:base": "wtr",
         "lint": "pnpm run lint:cache ./src/ ./tests/",
         "lint:ci": "pnpm run lint:base ./src/ ./tests/",
+        "lint:fix": "pnpm run lint:base --fix ./src/ ./tests/",
         "lint:cache": "pnpm run lint:base --cache",
         "lint:base": "eslint",
         "build": "pnpm run build:prod && pnpm run build:types",

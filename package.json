@@ -4,6 +4,7 @@
         "dev": "pnpm -r --filter @glektarssza/webcraft run dev",
         "lint": "pnpm - run lint",
         "lint:ci": "pnpm -r run lint:ci",
+        "lint:fix": "pnpm -r run lint:fix",
         "lint:cache": "pnpm -r run lint:cache",
         "lint:base": "pnpm -r run lint:base"
     },
