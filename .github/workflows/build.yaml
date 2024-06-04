@@ -88,4 +88,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dist-${{matrix.build-config == 'development' && 'dev' || 'prod'}}
-          path: ./dist/${{matrix.build-config == 'development' && 'dev' || 'prod'}}
+          path: ./app/dist/${{matrix.build-config == 'development' && 'dev' || 'prod'}}
