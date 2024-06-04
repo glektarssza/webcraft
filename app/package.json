@@ -68,6 +68,7 @@
         "@typescript-eslint/parser": "^7.11.0",
         "@web/test-runner": "^0.18.2",
         "@web/test-runner-puppeteer": "^0.16.0",
+        "@webgpu/types": "^0.1.42",
         "chai": "^5.1.1",
         "eslint": "^8.57.0",
         "eslint-config-prettier": "^9.1.0",
