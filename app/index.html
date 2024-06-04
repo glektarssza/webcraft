@@ -14,5 +14,22 @@
         <link rel="stylesheet" href="./src/scss/index.scss" />
         <script type="module" src="./src/ts/index.ts"></script>
     </head>
-    <body></body>
+    <body>
+        <div id="error-container" class="display-none">
+            <div id="error-dialog">
+                <div id="error-header">
+                    <h2 id="error-header-text"></h2>
+                </div>
+                <div id="error-content">
+                    <p id="error-content-text"></p>
+                    <div id="error-content-stack-container">
+                        <code id="error-content-stack-text">
+                            Some random stack trace!
+                        </code>
+                    </div>
+                </div>
+                <div id="error-footer" class="display-none"></div>
+            </div>
+        </div>
+    </body>
 </html>
