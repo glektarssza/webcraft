@@ -279,7 +279,7 @@ export function getInternalModule(): typeof m {
     return m;
 }
 
-/* eslint-disable no-empty-pattern, @typescript-eslint/unbound-method */
+/* eslint-disable @typescript-eslint/unbound-method */
 export const {
     addDocumentEventListener,
     addWindowEventListener,
@@ -294,4 +294,4 @@ export const {
     setTimeout,
     waitForDOMReady
 } = m;
-/* eslint-enable no-empty-pattern, @typescript-eslint/unbound-method */
+/* eslint-enable @typescript-eslint/unbound-method */
