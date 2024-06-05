@@ -1,4 +1,4 @@
-<h1 align="center" id="webcraft---common-library">
+<h1 align="center" id="webcraft---package-template">
     Webcraft - Package Template
 </h1>
 <p align="center">
