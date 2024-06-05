@@ -17,6 +17,6 @@ export function getInternalModule(): typeof m {
     return m;
 }
 
-/* eslint-disable no-empty-pattern, @typescript-eslint/unbound-method */
+/* eslint-disable no-empty-pattern */
 export const {} = m;
-/* eslint-enable no-empty-pattern, @typescript-eslint/unbound-method */
+/* eslint-enable no-empty-pattern */
