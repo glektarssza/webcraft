@@ -20,31 +20,31 @@
         ".": {
             "browser": {
                 "development": {
-                    "import": "./dist/dev/webcraft-common.js",
-                    "require": "./dist/dev/webcraft-common.umd.cjs"
+                    "import": "./dist/dev/webcraft-package-template.js",
+                    "require": "./dist/dev/webcraft-package-template.umd.cjs"
                 },
                 "production": {
-                    "import": "./dist/prod/webcraft-common.js",
-                    "require": "./dist/prod/webcraft-common.umd.cjs"
+                    "import": "./dist/prod/webcraft-package-template.js",
+                    "require": "./dist/prod/webcraft-package-template.umd.cjs"
                 },
-                "import": "./dist/prod/webcraft-common.js",
-                "require": "./dist/prod/webcraft-common.umd.cjs",
+                "import": "./dist/prod/webcraft-package-template.js",
+                "require": "./dist/prod/webcraft-package-template.umd.cjs",
                 "types": "./dist/types/index.d.ts",
-                "default": "./dist/prod/webcraft-common.umd.cjs"
+                "default": "./dist/prod/webcraft-package-template.umd.cjs"
             },
             "development": {
-                "import": "./dist/dev/webcraft-common.js",
-                "require": "./dist/dev/webcraft-common.umd.cjs"
+                "import": "./dist/dev/webcraft-package-template.js",
+                "require": "./dist/dev/webcraft-package-template.umd.cjs"
             },
             "production": {
-                "import": "./dist/prod/webcraft-common.js",
-                "require": "./dist/prod/webcraft-common.umd.cjs"
+                "import": "./dist/prod/webcraft-package-template.js",
+                "require": "./dist/prod/webcraft-package-template.umd.cjs"
             },
             "node": null,
             "types": "./dist/types/index.d.ts",
-            "import": "./dist/prod/webcraft-common.js",
-            "require": "./dist/prod/webcraft-common.umd.cjs",
-            "default": "./dist/prod/webcraft-common.umd.cjs"
+            "import": "./dist/prod/webcraft-package-template.js",
+            "require": "./dist/prod/webcraft-package-template.umd.cjs",
+            "default": "./dist/prod/webcraft-package-template.umd.cjs"
         }
     },
     "keywords": [
