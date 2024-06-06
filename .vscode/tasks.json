@@ -134,6 +134,45 @@
             ]
         },
         {
+            "label": "pnpm:lint:fix",
+            "detail": "Lint the project and fix any fixable issues using pnpm.",
+            "icon": {
+                "id": "search-fuzzy",
+                "color": "terminal.ansiYellow"
+            },
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "dependsOrder": "sequence",
+            "group": "none",
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "command": "pnpm",
+            "args": [
+                "-r",
+                "run",
+                "lint:fix"
+            ],
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": [
+                "$eslint-compact",
+                "$eslint-stylish"
+            ]
+        },
+        {
             "label": "pnpm:test",
             "detail": "Test the project using pnpm.",
             "icon": {
@@ -155,6 +194,44 @@
             "args": [
                 "-r",
                 "test"
+            ],
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:test:coverage",
+            "detail": "Test the project with coverage reporting using pnpm.",
+            "icon": {
+                "id": "beaker",
+                "color": "terminal.ansiCyan"
+            },
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "dependsOrder": "sequence",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "command": "pnpm",
+            "args": [
+                "-r",
+                "test:coverage"
             ],
             "runOptions": {
                 "instanceLimit": 1,
