@@ -42,7 +42,8 @@
                 "color": "terminal.ansiGreen"
             },
             "dependsOn": [
-                "pnpm:install"
+                "pnpm:install",
+                "pnpm:rebuild:libs:all"
             ],
             "dependsOrder": "sequence",
             "group": "none",
@@ -51,6 +52,9 @@
             "type": "shell",
             "command": "pnpm",
             "args": [
+                "-r",
+                "--filter",
+                "@glektarssza/webcraft",
                 "run",
                 "dev"
             ],
