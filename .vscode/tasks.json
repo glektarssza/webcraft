@@ -537,7 +537,7 @@
             "problemMatcher": []
         },
         {
-            "label": "pnpm:rebuild::libs:all",
+            "label": "pnpm:rebuild:libs:all",
             "detail": "Rebuild the project libraries using pnpm.",
             "icon": {
                 "id": "tools",
