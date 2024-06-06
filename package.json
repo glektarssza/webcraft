@@ -1,7 +1,6 @@
 {
     "scripts": {
-        "prepare": "husky",
-        "dev": "pnpm -r --filter @glektarssza/webcraft run dev"
+        "prepare": "husky"
     },
     "devDependencies": {
         "@eslint/js": "^9.4.0",
