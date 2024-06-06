@@ -74,12 +74,9 @@ jobs:
       - id: install-dependencies
         name: Install dependencies
         run: pnpm -r install
-      - id: pre-build-types
-        name: Pre-build types
-        run: pnpm -r --filter '@glektarssza/webcraft^...' run build:types
       - id: pre-build-packages
         name: Pre-build packages
-        run: pnpm -r --filter '@glektarssza/webcraft^...' run build:all
+        run: pnpm -r --filter '@glektarssza/webcraft^...' run rebuild:all
       - id: build
         name: Build
         run: pnpm -r --filter '@glektarssza/webcraft' run build:${{matrix.build-config == 'development' && 'dev' || 'prod'}}
