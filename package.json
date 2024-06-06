@@ -1,27 +1,7 @@
 {
     "scripts": {
         "prepare": "husky",
-        "dev": "pnpm -r --filter @glektarssza/webcraft run dev",
-        "lint": "pnpm - run lint",
-        "lint:ci": "pnpm -r run lint:ci",
-        "lint:fix": "pnpm -r run lint:fix",
-        "lint:cache": "pnpm -r run lint:cache",
-        "lint:base": "pnpm -r run lint:base",
-        "build": "pnpm -r run build",
-        "build:all": "pnpm -r run build:all",
-        "build:types": "pnpm -r run build:types",
-        "build:dev": "pnpm -r run build:dev",
-        "build:prod": "pnpm -r run build:prod",
-        "clean": "pnpm -r run clean",
-        "clean:all": "pnpm -r run clean:all",
-        "clean:types": "pnpm -r run clean:types",
-        "clean:dev": "pnpm -r run clean:dev",
-        "clean:prod": "pnpm -r run clean:prod",
-        "rebuild": "pnpm -r run rebuild",
-        "rebuild:all": "pnpm -r run rebuild:all",
-        "rebuild:types": "pnpm -r run rebuild:types",
-        "rebuild:dev": "pnpm -r run rebuild:dev",
-        "rebuild:prod": "pnpm -r run rebuild:prod"
+        "dev": "pnpm -r --filter @glektarssza/webcraft run dev"
     },
     "devDependencies": {
         "@eslint/js": "^9.4.0",
