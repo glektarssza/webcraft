@@ -199,6 +199,68 @@ const m = {
         options?: boolean | EventListenerOptions
     ): void {
         globalThis.window.removeEventListener(eventName, callback, options);
+    },
+
+    /**
+     * Get the `readyState` of the DOM `document`.
+     *
+     * @returns The `readyState` of the DOM `document`.
+     */
+    getDocumentReadyState(): DocumentReadyState {
+        return globalThis.document.readyState;
+    },
+
+    /**
+     * Check whether the DOM is fully loaded.
+     *
+     * @returns `true` if the DOM is fully loaded; `false` otherwise.
+     */
+    isDOMLoaded(): boolean {
+        return m.getDocumentReadyState() === 'complete';
+    },
+
+    /**
+     * Wait for the DOM to become fully loaded.
+     *
+     * @param timeout - The maximum duration, in milliseconds, to wait before
+     * failing. A negative, non-finite, or non-numerical value will be treated
+     * as an infinite timeout.
+     *
+     * @returns A promise that resolves once the DOM is fully loaded or rejects
+     * if the timeout occurs before the DOM becomes fully loaded.
+     */
+    async waitForDOMLoaded(timeout = Infinity): Promise<void> {
+        if (m.isDOMLoaded()) {
+            return;
+        }
+        await new Promise<void>((resolve, reject): void => {
+            if (m.isDOMLoaded()) {
+                resolve();
+                return;
+            }
+            let timeoutID: SetTimeoutRequestID | null = null;
+            const listener = (): void => {
+                if (m.isDOMLoaded()) {
+                    if (timeoutID !== null) {
+                        m.clearTimeout(timeoutID);
+                    }
+                    m.removeDocumentEventListener('readystatechange', listener);
+                    resolve();
+                    return;
+                }
+            };
+            if (isFinite(timeout) && timeout >= 0) {
+                timeoutID = m.setTimeout((): void => {
+                    m.removeDocumentEventListener('readystatechange', listener);
+                    reject(
+                        new Error(
+                            `DOM did not become ready within ${timeout} ms`
+                        )
+                    );
+                }, timeout);
+            }
+            m.addDocumentEventListener('readystatechange', listener);
+        });
     }
 };
 
