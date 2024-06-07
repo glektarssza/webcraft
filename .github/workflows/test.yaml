@@ -44,13 +44,10 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
       - id: install-dependencies
         name: Install dependencies
-        run: pnpm -r install
+        run: pnpm install
       - id: ensure-puppeteer-brower-installed
         name: Ensure Puppeteer browser installed
         run: pnpm dlx puppeteer browsers install chrome
-      - id: pre-build-packages
-        name: Pre-build packages
-        run: pnpm -r --filter '@glektarssza/webcraft^...' run rebuild:all
       - id: test
         name: Test
-        run: pnpm -r run test:ci
+        run: pnpm run test:ci

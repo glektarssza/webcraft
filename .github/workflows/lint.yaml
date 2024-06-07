@@ -44,10 +44,7 @@ jobs:
           cache-dependency-path: pnpm-lock.yaml
       - id: install-dependencies
         name: Install dependencies
-        run: pnpm -r install
-      - id: pre-build-packages
-        name: Pre-build packages
-        run: pnpm -r --filter '@glektarssza/webcraft^...' run rebuild:all
+        run: pnpm install
       - id: lint
         name: Lint
-        run: pnpm -r run lint:ci
+        run: pnpm run lint:ci
