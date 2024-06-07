@@ -16,7 +16,6 @@
             "type": "shell",
             "command": "pnpm",
             "args": [
-                "-r",
                 "install"
             ],
             "runOptions": {
@@ -42,8 +41,7 @@
                 "color": "terminal.ansiGreen"
             },
             "dependsOn": [
-                "pnpm:install",
-                "pnpm:rebuild:libs:all"
+                "pnpm:install"
             ],
             "dependsOrder": "sequence",
             "group": "none",
@@ -52,9 +50,6 @@
             "type": "shell",
             "command": "pnpm",
             "args": [
-                "-r",
-                "--filter",
-                "@glektarssza/webcraft",
                 "run",
                 "dev"
             ],
@@ -116,7 +111,6 @@
             "type": "shell",
             "command": "pnpm",
             "args": [
-                "-r",
                 "run",
                 "lint"
             ],
@@ -146,8 +140,7 @@
                 "color": "terminal.ansiYellow"
             },
             "dependsOn": [
-                "pnpm:install",
-                "pnpm:build:all"
+                "pnpm:install"
             ],
             "dependsOrder": "sequence",
             "group": "none",
@@ -156,7 +149,6 @@
             "type": "shell",
             "command": "pnpm",
             "args": [
-                "-r",
                 "run",
                 "lint:fix"
             ],
@@ -186,8 +178,7 @@
                 "color": "terminal.ansiRed"
             },
             "dependsOn": [
-                "pnpm:install",
-                "pnpm:build:libs:all"
+                "pnpm:install"
             ],
             "dependsOrder": "sequence",
             "group": {
@@ -199,7 +190,6 @@
             "type": "shell",
             "command": "pnpm",
             "args": [
-                "-r",
                 "test"
             ],
             "runOptions": {
@@ -225,8 +215,7 @@
                 "color": "terminal.ansiRed"
             },
             "dependsOn": [
-                "pnpm:install",
-                "pnpm:build:libs:all"
+                "pnpm:install"
             ],
             "dependsOrder": "sequence",
             "group": {
@@ -238,7 +227,6 @@
             "type": "shell",
             "command": "pnpm",
             "args": [
-                "-r",
                 "run",
                 "test:coverage"
             ],
@@ -258,86 +246,6 @@
             "problemMatcher": []
         },
         {
-            "label": "pnpm:build:types",
-            "detail": "Build the project type definitions using pnpm.",
-            "icon": {
-                "id": "tools",
-                "color": "terminal.ansiCyan"
-            },
-            "dependsOn": [
-                "pnpm:install"
-            ],
-            "dependsOrder": "sequence",
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
-            "isBackground": false,
-            "promptOnClose": false,
-            "type": "shell",
-            "command": "pnpm",
-            "args": [
-                "-r",
-                "run",
-                "build:types"
-            ],
-            "runOptions": {
-                "instanceLimit": 1,
-                "reevaluateOnRerun": true,
-                "runOn": "default"
-            },
-            "presentation": {
-                "echo": false,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "pnpm:build:libs:types",
-            "detail": "Build the project library type definitions using pnpm.",
-            "icon": {
-                "id": "tools",
-                "color": "terminal.ansiCyan"
-            },
-            "dependsOn": [
-                "pnpm:install"
-            ],
-            "dependsOrder": "sequence",
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
-            "isBackground": false,
-            "promptOnClose": false,
-            "type": "shell",
-            "command": "pnpm",
-            "args": [
-                "-r",
-                "--filter",
-                "@glektarssza/webcraft^...",
-                "run",
-                "build:types"
-            ],
-            "runOptions": {
-                "instanceLimit": 1,
-                "reevaluateOnRerun": true,
-                "runOn": "default"
-            },
-            "presentation": {
-                "echo": false,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            },
-            "problemMatcher": []
-        },
-        {
             "label": "pnpm:build:all",
             "detail": "Build the project using pnpm.",
             "icon": {
@@ -350,14 +258,13 @@
             "dependsOrder": "sequence",
             "group": {
                 "kind": "build",
-                "isDefault": false
+                "isDefault": true
             },
             "isBackground": false,
             "promptOnClose": false,
             "type": "shell",
             "command": "pnpm",
             "args": [
-                "-r",
                 "run",
                 "build:all"
             ],
@@ -377,8 +284,8 @@
             "problemMatcher": []
         },
         {
-            "label": "pnpm:build:libs:all",
-            "detail": "Build the project libraries using pnpm.",
+            "label": "pnpm:clean:all",
+            "detail": "Clean the project using pnpm.",
             "icon": {
                 "id": "tools",
                 "color": "terminal.ansiCyan"
@@ -387,100 +294,14 @@
                 "pnpm:install"
             ],
             "dependsOrder": "sequence",
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
+            "group": "none",
             "isBackground": false,
             "promptOnClose": false,
             "type": "shell",
             "command": "pnpm",
             "args": [
-                "-r",
-                "--filter",
-                "@glektarssza/webcraft^...",
                 "run",
-                "build:all"
-            ],
-            "runOptions": {
-                "instanceLimit": 1,
-                "reevaluateOnRerun": true,
-                "runOn": "default"
-            },
-            "presentation": {
-                "echo": false,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "pnpm:rebuild:types",
-            "detail": "Rebuild the project type definitions using pnpm.",
-            "icon": {
-                "id": "tools",
-                "color": "terminal.ansiMagenta"
-            },
-            "dependsOn": [
-                "pnpm:install"
-            ],
-            "dependsOrder": "sequence",
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
-            "isBackground": false,
-            "promptOnClose": false,
-            "type": "shell",
-            "command": "pnpm",
-            "args": [
-                "-r",
-                "run",
-                "rebuild:types"
-            ],
-            "runOptions": {
-                "instanceLimit": 1,
-                "reevaluateOnRerun": true,
-                "runOn": "default"
-            },
-            "presentation": {
-                "echo": false,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "pnpm:rebuild:libs:types",
-            "detail": "Rebuild the project library type definitions using pnpm.",
-            "icon": {
-                "id": "tools",
-                "color": "terminal.ansiMagenta"
-            },
-            "dependsOn": [
-                "pnpm:install"
-            ],
-            "dependsOrder": "sequence",
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
-            "isBackground": false,
-            "promptOnClose": false,
-            "type": "shell",
-            "command": "pnpm",
-            "args": [
-                "-r",
-                "--filter",
-                "@glektarssza/webcraft^...",
-                "run",
-                "rebuild:types"
+                "clean:all"
             ],
             "runOptions": {
                 "instanceLimit": 1,
@@ -517,48 +338,6 @@
             "type": "shell",
             "command": "pnpm",
             "args": [
-                "-r",
-                "run",
-                "rebuild:all"
-            ],
-            "runOptions": {
-                "instanceLimit": 1,
-                "reevaluateOnRerun": true,
-                "runOn": "default"
-            },
-            "presentation": {
-                "echo": false,
-                "reveal": "silent",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": false,
-                "clear": true
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "pnpm:rebuild:libs:all",
-            "detail": "Rebuild the project libraries using pnpm.",
-            "icon": {
-                "id": "tools",
-                "color": "terminal.ansiMagenta"
-            },
-            "dependsOn": [
-                "pnpm:install"
-            ],
-            "dependsOrder": "sequence",
-            "group": {
-                "kind": "build",
-                "isDefault": false
-            },
-            "isBackground": false,
-            "promptOnClose": false,
-            "type": "shell",
-            "command": "pnpm",
-            "args": [
-                "-r",
-                "--filter",
-                "@glektarssza/webcraft^...",
                 "run",
                 "rebuild:all"
             ],
