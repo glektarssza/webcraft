@@ -55,7 +55,11 @@
     },
     "dependencies": {
         "@webgpu/types": "^0.1.42",
+        "uuid": "^9.0.1",
         "wgpu-matrix": "^3.0.1"
+    },
+    "optionalDependencies": {
+        "@types/uuid": "^9.0.8"
     },
     "devDependencies": {
         "@eslint/js": "^9.4.0",
