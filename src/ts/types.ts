@@ -6,6 +6,11 @@
 export type Distinct<T> = T & {readonly __TYPE__: unique symbol};
 
 /**
+ * A canvas element.
+ */
+export type Canvas = HTMLCanvasElement | OffscreenCanvas;
+
+/**
  * A module which provides utility functionality related to Typescript types.
  */
 const m = {};
