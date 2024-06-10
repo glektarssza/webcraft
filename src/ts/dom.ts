@@ -281,9 +281,12 @@ export const {
     addWindowEventListener,
     clearInterval,
     clearTimeout,
+    getDocumentReadyState,
+    isDOMLoaded,
     removeDocumentEventListener,
     removeWindowEventListener,
     setInterval,
-    setTimeout
+    setTimeout,
+    waitForDOMLoaded
 } = m;
 /* eslint-enable @typescript-eslint/unbound-method */
