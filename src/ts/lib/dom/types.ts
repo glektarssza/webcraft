@@ -39,6 +39,26 @@ export type IntervalID = Distinct<number>;
 export type AnimationFrameID = Distinct<number>;
 
 /**
+ * A callback that can be triggered when an event occurs on the DOM `document`.
+ *
+ * @typeParam E - The name of the event the callback is meant to handle.
+ */
+export type DocumentEventListener<E extends keyof DocumentEventMap> = (
+    this: Document,
+    event: DocumentEventMap[E]
+) => boolean | void;
+
+/**
+ * A callback that can be triggered when an event occurs on the DOM `window`.
+ *
+ * @typeParam E - The name of the event the callback is meant to handle.
+ */
+export type WindowEventListener<E extends keyof WindowEventMap> = (
+    this: Window,
+    event: WindowEventMap[E]
+) => boolean | void;
+
+/**
  * A module which provides various DOM-related typings.
  */
 const m = {};
