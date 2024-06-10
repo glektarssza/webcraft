@@ -1,9 +1,12 @@
+//-- NPM Packages
+import * as wgpu_matrix from 'wgpu-matrix';
+
 //-- Project Code
 import {requestAnimationFrame, waitForDOMLoaded} from './dom';
 import {createHTMLCanvasContext, loadShader} from './webgpu';
 
 //-- Assets
-import defaultShaderURL from '@shaders/default.wgsl?url';
+import defaultShaderURL from '@shaders/default-matrices.wgsl?url';
 
 /**
  * The vertex position data.
@@ -56,12 +59,35 @@ async function main(): Promise<void> {
     document.body.appendChild(canvas);
     const bindGroupLayout = device.createBindGroupLayout({
         label: 'Default WebGPU bind group layout',
-        entries: []
+        entries: [
+            {
+                binding: 0,
+                visibility: GPUShaderStage.VERTEX,
+                buffer: {
+                    type: 'uniform'
+                }
+            }
+        ]
     });
+
+    const mvpMatrixData = new Float32Array(16);
+    const mvpMatrixBuffer = device.createBuffer({
+        label: 'Default WebGPU MVP matrix',
+        size: mvpMatrixData.byteLength,
+        usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.UNIFORM
+    });
+
     const bindGroup = device.createBindGroup({
         label: 'Default WebGPU bind group',
         layout: bindGroupLayout,
-        entries: []
+        entries: [
+            {
+                binding: 0,
+                resource: {
+                    buffer: mvpMatrixBuffer
+                }
+            }
+        ]
     });
     const pipelineLayout = device.createPipelineLayout({
         label: 'Default WebGPU pipeline layout',
@@ -159,6 +185,26 @@ async function main(): Promise<void> {
             canvas.width = canvas.clientWidth;
             canvas.height = canvas.clientHeight;
         }
+
+        const modelMatrix = wgpu_matrix.mat4.identity();
+        const viewMatrix = wgpu_matrix.mat4.lookAt(
+            [2, 2, 2],
+            [0, 0, 0],
+            [0, 1, 0]
+        );
+        const projectionMatrix = wgpu_matrix.mat4.perspective(
+            wgpu_matrix.utils.degToRad(45),
+            canvas.clientWidth / canvas.clientHeight,
+            0.001,
+            1000
+        );
+        const vpMatrix = wgpu_matrix.mat4.multiply(
+            projectionMatrix,
+            viewMatrix,
+            wgpu_matrix.mat4.identity()
+        );
+        wgpu_matrix.mat4.multiply(vpMatrix, modelMatrix, mvpMatrixData);
+        device.queue.writeBuffer(mvpMatrixBuffer, 0, mvpMatrixData);
         const canvasTextureView = canvasContext
             .getCurrentTexture()
             .createView();
