@@ -145,6 +145,35 @@ const m = {
             canvas,
             options
         )) as OffscreenCanvasContext;
+    },
+
+    /**
+     * Load a WebGPU shader from remote source code.
+     *
+     * @param context - The WebGPU context to use to create the new shader.
+     * @param sourceURL - The location to load the shader source code from.
+     * @param descriptor - The descriptor for the WebGPU shader.
+     *
+     * @returns A promise that resolves to the newly created shader upon success
+     * or rejects if an error occurs.
+     */
+    async loadShader(
+        context: Context,
+        sourceURL: RequestInfo | URL,
+        descriptor?: Omit<GPUShaderModuleDescriptor, 'code'>
+    ): Promise<GPUShaderModule> {
+        const resp = await fetch(sourceURL);
+        if (!resp.ok) {
+            throw new Error(
+                `Failed to fetch remote WebGPU shader source (${resp.status} - ${resp.statusText})`
+            );
+        }
+        const code = await resp.text();
+        const {device} = context;
+        return device.createShaderModule({
+            ...descriptor,
+            code
+        });
     }
 };
 
