@@ -1,7 +1,16 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
+        "paths": {
+            "@assets/*": [
+                "../../assets/*"
+            ],
+            "@shaders/*": [
+                "../shaders/*"
+            ]
+        },
         "types": [
+            "vite/client",
             "@webgpu/types"
         ]
     }

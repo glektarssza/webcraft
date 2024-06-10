@@ -1,3 +1,6 @@
+//-- NodeJS
+import path from 'node:path';
+
 //-- NPM Packages
 import replacePlugin from '@rollup/plugin-replace';
 import {UserConfig, createLogger, defineConfig} from 'vite';
@@ -16,17 +19,17 @@ const config = defineConfig(({command, mode}) => {
         clearScreen: false,
         mode,
         resolve: {
-            extensions: ['.ts', '.js']
+            extensions: ['.ts', '.js'],
+            alias: {
+                '@assets': path.resolve(import.meta.dirname, './assets/'),
+                '@shaders': path.resolve(import.meta.dirname, './src/shaders/')
+            }
         },
         build: {
             emptyOutDir: true
         },
         server: {
-            hmr: false,
-            port: 8080
-        },
-        preview: {
-            port: 8080
+            hmr: false
         },
         plugins: []
     };
