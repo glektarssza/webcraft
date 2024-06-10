@@ -192,6 +192,7 @@ export function getInternalModule(): typeof m {
 export const {
     createContext,
     createHTMLCanvasContext,
-    createOffscreenCanvasContext
+    createOffscreenCanvasContext,
+    loadShader
 } = m;
 /* eslint-enable @typescript-eslint/unbound-method */
