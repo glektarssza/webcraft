@@ -6,6 +6,34 @@ import {createHTMLCanvasContext, loadShader} from './webgpu';
 import defaultShaderURL from '@shaders/default.wgsl?url';
 
 /**
+ * The vertex position data.
+ */
+// prettier-ignore
+const VERTEX_POSITION_DATA = new Float32Array([
+    -0.5, -0.5, 0,
+     0.5, -0.5, 0,
+     0,    0.5, 0
+]);
+
+/**
+ * The vertex color data.
+ */
+// prettier-ignore
+const VERTEX_COLOR_DATA = new Float32Array([
+    1, 0, 0,
+    0, 1, 0,
+    0, 0, 1
+]);
+
+/**
+ * The index rendering data.
+ */
+// prettier-ignore
+const INDEX_DATA = new Uint32Array([
+    0, 1, 2
+]);
+
+/**
  * The program entry point.
  */
 async function main(): Promise<void> {
@@ -101,6 +129,28 @@ async function main(): Promise<void> {
             topology: 'triangle-list'
         }
     });
+
+    const vertexBuffer = device.createBuffer({
+        label: 'Default WebGPU vertex position buffer',
+        size: VERTEX_POSITION_DATA.byteLength,
+        usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.VERTEX
+    });
+    device.queue.writeBuffer(vertexBuffer, 0, VERTEX_POSITION_DATA);
+
+    const colorBuffer = device.createBuffer({
+        label: 'Default WebGPU vertex color buffer',
+        size: VERTEX_COLOR_DATA.byteLength,
+        usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.VERTEX
+    });
+    device.queue.writeBuffer(colorBuffer, 0, VERTEX_COLOR_DATA);
+
+    const indexBuffer = device.createBuffer({
+        label: 'Default WebGPU index buffer',
+        size: INDEX_DATA.byteLength,
+        usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.INDEX
+    });
+    device.queue.writeBuffer(indexBuffer, 0, INDEX_DATA);
+
     const render = (): void => {
         if (
             canvas.width !== canvas.clientWidth ||
@@ -128,8 +178,13 @@ async function main(): Promise<void> {
                 }
             ]
         });
+        renderPass.setViewport(0, 0, canvas.width, canvas.height, 0, 1);
         renderPass.setPipeline(renderPipeline);
         renderPass.setBindGroup(0, bindGroup);
+        renderPass.setVertexBuffer(0, vertexBuffer);
+        renderPass.setVertexBuffer(1, colorBuffer);
+        renderPass.setIndexBuffer(indexBuffer, 'uint32');
+        renderPass.drawIndexed(3);
         renderPass.end();
         device.queue.submit([encoder.finish()]);
         requestAnimationFrame(render);
