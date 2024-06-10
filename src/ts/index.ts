@@ -93,6 +93,12 @@ async function main(): Promise<void> {
                 }
             ],
             constants: {}
+        },
+        multisample: {
+            count: 1
+        },
+        primitive: {
+            topology: 'triangle-list'
         }
     });
     const render = (): void => {
