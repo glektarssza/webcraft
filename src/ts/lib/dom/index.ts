@@ -1,5 +1,6 @@
 //-- Project Code
 export * from './types';
+export * from './timers';
 
 /**
  * A module which provides various DOM-related functionality.
