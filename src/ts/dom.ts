@@ -24,6 +24,17 @@ export type SetIntervalCallback<TArgs extends unknown[], TRet = unknown> = (
 ) => TRet;
 
 /**
+ * A callback that can be passed to
+ * {@link m.requestAnimationFrame | requestAnimationFrame} to be called when the
+ * browser is ready to render another frame.
+ *
+ * @typeParam TRet - The return type of the callback.
+ */
+export type RequestAnimationFrameCallback<TRet = unknown> = (
+    delta: DOMHighResTimeStamp
+) => TRet;
+
+/**
  * An identifier that can be used to cancel a previous call to
  * {@link m.setTimeout | setTimeout}.
  */
@@ -34,6 +45,12 @@ export type SetTimeoutRequestID = Distinct<number>;
  * {@link m.setInterval | setInterval}.
  */
 export type SetIntervalRequestID = Distinct<number>;
+
+/**
+ * An identifier that can be used to cancel a previous call to
+ * {@link m.requestAnimationFrame | requestAnimationFrame}.
+ */
+export type RequestAnimationFrameRequestID = Distinct<number>;
 
 /**
  * A callback for when an event occurs on the DOM `document`.
@@ -261,6 +278,32 @@ const m = {
             }
             m.addDocumentEventListener('readystatechange', listener);
         });
+    },
+
+    /**
+     * Request a callback to be triggered when the browser is ready to render
+     * another animation frame.
+     *
+     * @param callback - The callback to be triggered.
+     *
+     * @returns An identifier that can be used to cancel the request.
+     */
+    requestAnimationFrame(
+        callback: RequestAnimationFrameCallback
+    ): RequestAnimationFrameRequestID {
+        return globalThis.requestAnimationFrame(
+            callback
+        ) as RequestAnimationFrameRequestID;
+    },
+
+    /**
+     * Cancel a previous request to trigger a callback when the browser is ready
+     * to render another animation frame.
+     *
+     * @param requestID - The identifier of the request to cancel.
+     */
+    cancelAnimationFrame(requestID: RequestAnimationFrameRequestID): void {
+        globalThis.cancelAnimationFrame(requestID);
     }
 };
 
@@ -279,12 +322,14 @@ export function getInternalModule(): typeof m {
 export const {
     addDocumentEventListener,
     addWindowEventListener,
+    cancelAnimationFrame,
     clearInterval,
     clearTimeout,
     getDocumentReadyState,
     isDOMLoaded,
     removeDocumentEventListener,
     removeWindowEventListener,
+    requestAnimationFrame,
     setInterval,
     setTimeout,
     waitForDOMLoaded
