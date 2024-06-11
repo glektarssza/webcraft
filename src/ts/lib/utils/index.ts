@@ -1,5 +1,4 @@
-//-- Project Code
-export * from './types';
+export type * from './types';
 
 /**
  * A module which provides various utilities that do not fit into another
