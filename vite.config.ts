@@ -34,7 +34,7 @@ const config = defineConfig(({command, mode}) => {
         },
         plugins: []
     };
-    if (command === 'serve') {
+    if (command === 'serve' && !isUnitTesting) {
         generatedConfig.mode = 'development';
         const pluginLogger = createLogger('info');
         let modulesBeingLoaded = 0;
