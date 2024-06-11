@@ -122,28 +122,6 @@ const VERTEX_COLOR_DATA = new Float32Array([
 ]);
 
 /**
- * The index rendering data.
- */
-// prettier-ignore
-const INDEX_DATA = new Uint32Array([
-    //-- Front Face
-    0, 1, 2,
-    3, 4, 5,
-
-    //-- Back Face
-    6, 7, 8,
-    9, 10, 11,
-
-    //-- Top Face
-    12, 13, 14,
-    15, 16, 17,
-
-    //-- Bottom Face
-    18, 19, 20,
-    21, 22, 23
-]);
-
-/**
  * The program entry point.
  */
 async function main(): Promise<void> {
@@ -282,13 +260,6 @@ async function main(): Promise<void> {
     });
     device.queue.writeBuffer(colorBuffer, 0, VERTEX_COLOR_DATA);
 
-    const indexBuffer = device.createBuffer({
-        label: 'Default WebGPU index buffer',
-        size: INDEX_DATA.byteLength,
-        usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.INDEX
-    });
-    device.queue.writeBuffer(indexBuffer, 0, INDEX_DATA);
-
     let depthTexture = device.createTexture({
         format: 'depth32float',
         size: {
@@ -364,7 +335,6 @@ async function main(): Promise<void> {
         renderPass.setBindGroup(0, bindGroup);
         renderPass.setVertexBuffer(0, vertexBuffer);
         renderPass.setVertexBuffer(1, colorBuffer);
-        renderPass.setIndexBuffer(indexBuffer, 'uint32');
         renderPass.draw(36);
         renderPass.end();
         device.queue.submit([encoder.finish()]);
