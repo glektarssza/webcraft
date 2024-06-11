@@ -1,10 +1,10 @@
-//-- Project Code
-export * as utils from './utils';
-export * as dom from './dom';
-export * as webgpu from './webgpu';
+/**
+ * A type union of valid canvas types.
+ */
+export type Canvas = HTMLCanvasElement | OffscreenCanvas;
 
 /**
- * A module which provides various common functionality.
+ * A module which provides various WebGPU-related typings.
  */
 const m = {};
 
