@@ -1,5 +1,6 @@
 //-- Project Code
 import {getInternalModule as getContextModule} from './context';
+import {getInternalModule as getShaderModule} from './shader';
 
 export type * from './types';
 
@@ -7,7 +8,8 @@ export type * from './types';
  * A module which provides various WebGPU-related functionality.
  */
 const m = {
-    ...getContextModule()
+    ...getContextModule(),
+    ...getShaderModule()
 };
 
 /**
@@ -23,6 +25,7 @@ export function getInternalModule(): typeof m {
 export const {
     createContext,
     createHTMLCanvasContext,
-    createOffscreenCanvasContext
+    createOffscreenCanvasContext,
+    loadShaderModule
 } = m;
 /* eslint-enable @typescript-eslint/unbound-method */
