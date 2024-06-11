@@ -5,7 +5,11 @@ import prettierPlugin from 'eslint-plugin-prettier/recommended';
 
 export default tseslint.config(
     {
-        extends: [eslint.configs.recommended, ...tseslint.configs.recommendedTypeChecked, prettierPlugin],
+        extends: [
+            eslint.configs.recommended,
+            ...tseslint.configs.recommendedTypeChecked,
+            prettierPlugin
+        ],
         files: ['**/*.ts'],
         ignores: ['**/dist/**'],
         languageOptions: {
@@ -18,7 +22,8 @@ export default tseslint.config(
     {
         files: ['**/tests/**/*.ts'],
         rules: {
-            '@typescript-eslint/no-unused-expressions': 'off'
+            '@typescript-eslint/no-unused-expressions': 'off',
+            '@typescript-eslint/unbound-method': 'off'
         }
     }
 );
