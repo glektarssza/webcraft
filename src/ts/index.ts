@@ -12,19 +12,113 @@ import defaultShaderURL from '@shaders/default-matrices.wgsl?url';
  */
 // prettier-ignore
 const VERTEX_POSITION_DATA = new Float32Array([
-    -0.5, -0.5, 0,
-     0.5, -0.5, 0,
-     0,    0.5, 0
-]);
+    //-- Back Face
+    0, 0, 0,
+    1, 0, 0,
+    1, 1, 0,
+
+    0, 0, 0,
+    0, 1, 0,
+    1, 1, 0,
+
+    //-- Front Face
+    0, 0, 1,
+    1, 0, 1,
+    1, 1, 1,
+
+    0, 0, 1,
+    0, 1, 1,
+    1, 1, 1,
+
+    //-- Top Face
+    0, 1, 0,
+    0, 1, 1,
+    1, 1, 1,
+
+    0, 1, 0,
+    1, 1, 0,
+    1, 1, 1,
+
+    //-- Bottom Face
+    0, 0, 0,
+    0, 0, 1,
+    1, 0, 1,
+
+    0, 0, 0,
+    1, 0, 0,
+    1, 0, 1,
+
+    //-- Left Face
+    0, 0, 0,
+    0, 0, 1,
+    0, 1, 1,
+
+    0, 0, 0,
+    0, 1, 0,
+    0, 1, 1,
+
+    //-- Right Face
+    1, 0, 0,
+    1, 0, 1,
+    1, 1, 1,
+
+    1, 0, 0,
+    1, 1, 0,
+    1, 1, 1
+].map((value) => value - 0.5));
 
 /**
  * The vertex color data.
  */
 // prettier-ignore
 const VERTEX_COLOR_DATA = new Float32Array([
+    //-- Back Face
     1, 0, 0,
+    1, 0, 0,
+    1, 0, 0,
+    1, 0, 0,
+    1, 0, 0,
+    1, 0, 0,
+
+    //-- Front Face
     0, 1, 0,
-    0, 0, 1
+    0, 1, 0,
+    0, 1, 0,
+    0, 1, 0,
+    0, 1, 0,
+    0, 1, 0,
+
+    //-- Top Face
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+
+    //-- Bottom Face
+    1, 1, 0,
+    1, 1, 0,
+    1, 1, 0,
+    1, 1, 0,
+    1, 1, 0,
+    1, 1, 0,
+
+    //-- Left Face
+    0, 1, 1,
+    0, 1, 1,
+    0, 1, 1,
+    0, 1, 1,
+    0, 1, 1,
+    0, 1, 1,
+
+    //-- Right Face
+    1, 0, 1,
+    1, 0, 1,
+    1, 0, 1,
+    1, 0, 1,
+    1, 0, 1,
+    1, 0, 1
 ]);
 
 /**
@@ -32,7 +126,21 @@ const VERTEX_COLOR_DATA = new Float32Array([
  */
 // prettier-ignore
 const INDEX_DATA = new Uint32Array([
-    0, 1, 2
+    //-- Front Face
+    0, 1, 2,
+    3, 4, 5,
+
+    //-- Back Face
+    6, 7, 8,
+    9, 10, 11,
+
+    //-- Top Face
+    12, 13, 14,
+    15, 16, 17,
+
+    //-- Bottom Face
+    18, 19, 20,
+    21, 22, 23
 ]);
 
 /**
@@ -229,7 +337,7 @@ async function main(): Promise<void> {
         renderPass.setVertexBuffer(0, vertexBuffer);
         renderPass.setVertexBuffer(1, colorBuffer);
         renderPass.setIndexBuffer(indexBuffer, 'uint32');
-        renderPass.drawIndexed(3);
+        renderPass.draw(36);
         renderPass.end();
         device.queue.submit([encoder.finish()]);
         dom.requestAnimationFrame(render);
