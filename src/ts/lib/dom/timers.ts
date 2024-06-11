@@ -1,5 +1,11 @@
 //-- Project Code
-import type {IntervalID, TimeoutID, TimerCallback} from './types';
+import type {
+    AnimationFrameCallback,
+    AnimationFrameID,
+    IntervalID,
+    TimeoutID,
+    TimerCallback
+} from './types';
 
 /**
  * A module which provides various functionality related to DOM "timers".
@@ -73,6 +79,33 @@ const m = {
      */
     clearInterval(id: IntervalID): void {
         globalThis.clearInterval(id);
+    },
+
+    /**
+     * Request a callback to be triggered when the browser is ready to render
+     * the next animation frame.
+     *
+     * @param callback - The callback to trigger.
+     *
+     @returns An identifier that can be used to cancel the request before it
+     * is triggered.
+     *
+     * @see {@link m.cancelAnimationFrame | cancelAnimationFrame}
+     */
+    requestAnimationFrame(callback: AnimationFrameCallback): AnimationFrameID {
+        return globalThis.requestAnimationFrame(callback) as AnimationFrameID;
+    },
+
+    /**
+     * Cancel a previous request to
+     * {@link m.requestAnimationFrame | requestAnimationFrame}.
+     *
+     * @param id - The identifier of the request to cancel.
+     *
+     * @see {@link m.requestAnimationFrame | requestAnimationFrame}
+     */
+    cancelAnimationFrame(id: AnimationFrameID): void {
+        globalThis.cancelAnimationFrame(id);
     }
 };
 
@@ -86,5 +119,12 @@ export function getInternalModule(): typeof m {
 }
 
 /* eslint-disable @typescript-eslint/unbound-method */
-export const {clearInterval, clearTimeout, setInterval, setTimeout} = m;
+export const {
+    cancelAnimationFrame,
+    clearInterval,
+    clearTimeout,
+    requestAnimationFrame,
+    setInterval,
+    setTimeout
+} = m;
 /* eslint-enable @typescript-eslint/unbound-method */
