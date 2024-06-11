@@ -2,8 +2,7 @@
 import * as wgpu_matrix from 'wgpu-matrix';
 
 //-- Project Code
-import {requestAnimationFrame, waitForDOMLoaded} from './dom';
-import {createHTMLCanvasContext, loadShader} from './webgpu';
+import {dom, webgpu} from './lib';
 
 //-- Assets
 import defaultShaderURL from '@shaders/default-matrices.wgsl?url';
@@ -40,8 +39,8 @@ const INDEX_DATA = new Uint32Array([
  * The program entry point.
  */
 async function main(): Promise<void> {
-    await waitForDOMLoaded();
-    const context = await createHTMLCanvasContext({
+    await dom.waitForDOMReady();
+    const context = await webgpu.createHTMLCanvasContext({
         adapterOptions: {
             powerPreference: 'high-performance'
         },
@@ -93,7 +92,7 @@ async function main(): Promise<void> {
         label: 'Default WebGPU pipeline layout',
         bindGroupLayouts: [bindGroupLayout]
     });
-    const shader = await loadShader(context, defaultShaderURL, {
+    const shader = await webgpu.loadShaderModule(context, defaultShaderURL, {
         label: 'Default WebGPU shader module',
         compilationHints: [
             {
@@ -233,9 +232,9 @@ async function main(): Promise<void> {
         renderPass.drawIndexed(3);
         renderPass.end();
         device.queue.submit([encoder.finish()]);
-        requestAnimationFrame(render);
+        dom.requestAnimationFrame(render);
     };
-    requestAnimationFrame(render);
+    dom.requestAnimationFrame(render);
 }
 
 main()
