@@ -1,6 +1,7 @@
 //-- Project Code
 import {getInternalModule as getContextModule} from './context';
 import {getInternalModule as getShaderModule} from './shader';
+import {getInternalModule as getMeshModule} from './mesh';
 
 export type * from './types';
 
@@ -9,7 +10,8 @@ export type * from './types';
  */
 const m = {
     ...getContextModule(),
-    ...getShaderModule()
+    ...getShaderModule(),
+    ...getMeshModule()
 };
 
 /**
