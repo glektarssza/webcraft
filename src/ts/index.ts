@@ -255,6 +255,11 @@ async function main(): Promise<void> {
             ],
             constants: {}
         },
+        depthStencil: {
+            format: 'depth32float',
+            depthCompare: 'less',
+            depthWriteEnabled: true
+        },
         multisample: {
             count: 1
         },
@@ -284,6 +289,15 @@ async function main(): Promise<void> {
     });
     device.queue.writeBuffer(indexBuffer, 0, INDEX_DATA);
 
+    let depthTexture = device.createTexture({
+        format: 'depth32float',
+        size: {
+            width: canvas.width,
+            height: canvas.height
+        },
+        usage: GPUTextureUsage.RENDER_ATTACHMENT
+    });
+
     const render = (): void => {
         if (
             canvas.width !== canvas.clientWidth ||
@@ -291,6 +305,14 @@ async function main(): Promise<void> {
         ) {
             canvas.width = canvas.clientWidth;
             canvas.height = canvas.clientHeight;
+            depthTexture = device.createTexture({
+                format: 'depth32float',
+                size: {
+                    width: canvas.width,
+                    height: canvas.height
+                },
+                usage: GPUTextureUsage.RENDER_ATTACHMENT
+            });
         }
 
         const modelMatrix = wgpu_matrix.mat4.identity();
@@ -329,7 +351,13 @@ async function main(): Promise<void> {
                         a: 1
                     }
                 }
-            ]
+            ],
+            depthStencilAttachment: {
+                view: depthTexture.createView(),
+                depthLoadOp: 'clear',
+                depthStoreOp: 'store',
+                depthClearValue: 1
+            }
         });
         renderPass.setViewport(0, 0, canvas.width, canvas.height, 0, 1);
         renderPass.setPipeline(renderPipeline);
