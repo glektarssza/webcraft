@@ -11,6 +11,9 @@ importers:
       '@webgpu/types':
         specifier: ^0.1.42
         version: 0.1.42
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       uuid:
         specifier: ^9.0.1
         version: 9.0.1
@@ -18,6 +21,9 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
     optionalDependencies:
+      '@types/lodash':
+        specifier: ^4.17.5
+        version: 4.17.5
       '@types/uuid':
         specifier: ^9.0.8
         version: 9.0.8
@@ -588,6 +594,9 @@ packages:
 
   '@types/koa@2.15.0':
     resolution: {integrity: sha512-7QFsywoE5URbuVnG3loe03QXuGajrnotr3gQkXcEBShORai23MePfFYdhz90FEtBBpkyIYQbVD+evKtloCgX3g==}
+
+  '@types/lodash@4.17.5':
+    resolution: {integrity: sha512-MBIOHVZqVqgfro1euRDWX7OO0fBVUUMrN6Pwm8LQsz8cWhEpihlvR70ENj3f40j58TNxZaWv2ndSkInykNBBJw==}
 
   '@types/mime@1.3.5':
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}
@@ -3041,6 +3050,9 @@ snapshots:
       '@types/keygrip': 1.0.6
       '@types/koa-compose': 3.2.8
       '@types/node': 20.14.2
+
+  '@types/lodash@4.17.5':
+    optional: true
 
   '@types/mime@1.3.5': {}
 

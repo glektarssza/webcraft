@@ -55,10 +55,12 @@
     },
     "dependencies": {
         "@webgpu/types": "^0.1.42",
+        "lodash": "^4.17.21",
         "uuid": "^9.0.1",
         "wgpu-matrix": "^3.0.1"
     },
     "optionalDependencies": {
+        "@types/lodash": "^4.17.5",
         "@types/uuid": "^9.0.8"
     },
     "devDependencies": {
