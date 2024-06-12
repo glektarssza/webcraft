@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      PUPPETEER_BROWSER_REVISION: '126.0.6478.55'
     steps:
       - id: checkout-repository
         name: Checkout repository
