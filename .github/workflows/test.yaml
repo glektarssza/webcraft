@@ -47,7 +47,7 @@ jobs:
         run: pnpm install
       - id: ensure-puppeteer-brower-installed
         name: Ensure Puppeteer browser installed
-        run: pnpm dlx puppeteer browsers install chrome
+        run: pnpx puppeteer browsers install chrome
       - id: test
         name: Test
         run: pnpm run test:ci
