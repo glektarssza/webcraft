@@ -55,7 +55,7 @@
     },
     "dependencies": {
         "@webgpu/types": "^0.1.42",
-        "uuid": "^9.0.1",
+        "uuid": "^10.0.0",
         "wgpu-matrix": "^3.0.1"
     },
     "optionalDependencies": {
