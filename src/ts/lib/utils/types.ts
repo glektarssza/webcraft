@@ -1,17 +1,12 @@
 /**
- * A type which is considered distinct from other matching types.
+ * A type which is considered distinct from other, normally overlapping, types.
  *
- * @typeParam T - The type of create a distinct type from.
+ * @typeParam T - The base type which will be made distinct.
  */
 export type Distinct<T> = T & {readonly __TYPE__: unique symbol};
 
 /**
- * A canvas element.
- */
-export type Canvas = HTMLCanvasElement | OffscreenCanvas;
-
-/**
- * A module which provides utility functionality related to Typescript types.
+ * A module which provides various utility typings.
  */
 const m = {};
 
@@ -19,8 +14,6 @@ const m = {};
  * Get the internal module for use in unit tests.
  *
  * @returns The internal module.
- *
- * @internal
  */
 export function getInternalModule(): typeof m {
     return m;

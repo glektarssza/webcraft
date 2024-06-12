@@ -21,6 +21,7 @@ const config = defineConfig(({command, mode}) => {
         resolve: {
             extensions: ['.ts', '.js'],
             alias: {
+                '@src': path.resolve(import.meta.dirname, './src/ts/'),
                 '@assets': path.resolve(import.meta.dirname, './assets/'),
                 '@shaders': path.resolve(import.meta.dirname, './src/shaders/')
             }
@@ -33,7 +34,7 @@ const config = defineConfig(({command, mode}) => {
         },
         plugins: []
     };
-    if (command === 'serve') {
+    if (command === 'serve' && !isUnitTesting) {
         generatedConfig.mode = 'development';
         const pluginLogger = createLogger('info');
         let modulesBeingLoaded = 0;

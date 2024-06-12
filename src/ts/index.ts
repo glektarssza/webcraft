@@ -2,8 +2,7 @@
 import * as wgpu_matrix from 'wgpu-matrix';
 
 //-- Project Code
-import {requestAnimationFrame, waitForDOMLoaded} from './dom';
-import {createHTMLCanvasContext, loadShader} from './webgpu';
+import {dom, webgpu} from './lib';
 
 //-- Assets
 import defaultShaderURL from '@shaders/default-matrices.wgsl?url';
@@ -13,35 +12,121 @@ import defaultShaderURL from '@shaders/default-matrices.wgsl?url';
  */
 // prettier-ignore
 const VERTEX_POSITION_DATA = new Float32Array([
-    -0.5, -0.5, 0,
-     0.5, -0.5, 0,
-     0,    0.5, 0
-]);
+    //-- Back Face
+    0, 0, 0,
+    1, 0, 0,
+    1, 1, 0,
+
+    0, 0, 0,
+    0, 1, 0,
+    1, 1, 0,
+
+    //-- Front Face
+    0, 0, 1,
+    1, 0, 1,
+    1, 1, 1,
+
+    0, 0, 1,
+    0, 1, 1,
+    1, 1, 1,
+
+    //-- Top Face
+    0, 1, 0,
+    0, 1, 1,
+    1, 1, 1,
+
+    0, 1, 0,
+    1, 1, 0,
+    1, 1, 1,
+
+    //-- Bottom Face
+    0, 0, 0,
+    0, 0, 1,
+    1, 0, 1,
+
+    0, 0, 0,
+    1, 0, 0,
+    1, 0, 1,
+
+    //-- Left Face
+    0, 0, 0,
+    0, 0, 1,
+    0, 1, 1,
+
+    0, 0, 0,
+    0, 1, 0,
+    0, 1, 1,
+
+    //-- Right Face
+    1, 0, 0,
+    1, 0, 1,
+    1, 1, 1,
+
+    1, 0, 0,
+    1, 1, 0,
+    1, 1, 1
+].map((value) => value - 0.5));
 
 /**
  * The vertex color data.
  */
 // prettier-ignore
 const VERTEX_COLOR_DATA = new Float32Array([
+    //-- Back Face
     1, 0, 0,
-    0, 1, 0,
-    0, 0, 1
-]);
+    1, 0, 0,
+    1, 0, 0,
+    1, 0, 0,
+    1, 0, 0,
+    1, 0, 0,
 
-/**
- * The index rendering data.
- */
-// prettier-ignore
-const INDEX_DATA = new Uint32Array([
-    0, 1, 2
+    //-- Front Face
+    0, 1, 0,
+    0, 1, 0,
+    0, 1, 0,
+    0, 1, 0,
+    0, 1, 0,
+    0, 1, 0,
+
+    //-- Top Face
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+    0, 0, 1,
+
+    //-- Bottom Face
+    1, 1, 0,
+    1, 1, 0,
+    1, 1, 0,
+    1, 1, 0,
+    1, 1, 0,
+    1, 1, 0,
+
+    //-- Left Face
+    0, 1, 1,
+    0, 1, 1,
+    0, 1, 1,
+    0, 1, 1,
+    0, 1, 1,
+    0, 1, 1,
+
+    //-- Right Face
+    1, 0, 1,
+    1, 0, 1,
+    1, 0, 1,
+    1, 0, 1,
+    1, 0, 1,
+    1, 0, 1
 ]);
 
 /**
  * The program entry point.
  */
 async function main(): Promise<void> {
-    await waitForDOMLoaded();
-    const context = await createHTMLCanvasContext({
+    await dom.waitForDOMReady();
+    const context = await webgpu.createHTMLCanvasContext({
         adapterOptions: {
             powerPreference: 'high-performance'
         },
@@ -93,7 +178,7 @@ async function main(): Promise<void> {
         label: 'Default WebGPU pipeline layout',
         bindGroupLayouts: [bindGroupLayout]
     });
-    const shader = await loadShader(context, defaultShaderURL, {
+    const shader = await webgpu.loadShaderModule(context, defaultShaderURL, {
         label: 'Default WebGPU shader module',
         compilationHints: [
             {
@@ -148,6 +233,11 @@ async function main(): Promise<void> {
             ],
             constants: {}
         },
+        depthStencil: {
+            format: 'depth32float',
+            depthCompare: 'less',
+            depthWriteEnabled: true
+        },
         multisample: {
             count: 1
         },
@@ -170,12 +260,14 @@ async function main(): Promise<void> {
     });
     device.queue.writeBuffer(colorBuffer, 0, VERTEX_COLOR_DATA);
 
-    const indexBuffer = device.createBuffer({
-        label: 'Default WebGPU index buffer',
-        size: INDEX_DATA.byteLength,
-        usage: GPUBufferUsage.COPY_DST | GPUBufferUsage.INDEX
+    let depthTexture = device.createTexture({
+        format: 'depth32float',
+        size: {
+            width: canvas.width,
+            height: canvas.height
+        },
+        usage: GPUTextureUsage.RENDER_ATTACHMENT
     });
-    device.queue.writeBuffer(indexBuffer, 0, INDEX_DATA);
 
     const render = (): void => {
         if (
@@ -184,6 +276,14 @@ async function main(): Promise<void> {
         ) {
             canvas.width = canvas.clientWidth;
             canvas.height = canvas.clientHeight;
+            depthTexture = device.createTexture({
+                format: 'depth32float',
+                size: {
+                    width: canvas.width,
+                    height: canvas.height
+                },
+                usage: GPUTextureUsage.RENDER_ATTACHMENT
+            });
         }
 
         const modelMatrix = wgpu_matrix.mat4.identity();
@@ -222,20 +322,25 @@ async function main(): Promise<void> {
                         a: 1
                     }
                 }
-            ]
+            ],
+            depthStencilAttachment: {
+                view: depthTexture.createView(),
+                depthLoadOp: 'clear',
+                depthStoreOp: 'store',
+                depthClearValue: 1
+            }
         });
         renderPass.setViewport(0, 0, canvas.width, canvas.height, 0, 1);
         renderPass.setPipeline(renderPipeline);
         renderPass.setBindGroup(0, bindGroup);
         renderPass.setVertexBuffer(0, vertexBuffer);
         renderPass.setVertexBuffer(1, colorBuffer);
-        renderPass.setIndexBuffer(indexBuffer, 'uint32');
-        renderPass.drawIndexed(3);
+        renderPass.draw(36);
         renderPass.end();
         device.queue.submit([encoder.finish()]);
-        requestAnimationFrame(render);
+        dom.requestAnimationFrame(render);
     };
-    requestAnimationFrame(render);
+    dom.requestAnimationFrame(render);
 }
 
 main()
