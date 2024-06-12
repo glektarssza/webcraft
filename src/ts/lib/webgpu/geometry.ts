@@ -15,11 +15,11 @@ export interface Geometry {
  * A module which provides various geometry-related functionality.
  */
 const m = {
-    createCubeGeometry(width: number, height: number, depth: number): Geometry {
+    createCubeGeometry(width = 1, height = 1, depth = 1): Geometry {
         return {
             // prettier-ignore
             vertices: [
-                //-- Front Face
+                //-- Back Face
                 [0,     0,      0],
                 [width, 0,      0],
                 [width, height, 0],
@@ -28,7 +28,7 @@ const m = {
                 [0,     height, 0],
                 [width, height, 0],
 
-                //-- Back Face
+                //-- Front Face
                 [0,     0,      depth],
                 [width, 0,      depth],
                 [width, height, depth],
@@ -59,6 +59,19 @@ const m = {
                 [0, 0,      0],
                 [0, 0,      depth],
                 [0, height, depth],
+
+                [0, 0,      0],
+                [0, height, 0],
+                [0, height, depth],
+
+                //-- Right Face
+                [width, 0,      0],
+                [width, 0,      depth],
+                [width, height, depth],
+
+                [width, 0,      0],
+                [width, height, 0],
+                [width, height, depth]
             ] as Vertex[]
         };
     }
