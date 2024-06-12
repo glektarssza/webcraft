@@ -11,6 +11,7 @@ on:
         description: >
           The GitHub access token to use for authenticated GitHub operations.
         required: false
+  workflow_dispatch:
 jobs:
   test:
     name: Test
