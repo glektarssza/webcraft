@@ -97,6 +97,6 @@ export function getInternalModule(): typeof m {
     return m;
 }
 
-/* eslint-disable no-empty-pattern */
-export const {} = m;
-/* eslint-enable no-empty-pattern */
+/* eslint-disable @typescript-eslint/unbound-method */
+export const {createCubeGeometry, geometryToTypedArray} = m;
+/* eslint-enable @typescript-eslint/unbound-method */
