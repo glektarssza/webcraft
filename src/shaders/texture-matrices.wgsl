@@ -3,6 +3,9 @@
  */
 @group(0) @binding(0) var<uniform> mvpMatrix: mat4x4<f32>;
 
+@group(0) @binding(1) var tSampler: sampler;
+@group(0) @binding(2) var texture: texture_2d<f32>;
+
 /**
  * The inputs to the vertex shader.
  */
@@ -16,6 +19,11 @@ struct VertexInputs {
      * The color of the vertex.
      */
     @location(1) vertexColor: vec3<f32>,
+
+    /**
+     * The UV coordinate of the vertex.
+     */
+    @location(2) vertexUV: vec2<f32>,
 }
 
 /**
@@ -31,6 +39,11 @@ struct VertexOutputs {
      * The final color of the vertex.
      */
     @location(0) color: vec4<f32>,
+
+    /**
+     * The final UV coordinate of the vertex.
+     */
+    @location(1) uv: vec2<f32>,
 }
 
 @vertex
@@ -46,6 +59,7 @@ fn vertex_main(inputs: VertexInputs) -> VertexOutputs {
     var outputs: VertexOutputs;
     outputs.position = mvpMatrix * vec4<f32>(inputs.vertexPosition, 1.0);
     outputs.color = vec4<f32>(inputs.vertexColor, 1.0);
+    outputs.uv = inputs.vertexUV;
     return outputs;
 }
 
@@ -70,6 +84,7 @@ struct FragmentOutputs {
  */
 fn fragment_main(inputs: VertexOutputs) -> FragmentOutputs {
     var outputs: FragmentOutputs;
-    outputs.color = inputs.color;
+    // outputs.color = vec4<f32>(textureSample(texture, tSampler, inputs.uv).rgb * inputs.color.rgb, 1.0);
+    outputs.color = textureSample(texture, tSampler, inputs.uv) * inputs.color;
     return outputs;
 }

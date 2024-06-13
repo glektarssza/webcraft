@@ -1,6 +1,9 @@
 //-- Project Code
 import {getInternalModule as getContextModule} from './context';
 import {getInternalModule as getShaderModule} from './shader';
+import {getInternalModule as getTextureModule} from './texture';
+import {getInternalModule as getGeometryModule} from './geometry';
+import {getInternalModule as getMeshModule} from './mesh';
 
 export type * from './types';
 
@@ -9,7 +12,10 @@ export type * from './types';
  */
 const m = {
     ...getContextModule(),
-    ...getShaderModule()
+    ...getShaderModule(),
+    ...getTextureModule(),
+    ...getGeometryModule(),
+    ...getMeshModule()
 };
 
 /**
@@ -26,6 +32,9 @@ export const {
     createContext,
     createHTMLCanvasContext,
     createOffscreenCanvasContext,
-    loadShaderModule
+    createCubeGeometry,
+    geometryToTypedArray,
+    loadShaderModule,
+    loadTexture
 } = m;
 /* eslint-enable @typescript-eslint/unbound-method */
