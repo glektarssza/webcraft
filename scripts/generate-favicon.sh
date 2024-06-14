@@ -103,18 +103,30 @@ fi
 
 logInfo "Found ImageMagick install at '${MAGICK_BIN}'"
 
-logInfo "Generating favicon PNG files..."
+logInfo "Generating favicon PNG file..."
+
+if [[ $DRY_RUN == "true" ]]; then
+    logInfo "Would have run 'magick -background transparent \"${SOURCE_FILE}\" +repage \"${OUT_DIR}/logo.png\"'"
+else
+    magick -background transparent "${SOURCE_FILE}" "${OUT_DIR}/logo.png"
+    if [[ $? != 0 ]]; then
+        logError "Failed to generate PNG favicon!"
+        exit $?
+    fi
+fi
+
+logInfo "Generating resized favicon PNG files..."
 
 DESIRED_PNG_SIZES=( $(echo "$DESIRED_SIZES" | awk 'BEGIN {FS = ","} {for (i = 1; i <= NF; i++) {print $i}}') )
 
 for SIZE in ${DESIRED_PNG_SIZES[@]}; do
-    logVerbose "Generating favicon PNG for size ${SIZE}x${SIZE}"
+    logInfo "Generating favicon PNG file for size ${SIZE}x${SIZE}"
     if [[ $DRY_RUN == "true" ]]; then
         logInfo "Would have run 'magick -background transparent \"${SOURCE_FILE}\" -resize ${SIZE}x${SIZE} +repage \"${OUT_DIR}/logo-${SIZE}.png\"'"
     else
         magick -background transparent "${SOURCE_FILE}" -resize ${SIZE}x${SIZE} +repage "${OUT_DIR}/logo-${SIZE}.png"
         if [[ $? != 0 ]]; then
-            logError "Failed to generate favicon!"
+            logError "Failed to generate PNG favicon for size '${SIZE}'!"
             exit $?
         fi
     fi
