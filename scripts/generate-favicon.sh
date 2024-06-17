@@ -150,4 +150,4 @@ else
     fi
 fi
 
-logInfo "${COLOR_FG_GREEN}Success!"
+logInfo "${COLOR_FG_GREEN}Success!${COLOR_RESET}"
