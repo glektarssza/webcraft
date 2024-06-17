@@ -34,6 +34,8 @@ function printHelp() {
     echo -e "--out-dir [DIR]\t\tSet the directory to place outputs in.\n[default: ${OUT_DIR}]"
     echo ""
     echo -e "--sizes [SIZES]\t\tA comma-separated list of sizes to generate PNGs for and to include in the final ICO file.\n[default: ${DESIRED_SIZES}]"
+    echo ""
+    echo "Copyright (c) 2024 G'lek Tarssza, all rights reserved."
 }
 
 while [[ -n $1 ]]; do
@@ -55,6 +57,10 @@ while [[ -n $1 ]]; do
         --out-dir)
         shift
         OUT_DIR="$1"
+        ;;
+        --sizes)
+        shift
+        DESIRED_SIZES="$1"
         ;;
     esac
     shift
