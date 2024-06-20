@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 # Locate an executable.
 #
 # If the location to store the path in already exists and has a non-empty value,
