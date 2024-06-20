@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://json.schemastore.org/pre-commit-config.json
+fail_fast: false
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-shebang-scripts-are-executable
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-xml
+      - id: check-yaml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: trailing-whitespace
+  - repo: https://github.com/glektarssza/pre-commit-hooks
+    rev: f84abf97337e21ed90d0631db3fb29193eb845ee
+    hooks:
+      - id: pnpm-eslint
+        types:
+          - ts
