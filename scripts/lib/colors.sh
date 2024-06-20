@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 COLOR_RESET="\x1B[0m"
 
 COLOR_FG_BLACK="\x1B[30m"
