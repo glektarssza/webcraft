@@ -1,5 +1,5 @@
 {
-    "name": "webcraft",
+    "name": "@webcraft/root",
     "description": "A simple Minecraft clone built on web technologies.",
     "version": "0.0.0",
     "license": "SEE LICENSE IN LICENSE.md",
