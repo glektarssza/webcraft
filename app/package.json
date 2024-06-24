@@ -19,6 +19,7 @@
     },
     "type": "module",
     "scripts": {
+        "dev": "vite serve",
         "test": "pnpm run test:base",
         "test:ci": "pnpm run test:coverage",
         "test:coverage": "pnpm run test:base --coverage",
