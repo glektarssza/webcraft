@@ -17,9 +17,24 @@
         "type": "git",
         "url": "https://github.com/glektarssza/webcraft"
     },
-    "scripts": {},
+    "scripts": {
+        "build": "pnpm run build:prod",
+        "build:all": "pnpm run build:dev && pnpm run build:prod",
+        "build:dev": "vite build --mode development",
+        "build:prod": "vite build --mode production",
+        "clean": "pnpm run clean:prod",
+        "clean:all": "pnpm run clean:dev && pnpm run clean:prod",
+        "clean:dev": "rimraf ./dist/dev/",
+        "clean:prod": "rimraf ./dist/prod/",
+        "rebuild": "pnpm run rebuild:prod",
+        "rebuild:all": "pnpm run rebuild:dev && pnpm run rebuild:prod",
+        "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev",
+        "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod"
+    },
     "devDependencies": {
         "@eslint/js": "^9.5.0",
+        "@remcovaes/web-test-runner-vite-plugin": "^1.2.1",
+        "@rollup/plugin-replace": "^5.0.7",
         "@types/eslint__js": "^8.42.3",
         "@types/node": "^20.14.8",
         "eslint": "^9.5.0",

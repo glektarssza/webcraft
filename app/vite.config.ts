@@ -1,6 +1,3 @@
-//-- NodeJS
-import path from 'node:path';
-
 //-- NPM Packages
 import replacePlugin from '@rollup/plugin-replace';
 import {UserConfig, createLogger, defineConfig} from 'vite';
@@ -19,12 +16,7 @@ const config = defineConfig(({command, mode}) => {
         clearScreen: false,
         mode,
         resolve: {
-            extensions: ['.ts', '.js'],
-            alias: {
-                '@src': path.resolve(import.meta.dirname, './src/ts/'),
-                '@assets': path.resolve(import.meta.dirname, './assets/'),
-                '@shaders': path.resolve(import.meta.dirname, './src/shaders/')
-            }
+            extensions: ['.ts', '.js']
         },
         build: {
             emptyOutDir: true
