@@ -40,3 +40,7 @@ tags
 # Packages #
 ## NodeJS ##
 node_modules/
+
+# Artifacts #
+## ViteJS ##
+dist/
