@@ -18,6 +18,10 @@
         "url": "https://github.com/glektarssza/webcraft"
     },
     "scripts": {
+        "test": "pnpm run test:base",
+        "test:ci": "pnpm run test:coverage",
+        "test:coverage": "pnpm run test:base --coverage",
+        "test:base": "wtr",
         "build": "pnpm run build:prod",
         "build:all": "pnpm run build:dev && pnpm run build:prod",
         "build:dev": "vite build --mode development",
