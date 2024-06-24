@@ -19,5 +19,7 @@
     },
     "scripts": {},
     "dependencies": {},
-    "devDependencies": {}
+    "devDependencies": {
+        "typescript": "^5.5.2"
+    }
 }
