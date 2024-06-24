@@ -15,7 +15,8 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/glektarssza/webcraft"
+        "url": "https://github.com/glektarssza/webcraft",
+        "directory": "./app/"
     },
     "type": "module",
     "scripts": {
