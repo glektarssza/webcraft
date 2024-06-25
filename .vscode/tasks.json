@@ -32,6 +32,179 @@
                 "clear": false
             },
             "problemMatcher": []
+        },
+        {
+            "label": "pnpm:lint",
+            "detail": "Lint the project.",
+            "icon": {
+                "id": "search-fuzzy",
+                "color": "terminal.ansiMagenta"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "dependsOrder": "sequence",
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "command": "pnpm -r run lint",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": [
+                "$eslint-compact",
+                "$eslint-stylish"
+            ]
+        },
+        {
+            "label": "pnpm:test",
+            "detail": "Test the project.",
+            "icon": {
+                "id": "beaker",
+                "color": "terminal.ansiCyan"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "dependsOrder": "sequence",
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "command": "pnpm -r test",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:build",
+            "detail": "Build the project.",
+            "icon": {
+                "id": "tools",
+                "color": "terminal.ansiGreen"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "dependsOrder": "sequence",
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "command": "pnpm -r run build",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:clean",
+            "detail": "Clean the project.",
+            "icon": {
+                "id": "trashcan",
+                "color": "terminal.ansiBlue"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "dependsOrder": "sequence",
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "command": "pnpm -r run clean",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:rebuild",
+            "detail": "Rebuild the project.",
+            "icon": {
+                "id": "refresh",
+                "color": "terminal.ansiGreen"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "dependsOrder": "sequence",
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "command": "pnpm -r run rebuild",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
         }
     ]
 }
