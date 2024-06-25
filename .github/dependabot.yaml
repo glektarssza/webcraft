@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://json.schemastore.org/dependabot-2.0.json
+version: 2
+updates:
+  - directory: /
+    package-ecosystem: npm
+    versioning-strategy: increase
+    labels:
+      - Dependency
+    schedule:
+      interval: weekly
+      day: wednesday
+      timezone: Canada/Mountain
+      time: '12:00'
