@@ -83,9 +83,12 @@ jobs:
       - id: install-dependencies
         name: Install dependencies
         run: pnpm -r install
+      - id: prebuild
+        name: Prebuild
+        run: pnpm -r --filter 'webcraft^...' run build
       - id: build
         name: Build
-        run: pnpm -r run build:${{matrix.build-config}}
+        run: pnpm -r --filter webcraft run build:${{matrix.build-config}}
       - id: upload-artifacts
         name: Upload artifacts
         uses: actions/upload-artifact@v4

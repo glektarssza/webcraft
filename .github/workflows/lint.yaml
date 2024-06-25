@@ -52,6 +52,9 @@ jobs:
       - id: install-dependencies
         name: Install dependencies
         run: pnpm -r install
+      - id: prebuild-types
+        name: Prebuild types
+        run: pnpm -r --filter 'webcraft^...' run build:types
       - id: lint
         name: Lint
         run: pnpm -r run lint
