@@ -15,6 +15,8 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    env:
+      PUPPETEER_BROWSER_REVISION: '126.0.6478.63'
     steps:
       - id: checkout-repository
         name: Checkout repository
