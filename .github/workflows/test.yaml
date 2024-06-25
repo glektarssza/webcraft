@@ -54,4 +54,4 @@ jobs:
         run: pnpm -r install
       - id: run-tests
         name: Run tests
-        run: pnpm -r test
+        run: pnpm -r --workspace-concurrency 1 test
