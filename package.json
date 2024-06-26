@@ -54,7 +54,7 @@
         "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod"
     },
     "dependencies": {
-        "@webgpu/types": "^0.1.42",
+        "@webgpu/types": "^0.1.43",
         "lodash": "^4.17.21",
         "uuid": "^10.0.0",
         "wgpu-matrix": "^3.0.1"
@@ -75,7 +75,7 @@
         "@types/sinon": "^17.0.3",
         "@web/test-runner": "^0.18.2",
         "@web/test-runner-puppeteer": "^0.16.0",
-        "@webgpu/types": "^0.1.42",
+        "@webgpu/types": "^0.1.43",
         "chai": "^5.1.1",
         "eslint": "^9.5.0",
         "eslint-config-prettier": "^9.1.0",
