@@ -34,6 +34,69 @@
             "problemMatcher": []
         },
         {
+            "label": "pnpm:dev",
+            "detail": "Run the project in development mode.",
+            "icon": {
+                "id": "debug-alt",
+                "color": "terminal.ansiCyan"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "dependsOrder": "sequence",
+            "isBackground": true,
+            "promptOnClose": false,
+            "type": "shell",
+            "command": "pnpm run dev",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": [
+                {
+                    "source": "vite",
+                    "applyTo": "allDocuments",
+                    "fileLocation": "autoDetect",
+                    "severity": "error",
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": {
+                            "regexp": "(^Starting compilation\\.\\.\\.$)|(ready in \\d+ ms)"
+                        },
+                        "endsPattern": {
+                            "regexp": "^Compilation complete$"
+                        }
+                    },
+                    "pattern": [
+                        {
+                            "regexp": "^.+\\[vite\\] Internal server error: Transform failed with \\d+ error:$"
+                        },
+                        {
+                            "regexp": "^([^:]+):(\\d+):(\\d+): (ERROR): (.+)$",
+                            "file": 1,
+                            "line": 2,
+                            "column": 2,
+                            "severity": 3,
+                            "message": 4
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "label": "pnpm:lint",
             "detail": "Lint the project.",
             "icon": {
