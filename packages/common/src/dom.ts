@@ -162,7 +162,8 @@ export function cancelAnimationFrame(id: AnimationFrameRequestID): void {
  * @param target - The target to register the callback on.
  * @param event - The event to register the callback for.
  * @param callback - The callback function to register.
- * @param options Any additional options for registering the callback function.
+ * @param options - Any additional options for registering the callback
+ * function.
  */
 export function addEventListener<
     T extends Window,
@@ -183,7 +184,8 @@ export function addEventListener<
  * @param target - The target to register the callback on.
  * @param event - The event to register the callback for.
  * @param callback - The callback function to register.
- * @param options Any additional options for registering the callback function.
+ * @param options - Any additional options for registering the callback
+ * function.
  */
 export function addEventListener<
     T extends Document,
@@ -203,7 +205,8 @@ export function addEventListener<
  * @param target - The target to register the callback on.
  * @param event - The event to register the callback for.
  * @param callback - The callback function to register.
- * @param options Any additional options for registering the callback function.
+ * @param options - Any additional options for registering the callback
+ * function.
  */
 export function addEventListener<T extends EventTarget>(
     target: T,
@@ -212,4 +215,123 @@ export function addEventListener<T extends EventTarget>(
     options?: boolean | AddEventListenerOptions
 ): void {
     target.addEventListener(event, callback, options);
+}
+
+/**
+ * Remove a function to be called when an event is fired on the `window` object.
+ *
+ * @typeParam T - The type of the event target.
+ * @typeParam T - The type of the event that will be handled.
+ *
+ * @param target - The target to unregister the callback on.
+ * @param event - The event to unregister the callback for.
+ * @param callback - The callback function to unregister.
+ * @param options - Any additional options for removing the callback function.
+ */
+export function removeEventListener<
+    T extends Window,
+    E extends keyof WindowEventMap
+>(
+    target: T,
+    event: E,
+    callback: EventHandler<WindowEventMap[E]>,
+    options?: boolean | EventListenerOptions
+): void;
+
+/**
+ * Remove a function to be called when an event is fired on the `window` object.
+ *
+ * @typeParam T - The type of the event target.
+ * @typeParam T - The type of the event that will be handled.
+ *
+ * @param target - The target to unregister the callback on.
+ * @param event - The event to unregister the callback for.
+ * @param callback - The callback function to unregister.
+ * @param options - Any additional options for removing the callback function.
+ */
+export function removeEventListener<
+    T extends Document,
+    E extends keyof DocumentEventMap
+>(
+    target: T,
+    event: E,
+    callback: EventHandler<DocumentEventMap[E]>,
+    options?: boolean | AddEventListenerOptions
+): void;
+
+/**
+ * Remove a function to be called when an event is fired.
+ *
+ * @typeParam T - The type of the event target.
+ *
+ * @param target - The target to unregister the callback on.
+ * @param event - The event to unregister the callback for.
+ * @param callback - The callback function to unregister.
+ * @param options - Any additional options for removing the callback function.
+ */
+export function removeEventListener<T extends EventTarget>(
+    target: T,
+    event: string,
+    callback: EventHandler,
+    options?: boolean | EventListenerOptions
+): void {
+    target.removeEventListener(event, callback, options);
+}
+
+/**
+ * Check whether the DOM is ready to manipulate.
+ *
+ * @returns Whether the DOM is ready to manipulate.
+ */
+export function isDOMReady(): boolean {
+    return globalThis.document.readyState === 'complete';
+}
+
+/**
+ * Wait for the DOM to become ready to manipulate.
+ *
+ * @param timeout - The maximum duration, in milliseconds, to wait before
+ * erroring. Negative, non-finite, or non-numerical values will be treated as
+ * an infinite duration.
+ *
+ * @returns A promise that resolves once the DOM is ready or rejects if a
+ * timeout is given and reached.
+ */
+export async function domReady(timeout = Infinity): Promise<void> {
+    if (isDOMReady()) {
+        return;
+    }
+    await new Promise<void>((resolve, reject): void => {
+        if (isDOMReady()) {
+            resolve();
+            return;
+        }
+        let timerID: SetTimeoutRequestID | null = null;
+        const listener = (): void => {
+            if (isDOMReady()) {
+                if (timerID !== null) {
+                    clearTimeout(timerID);
+                }
+                removeEventListener(
+                    globalThis.document,
+                    'readystatechange',
+                    listener
+                );
+                resolve();
+            }
+        };
+        if (isFinite(timeout) && timeout >= 0) {
+            timerID = setTimeout((): void => {
+                removeEventListener(
+                    globalThis.document,
+                    'readystatechange',
+                    listener
+                );
+                reject(
+                    new Error(`DOM did not become ready within ${timeout} ms`)
+                );
+            }, timeout);
+        }
+        addEventListener(globalThis.document, 'readystatechange', listener);
+    });
 }
