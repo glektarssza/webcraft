@@ -37,6 +37,10 @@ importers:
         version: 8.0.0-alpha.34(eslint@9.5.0)(typescript@5.5.2)
 
   app:
+    dependencies:
+      '@webcraft/common':
+        specifier: workspace:*
+        version: link:../packages/common
     devDependencies:
       '@eslint/js':
         specifier: ^9.5.0
