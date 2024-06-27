@@ -1,0 +1,60 @@
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    background-color: black;
+}
+
+.display-none {
+    display: none;
+}
+
+.error-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
+    background-color: transparent;
+}
+
+.error-dialog {
+    padding: 0 10px;
+
+    flex: 0 1 auto;
+
+    background-color: lightsalmon;
+
+    border: solid 2px tomato;
+    border-radius: 4px;
+}
+
+.error-title {
+    text-align: center;
+}
+
+.error-details {
+    margin: 0;
+
+    background-color: lightgray;
+
+    border: solid 2px gray;
+    border-radius: 4px;
+
+    margin-bottom: 1.34em;
+}
