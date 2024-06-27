@@ -43,6 +43,31 @@ export type SetIntervalCallback<T extends unknown[]> = (...args: T) => void;
 export type AnimationFrameCallback = (time: DOMHighResTimeStamp) => void;
 
 /**
+ * A function which can be registered via {@link addEventListener} to handle an
+ * event.
+ *
+ * @typeParam T - The type of event to be handled.
+ */
+export type EventCallback<T extends Event = Event> = (event: T) => void;
+
+/**
+ * An object which can be registered via {@link addEventListener} to handle an
+ * event.
+ *
+ * @typeParam T - The type of event to be handled.
+ */
+export interface EventCallbackObject<T extends Event = Event> {
+    /**
+     * The function which will handle the event.
+     */
+    handleEvent: EventCallback<T>;
+}
+
+export type EventHandler<T extends Event = Event> =
+    | EventCallback<T>
+    | EventCallbackObject<T>;
+
+/**
  * Register a function to be called after a given delay.
  *
  * @param callback - The function to be called.
@@ -126,4 +151,65 @@ export function clearInterval(id: SetIntervalRequestID): void {
  */
 export function cancelAnimationFrame(id: AnimationFrameRequestID): void {
     globalThis.cancelAnimationFrame(id);
+}
+
+/**
+ * Add a function to be called when an event is fired on the `window` object.
+ *
+ * @typeParam T - The type of the event target.
+ * @typeParam T - The type of the event that will be handled.
+ *
+ * @param target - The target to register the callback on.
+ * @param event - The event to register the callback for.
+ * @param callback - The callback function to register.
+ * @param options Any additional options for registering the callback function.
+ */
+export function addEventListener<
+    T extends Window,
+    E extends keyof WindowEventMap
+>(
+    target: T,
+    event: E,
+    callback: EventHandler<WindowEventMap[E]>,
+    options?: boolean | AddEventListenerOptions
+): void;
+
+/**
+ * Add a function to be called when an event is fired on the `window` object.
+ *
+ * @typeParam T - The type of the event target.
+ * @typeParam T - The type of the event that will be handled.
+ *
+ * @param target - The target to register the callback on.
+ * @param event - The event to register the callback for.
+ * @param callback - The callback function to register.
+ * @param options Any additional options for registering the callback function.
+ */
+export function addEventListener<
+    T extends Document,
+    E extends keyof DocumentEventMap
+>(
+    target: T,
+    event: E,
+    callback: EventHandler<DocumentEventMap[E]>,
+    options?: boolean | AddEventListenerOptions
+): void;
+
+/**
+ * Add a function to be called when an event is fired.
+ *
+ * @typeParam T - The type of the event target.
+ *
+ * @param target - The target to register the callback on.
+ * @param event - The event to register the callback for.
+ * @param callback - The callback function to register.
+ * @param options Any additional options for registering the callback function.
+ */
+export function addEventListener<T extends EventTarget>(
+    target: T,
+    event: string,
+    callback: EventHandler,
+    options?: boolean | AddEventListenerOptions
+): void {
+    target.addEventListener(event, callback, options);
 }
