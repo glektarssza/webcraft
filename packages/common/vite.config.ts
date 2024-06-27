@@ -22,6 +22,7 @@ const config = defineConfig(({command, mode}) => {
         build: {
             emptyOutDir: true,
             lib: {
+                formats: ['es'],
                 entry: path.resolve(import.meta.dirname, './src/index.ts'),
                 name: 'webcraft-common',
                 fileName() {
