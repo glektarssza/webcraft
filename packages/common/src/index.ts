@@ -6,3 +6,5 @@
  * @typeParam T - The underlying type to make the distinct type out of.
  */
 export type Distinct<T> = T & {readonly __TYPE__: unique symbol};
+
+export * from './dom';
