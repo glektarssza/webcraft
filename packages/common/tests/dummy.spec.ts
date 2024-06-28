@@ -12,9 +12,8 @@ const faker = new Faker({
 
 describe('A dummy test module', (): void => {
     before(() => {
-        const possibleSeed = process.env.FAKER_SEED;
-        if (possibleSeed && isFinite(parseInt(possibleSeed))) {
-            faker.seed(parseInt(possibleSeed));
+        if (FAKER_SEED && isFinite(parseInt(FAKER_SEED))) {
+            faker.seed(parseInt(FAKER_SEED));
         }
     });
     afterEach(() => {

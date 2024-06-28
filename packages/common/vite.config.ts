@@ -73,9 +73,7 @@ const config = defineConfig(({command, mode}) => {
             replacePlugin({
                 preventAssignment: true,
                 values: {
-                    'process.env.FAKER_SEED': JSON.stringify(
-                        process.env['FAKER_SEED']
-                    )
+                    FAKER_SEED: JSON.stringify(process.env['FAKER_SEED'])
                 }
             })
         );
