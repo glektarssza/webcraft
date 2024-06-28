@@ -66,6 +66,9 @@ const config = defineConfig(({command, mode}) => {
         generatedConfig.build!.minify = true;
     }
     if (isUnitTesting) {
+        generatedConfig.resolve!.alias = {
+            '@src': path.resolve(import.meta.dirname, './src/')
+        };
         generatedConfig.plugins!.push(
             replacePlugin({
                 preventAssignment: true,
