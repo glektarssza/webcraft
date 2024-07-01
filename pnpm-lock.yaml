@@ -231,6 +231,9 @@ importers:
       '@web/test-runner-puppeteer':
         specifier: ^0.16.0
         version: 0.16.0(typescript@5.5.2)
+      '@webgpu/types':
+        specifier: ^0.1.43
+        version: 0.1.43
       chai:
         specifier: ^5.1.1
         version: 5.1.1
@@ -889,6 +892,9 @@ packages:
     resolution: {integrity: sha512-jA+957ic31aG/f1mr1b+HYzf/uTu4QsvFhyVgTKi2s5YQYGBbtfzx9PnYi47MVC9K9OHRbW8cq2Urds9qwSU3w==}
     engines: {node: '>=18.0.0'}
     hasBin: true
+
+  '@webgpu/types@0.1.43':
+    resolution: {integrity: sha512-HoP+d+m+Kuq8CsE63BZ3+BYBKAemrqbHUNrCalxrUju5XW+q/094Q3oeIa+2pTraEbO8ckJmGpibzyGT4OV4YQ==}
 
   accepts@1.3.8:
     resolution: {integrity: sha512-PYAthTa2m2VKxuvSD3DPC/Gy+U+sOA1LAuT8mkmRuvw+NACSaeXEQ+NHcVF7rONl6qcaxV3Uuemwawk+7+SJLw==}
@@ -3290,6 +3296,8 @@ snapshots:
       - bufferutil
       - supports-color
       - utf-8-validate
+
+  '@webgpu/types@0.1.43': {}
 
   accepts@1.3.8:
     dependencies:
