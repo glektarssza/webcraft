@@ -19,6 +19,6 @@ repos:
   - repo: https://github.com/glektarssza/pre-commit-hooks
     rev: 320ce9b34006a2eb2432b2caefb535689e1cecdd
     hooks:
-      - id: pnpm-lint-recurse
+      - id: pnpm-lint
         types:
           - ts
