@@ -22,3 +22,4 @@ repos:
       - id: pnpm-lint
         types:
           - ts
+        pass_filenames: false
