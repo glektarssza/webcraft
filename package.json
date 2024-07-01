@@ -19,6 +19,7 @@
     },
     "scripts": {
         "dev": "pnpm -r --filter webcraft run dev",
+        "pretest": "pnpm -r --filter \"webcraft^...\" run rebuild",
         "test": "pnpm -r --workspace-concurrency 1 test"
     },
     "devDependencies": {
