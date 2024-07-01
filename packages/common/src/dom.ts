@@ -346,6 +346,7 @@ export const {
     cancelAnimationFrame,
     clearInterval,
     clearTimeout,
+    domReady,
     isDOMReady,
     removeDocumentEventListener,
     removeEventListener,
