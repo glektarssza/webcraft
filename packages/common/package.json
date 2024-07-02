@@ -67,6 +67,7 @@
         "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod"
     },
     "dependencies": {
+        "@types/uuid": "^10.0.0",
         "uuid": "^10.0.0"
     },
     "devDependencies": {
@@ -79,7 +80,6 @@
         "@types/mocha": "^10.0.7",
         "@types/node": "^20.14.9",
         "@types/sinon": "^17.0.3",
-        "@types/uuid": "^10.0.0",
         "@web/test-runner": "^0.18.2",
         "@web/test-runner-puppeteer": "^0.16.0",
         "chai": "^5.1.1",

@@ -44,6 +44,9 @@ importers:
       '@webcraft/webgpu':
         specifier: workspace:*
         version: link:../packages/webgpu
+      '@webgpu/types':
+        specifier: ^0.1.43
+        version: 0.1.43
     devDependencies:
       '@eslint/js':
         specifier: ^9.5.0
@@ -123,6 +126,9 @@ importers:
 
   packages/common:
     dependencies:
+      '@types/uuid':
+        specifier: ^10.0.0
+        version: 10.0.0
       uuid:
         specifier: ^10.0.0
         version: 10.0.0
@@ -154,9 +160,6 @@ importers:
       '@types/sinon':
         specifier: ^17.0.3
         version: 17.0.3
-      '@types/uuid':
-        specifier: ^10.0.0
-        version: 10.0.0
       '@web/test-runner':
         specifier: ^0.18.2
         version: 0.18.2
@@ -211,6 +214,9 @@ importers:
       '@webcraft/common':
         specifier: workspace:*
         version: link:../common
+      '@webgpu/types':
+        specifier: ^0.1.43
+        version: 0.1.43
     devDependencies:
       '@eslint/js':
         specifier: ^9.5.0
@@ -245,9 +251,6 @@ importers:
       '@web/test-runner-puppeteer':
         specifier: ^0.16.0
         version: 0.16.0(typescript@5.5.2)
-      '@webgpu/types':
-        specifier: ^0.1.43
-        version: 0.1.43
       chai:
         specifier: ^5.1.1
         version: 5.1.1

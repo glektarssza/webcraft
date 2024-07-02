@@ -57,7 +57,8 @@
     },
     "dependencies": {
         "@webcraft/common": "workspace:*",
-        "@webcraft/webgpu": "workspace:*"
+        "@webcraft/webgpu": "workspace:*",
+        "@webgpu/types": "^0.1.43"
     },
     "devDependencies": {
         "@eslint/js": "^9.5.0",
