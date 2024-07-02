@@ -1,12 +1,14 @@
 //-- Project Code
 import type {Canvas} from './types';
+import type {WebGPUResource} from './resource';
+import {UUID} from '@webcraft/common';
 
 /**
  * A WebGPU rendering context.
  *
  * @typeParam T - The type of the canvas associated with this context.
  */
-export interface WebGPUContext<T extends Canvas> {
+export interface WebGPUContextBase<T extends Canvas> {
     /**
      * The WebGPU adapter associated with this context.
      */
@@ -26,6 +28,17 @@ export interface WebGPUContext<T extends Canvas> {
      * The WebGPU canvas context associated with this context.
      */
     readonly canvasContext: GPUCanvasContext;
+
+    /**
+     * A list of WebGPU resources owned by this instance.
+     */
+    readonly resources: WebGPUResource<GPUObjectBase>[];
+
+    /**
+     * A map of WebGPU resources owned by this instance to their unique
+     * identifiers.
+     */
+    readonly resourceMap: Map<UUID, WebGPUResource<GPUObjectBase>>;
 }
 
 /**
@@ -51,12 +64,17 @@ export interface WebGPUContextOptions {
 /**
  * A WebGPU rendering context associated with a HTML canvas element.
  */
-export type WebGPUHTMLContext = WebGPUContext<HTMLCanvasElement>;
+export type WebGPUHTMLContext = WebGPUContextBase<HTMLCanvasElement>;
 
 /**
  * A WebGPU rendering context associated with an offscreen canvas.
  */
-export type WebGPUOffscreenContext = WebGPUContext<OffscreenCanvas>;
+export type WebGPUOffscreenContext = WebGPUContextBase<OffscreenCanvas>;
+
+/**
+ * A WebGPU rendering context.
+ */
+export type WebGPUContext = WebGPUHTMLContext | WebGPUOffscreenContext;
 
 /**
  * A module which provides various WebGPU context-related functionality.
@@ -76,7 +94,7 @@ const m = {
     async createContext<T extends Canvas>(
         canvas: T,
         options?: WebGPUContextOptions
-    ): Promise<WebGPUContext<T>> {
+    ): Promise<WebGPUContextBase<T>> {
         if (!navigator.gpu) {
             throw new Error('WebGPU is not supported by this platform');
         }
@@ -97,11 +115,16 @@ const m = {
             ...options?.canvasContext,
             device
         });
+        const resourceMap = new Map<UUID, WebGPUResource<GPUObjectBase>>();
         return {
             adapter,
             device,
             canvas,
-            canvasContext
+            canvasContext,
+            resourceMap,
+            get resources() {
+                return Array.from(resourceMap.values());
+            }
         };
     },
 
@@ -151,5 +174,6 @@ export function getInternalModule(): typeof m {
     return m;
 }
 
-// eslint-disable-next-line no-empty-pattern
-export const {} = m;
+/* eslint-disable @typescript-eslint/unbound-method */
+export const {createContext, createHTMLContext, createOffscreenContext} = m;
+/* eslint-enable @typescript-eslint/unbound-method */

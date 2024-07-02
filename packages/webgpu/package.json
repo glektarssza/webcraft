@@ -66,6 +66,9 @@
         "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev",
         "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod"
     },
+    "dependencies": {
+        "@webcraft/common": "workspace:*"
+    },
     "devDependencies": {
         "@eslint/js": "^9.5.0",
         "@faker-js/faker": "^8.4.1",
