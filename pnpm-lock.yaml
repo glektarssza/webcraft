@@ -41,6 +41,9 @@ importers:
       '@webcraft/common':
         specifier: workspace:*
         version: link:../packages/common
+      '@webcraft/webgpu':
+        specifier: workspace:*
+        version: link:../packages/webgpu
     devDependencies:
       '@eslint/js':
         specifier: ^9.5.0
