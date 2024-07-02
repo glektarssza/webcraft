@@ -1,10 +1,30 @@
-/**
- * A type which represents a version of an existing type that is considered
- * distinct from other instances of that type while still being interoperable
- * with them.
- *
- * @typeParam T - The underlying type to make the distinct type out of.
- */
-export type Distinct<T> = T & {readonly __TYPE__: unique symbol};
-
-export * from './dom';
+//-- Project Code
+export type {Distinct} from './types';
+export type {
+    AnimationFrameCallback,
+    AnimationFrameRequestID,
+    DocumentEventListener,
+    SetIntervalCallback,
+    SetIntervalRequestID,
+    SetTimeoutCallback,
+    SetTimeoutRequestID,
+    WindowEventListener
+} from './dom';
+export {
+    addDocumentEventListener,
+    addEventListener,
+    addWindowEventListener,
+    cancelAnimationFrame,
+    clearInterval,
+    clearTimeout,
+    domReady,
+    isDOMReady,
+    removeDocumentEventListener,
+    removeEventListener,
+    removeWindowEventListener,
+    requestAnimationFrame,
+    setInterval,
+    setTimeout
+} from './dom';
+export type {UUID} from './uuid';
+export {createUUID, isUUID} from './uuid';
