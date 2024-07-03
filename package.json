@@ -89,7 +89,7 @@
         "sinon": "^18.0.0",
         "ts-node": "^10.9.2",
         "typescript": "^5.5.3",
-        "typescript-eslint": "8.0.0-alpha.34",
+        "typescript-eslint": "8.0.0-alpha.39",
         "vite": "^5.3.3"
     }
 }
