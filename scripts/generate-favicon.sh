@@ -11,7 +11,7 @@ SCRIPT_DIR=$(cd -P "$( dirname "$SCRIPT_SOURCE" )" > /dev/null 2>&1 && pwd)
 LIBRARY_DIR="$SCRIPT_DIR/lib"
 PROJECT_DIR="$SCRIPT_DIR/.."
 SOURCE_FILE="$PROJECT_DIR/logo.svg"
-OUT_DIR="$PROJECT_DIR/public"
+OUT_DIR="$PROJECT_DIR/app/public"
 DESIRED_SIZES="256,128,64,48,32,24,16"
 
 source "$LIBRARY_DIR/logging.sh"

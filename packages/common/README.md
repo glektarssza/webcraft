@@ -1,5 +1,5 @@
-<h1 id="webcraft" align="center">
-    Webcraft
+<h1 id="webcraft---common-library" align="center">
+    Webcraft - Common Library
 </h1>
 <p align="center">
     <img src="https://github.com/glektarssza/webcraft/raw/main/logo.svg" alt="Logo" width="200" />
@@ -19,13 +19,13 @@
     </a>
 </p>
 <p  align="center">
-    A simple Minecraft clone built on web technologies.
+    The common utility library for the Webcraft project.
 </p>
 
 <!-- omit in toc -->
 ## Table of Contents ##
 
-* [Webcraft](#webcraft)
+* [Webcraft - Common Library](#webcraft---common-library)
     * [License](#license)
 
 ## License ##
