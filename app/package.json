@@ -19,7 +19,22 @@
         "directory": "./app/"
     },
     "type": "module",
-    "scripts": {},
+    "scripts": {
+        "test": "vitest --run --browser chrome",
+        "test:ci": "vitest --run --browser.name chrome --browser.headless true --browser.provider webdriverio",
+        "test:ui": "vitest --ui --browser chrome",
+        "lint": "eslint --cache ./src/",
+        "lint:ci": "eslint ./src/",
+        "build": "pnpm run build:prod && pnpm run build:dev && pnpm run build:types",
+        "build:prod": "vite build --mode production",
+        "build:dev": "vite build --mode development",
+        "clean": "rimraf ./dist/",
+        "clean:prod": "rimraf ./dist/",
+        "clean:dev": "rimraf ./dist/",
+        "rebuild": "pnpm run clean && pnpm run build",
+        "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod",
+        "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev"
+    },
     "dependencies": {},
     "devDependencies": {
         "@eslint/js": "^9.6.0",
