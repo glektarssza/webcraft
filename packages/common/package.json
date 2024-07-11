@@ -35,7 +35,27 @@
         "default": "./dist/webcraft-common.umd.min.js",
         "types": "./dist/types/index.d.ts"
     },
-    "scripts": {},
+    "scripts": {
+        "test": "vitest --run",
+        "test:ci": "vitest --run",
+        "test:ui": "vitest --ui",
+        "lint": "eslint --cache ./src/",
+        "lint:ci": "eslint ./src/",
+        "build": "pnpm run build:prod && pnpm run build:dev && pnpm run build:types",
+        "build:prod": "vite build --mode production",
+        "build:dev": "vite build --mode development",
+        "build:types": "tsc --project ./src/ --declaration --emitDeclarationOnly --outDir ./dist/types/",
+        "postbuild:types": "rimraf ./dist/types/*.tsbuildinfo",
+        "clean": "pnpm run clean:prod && pnpm run clean:dev && pnpm run clean:types",
+        "postclean": "rimraf ./dist/",
+        "clean:prod": "rimraf ./dist/webcraft-common.{es,cjs,umd}.min.js*",
+        "clean:dev": "rimraf ./dist/webcraft-common.{es,cjs,umd}.js*",
+        "clean:types": "rimraf ./dist/types/",
+        "rebuild": "pnpm run clean && pnpm run build",
+        "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod",
+        "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev",
+        "rebuild:types": "pnpm run clean:types && pnpm run build:types"
+    },
     "dependencies": {},
     "devDependencies": {
         "@eslint/js": "^9.6.0",
