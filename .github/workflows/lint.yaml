@@ -40,4 +40,4 @@ jobs:
         run: pnpm -r --filter "webcraft^..." run build
       - id: lint
         name: Lint
-        run: pnpm -r --sequential run lint:ci
+        run: pnpm -r run lint:ci
