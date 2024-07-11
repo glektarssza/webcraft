@@ -20,6 +20,7 @@ const config = defineConfig(({mode}) => {
         build: {
             outDir: path.resolve(import.meta.dirname, './dist/'),
             minify: mode !== 'development',
+            sourcemap: mode !== 'development' ? 'hidden' : true,
             emptyOutDir: true
         },
         test: {
