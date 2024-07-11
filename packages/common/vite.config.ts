@@ -20,7 +20,7 @@ const config = defineConfig(({mode}) => {
         build: {
             outDir: path.resolve(import.meta.dirname, './dist/'),
             minify: mode !== 'development',
-            emptyOutDir: true,
+            emptyOutDir: false,
             lib: {
                 formats: ['es', 'cjs', 'umd'],
                 name: 'webcraft-common',
