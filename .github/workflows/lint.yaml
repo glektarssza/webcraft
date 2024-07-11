@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Lint
+on:
+  workflow_call:
+    secrets:
+      github-token:
+        description: |
+          The token to use for making authenticated requests to GitHub APIs.
+        required: true
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - id: checkout-repository
+        name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
+          lfs: true
+      - id: setup-pnpm
+        name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: latest
+          run_install: false
+      - id: setup-nodejs
+        name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
+          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
+      - id: install-dependencies
+        name: Install dependencies
+        run: pnpm -r install
+      - id: prebuild-dependencies
+        name: Prebuild dependencies
+        run: pnpm -r --filter "webcraft^..." run build
+      - id: lint
+        name: Lint
+        run: pnpm -r run lint:ci
