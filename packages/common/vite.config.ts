@@ -31,6 +31,7 @@ const config = defineConfig(({mode}) => {
                     if (mode !== 'development') {
                         comps.push('min');
                     }
+                    comps.push('js');
                     return comps.join('.');
                 }
             }
