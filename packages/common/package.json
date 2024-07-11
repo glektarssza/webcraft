@@ -19,6 +19,22 @@
         "directory": "./packages/common/"
     },
     "type": "module",
+    "exports": {
+        "production": {
+            "import": "./dist/webcraft-common.es.min.js",
+            "require": "./dist/webcraft-common.cjs.min.js",
+            "default": "./dist/webcraft-common.umd.min.js"
+        },
+        "development": {
+            "import": "./dist/webcraft-common.es.js",
+            "require": "./dist/webcraft-common.cjs.js",
+            "default": "./dist/webcraft-common.umd.js"
+        },
+        "import": "./dist/webcraft-common.es.min.js",
+        "require": "./dist/webcraft-common.cjs.min.js",
+        "default": "./dist/webcraft-common.umd.min.js",
+        "types": "./dist/types/index.d.ts"
+    },
     "scripts": {},
     "dependencies": {},
     "devDependencies": {
