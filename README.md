@@ -1,4 +1,4 @@
-<h1 align="center">
+<h1 id="webcraft" align="center">
     Webcraft
 </h1>
 <p align="center">
@@ -25,7 +25,8 @@
 <!-- omit in toc -->
 ## Table of Contents ##
 
-* [License](#license)
+* [Webcraft](#webcraft)
+    * [License](#license)
 
 ## License ##
 
