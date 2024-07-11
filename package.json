@@ -1,5 +1,6 @@
 {
     "name": "@webcraft/root",
+    "type": "module",
     "scripts": {},
     "devDependencies": {
         "@eslint/js": "^9.6.0",
