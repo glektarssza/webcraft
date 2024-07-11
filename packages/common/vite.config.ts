@@ -20,7 +20,19 @@ const config = defineConfig(({mode}) => {
         build: {
             outDir: path.resolve(import.meta.dirname, './dist/'),
             minify: mode !== 'development',
-            emptyOutDir: true
+            emptyOutDir: true,
+            lib: {
+                formats: ['es', 'cjs', 'umd'],
+                name: 'webcraft-common',
+                entry: path.resolve(import.meta.dirname, './src/index.ts'),
+                fileName(format) {
+                    const comps: string[] = ['webcraft-common', format];
+                    if (mode !== 'development') {
+                        comps.push('min');
+                    }
+                    return comps.join('.');
+                }
+            }
         },
         test: {
             alias: {
