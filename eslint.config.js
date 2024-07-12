@@ -19,5 +19,11 @@ export default tseslint.config(
             }
         }
     },
+    {
+        files: ['**/tests/**/*.ts'],
+        rules: {
+            '@typescript-eslint/no-unused-expressions': 'off'
+        }
+    },
     prettierConfig
 );
