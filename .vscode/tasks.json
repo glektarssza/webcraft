@@ -53,7 +53,7 @@
             "promptOnClose": false,
             "type": "shell",
             "hide": false,
-            "command": "pnpm -r run test",
+            "command": "pnpm -r --sequential run test",
             "runOptions": {
                 "instanceLimit": 1,
                 "reevaluateOnRerun": true,
