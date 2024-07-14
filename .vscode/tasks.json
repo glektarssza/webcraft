@@ -146,7 +146,7 @@
         },
         {
             "label": "pnpm:rebuild:types",
-            "detail": "Rebuild all project type definitions using pnpm and rimraf.",
+            "detail": "Rebuild all project type definitions using pnpm.",
             "icon": {
                 "id": "package",
                 "color": "terminal.ansiBlue"
