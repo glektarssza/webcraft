@@ -33,6 +33,44 @@
                 "clear": false
             },
             "problemMatcher": []
+        },
+        {
+            "label": "pnpm:lint",
+            "detail": "Run ESLint on the entire project using pnpm.",
+            "icon": {
+                "id": "search-fuzzy",
+                "color": "terminal.ansiMagenta"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "hide": false,
+            "command": "pnpm -r run lint",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": [
+                "$eslint-compact",
+                "$eslint-stylish"
+            ]
         }
     ]
 }
