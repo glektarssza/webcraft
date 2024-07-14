@@ -35,6 +35,67 @@
             "problemMatcher": []
         },
         {
+            "label": "pnpm:dev",
+            "detail": "Run the project in development mode.",
+            "icon": {
+                "id": "run",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "isBackground": true,
+            "promptOnClose": false,
+            "type": "shell",
+            "hide": false,
+            "command": "pnpm run dev",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": [
+                {
+                    "applyTo": "allDocuments",
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": {
+                            "regexp": "this should never match"
+                        },
+                        "endsPattern": {
+                            "regexp": "ready in \\d+ ms"
+                        }
+                    },
+                    "fileLocation": "autoDetect",
+                    "severity": "info",
+                    "source": "vite",
+                    "pattern": [
+                        {
+                            "regexp": "(.+):(\\d+):(\\d+): (ERROR): (.+)",
+                            "file": 1,
+                            "line": 2,
+                            "column": 3,
+                            "severity": 4,
+                            "message": 5
+                        }
+                    ]
+                }
+            ]
+        },
+        {
             "label": "pnpm:test",
             "detail": "Run Vitest on the entire project using pnpm.",
             "icon": {
