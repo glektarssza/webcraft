@@ -47,7 +47,7 @@
             },
             "dependsOrder": "sequence",
             "dependsOn": [
-                "pnpm:build:types"
+                "pnpm:rebuild:types"
             ],
             "isBackground": false,
             "promptOnClose": false,
