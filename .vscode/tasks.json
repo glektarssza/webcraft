@@ -1,4 +1,38 @@
 {
     "version": "2.0.0",
-    "tasks": []
+    "tasks": [
+        {
+            "label": "pnpm:install",
+            "detail": "Install project dependencies using pnpm.",
+            "icon": {
+                "id": "cloud-download",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": true
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [],
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "hide": false,
+            "command": "pnpm -r install",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "folderOpen"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        }
+    ]
 }
