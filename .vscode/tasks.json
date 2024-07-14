@@ -35,6 +35,41 @@
             "problemMatcher": []
         },
         {
+            "label": "pnpm:test",
+            "detail": "Run Vitest on the entire project using pnpm.",
+            "icon": {
+                "id": "beaker",
+                "color": "terminal.ansiRed"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "pnpm:rebuild:libs"
+            ],
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "hide": false,
+            "command": "pnpm -r run test",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "pnpm:lint",
             "detail": "Run ESLint on the entire project using pnpm.",
             "icon": {
