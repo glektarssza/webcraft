@@ -47,7 +47,7 @@
             },
             "dependsOrder": "sequence",
             "dependsOn": [
-                "pnpm:install"
+                "pnpm:build:types"
             ],
             "isBackground": false,
             "promptOnClose": false,
