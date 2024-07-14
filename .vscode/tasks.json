@@ -71,6 +71,43 @@
                 "$eslint-compact",
                 "$eslint-stylish"
             ]
+        },
+        {
+            "label": "pnpm:build:types",
+            "detail": "Build all project type definitions using pnpm and tsc.",
+            "icon": {
+                "id": "package",
+                "color": "terminal.ansiBlue"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "hide": false,
+            "command": "pnpm -r --filter \"webcraft^...\" run build:types",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": [
+                "$tsc"
+            ]
         }
     ]
 }
