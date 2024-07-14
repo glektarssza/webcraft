@@ -178,6 +178,111 @@
                 "clear": false
             },
             "problemMatcher": []
+        },
+        {
+            "label": "pnpm:build:libs",
+            "detail": "Build all project libraries using pnpm and vite.",
+            "icon": {
+                "id": "package",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "hide": false,
+            "command": "pnpm -r --filter \"webcraft^...\" run build",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:clean",
+            "detail": "Clean all project libraries using pnpm and rimraf.",
+            "icon": {
+                "id": "trashcan",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "hide": false,
+            "command": "pnpm -r --filter \"webcraft^...\" run clean",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:rebuild",
+            "detail": "Rebuild all project libraries using pnpm.",
+            "icon": {
+                "id": "package",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "pnpm:install"
+            ],
+            "isBackground": false,
+            "promptOnClose": false,
+            "type": "shell",
+            "hide": false,
+            "command": "pnpm -r --filter \"webcraft^...\" run rebuild",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
         }
     ]
 }
