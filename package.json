@@ -1,7 +1,9 @@
 {
     "name": "@webcraft/root",
     "type": "module",
-    "scripts": {},
+    "scripts": {
+        "dev": "pnpm -r --filter \"webcraft\" run dev"
+    },
     "devDependencies": {
         "@eslint/js": "^9.6.0",
         "@types/eslint__js": "^8.42.3",

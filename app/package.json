@@ -20,6 +20,7 @@
     },
     "type": "module",
     "scripts": {
+        "dev": "vite serve --mode development",
         "test": "vitest --run --browser chrome",
         "test:ci": "vitest --run --browser.name chrome --browser.headless true --browser.provider webdriverio",
         "test:ui": "vitest --ui --browser chrome",
