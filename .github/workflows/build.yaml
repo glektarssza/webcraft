@@ -70,3 +70,4 @@ jobs:
         with:
           name: dist-${{inputs.build-config}}
           path: ./app/dist/
+          if-no-files-found: error
