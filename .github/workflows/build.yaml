@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       artifact-id: ${{steps.upload-artifacts.outputs.artifact-id}}
-      artifact-name: ${{steps.upload-artifacts.outputs.artifact-name}}
+      artifact-name: dist-${{inputs.build-config}}
     steps:
       - id: checkout-repository
         name: Checkout repository
