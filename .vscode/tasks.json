@@ -1,0 +1,520 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "pnpm:install",
+            "detail": "Install project dependencies using pnpm.",
+            "icon": {
+                "id": "cloud-download",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": true
+            },
+            "hide": false,
+            "isBackground": false,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": [],
+            "type": "shell",
+            "command": "pnpm install",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "folderOpen"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:build",
+            "detail": "Build the project using pnpm.",
+            "icon": {
+                "id": "tools",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "hide": false,
+            "isBackground": false,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run build",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:build:dev",
+            "detail": "Build the project in development mode using pnpm.",
+            "icon": {
+                "id": "tools",
+                "color": "terminal.ansiCyan"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "hide": false,
+            "isBackground": false,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run build:dev",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:build:prod",
+            "detail": "Build the project in production mode using pnpm.",
+            "icon": {
+                "id": "tools",
+                "color": "terminal.ansiGreen"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "hide": false,
+            "isBackground": false,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run build:prod",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:clean",
+            "detail": "Clean the project using pnpm.",
+            "icon": {
+                "id": "trashcan",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "hide": false,
+            "isBackground": false,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run clean",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:clean:dev",
+            "detail": "Clean the project in development mode using pnpm.",
+            "icon": {
+                "id": "trashcan",
+                "color": "terminal.ansiCyan"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "hide": false,
+            "isBackground": false,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run clean:dev",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:clean:prod",
+            "detail": "Clean the project in production mode using pnpm.",
+            "icon": {
+                "id": "trashcan",
+                "color": "terminal.ansiGreen"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "hide": false,
+            "isBackground": false,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run clean:prod",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:rebuild",
+            "detail": "Rebuild the project using pnpm.",
+            "icon": {
+                "id": "tools",
+                "color": "terminal.ansiWhite"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "hide": false,
+            "isBackground": false,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run rebuild",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:rebuild:dev",
+            "detail": "Rebuild the project in development mode using pnpm.",
+            "icon": {
+                "id": "tools",
+                "color": "terminal.ansiCyan"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "hide": false,
+            "isBackground": false,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run rebuild:dev",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:rebuild:prod",
+            "detail": "Rebuild the project in production mode using pnpm.",
+            "icon": {
+                "id": "tools",
+                "color": "terminal.ansiGreen"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "hide": false,
+            "isBackground": false,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run rebuild:prod",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:lint",
+            "detail": "Lint the project using pnpm.",
+            "icon": {
+                "id": "search-fuzzy",
+                "color": "terminal.ansiYellow"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "hide": false,
+            "isBackground": false,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run lint",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": ["$eslint-compact", "$eslint-stylish"]
+        },
+        {
+            "label": "pnpm:test",
+            "detail": "Test the project using pnpm.",
+            "icon": {
+                "id": "beaker",
+                "color": "terminal.ansiMagenta"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "hide": false,
+            "isBackground": false,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run test",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "pnpm:test:ui",
+            "detail": "Test the project in UI mode using pnpm.",
+            "icon": {
+                "id": "beaker",
+                "color": "terminal.ansiCyan"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "hide": false,
+            "isBackground": true,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run test:ui",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": [
+                {
+                    "applyTo": "allDocuments",
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": {
+                            "regexp": "RERUN\\s+(.+)",
+                            "file": 1
+                        },
+                        "endsPattern": {
+                            "regexp": "Waiting for file changes"
+                        }
+                    },
+                    "fileLocation": "autoDetect",
+                    "severity": "info",
+                    "source": "vite",
+                    "pattern": [
+                        {
+                            "regexp": "(.+):(\\d+):(\\d+):\\s+(ERROR):\\s(.+)",
+                            "file": 1,
+                            "line": 2,
+                            "column": 3,
+                            "severity": 4,
+                            "message": 5
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "label": "pnpm:dev",
+            "detail": "Run the project in development mode using pnpm.",
+            "icon": {
+                "id": "run",
+                "color": "terminal.ansiCyan"
+            },
+            "group": {
+                "kind": "none",
+                "isDefault": false
+            },
+            "hide": false,
+            "isBackground": true,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run dev",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": [
+                {
+                    "applyTo": "allDocuments",
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": {
+                            "regexp": "this should never trigger"
+                        },
+                        "endsPattern": {
+                            "regexp": "ready in \\d+ ms"
+                        }
+                    },
+                    "fileLocation": "autoDetect",
+                    "severity": "info",
+                    "source": "vite",
+                    "pattern": [
+                        {
+                            "regexp": "(.+):(\\d+):(\\d+):\\s+(ERROR):\\s(.+)",
+                            "file": 1,
+                            "line": 2,
+                            "column": 3,
+                            "severity": 4,
+                            "message": 5
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
