@@ -1,5 +1,6 @@
 //-- Project Code
 import {createUUID, type UUID} from '../utils/uuid';
+import {Resource} from './resource';
 
 /**
  * A union type of all valid canvases.
@@ -36,6 +37,16 @@ export interface ContextBase<TCanvas extends Canvas> {
      * The WebGPU canvas context for this instance.
      */
     readonly canvasContext: GPUCanvasContext;
+
+    /**
+     * A map of WebGPU resources owned by this instance to their UUIDs.
+     */
+    readonly resources: Map<UUID, Resource<GPUObjectBase>>;
+
+    /**
+     * An array of WebGPU resources owned by this instance.
+     */
+    readonly resourceList: Resource<GPUObjectBase>[];
 }
 
 /**
@@ -115,12 +126,17 @@ export async function createContext<TCanvas extends Canvas>(
         ...options?.canvasContext,
         device
     });
+    const resources = new Map<UUID, Resource<GPUObjectBase>>();
     return {
         id: createUUID(),
         adapter,
         device,
         canvas,
-        canvasContext
+        canvasContext,
+        resources,
+        get resourceList(): Resource<GPUObjectBase>[] {
+            return Array.from(resources.values());
+        }
     };
 }
 
