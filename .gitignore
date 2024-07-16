@@ -34,17 +34,9 @@ tags
 # Logs #
 *.log*
 
+# Environment #
+.envrc
+
 # Packages #
 ## NodeJS ##
 node_modules/
-
-# Cache #
-## ESLint ##
-.eslintcache
-
-# Artifacts #
-## Vite ##
-dist/
-
-# Environment #
-.envrc
