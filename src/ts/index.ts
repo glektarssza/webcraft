@@ -1,5 +1,6 @@
 //-- Project Code
 import {waitForDocument} from './utils/dom';
+import {createHTMLContext} from './webgpu';
 
 /**
  * The application entry point.
@@ -9,6 +10,18 @@ import {waitForDocument} from './utils/dom';
  */
 async function main(): Promise<void> {
     await waitForDocument(globalThis.document);
+    const context = await createHTMLContext({
+        adapter: {
+            powerPreference: 'high-performance'
+        },
+        canvasContext: {
+            alphaMode: 'premultiplied'
+        }
+    });
+    const {canvas} = context;
+    canvas.id = 'gameCanvas';
+    canvas.classList.add('game-canvas');
+    globalThis.document.body.appendChild(canvas);
 }
 
 main()
