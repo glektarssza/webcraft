@@ -21,9 +21,9 @@
     "type": "module",
     "scripts": {
         "dev": "vite serve --mode development",
-        "test": "vitest --run --browser chrome",
-        "test:ci": "vitest --run --browser.name chrome --browser.headless true --browser.provider webdriverio",
-        "test:ui": "vitest --ui --browser chrome",
+        "test": "vitest --run --coverage",
+        "test:ci": "vitest --run --coverage",
+        "test:ui": "vitest --ui",
         "lint": "eslint --cache ./src/ ./tests/",
         "lint:ci": "eslint ./src/ ./tests/",
         "build": "pnpm run build:prod && pnpm run build:dev && pnpm run build:types",
