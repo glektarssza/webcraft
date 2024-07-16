@@ -123,6 +123,11 @@ async function main(): Promise<void> {
             ],
             constants: {}
         },
+        depthStencil: {
+            format: 'depth24plus',
+            depthCompare: 'less',
+            depthWriteEnabled: true
+        },
         primitive: {
             topology: 'triangle-list'
         }
@@ -191,6 +196,16 @@ async function main(): Promise<void> {
         mat4.multiply(mvpData, modelMatrix, mvpData);
         uploadDataToBuffer(mvpBuffer, mvpData);
 
+        //-- Create depth buffer texture
+        const depthTexture = device.createTexture({
+            format: 'depth24plus',
+            size: {
+                width: canvas.width,
+                height: canvas.height
+            },
+            usage: GPUTextureUsage.RENDER_ATTACHMENT
+        });
+
         const commandEncoder = device.createCommandEncoder();
         const renderPass = commandEncoder.beginRenderPass({
             colorAttachments: [
@@ -205,7 +220,13 @@ async function main(): Promise<void> {
                         a: 1
                     }
                 }
-            ]
+            ],
+            depthStencilAttachment: {
+                depthLoadOp: 'clear',
+                depthStoreOp: 'store',
+                view: depthTexture.createView(),
+                depthClearValue: 1
+            }
         });
         renderPass.setPipeline(pipeline);
         renderPass.setBindGroup(0, bindGroup);
