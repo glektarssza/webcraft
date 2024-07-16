@@ -18,6 +18,11 @@ struct VertexOutputs {
     @builtin(position) position: vec4<f32>,
 }
 
+/**
+ * The MVP matrix.
+ */
+@group(0) @binding(0) var<uniform> mvpMatrix: mat4x4<f32>;
+
 @vertex
 
 /**
@@ -29,7 +34,7 @@ struct VertexOutputs {
  */
 fn vertex_main(inputs: VertexInputs) -> VertexOutputs {
     var outputs: VertexOutputs;
-    outputs.position = vec4<f32>(inputs.position, 1.0);
+    outputs.position = mvpMatrix * vec4<f32>(inputs.position, 1.0);
     return outputs;
 }
 
