@@ -21,35 +21,28 @@ const config = defineConfig(({mode}) => {
             outDir: path.resolve(import.meta.dirname, './dist/'),
             minify: mode !== 'development',
             sourcemap: mode !== 'development' ? 'hidden' : true,
-            emptyOutDir: false,
-            lib: {
-                formats: ['es', 'cjs', 'umd'],
-                name: 'webcraft-common',
-                entry: path.resolve(import.meta.dirname, './src/index.ts'),
-                fileName(format) {
-                    const comps: string[] = ['webcraft-common', format];
-                    if (mode !== 'development') {
-                        comps.push('min');
-                    }
-                    comps.push('js');
-                    return comps.join('.');
-                }
-            }
+            emptyOutDir: true
         },
         test: {
             alias: {
                 '@src': path.resolve(import.meta.dirname, './src/ts/')
             },
+            browser: {
+                name: 'edge',
+                provider: 'webdriverio',
+                headless: true
+            },
             coverage: {
                 all: true,
-                reporter: ['text', 'html']
+                reporter: ['text', 'html'],
+                provider: 'istanbul'
             },
             mockReset: true,
             clearMocks: true,
             unstubGlobals: true,
             unstubEnvs: true,
             dir: './tests/',
-            name: 'Webcraft - Common Library Tests',
+            name: 'Webcraft',
             maxConcurrency: Math.max(Math.floor(os.cpus().length / 2), 1),
             reporters: 'default',
             passWithNoTests: true

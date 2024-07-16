@@ -34,10 +34,7 @@ jobs:
           token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
       - id: install-dependencies
         name: Install dependencies
-        run: pnpm -r install
-      - id: prebuild-dependencies
-        name: Prebuild dependencies
-        run: pnpm -r --filter "webcraft^..." run build
+        run: pnpm install
       - id: lint
         name: Lint
-        run: pnpm -r run lint:ci
+        run: pnpm run lint:ci
