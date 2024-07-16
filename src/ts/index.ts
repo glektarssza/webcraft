@@ -1,6 +1,17 @@
+//-- NPM Packages
+import {mat4, utils as matrixUtils} from 'wgpu-matrix';
+
 //-- Project Code
 import {waitForDocument} from './utils/dom';
-import {createBufferWithData, createHTMLContext, loadShader} from './webgpu';
+import {
+    createBuffer,
+    createBufferWithData,
+    createCubeGeometry,
+    createHTMLContext,
+    loadShader,
+    packVertexArray,
+    uploadDataToBuffer
+} from './webgpu';
 import shaderUrl from '../shaders/colored.wgsl?url';
 
 /**
@@ -27,12 +38,34 @@ async function main(): Promise<void> {
     globalThis.document.body.appendChild(canvas);
 
     //-- Prepare WebGPU
+    const mvpData = mat4.create();
+    const mvpBuffer = createBuffer(
+        context,
+        mvpData.byteLength,
+        GPUBufferUsage.COPY_DST | GPUBufferUsage.UNIFORM
+    );
     const bindGroupLayout = device.createBindGroupLayout({
-        entries: []
+        entries: [
+            // MVP matrix
+            {
+                binding: 0,
+                visibility: GPUShaderStage.VERTEX,
+                buffer: {
+                    type: 'uniform'
+                }
+            }
+        ]
     });
     const bindGroup = device.createBindGroup({
         layout: bindGroupLayout,
-        entries: []
+        entries: [
+            {
+                binding: 0,
+                resource: {
+                    buffer: mvpBuffer.native
+                }
+            }
+        ]
     });
     const pipelineLayout = device.createPipelineLayout({
         bindGroupLayouts: [bindGroupLayout]
@@ -94,12 +127,9 @@ async function main(): Promise<void> {
             topology: 'triangle-list'
         }
     });
+    const geom = createCubeGeometry();
     // prettier-ignore
-    const vertexData = new Float32Array([
-        -1, -1, 0,
-         1, -1, 0,
-         0,  1, 0
-    ].map((e) => e / 2));
+    const vertexData = packVertexArray(geom.vertices);
     const vertexBuffer = createBufferWithData(
         context,
         vertexData,
@@ -109,16 +139,58 @@ async function main(): Promise<void> {
     const colorData = new Float32Array([
         255, 0,   0,
         0,   255, 0,
-        0,   0,   255
+        0,   0,   255,
+        255, 255, 0,
+        255, 0,   255,
+        0,   255, 255,
+        255, 255, 255,
+        0,   0,   0
     ].map((e) => e / 255));
     const colorBuffer = createBufferWithData(
         context,
         colorData,
         GPUBufferUsage.COPY_DST | GPUBufferUsage.VERTEX
     );
+    const indexBuffer = geom.indices
+        ? createBufferWithData(
+              context,
+              new Uint16Array(geom.indices),
+              GPUBufferUsage.COPY_DST | GPUBufferUsage.INDEX
+          )
+        : null;
     const render = (): void => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
+
+        //-- Setup matrices
+        const modelMatrix = mat4.create();
+        const viewMatrix = mat4.create();
+        const projectionMatrix = mat4.create();
+
+        //-- Compute model matrix
+        mat4.identity(modelMatrix);
+
+        //-- Compute view matrix
+        mat4.identity(viewMatrix);
+        mat4.lookAt([3, 3, 3], [0, 0, 0], [0, 1, 0], viewMatrix);
+
+        //-- Compute projection matrix
+        mat4.identity(projectionMatrix);
+        mat4.perspective(
+            matrixUtils.degToRad(45),
+            canvas.width / canvas.height,
+            0.001,
+            1000,
+            projectionMatrix
+        );
+
+        //-- Update MVP matrix
+        mat4.identity(mvpData);
+        mat4.multiply(mvpData, projectionMatrix, mvpData);
+        mat4.multiply(mvpData, viewMatrix, mvpData);
+        mat4.multiply(mvpData, modelMatrix, mvpData);
+        uploadDataToBuffer(mvpBuffer, mvpData);
+
         const commandEncoder = device.createCommandEncoder();
         const renderPass = commandEncoder.beginRenderPass({
             colorAttachments: [
@@ -140,7 +212,12 @@ async function main(): Promise<void> {
         renderPass.setViewport(0, 0, canvas.width, canvas.height, 0, 1);
         renderPass.setVertexBuffer(0, vertexBuffer.native);
         renderPass.setVertexBuffer(1, colorBuffer.native);
-        renderPass.draw(3);
+        if (indexBuffer && geom.indices) {
+            renderPass.setIndexBuffer(indexBuffer.native, 'uint16');
+            renderPass.drawIndexed(geom.indices.length);
+        } else {
+            renderPass.draw(geom.vertices.length);
+        }
         renderPass.end();
         device.queue.submit([commandEncoder.finish()]);
         requestAnimationFrame(render);
