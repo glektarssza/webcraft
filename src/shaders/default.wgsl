@@ -19,6 +19,14 @@ struct VertexOutputs {
 }
 
 @vertex
+
+/**
+ * The entry point to the vertex shader.
+ *
+ * @param inputs - The inputs to the vertex shader.
+ *
+ * @returns The outputs from the vertex shader.
+ */
 fn vertex_main(inputs: VertexInputs) -> VertexOutputs {
     var outputs: VertexOutputs;
     outputs.position = vec4<f32>(inputs.position, 1.0);
@@ -36,6 +44,12 @@ struct FragmentOutputs {
 }
 
 @fragment
+
+/**
+ * The entry point to the fragment shader.
+ *
+ * @returns The outputs from the fragment shader.
+ */
 fn fragment_main() -> FragmentOutputs {
     var outputs: FragmentOutputs;
     outputs.color = vec4<f32>(1.0);
