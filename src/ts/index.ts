@@ -1,7 +1,7 @@
 //-- Project Code
 import {waitForDocument} from './utils/dom';
 import {createBufferWithData, createHTMLContext, loadShader} from './webgpu';
-import shaderUrl from '../shaders/default.wgsl?url';
+import shaderUrl from '../shaders/colored.wgsl?url';
 
 /**
  * The application entry point.
@@ -65,6 +65,17 @@ async function main(): Promise<void> {
                         }
                     ],
                     stepMode: 'vertex'
+                },
+                {
+                    arrayStride: 12,
+                    attributes: [
+                        {
+                            shaderLocation: 1,
+                            format: 'float32x3',
+                            offset: 0
+                        }
+                    ],
+                    stepMode: 'vertex'
                 }
             ],
             constants: {}
@@ -94,6 +105,17 @@ async function main(): Promise<void> {
         vertexData,
         GPUBufferUsage.COPY_DST | GPUBufferUsage.VERTEX
     );
+    // prettier-ignore
+    const colorData = new Float32Array([
+        255, 0,   0,
+        0,   255, 0,
+        0,   0,   255
+    ].map((e) => e / 255));
+    const colorBuffer = createBufferWithData(
+        context,
+        colorData,
+        GPUBufferUsage.COPY_DST | GPUBufferUsage.VERTEX
+    );
     const render = (): void => {
         canvas.width = canvas.clientWidth;
         canvas.height = canvas.clientHeight;
@@ -117,6 +139,7 @@ async function main(): Promise<void> {
         renderPass.setBindGroup(0, bindGroup);
         renderPass.setViewport(0, 0, canvas.width, canvas.height, 0, 1);
         renderPass.setVertexBuffer(0, vertexBuffer.native);
+        renderPass.setVertexBuffer(1, colorBuffer.native);
         renderPass.draw(3);
         renderPass.end();
         device.queue.submit([commandEncoder.finish()]);
