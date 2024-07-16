@@ -1,7 +1,8 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
+        "exactOptionalPropertyTypes": false,
         "noEmit": false,
-        "types": ["@webgpu/types"]
+        "types": ["@webgpu/types", "vite/client"]
     }
 }
