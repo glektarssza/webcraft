@@ -2,6 +2,6 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
         "noEmit": false,
-        "types": []
+        "types": ["@webgpu/types"]
     }
 }
