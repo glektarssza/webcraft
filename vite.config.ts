@@ -27,9 +27,15 @@ const config = defineConfig(({mode}) => {
             alias: {
                 '@src': path.resolve(import.meta.dirname, './src/ts/')
             },
+            browser: {
+                name: 'edge',
+                provider: 'webdriverio',
+                headless: true
+            },
             coverage: {
                 all: true,
-                reporter: ['text', 'html']
+                reporter: ['text', 'html'],
+                provider: 'istanbul'
             },
             mockReset: true,
             clearMocks: true,
