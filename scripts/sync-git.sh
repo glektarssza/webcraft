@@ -127,7 +127,7 @@ logInfo "Pruning merged branches..."
 if [[ $DRY_RUN == "true" ]]; then
     logInfo "Would have run 'git branch --merged | grep -vE \"${MAIN_BRANCH}\" | xargs -n1 git branch -d'"
 else
-    git branch --merged | grep -Ev "${MAIN_BRANCH}" | xargs -n1 git branch -d
+    git branch --merged | grep -vE "${MAIN_BRANCH}" | xargs -n1 git branch -d
     if [[ $? != 0 ]]; then
         logError "Failed to prune merged branches!"
         exit $?
