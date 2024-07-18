@@ -8,15 +8,20 @@ while [ -L "$SCRIPT_SOURCE" ]; do
 done
 SCRIPT_DIR=$(cd -P "$( dirname "$SCRIPT_SOURCE" )" > /dev/null 2>&1 && pwd)
 
+#-- Directory Constants
 LIBRARY_DIR="$SCRIPT_DIR/lib"
 PROJECT_DIR="$SCRIPT_DIR/.."
+
+#-- Import Libraries
+source "$LIBRARY_DIR/logging.sh"
+source "$LIBRARY_DIR/execUtils.sh"
+
+#-- Argument Defaults
 SOURCE_FILE="$PROJECT_DIR/logo.svg"
 OUT_DIR="$PROJECT_DIR/public"
 DESIRED_SIZES="256,128,64,48,32,24,16"
 
-source "$LIBRARY_DIR/logging.sh"
-source "$LIBRARY_DIR/execUtils.sh"
-
+#-- Utilities
 function printHelp() {
     echo "$0"
     echo "Generate an ICO file and several differently sized PNG files for the project logo."
@@ -38,6 +43,7 @@ function printHelp() {
     echo "Copyright (c) 2024 G'lek Tarssza, all rights reserved."
 }
 
+#-- Parse Arguments
 while [[ -n $1 ]]; do
     case $1 in
         --dry-run)
@@ -66,7 +72,7 @@ while [[ -n $1 ]]; do
     shift
 done
 
-# Validate source file
+#-- Validate source file arguments
 if [[ ! -e "$SOURCE_FILE" ]]; then
     logError "Source '${SOURCE_FILE}' does not exist!"
     exit 1
@@ -76,7 +82,7 @@ if [[ ! -f "$SOURCE_FILE" ]]; then
     exit 1
 fi
 
-# Validate destination
+#-- Validate destination arguments
 if [[ ! -e "$OUT_DIR" ]]; then
     if [[ $DRY_RUN == "true" ]]; then
         logInfo "Would have executed 'mkdir -p \"$OUT_DIR\"'"
@@ -91,7 +97,6 @@ elif [[ ! -d "$OUT_DIR" ]]; then
     logError "Destination '${OUT_DIR}' is not a directory!"
     exit 1
 fi
-
 
 logVerbose "Source file: ${SOURCE_FILE}"
 logVerbose "Destination: ${OUT_DIR}"
