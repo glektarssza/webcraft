@@ -110,6 +110,18 @@ else
     fi
 fi
 
+logInfo "Pulling latest changes..."
+
+if [[ $DRY_RUN == "true" ]]; then
+    logInfo "Would have run 'git pull'"
+else
+    git pull
+    if [[ $? != 0 ]]; then
+        logError "Failed to pull latest changes!"
+        exit $?
+    fi
+fi
+
 logInfo "Pruning branches that no longer exist in remote..."
 
 if [[ $DRY_RUN == "true" ]]; then
@@ -135,6 +147,8 @@ else
 fi
 
 if [[ "${RESTORE_CURRENT_BRANCH}" -eq "true" ]]; then
+    logInfo "Restoring original branch..."
+
     if [[ $DRY_RUN == "true" ]]; then
         logInfo "Would have run 'git checkout ${CURRENT_BRANCH}'"
     else
