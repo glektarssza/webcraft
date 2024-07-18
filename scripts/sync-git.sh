@@ -134,4 +134,16 @@ else
     fi
 fi
 
+if [[ "${RESTORE_CURRENT_BRANCH}" -eq "true" ]]; then
+    if [[ $DRY_RUN == "true" ]]; then
+        logInfo "Would have run 'git checkout ${CURRENT_BRANCH}'"
+    else
+        git checkout ${CURRENT_BRANCH}
+        if [[ $? != 0 ]]; then
+            logError "Failed to checkout original branch!"
+            exit $?
+        fi
+    fi
+fi
+
 logInfo "${COLOR_FG_GREEN}Success!${COLOR_RESET}"
