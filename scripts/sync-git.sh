@@ -22,7 +22,7 @@ MAIN_BRANCH=$(git config --default $(git branch -r | grep -E "^\\s+origin/(maste
 CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 RESTORE_CURRENT_BRANCH=false
 
-if [[ "${MAIN_BRANCH}" -ne "${CURRENT_BRANCH}" ]]; then
+if [[ "${MAIN_BRANCH}" != "${CURRENT_BRANCH}" ]]; then
     RESTORE_CURRENT_BRANCH=true
 fi
 
