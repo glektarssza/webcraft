@@ -28,6 +28,7 @@ const config = defineConfig(({mode}) => {
                 '@src': path.resolve(import.meta.dirname, './src/ts/')
             },
             browser: {
+                enabled: true,
                 name: 'edge',
                 provider: 'webdriverio',
                 headless: true
