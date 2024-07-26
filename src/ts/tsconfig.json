@@ -4,5 +4,6 @@
         "exactOptionalPropertyTypes": false,
         "noEmit": false,
         "types": ["@webgpu/types", "vite/client"]
-    }
+    },
+    "include": ["./*.ts", "./**/*.ts"]
 }
