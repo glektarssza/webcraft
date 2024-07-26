@@ -5,5 +5,5 @@
         "noEmit": false,
         "types": ["@webgpu/types", "vite/client"]
     },
-    "include": ["./**.ts"]
+    "include": ["./*.ts", "./**/*.ts"]
 }
