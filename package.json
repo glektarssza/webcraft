@@ -43,16 +43,16 @@
         "wgpu-matrix": "^3.0.2"
     },
     "devDependencies": {
-        "@eslint/js": "^9.7.0",
+        "@eslint/js": "^9.8.0",
         "@faker-js/faker": "^8.4.1",
         "@rollup/plugin-replace": "^5.0.7",
         "@types/eslint__js": "^8.42.3",
-        "@types/node": "^20.14.12",
+        "@types/node": "^22.0.0",
         "@vitest/browser": "^2.0.4",
         "@vitest/coverage-istanbul": "^2.0.4",
         "@vitest/ui": "^2.0.4",
         "del-cli": "^5.1.0",
-        "eslint": "^9.7.0",
+        "eslint": "^9.8.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-tsdoc": "^0.3.0",
         "prettier": "^3.3.3",
@@ -60,7 +60,7 @@
         "ts-node": "^10.9.2",
         "typescript": "^5.5.4",
         "typescript-eslint": "8.0.0-alpha.54",
-        "vite": "^5.3.4",
+        "vite": "^5.3.5",
         "vitest": "^2.0.4",
         "webdriverio": "^8.39.1"
     }
