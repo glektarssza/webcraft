@@ -13,3 +13,14 @@ updates:
       day: wednesday
       time: '12:00'
       timezone: Canada/Mountain
+  - directory: /
+    package-ecosystem: github-actions
+    labels:
+      - Dependency
+    assignees:
+      - glektarssza
+    schedule:
+      interval: weekly
+      day: wednesday
+      time: '12:00'
+      timezone: Canada/Mountain
