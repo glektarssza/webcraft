@@ -1,6 +1,9 @@
 //-- Project Code
 import {createWebGPUContext, domReady} from './utils';
 
+//-- Assets
+import defaultShader from '../shaders/default.wgsl?raw';
+
 /**
  * The application entry point.
  */
@@ -29,33 +32,7 @@ async function main(): Promise<void> {
 
     //-- Create the shader module
     const shaderModule = device.createShaderModule({
-        code: `
-struct VertexInputs {
-    @location(0) position: vec3<f32>,
-}
-
-struct VertexOutputs {
-    @builtin(position) position: vec4<f32>,
-}
-
-@vertex
-fn vertex_main(inputs: VertexInputs) -> VertexOutputs {
-    var outputs: VertexOutputs;
-    outputs.position = vec4<f32>(inputs.position, 1.0);
-    return outputs;
-}
-
-struct FragmentOutputs {
-    @location(0) color: vec4<f32>,
-}
-
-@fragment
-fn fragment_main() -> FragmentOutputs {
-    var outputs: FragmentOutputs;
-    outputs.color = vec4<f32>(1.0);
-    return outputs;
-}
-`,
+        code: defaultShader,
         compilationHints: [
             {
                 entryPoint: 'vertex_main',
