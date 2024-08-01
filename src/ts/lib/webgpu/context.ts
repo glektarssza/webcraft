@@ -7,7 +7,7 @@ import type {Canvas} from './types';
  * @typeParam TCanvas - The type of canvas instances of this interface render
  * to.
  */
-export interface ContextBase<TCanvas extends Canvas> {
+export interface WebGPUContextBase<TCanvas extends Canvas> {
     /**
      * The canvas this instance renders to.
      */
@@ -32,22 +32,22 @@ export interface ContextBase<TCanvas extends Canvas> {
 /**
  * A WebGPU rendering context the renders to a HTML canvas element.
  */
-export type HTMLContext = ContextBase<HTMLCanvasElement>;
+export type WebGPUHTMLContext = WebGPUContextBase<HTMLCanvasElement>;
 
 /**
  * A WebGPU rendering context the renders to an offscreen canvas.
  */
-export type OffscreenContext = ContextBase<OffscreenCanvas>;
+export type WebGPUOffscreenContext = WebGPUContextBase<OffscreenCanvas>;
 
 /**
  * A WebGPU rendering context.
  */
-export type Context = HTMLContext | OffscreenContext;
+export type WebGPUContext = WebGPUHTMLContext | WebGPUOffscreenContext;
 
 /**
- * Options for creating a new {@link ContextBase} instance.
+ * Options for creating a new {@link WebGPUContextBase} instance.
  */
-export interface ContextOptions {
+export interface WebGPUContextOptions {
     /**
      * Options for configuring the
      * {@link GPUCanvasContext | WebGPU canvas context}.
@@ -66,7 +66,7 @@ export interface ContextOptions {
 }
 
 /**
- * Create a new {@link ContextBase | WebGPU rendering context}.
+ * Create a new {@link WebGPUContextBase | WebGPU rendering context}.
  *
  * @typeParam TCanvas - The type of canvas the new instance will render to.
  *
@@ -76,10 +76,10 @@ export interface ContextOptions {
  * @returns A promise that resolves to the newly created instance on success or
  * rejects if any errors occur.
  */
-export async function createContext<TCanvas extends Canvas>(
+export async function createWebGPUContext<TCanvas extends Canvas>(
     canvas: TCanvas,
-    options?: ContextOptions
-): Promise<ContextBase<TCanvas>> {
+    options?: WebGPUContextOptions
+): Promise<WebGPUContextBase<TCanvas>> {
     if (!navigator.gpu) {
         throw new Error('WebGPU is not supported on this platform');
     }
@@ -109,7 +109,7 @@ export async function createContext<TCanvas extends Canvas>(
 }
 
 /**
- * Create a new {@link ContextBase | WebGPU rendering context} that renders to a
+ * Create a new {@link WebGPUContextBase | WebGPU rendering context} that renders to a
  * HTML canvas element.
  *
  * @param options - The options to use to create the new instance.
@@ -117,15 +117,15 @@ export async function createContext<TCanvas extends Canvas>(
  * @returns A promise that resolves to the newly created instance on success or
  * rejects if any errors occur.
  */
-export async function createHTMLContext(
-    options?: ContextOptions
-): Promise<HTMLContext> {
+export async function createWebGPUHTMLContext(
+    options?: WebGPUContextOptions
+): Promise<WebGPUHTMLContext> {
     const canvas = document.createElement('canvas');
-    return createContext(canvas, options);
+    return createWebGPUContext(canvas, options);
 }
 
 /**
- * Create a new {@link ContextBase | WebGPU rendering context} that renders to
+ * Create a new {@link WebGPUContextBase | WebGPU rendering context} that renders to
  * an offscreen canvas.
  *
  * @param options - The options to use to create the new instance.
@@ -133,11 +133,11 @@ export async function createHTMLContext(
  * @returns A promise that resolves to the newly created instance on success or
  * rejects if any errors occur.
  */
-export async function createOffscreenContext(
+export async function createWebGPUOffscreenContext(
     width: number,
     height: number,
-    options?: ContextOptions
-): Promise<OffscreenContext> {
+    options?: WebGPUContextOptions
+): Promise<WebGPUOffscreenContext> {
     const canvas = new OffscreenCanvas(width, height);
-    return createContext(canvas, options);
+    return createWebGPUContext(canvas, options);
 }

@@ -1,6 +1,6 @@
 //-- Project Code
 import {createUUID, UUID} from '../common';
-import {Context} from './context';
+import {WebGPUContext} from './context';
 
 /**
  * A WebGPU shader.
@@ -14,7 +14,7 @@ export type WebGPUShader = GPUShaderModule & {
     /**
      * The WebGPU rendering context that owns this instance.
      */
-    readonly context: Context;
+    readonly context: WebGPUContext;
 };
 
 /**
@@ -31,7 +31,7 @@ export type WebGPUShaderDescriptor = GPUShaderModuleDescriptor & {
     /**
      * The WebGPU rendering context that will own the new instance.
      */
-    readonly context: Context;
+    readonly context: WebGPUContext;
 };
 
 /**
