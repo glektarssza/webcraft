@@ -17,6 +17,9 @@ export type WebGPUBuffer = GPUBuffer & {
     readonly context: Context;
 };
 
+/**
+ * A descriptor for creating a new {@link WebGPUBuffer | WebGPU buffer}.
+ */
 export type WebGPUBufferDescriptor = GPUBufferDescriptor & {
     /**
      * The unique ID of the new instance.
@@ -32,7 +35,8 @@ export type WebGPUBufferDescriptor = GPUBufferDescriptor & {
 };
 
 /**
- * A WebGPU buffer descriptor without the `size` property.
+ * A {@link WebGPUBuffer | WebGPU buffer} descriptor without the `size`
+ * property.
  */
 export type WebGPUBufferDescriptorWithoutSize = Omit<
     WebGPUBufferDescriptor,
