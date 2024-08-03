@@ -1,3 +1,5 @@
+export * from './timers';
+
 /**
  * Check if a {@link Document} is ready to be manipulated.
  *
