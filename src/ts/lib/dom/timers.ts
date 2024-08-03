@@ -2,28 +2,6 @@
 import type {Distinct} from '../common';
 
 /**
- * The global object.
- */
-let globalObject: typeof globalThis = globalThis;
-
-/**
- * Set the global object used by this module.
- *
- * @param g - The object to use as the global object for this module.
- */
-export function setGlobalObject(g: typeof globalThis): void {
-    globalObject = g;
-}
-
-/**
- * Reset the global object used by this module to the default environment global
- * object.
- */
-export function resetGlobalObject(): void {
-    globalObject = globalThis;
-}
-
-/**
  * The ID of a call to {@link setTimeout}.
  */
 export type TimeoutID = Distinct<number>;
@@ -81,7 +59,7 @@ export function setTimeout<TArgs extends unknown[]>(
     delay: number,
     ...args: TArgs
 ): TimeoutID {
-    return globalObject.setTimeout(callback, delay, ...args) as TimeoutID;
+    return globalThis.setTimeout(callback, delay, ...args) as TimeoutID;
 }
 
 /**
@@ -99,7 +77,7 @@ export function setInterval<TArgs extends unknown[]>(
     delay: number,
     ...args: TArgs
 ): IntervalID {
-    return globalObject.setTimeout(callback, delay, ...args) as IntervalID;
+    return globalThis.setTimeout(callback, delay, ...args) as IntervalID;
 }
 
 /**
@@ -114,7 +92,7 @@ export function setInterval<TArgs extends unknown[]>(
 export function requestAnimationFrame(
     callback: AnimationFrameCallback
 ): AnimationFrameID {
-    return globalObject.requestAnimationFrame(callback) as AnimationFrameID;
+    return globalThis.requestAnimationFrame(callback) as AnimationFrameID;
 }
 
 /**
@@ -124,7 +102,7 @@ export function requestAnimationFrame(
  * @param g - The global scope object.
  */
 export function clearTimeout(id: TimeoutID): void {
-    globalObject.clearTimeout(id);
+    globalThis.clearTimeout(id);
 }
 
 /**
@@ -134,7 +112,7 @@ export function clearTimeout(id: TimeoutID): void {
  * @param g - The global scope object.
  */
 export function clearInterval(id: IntervalID): void {
-    globalObject.clearInterval(id);
+    globalThis.clearInterval(id);
 }
 
 /**
@@ -145,5 +123,5 @@ export function clearInterval(id: IntervalID): void {
  * @param g - The global scope object.
  */
 export function cancelAnimationFrame(id: IntervalID): void {
-    globalObject.cancelAnimationFrame(id);
+    globalThis.cancelAnimationFrame(id);
 }
