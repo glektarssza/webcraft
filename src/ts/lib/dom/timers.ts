@@ -2,6 +2,28 @@
 import type {Distinct} from '../common';
 
 /**
+ * The global object.
+ */
+let globalObject: typeof globalThis = globalThis;
+
+/**
+ * Set the global object used by this module.
+ *
+ * @param g - The object to use as the global object for this module.
+ */
+export function setGlobalObject(g: typeof globalThis): void {
+    globalObject = g;
+}
+
+/**
+ * Reset the global object used by this module to the default environment global
+ * object.
+ */
+export function resetGlobalObject(): void {
+    globalObject = globalThis;
+}
+
+/**
  * The ID of a call to {@link setTimeout}.
  */
 export type TimeoutID = Distinct<number>;
@@ -57,10 +79,9 @@ export type AnimationFrameCallback = (time: number) => void;
 export function setTimeout<TArgs extends unknown[]>(
     callback: TimeoutCallback<TArgs>,
     delay: number,
-    g: typeof globalThis = globalThis,
     ...args: TArgs
 ): TimeoutID {
-    return g.setTimeout(callback, delay, ...args) as TimeoutID;
+    return globalObject.setTimeout(callback, delay, ...args) as TimeoutID;
 }
 
 /**
@@ -76,10 +97,9 @@ export function setTimeout<TArgs extends unknown[]>(
 export function setInterval<TArgs extends unknown[]>(
     callback: IntervalCallback<TArgs>,
     delay: number,
-    g: typeof globalThis = globalThis,
     ...args: TArgs
 ): IntervalID {
-    return g.setTimeout(callback, delay, ...args) as IntervalID;
+    return globalObject.setTimeout(callback, delay, ...args) as IntervalID;
 }
 
 /**
@@ -92,10 +112,9 @@ export function setInterval<TArgs extends unknown[]>(
  * @returns An ID which can be used to cancel the request to call the function.
  */
 export function requestAnimationFrame(
-    callback: AnimationFrameCallback,
-    g: typeof globalThis = globalThis
+    callback: AnimationFrameCallback
 ): AnimationFrameID {
-    return g.requestAnimationFrame(callback) as AnimationFrameID;
+    return globalObject.requestAnimationFrame(callback) as AnimationFrameID;
 }
 
 /**
@@ -104,11 +123,8 @@ export function requestAnimationFrame(
  * @param id - The ID of the request to cancel.
  * @param g - The global scope object.
  */
-export function clearTimeout(
-    id: TimeoutID,
-    g: typeof globalThis = globalThis
-): void {
-    g.clearTimeout(id);
+export function clearTimeout(id: TimeoutID): void {
+    globalObject.clearTimeout(id);
 }
 
 /**
@@ -117,11 +133,8 @@ export function clearTimeout(
  * @param id - The ID of the request to cancel.
  * @param g - The global scope object.
  */
-export function clearInterval(
-    id: IntervalID,
-    g: typeof globalThis = globalThis
-): void {
-    g.clearInterval(id);
+export function clearInterval(id: IntervalID): void {
+    globalObject.clearInterval(id);
 }
 
 /**
@@ -131,9 +144,6 @@ export function clearInterval(
  * @param id - The ID of the request to cancel.
  * @param g - The global scope object.
  */
-export function cancelAnimationFrame(
-    id: IntervalID,
-    g: typeof globalThis = globalThis
-): void {
-    g.cancelAnimationFrame(id);
+export function cancelAnimationFrame(id: IntervalID): void {
+    globalObject.cancelAnimationFrame(id);
 }
