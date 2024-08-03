@@ -60,8 +60,6 @@ jobs:
         run: pnpm install
       - id: build
         name: Build
-        env:
-          EDGEDRIVER_VERSION: '127.0.2651.86'
         run: pnpm run build:${{inputs.build-config}}
       - id: upload-artifacts
         name: Upload artifacts
