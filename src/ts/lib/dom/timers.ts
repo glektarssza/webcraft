@@ -47,17 +47,17 @@ export type AnimationFrameCallback = (time: number) => void;
 /**
  * Register a function to be called after a given delay.
  *
- * @param g - The global scope object.
  * @param callback - The function to register.
  * @param delay - The delay, in milliseconds, to call the function after.
+ * @param g - The global scope object.
  * @param args - The arguments to pass to the function.
  *
  * @returns An ID which can be used to cancel the request to call the function.
  */
 export function setTimeout<TArgs extends unknown[]>(
-    g: typeof globalThis,
     callback: TimeoutCallback<TArgs>,
     delay: number,
+    g: typeof globalThis = globalThis,
     ...args: TArgs
 ): TimeoutID {
     return g.setTimeout(callback, delay, ...args) as TimeoutID;
@@ -66,17 +66,17 @@ export function setTimeout<TArgs extends unknown[]>(
 /**
  * Register a function to be called repeatedly after a given delay.
  *
- * @param g - The global scope object.
  * @param callback - The function to register.
  * @param delay - The delay, in milliseconds, to call the function after.
+ * @param g - The global scope object.
  * @param args - The arguments to pass to the function.
  *
  * @returns An ID which can be used to cancel the request to call the function.
  */
 export function setInterval<TArgs extends unknown[]>(
-    g: typeof globalThis,
     callback: IntervalCallback<TArgs>,
     delay: number,
+    g: typeof globalThis = globalThis,
     ...args: TArgs
 ): IntervalID {
     return g.setTimeout(callback, delay, ...args) as IntervalID;
@@ -86,14 +86,14 @@ export function setInterval<TArgs extends unknown[]>(
  * Register a function to be called when the system is ready to render a new
  * animation frame.
  *
- * @param g - The global scope object.
  * @param callback - The function to register.
+ * @param g - The global scope object.
  *
  * @returns An ID which can be used to cancel the request to call the function.
  */
 export function requestAnimationFrame(
-    g: typeof globalThis,
-    callback: AnimationFrameCallback
+    callback: AnimationFrameCallback,
+    g: typeof globalThis = globalThis
 ): AnimationFrameID {
     return g.requestAnimationFrame(callback) as AnimationFrameID;
 }
@@ -101,20 +101,26 @@ export function requestAnimationFrame(
 /**
  * Cancel a previously made request to call a function after a delay.
  *
- * @param g - The global scope object.
  * @param id - The ID of the request to cancel.
+ * @param g - The global scope object.
  */
-export function clearTimeout(g: typeof globalThis, id: TimeoutID): void {
+export function clearTimeout(
+    id: TimeoutID,
+    g: typeof globalThis = globalThis
+): void {
     g.clearTimeout(id);
 }
 
 /**
  * Cancel a previously made request to call a function repeatedly after a delay.
  *
- * @param g - The global scope object.
  * @param id - The ID of the request to cancel.
+ * @param g - The global scope object.
  */
-export function clearInterval(g: typeof globalThis, id: IntervalID): void {
+export function clearInterval(
+    id: IntervalID,
+    g: typeof globalThis = globalThis
+): void {
     g.clearInterval(id);
 }
 
@@ -122,12 +128,12 @@ export function clearInterval(g: typeof globalThis, id: IntervalID): void {
  * Cancel a previously made request to call a function when the system is ready
  * to render a new animation frame.
  *
- * @param g - The global scope object.
  * @param id - The ID of the request to cancel.
+ * @param g - The global scope object.
  */
 export function cancelAnimationFrame(
-    g: typeof globalThis,
-    id: IntervalID
+    id: IntervalID,
+    g: typeof globalThis = globalThis
 ): void {
     g.cancelAnimationFrame(id);
 }
