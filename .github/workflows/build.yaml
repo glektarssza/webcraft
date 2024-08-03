@@ -34,8 +34,6 @@ jobs:
     outputs:
       artifact-id: ${{steps.upload-artifacts.outputs.artifact-id}}
       artifact-name: dist-${{inputs.build-config}}
-    env:
-      EDGEDRIVER_VERSION: '127.0.2651.86'
     steps:
       - id: checkout-repository
         name: Checkout repository
@@ -62,6 +60,8 @@ jobs:
         run: pnpm install
       - id: build
         name: Build
+        env:
+          EDGEDRIVER_VERSION: '127.0.2651.86'
         run: pnpm run build:${{inputs.build-config}}
       - id: upload-artifacts
         name: Upload artifacts
