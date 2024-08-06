@@ -1,4 +1,29 @@
 /**
+ * The global scope object.
+ */
+let globalObject = globalThis;
+
+/**
+ * Set the global scope object.
+ *
+ * @param go - The global scope object.
+ *
+ * @internal
+ */
+export function setGlobalObject(go: typeof globalThis): void {
+    globalObject = go;
+}
+
+/**
+ * Reset the global scope object to the default.
+ *
+ * @internal
+ */
+export function resetGlobalObject(): void {
+    globalObject = globalThis;
+}
+
+/**
  * A function that can handle events being fired by a {@link Document}.
  *
  * @typeParam TEvent - The type of event that will be handled by functions of
@@ -37,7 +62,7 @@ export function addDocumentEventListener<TEvent extends keyof DocumentEventMap>(
     event: TEvent,
     listener: DocumentEventListener<TEvent>,
     options?: boolean | AddEventListenerOptions,
-    document: Document = globalThis.document
+    document: Document = globalObject.document
 ): void {
     document.addEventListener(event, listener, options);
 }
@@ -57,7 +82,7 @@ export function removeDocumentEventListener<
     event: TEvent,
     listener: DocumentEventListener<TEvent>,
     options?: boolean | EventListenerOptions,
-    document: Document = globalThis.document
+    document: Document = globalObject.document
 ): void {
     document.removeEventListener(event, listener, options);
 }
@@ -75,7 +100,7 @@ export function addWindowEventListener<TEvent extends keyof WindowEventMap>(
     event: TEvent,
     listener: WindowEventListener<TEvent>,
     options?: boolean | AddEventListenerOptions,
-    window: Window = globalThis.window
+    window: Window = globalObject.window
 ): void {
     window.addEventListener(event, listener, options);
 }
@@ -93,7 +118,7 @@ export function removeWindowEventListener<TEvent extends keyof WindowEventMap>(
     event: TEvent,
     listener: WindowEventListener<TEvent>,
     options?: boolean | EventListenerOptions,
-    window: Window = globalThis.window
+    window: Window = globalObject.window
 ): void {
     window.removeEventListener(event, listener, options);
 }
