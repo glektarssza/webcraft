@@ -11,8 +11,6 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
-    env:
-      EDGEDRIVER_VERSION: '127.0.2651.87'
     steps:
       - id: checkout-repository
         name: Checkout repository
