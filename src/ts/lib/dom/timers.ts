@@ -102,7 +102,7 @@ export function setInterval<TArgs extends unknown[]>(
     delay: number,
     ...args: TArgs
 ): IntervalID {
-    return globalObject.setTimeout(callback, delay, ...args) as IntervalID;
+    return globalObject.setInterval(callback, delay, ...args) as IntervalID;
 }
 
 /**
