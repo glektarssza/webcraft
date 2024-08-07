@@ -1,25 +1,25 @@
-//-- Project Code
-import {addDocumentEventListener, removeDocumentEventListener} from './events';
-import {clearTimeout, setTimeout, type TimeoutID} from './timers';
-
 /**
  * The global scope object.
  */
-let globalObject = globalThis;
+let globalObject: typeof globalThis = globalThis;
 
 /**
- * Set the global scope object.
+ * Sets the global scope object.
  *
- * @param go - The global scope object.
+ * This function is for use in unit tests only.
+ *
+ * @param object - The global scope object.
  *
  * @internal
  */
-export function setGlobalObject(go: typeof globalThis): void {
-    globalObject = go;
+export function setGlobalObject(object: typeof globalThis): void {
+    globalObject = object;
 }
 
 /**
- * Reset the global scope object to the default.
+ * Resets the global scope object.
+ *
+ * This function is for use in unit tests only.
  *
  * @internal
  */
@@ -28,73 +28,60 @@ export function resetGlobalObject(): void {
 }
 
 /**
- * Check if a {@link Document} is ready to be manipulated.
+ * Check if the DOM is ready to be manipulated.
  *
- * @param document - The document to check.
- *
- * @returns `true` if the document is ready to be manipulated; `false`
- * otherwise.
+ * @returns `true` if the DOM is ready to be manipulated; `false` otherwise.
  */
-export function isDocumentReady(
-    document: Document = globalObject.document
-): boolean {
-    return document.readyState === 'complete';
+export function isReady(): boolean {
+    return globalObject.document.readyState === 'complete';
 }
 
 /**
- * Wait for a {@link Document} to become ready to be manipulated.
+ * Wait for the DOM to become ready to be manipulated.
  *
- * @param timeout - The maximum time to wait, in milliseconds. A non-finite,
- * negative, or non-numerical value will be treated as an indefinite wait
- * period.
- * @param document - The document to become ready for manipulation.
+ * @param timeout - The maximum duration, in milliseconds, to wait for the DOM
+ * to become ready to be manipulated. A negative, non-finite, or non-numeric
+ * value will be treated as an indefinite duration.
  *
- * @returns A promise that resolves when the document is ready to be manipulated
- * or rejects if a timeout is provided and was reached.
+ * @returns A promise that resolves when the DOM is ready to be manipulated or
+ * rejects if a timeout is provided and was reached before the DOM became ready
+ * to be manipulated.
  */
-export async function awaitDocumentReady(
-    timeout: number = Infinity,
-    document: Document = globalObject.document
-): Promise<void> {
-    if (isDocumentReady(document)) {
+export async function awaitReady(timeout: number = Infinity): Promise<void> {
+    if (isReady()) {
         return;
     }
     await new Promise<void>((resolve, reject): void => {
-        if (isDocumentReady(document)) {
+        if (isReady()) {
             resolve();
             return;
         }
-        let timer: TimeoutID | null = null;
+        let timer: number | null = null;
         const listener = (): void => {
-            if (isDocumentReady(document)) {
+            if (isReady()) {
                 if (timer !== null) {
-                    clearTimeout(timer);
+                    globalObject.clearTimeout(timer);
                 }
-                removeDocumentEventListener(
+                globalObject.document.removeEventListener(
                     'readystatechange',
-                    listener,
-                    undefined,
-                    document
+                    listener
                 );
                 resolve();
             }
         };
-        addDocumentEventListener(
-            'readystatechange',
-            listener,
-            undefined,
-            document
-        );
-        if (isFinite(timeout) && timeout > 0) {
-            timer = setTimeout((): void => {
-                removeDocumentEventListener(
+        if (globalObject.isFinite(timeout) && timeout >= 0) {
+            timer = globalObject.setTimeout((): void => {
+                globalObject.document.removeEventListener(
                     'readystatechange',
-                    listener,
-                    undefined,
-                    document
+                    listener
                 );
-                reject(new Error('Document ready state timeout reached'));
-            }, timeout);
+                reject(
+                    new Error(
+                        `The DOM did not become ready within ${timeout} milliseconds`
+                    )
+                );
+            });
         }
+        globalObject.document.addEventListener('readystatechange', listener);
     });
 }

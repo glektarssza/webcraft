@@ -1,6 +1,7 @@
 /**
- * A type that is distinct from its base type while being compatible with it.
+ * A type that represents a type that is distinct from its base type while still
+ * being compatible with it.
  *
- * @typeParam T - The base type to create a distinct type from.
+ * @typeParam T - The base type to create the distinct type from.
  */
-export type Distinct<T> = T & {readonly __TYPE__: unique symbol};
+export type Distinct<T> = T & {readonly __distinct__: unique symbol};

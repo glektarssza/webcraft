@@ -1,15 +1,15 @@
 //-- Project Code
-import {dom} from './lib';
 import {createWebGPUContext} from './utils';
 
 //-- Assets
 import defaultShader from '../shaders/default.wgsl?raw';
+import {dom} from './lib';
 
 /**
  * The application entry point.
  */
 async function main(): Promise<void> {
-    await dom.awaitDocumentReady();
+    await dom.awaitReady();
     const {canvas, canvasContext, device} = await createWebGPUContext();
     canvas.id = 'gameCanvas';
     canvas.classList.add('game-canvas');
