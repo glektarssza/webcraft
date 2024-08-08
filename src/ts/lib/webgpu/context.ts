@@ -1,6 +1,35 @@
 //-- Project Code
 import type {Canvas} from './types';
 
+/**
+ * The global scope object.
+ */
+let globalObject: typeof globalThis = globalThis;
+
+/**
+ * Sets the global scope object.
+ *
+ * This function is for use in unit tests only.
+ *
+ * @param object - The global scope object.
+ *
+ * @internal
+ */
+export function setGlobalObject(object: typeof globalThis): void {
+    globalObject = object;
+}
+
+/**
+ * Resets the global scope object.
+ *
+ * This function is for use in unit tests only.
+ *
+ * @internal
+ */
+export function resetGlobalObject(): void {
+    globalObject = globalThis;
+}
+
 export interface ContextOptions {
     /**
      * The options to use for fetching the WebGPU adapter.
@@ -82,10 +111,12 @@ export async function createContext<TCanvas extends Canvas>(
     canvas: TCanvas,
     options?: ContextOptions
 ): Promise<ContextBase<TCanvas>> {
-    if (!navigator.gpu) {
+    if (!globalObject.navigator.gpu) {
         throw new Error('WebGPU is not supported by this platform');
     }
-    const adapter = await navigator.gpu.requestAdapter(options?.adapterOptions);
+    const adapter = await globalObject.navigator.gpu.requestAdapter(
+        options?.adapterOptions
+    );
     if (!adapter) {
         throw new Error('Failed to fetch WebGPU adapter');
     }
@@ -98,7 +129,7 @@ export async function createContext<TCanvas extends Canvas>(
         throw new Error('Failed to fetch WebGPU canvas context');
     }
     canvasContext.configure({
-        format: navigator.gpu.getPreferredCanvasFormat(),
+        format: globalObject.navigator.gpu.getPreferredCanvasFormat(),
         ...options?.canvasContextOptions,
         device
     });
@@ -121,7 +152,7 @@ export async function createContext<TCanvas extends Canvas>(
 export async function createHTMLContext(
     options?: ContextOptions
 ): Promise<HTMLContext> {
-    const canvas = document.createElement('canvas');
+    const canvas = globalObject.document.createElement('canvas');
     return createContext(canvas, options);
 }
 
