@@ -9,3 +9,4 @@ export {
     createHTMLContext,
     createOffscreenContext
 } from './context';
+export {loadShader} from './shader';
