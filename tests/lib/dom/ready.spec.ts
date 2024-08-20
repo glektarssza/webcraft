@@ -12,15 +12,11 @@ import {Faker, base, en, en_CA, en_US} from '@faker-js/faker';
 
 //-- Project Code
 import {
-    getInternalModule,
+    isDocumentReady,
     resetGlobalObject,
-    setGlobalObject
+    setGlobalObject,
+    waitForDocumentReady
 } from '@src/lib/dom/ready';
-
-/**
- * The module under test.
- */
-const m = getInternalModule();
 
 /**
  * The fake data provider.
@@ -56,7 +52,7 @@ describe('module:lib/dom/ready', (): void => {
             stubDocument.readyState = 'complete';
 
             //-- When
-            const r = m.isDocumentReady();
+            const r = isDocumentReady();
 
             //-- Then
             expect(r).toBe(true);
@@ -66,7 +62,7 @@ describe('module:lib/dom/ready', (): void => {
             stubDocument.readyState = 'loading';
 
             //-- When
-            const r = m.isDocumentReady();
+            const r = isDocumentReady();
 
             //-- Then
             expect(r).toBe(false);
@@ -97,7 +93,7 @@ describe('module:lib/dom/ready', (): void => {
             stubDocument.readyState = 'complete';
 
             //-- When
-            await m.waitForDocumentReady();
+            await waitForDocumentReady();
 
             //-- Then
             expect(stubDocument.addEventListener).not.toHaveBeenCalled();
@@ -115,7 +111,7 @@ describe('module:lib/dom/ready', (): void => {
             );
 
             //-- When
-            await m.waitForDocumentReady();
+            await waitForDocumentReady();
 
             //-- Then
             expect(stubDocument.addEventListener).toHaveBeenCalled();
@@ -135,7 +131,7 @@ describe('module:lib/dom/ready', (): void => {
 
             //-- When
             try {
-                await m.waitForDocumentReady(timeout);
+                await waitForDocumentReady(timeout);
             } catch (e) {
                 error = e instanceof Error ? e : null;
             }
@@ -166,7 +162,7 @@ describe('module:lib/dom/ready', (): void => {
             const timeout = faker.number.int({min: 1, max: 50});
 
             //-- When
-            await m.waitForDocumentReady(timeout);
+            await waitForDocumentReady(timeout);
 
             //-- Then
             expect(globalObject.clearTimeout).toHaveBeenCalled();
