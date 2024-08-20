@@ -23,16 +23,6 @@ export function resetGlobalObject(): void {
 }
 
 /**
- * Check if the global {@link Document} is ready to be manipulated.
- *
- * @returns `true` if the global {@link Document} is ready to be
- * manipulated; `false` otherwise.
- */
-export function isDocumentReady(): boolean {
-    return globalObject.document.readyState === 'complete';
-}
-
-/**
  * Options for creating a {@link ContextBase}.
  */
 export interface ContextBaseOptions {
