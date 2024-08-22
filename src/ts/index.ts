@@ -1,12 +1,12 @@
 //-- Project Code
-import {createWebGPUContext, domReady} from './utils';
+import {dom, webgpu} from './lib';
 
 /**
  * The application entry point.
  */
 async function main(): Promise<void> {
-    await domReady();
-    const {canvas, canvasContext, device} = await createWebGPUContext();
+    await dom.waitForDocumentReady();
+    const {canvas, canvasContext, device} = await webgpu.createHTMLContext();
     canvas.id = 'gameCanvas';
     canvas.classList.add('game-canvas');
     globalThis.document.body.appendChild(canvas);
