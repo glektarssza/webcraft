@@ -110,7 +110,7 @@ export async function createContext<TCanvas extends Canvas>(
     options?: ContextBaseOptions
 ): Promise<ContextBase<TCanvas>> {
     if (!globalObject.navigator.gpu) {
-        throw new Error('WebGPU is not supported in this platform');
+        throw new Error('WebGPU is not supported on this platform');
     }
     const adapter = await globalObject.navigator.gpu.requestAdapter(
         options?.adapter
