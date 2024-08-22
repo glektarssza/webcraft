@@ -1,1 +1,1 @@
-export {};
+export {isDocumentReady, waitForDocumentReady} from './ready';
