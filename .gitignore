@@ -49,3 +49,4 @@ node_modules/
 ## Vite ##
 coverage/
 dist/
+__screenshots__/
