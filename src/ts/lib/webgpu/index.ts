@@ -1,10 +1,10 @@
 export type * from './type';
 export {
-    Context,
-    ContextBase,
-    ContextBaseOptions,
-    HTMLContext,
-    OffscreenContext,
+    type Context,
+    type ContextBase,
+    type ContextBaseOptions,
+    type HTMLContext,
+    type OffscreenContext,
     createContext,
     createHTMLContext,
     createOffscreenContext
