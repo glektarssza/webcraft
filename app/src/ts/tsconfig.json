@@ -1,0 +1,9 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "exactOptionalPropertyTypes": false,
+        "noEmit": false,
+        "types": []
+    },
+    "include": ["./*.ts", "./**/*.ts"]
+}
