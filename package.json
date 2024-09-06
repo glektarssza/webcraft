@@ -15,11 +15,9 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/glektarssza/webcraft.git",
-        "directory": "./app/"
+        "url": "https://github.com/glektarssza/webcraft.git"
     },
     "type": "module",
-    "scripts": {},
     "devDependencies": {
         "@eslint/js": "^9.9.1",
         "@types/eslint__js": "^8.42.3",
