@@ -18,7 +18,7 @@ source "$LIBRARY_DIR/execUtils.sh"
 
 #-- Argument Defaults
 SOURCE_FILE="$PROJECT_DIR/logo.svg"
-OUT_DIR="$PROJECT_DIR/public"
+OUT_DIR="$PROJECT_DIR/app/public"
 DESIRED_SIZES="256,128,64,48,32,24,16"
 
 #-- Utilities
