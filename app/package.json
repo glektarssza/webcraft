@@ -34,7 +34,7 @@
         "clean:all": "pnpm run clean:prod && pnpm run clean:dev",
         "clean:prod": "del-cli \"./dist/\"",
         "clean:dev": "del-cli \"./dist/\"",
-        "rebuild": "pnpm run clean && pnpm run build",
+        "rebuild": "pnpm run rebuild:prod",
         "rebuild:all": "pnpm run clean:all && pnpm run build:all",
         "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod",
         "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev"
