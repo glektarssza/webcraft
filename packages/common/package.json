@@ -48,7 +48,7 @@
         "build:dev": "vite build --mode development",
         "build:types": "tsc --project ./src/tsconfig.json --emitDeclarationOnly --declaration --outDir ./dist/types/",
         "clean": "pnpm run clean:all",
-        "clean:all": "pnpm run clean:prod && pnpm run clean:dev && pnpm run clean:types",
+        "clean:all": "del-cli \"./dist/\"",
         "clean:prod": "del-cli \"./dist/prod/\"",
         "clean:dev": "del-cli \"./dist/dev/\"",
         "clean:types": "del-cli \"./dist/types/\"",
