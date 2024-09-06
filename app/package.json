@@ -26,7 +26,7 @@
         "test:ui": "vitest --ui",
         "lint": "eslint --cache ./src/ ./tests/",
         "lint:ci": "eslint ./src/ ./tests/",
-        "build": "pnpm run build:prod && pnpm run build:dev && pnpm run build:types",
+        "build": "pnpm run build:prod && pnpm run build:dev",
         "build:prod": "vite build --mode production",
         "build:dev": "vite build --mode development",
         "clean": "del-cli \"./dist/\"",
