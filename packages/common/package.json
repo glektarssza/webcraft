@@ -1,0 +1,68 @@
+{
+    "name": "@webcraft/common",
+    "description": "A common library for the Webcraft project.",
+    "version": "0.0.0",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "private": true,
+    "author": {
+        "name": "G'lek Tarssza",
+        "email": "glek@glektarssza.com",
+        "url": "https://glektarssza.com"
+    },
+    "homepage": "https://glektarssza.github.io/webcraft/",
+    "bugs": {
+        "url": "https://github.com/glektarssza/webcraft/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/glektarssza/webcraft.git",
+        "directory": "./packages/common/"
+    },
+    "type": "module",
+    "scripts": {
+        "dev": "vite serve --mode development",
+        "test": "vitest --run --coverage",
+        "test:ci": "vitest --run --coverage",
+        "test:ui": "vitest --ui",
+        "lint": "eslint --cache ./src/ ./tests/",
+        "lint:ci": "eslint ./src/ ./tests/",
+        "build": "pnpm run build:all",
+        "build:all": "pnpm run build:prod && pnpm run build:dev && pnpm run build:types",
+        "build:prod": "vite build --mode production",
+        "build:dev": "vite build --mode development",
+        "build:types": "tsc --project ./src/tsconfig.json --emitDeclarationOnly --declaration --outDir ./dist/types/",
+        "clean": "pnpm run clean:all",
+        "clean:all": "pnpm run clean:prod && pnpm run clean:dev && pnpm run clean:types",
+        "clean:prod": "del-cli \"./dist/prod/\"",
+        "clean:dev": "del-cli \"./dist/dev/\"",
+        "clean:types": "del-cli \"./dist/types/\"",
+        "rebuild": "pnpm run rebuild:all",
+        "rebuild:all": "pnpm run clean:all && pnpm run build:all",
+        "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod",
+        "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev",
+        "rebuild:types": "pnpm run clean:types && pnpm run build:types"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@eslint/js": "^9.9.1",
+        "@faker-js/faker": "^9.0.0",
+        "@rollup/plugin-replace": "^5.0.7",
+        "@types/eslint__js": "^8.42.3",
+        "@types/node": "^22.5.4",
+        "@vitest/browser": "^2.0.5",
+        "@vitest/coverage-istanbul": "^2.0.5",
+        "@vitest/ui": "^2.0.5",
+        "del-cli": "^5.1.0",
+        "eslint": "^9.9.1",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-tsdoc": "^0.3.0",
+        "prettier": "^3.3.3",
+        "sass": "^1.78.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.5.4",
+        "typescript-eslint": "8.4.0",
+        "vite": "^5.4.3",
+        "vitest": "^2.0.5",
+        "webdriverio": "^9.0.9"
+    }
+}
