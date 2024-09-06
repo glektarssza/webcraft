@@ -17,7 +17,3 @@ repos:
       - id: fix-byte-order-marker
       - id: mixed-line-ending
       - id: trailing-whitespace
-  - repo: https://github.com/glektarssza/pre-commit-hooks.git
-    rev: 1f3e63a9e511640a0cfe7e2952779a81eafc32f0
-    hooks:
-      - id: pnpm-lint
