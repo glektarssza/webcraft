@@ -19,6 +19,22 @@
         "directory": "./packages/common/"
     },
     "type": "module",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "development": {
+            "import": "./dist/dev/webcraft-common.es.js",
+            "require": "./dist/dev/webcraft-common.cjs.js",
+            "default": "./dist/dev/webcraft-common.umd.js"
+        },
+        "production": {
+            "import": "./dist/prod/webcraft-common.es.min.js",
+            "require": "./dist/prod/webcraft-common.cjs.min.js",
+            "default": "./dist/prod/webcraft-common.umd.min.js"
+        },
+        "import": "./dist/prod/webcraft-common.es.min.js",
+        "require": "./dist/prod/webcraft-common.cjs.min.js",
+        "default": "./dist/prod/webcraft-common.umd.min.js"
+    },
     "scripts": {
         "dev": "vite serve --mode development",
         "test": "vitest --run --coverage",
@@ -42,7 +58,6 @@
         "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev",
         "rebuild:types": "pnpm run clean:types && pnpm run build:types"
     },
-    "dependencies": {},
     "devDependencies": {
         "@eslint/js": "^9.9.1",
         "@faker-js/faker": "^9.0.0",
