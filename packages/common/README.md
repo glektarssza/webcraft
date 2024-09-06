@@ -1,4 +1,4 @@
-<h1 id="webcraft---common-lib" align="center">
+<h1 id="webcraft---common-library" align="center">
     Webcraft - Common Library
 </h1>
 <p align="center">
