@@ -54,7 +54,7 @@ const config = defineConfig(({mode}) => {
             unstubGlobals: true,
             unstubEnvs: true,
             dir: './tests/',
-            name: 'Webcraft',
+            name: 'Webcraft - Common Library',
             maxConcurrency: Math.max(Math.floor(os.cpus().length / 2), 1),
             reporters: 'default',
             passWithNoTests: true
