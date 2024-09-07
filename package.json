@@ -18,6 +18,9 @@
         "url": "https://github.com/glektarssza/webcraft.git"
     },
     "type": "module",
+    "scripts": {
+        "test": "vitest --run --passWithNoTests --coverage.provider=istanbul --coverage.all --coverage.reporter=text --coverage.reporter=html"
+    },
     "devDependencies": {
         "@eslint/js": "^9.9.1",
         "@types/eslint__js": "^8.42.3",
@@ -29,6 +32,7 @@
         "sass": "^1.78.0",
         "ts-node": "^10.9.2",
         "typescript": "^5.5.4",
-        "typescript-eslint": "8.4.0"
+        "typescript-eslint": "8.4.0",
+        "vitest": "^2.0.5"
     }
 }

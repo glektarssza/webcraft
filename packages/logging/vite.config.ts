@@ -44,11 +44,6 @@ const config = defineConfig(({mode}) => {
                 provider: 'webdriverio',
                 headless: true
             },
-            coverage: {
-                all: true,
-                reporter: ['text', 'html'],
-                provider: 'istanbul'
-            },
             mockReset: true,
             clearMocks: true,
             unstubGlobals: true,
@@ -56,8 +51,7 @@ const config = defineConfig(({mode}) => {
             dir: './tests/',
             name: 'Webcraft - Logging Library',
             maxConcurrency: Math.max(Math.floor(os.cpus().length / 2), 1),
-            reporters: 'default',
-            passWithNoTests: true
+            reporters: 'default'
         },
         plugins: [
             replacePlugin({
