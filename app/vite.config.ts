@@ -33,6 +33,12 @@ const config = defineConfig(({mode}) => {
                 provider: 'webdriverio',
                 headless: true
             },
+            coverage: {
+                all: true,
+                provider: 'istanbul',
+                reporter: ['text', 'html']
+            },
+            passWithNoTests: true,
             mockReset: true,
             clearMocks: true,
             unstubGlobals: true,

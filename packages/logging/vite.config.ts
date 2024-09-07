@@ -6,7 +6,7 @@ import path from 'node:path';
 
 //-- NPM Packages
 import replacePlugin from '@rollup/plugin-replace';
-import {defineConfig} from 'vite';
+import {defineConfig} from 'vitest/config';
 
 /**
  * The ViteJS configuration.
@@ -44,6 +44,12 @@ const config = defineConfig(({mode}) => {
                 provider: 'webdriverio',
                 headless: true
             },
+            coverage: {
+                all: true,
+                provider: 'istanbul',
+                reporter: ['text', 'html']
+            },
+            passWithNoTests: true,
             mockReset: true,
             clearMocks: true,
             unstubGlobals: true,

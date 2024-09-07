@@ -19,12 +19,13 @@
     },
     "type": "module",
     "scripts": {
-        "test": "vitest --run --passWithNoTests --coverage.provider=istanbul --coverage.all --coverage.reporter=text --coverage.reporter=html"
+        "test": "vitest --run --passWithNoTests --coverage.enabled=true --coverage.provider=istanbul --coverage.all=true --coverage.reporter=html --coverage.reporter=text"
     },
     "devDependencies": {
         "@eslint/js": "^9.9.1",
         "@types/eslint__js": "^8.42.3",
         "@types/node": "^22.5.4",
+        "@vitest/coverage-istanbul": "^2.0.5",
         "eslint": "^9.9.1",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-tsdoc": "^0.3.0",
