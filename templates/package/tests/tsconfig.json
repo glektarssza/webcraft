@@ -1,0 +1,11 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "paths": {
+            "@src": ["../src"],
+            "@src/*": ["../src/*"]
+        },
+        "types": []
+    },
+    "include": ["./*.ts", "./**/*.ts"]
+}
