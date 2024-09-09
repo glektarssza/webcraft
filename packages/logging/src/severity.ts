@@ -50,3 +50,33 @@ export function isSeverityValue(value: unknown): value is SeverityValue {
 export function isSeverity(value: unknown): value is Severity {
     return isSeverityName(value) || isSeverityValue(value);
 }
+
+/**
+ * Get a severity value from a severity map.
+ *
+ * @param severity - The severity to get the value for.
+ * @param severityScheme - The severity scheme to get the value from.
+ *
+ * @returns The severity value.
+ *
+ * @throws `Error`
+ * Thrown if the severity scheme does not contain a value for the given
+ * severity.
+ */
+export function getSeverityValue(
+    severity: Severity,
+    severityScheme: SeverityMap
+): SeverityValue {
+    if (isSeverityName(severity)) {
+        const maybeValue = severityScheme[severity];
+        if (isSeverityValue(maybeValue)) {
+            return maybeValue;
+        } else {
+            throw new Error(
+                `Severity scheme does not contain a value for severity "${severity}"`
+            );
+        }
+    } else {
+        return severity;
+    }
+}
