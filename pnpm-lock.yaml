@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@eslint/js':
-        specifier: ^9.9.1
-        version: 9.9.1
+        specifier: ^9.10.0
+        version: 9.10.0
       '@types/eslint__js':
         specifier: ^8.42.3
         version: 8.42.3
@@ -51,8 +51,8 @@ importers:
   app:
     devDependencies:
       '@eslint/js':
-        specifier: ^9.9.1
-        version: 9.9.1
+        specifier: ^9.10.0
+        version: 9.10.0
       '@faker-js/faker':
         specifier: ^9.0.0
         version: 9.0.0

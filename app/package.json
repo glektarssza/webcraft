@@ -41,7 +41,7 @@
     },
     "dependencies": {},
     "devDependencies": {
-        "@eslint/js": "^9.9.1",
+        "@eslint/js": "^9.10.0",
         "@faker-js/faker": "^9.0.0",
         "@rollup/plugin-replace": "^5.0.7",
         "@types/eslint__js": "^8.42.3",
