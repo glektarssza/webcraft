@@ -50,7 +50,7 @@
         "@vitest/coverage-istanbul": "^2.0.5",
         "@vitest/ui": "^2.0.5",
         "del-cli": "^5.1.0",
-        "eslint": "^9.9.1",
+        "eslint": "^9.10.0",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-tsdoc": "^0.3.0",
         "prettier": "^3.3.3",
