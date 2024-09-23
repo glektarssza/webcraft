@@ -65,4 +65,29 @@ describe('module:namespace', (): void => {
             expect(r).toEqual(['a', 'b', 'c']);
         });
     });
+    describe('.namespaceComponentMatches()', (): void => {
+        it('should return `true` if the namespace components are identical and neither has any wildcards', (): void => {
+            //-- Given
+            const lhs = 'a';
+            const rhs = 'a';
+
+            //-- When
+            const r = m.namespaceComponentMatches(lhs, rhs);
+
+            //-- Then
+            expect(r).toBe(true);
+        });
+        it('should return `false` if the namespace components are not identical and neither has any wildcards', (): void => {
+            //-- Given
+            const lhs = 'a';
+            const rhs = 'b';
+
+            //-- When
+            const r = m.namespaceComponentMatches(lhs, rhs);
+
+            //-- Then
+            expect(r).toBe(false);
+        });
+    });
+    describe('.namespaceMatches()', (): void => {});
 });
