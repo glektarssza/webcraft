@@ -42,7 +42,8 @@ const config = defineConfig(({mode}) => {
                 enabled: true,
                 name: 'edge',
                 provider: 'webdriverio',
-                headless: true
+                headless: true,
+                screenshotFailures: false
             },
             coverage: {
                 all: true,
