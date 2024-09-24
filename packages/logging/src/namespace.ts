@@ -69,7 +69,8 @@ export function namespaceComponentMatches(lhs: string, rhs: string): boolean {
     }
     //-- Otherwise do a regex comparison to account for wildcards
     const lhsRegex = new RegExp(`^${lhs.replace(/\*/g, '.*')}$`);
-    return lhsRegex.test(rhs);
+    const rhsRegex = new RegExp(`^${rhs.replace(/\*/g, '.*')}$`);
+    return lhsRegex.test(rhs) || rhsRegex.test(lhs);
 }
 
 /**
