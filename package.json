@@ -33,7 +33,7 @@
         "sass": "^1.79.1",
         "ts-node": "^10.9.2",
         "typescript": "^5.6.2",
-        "typescript-eslint": "8.6.0",
+        "typescript-eslint": "8.7.0",
         "vitest": "^2.1.1"
     }
 }
