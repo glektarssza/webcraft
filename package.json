@@ -22,18 +22,18 @@
         "test": "vitest --run --passWithNoTests --coverage.enabled=true --coverage.provider=istanbul --coverage.all=true --coverage.reporter=html --coverage.reporter=text"
     },
     "devDependencies": {
-        "@eslint/js": "^9.10.0",
+        "@eslint/js": "^9.11.1",
         "@types/eslint__js": "^8.42.3",
-        "@types/node": "^22.5.5",
+        "@types/node": "^22.7.2",
         "@vitest/coverage-istanbul": "^2.1.1",
-        "eslint": "^9.10.0",
+        "eslint": "^9.11.1",
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-tsdoc": "^0.3.0",
         "prettier": "^3.3.3",
-        "sass": "^1.79.1",
+        "sass": "^1.79.3",
         "ts-node": "^10.9.2",
         "typescript": "^5.6.2",
-        "typescript-eslint": "8.6.0",
+        "typescript-eslint": "8.7.0",
         "vitest": "^2.1.1"
     }
 }
