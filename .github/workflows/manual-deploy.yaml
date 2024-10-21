@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Manual Deploy
+on:
+  workflow_dispatch:
+    inputs:
+      artifact-name:
+        description: |
+          The name of the artifact to deploy.
+        type: string
+        required: true
+      run-id:
+        description: |
+          The run ID which created the artifact to deploy.
+        type: string
+        required: true
+jobs:
+  publish:
+    name: Publish
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: deploy-github-pages
+      cancel-in-progress: false
+    uses: ./.github/workflows/deploy.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
+    with:
+      artifact-name: ${{inputs.artifact-name}}
+      run-id: ${{github.run_id}}
