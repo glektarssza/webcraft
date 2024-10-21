@@ -24,7 +24,6 @@ jobs:
       github-token: ${{secrets.GITHUB_TOKEN}}
   publish:
     name: Publish
-    runs-on: ubuntu-latest
     needs:
       - build
       - lint
@@ -36,21 +35,9 @@ jobs:
     concurrency:
       group: deploy-github-pages
       cancel-in-progress: false
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy-github-pages.outputs.page_url }}
-    steps:
-      - id: download-build-artifacts
-        name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{needs.build.outputs.artifact-name}}
-          path: .pages
-      - id: upload-github-pages-artifacts
-        name: Upload GitHub Pages artifacts
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: .pages
-      - id: deploy-github-pages
-        name: Deploy GitHub pages
-        uses: actions/deploy-pages@v4
+    uses: ./.github/workflows/deploy.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
+    with:
+      artifact-name: ${{needs.build.outputs.artifact-name}}
+      run-id: ${{github.run_id}}
