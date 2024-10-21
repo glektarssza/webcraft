@@ -28,4 +28,4 @@ jobs:
       github-token: ${{secrets.GITHUB_TOKEN}}
     with:
       artifact-name: ${{inputs.artifact-name}}
-      run-id: ${{github.run_id}}
+      run-id: ${{inputs.run-id}}
