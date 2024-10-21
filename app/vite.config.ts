@@ -17,6 +17,7 @@ const config = defineConfig(({mode}) => {
         resolve: {
             extensions: ['.ts', '.js']
         },
+        base: mode !== 'development' ? '/webcraft/' : '/',
         build: {
             outDir: path.resolve(import.meta.dirname, './dist/'),
             minify: mode !== 'development',
