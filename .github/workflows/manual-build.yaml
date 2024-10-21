@@ -1,0 +1,49 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Manual Build
+on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: |
+          Whether to deploy the build to the GitHub pages environment.
+        type: boolean
+        required: false
+        default: false
+jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/build.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
+    with:
+      build-config: prod
+  test:
+    name: Test
+    uses: ./.github/workflows/test.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
+  lint:
+    name: Lint
+    uses: ./.github/workflows/lint.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
+  publish:
+    name: Publish
+    if: inputs.deploy
+    needs:
+      - build
+      - lint
+      - test
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: deploy-github-pages
+      cancel-in-progress: false
+    uses: ./.github/workflows/deploy.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
+    with:
+      artifact-name: ${{needs.build.outputs.artifact-name}}
+      run-id: ${{github.run_id}}
