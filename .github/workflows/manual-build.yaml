@@ -1,9 +1,14 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: On Release
+name: Manual Build
 on:
-  release:
-    types:
-      - published
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: |
+          Whether to deploy the build to the GitHub pages environment.
+        type: boolean
+        required: false
+        default: false
 jobs:
   build:
     name: Build
@@ -24,6 +29,7 @@ jobs:
       github-token: ${{secrets.GITHUB_TOKEN}}
   publish:
     name: Publish
+    if: inputs.deploy
     needs:
       - build
       - lint

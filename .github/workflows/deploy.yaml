@@ -1,0 +1,61 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Deploy
+on:
+  workflow_call:
+    secrets:
+      github-token:
+        description: |
+          The token to use for making authenticated requests to GitHub APIs.
+        required: true
+    inputs:
+      artifact-name:
+        description: |
+          The name of the artifact to deploy.
+        type: string
+        required: true
+      run-id:
+        description: |
+          The run ID which created the artifact to deploy.
+        type: string
+        required: false
+        default: ${{github.run_id}}
+    outputs:
+      github-pages-url:
+        description: |
+          The URL of the GitHub Pages deployment.
+        value: ${{jobs.deploy.outputs.github-pages-url}}
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      pages: write
+    concurrency:
+      group: github-pages-deploy
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy-github-pages.outputs.page_url }}
+    outputs:
+      github-pages-url: ${{ steps.deploy-github-pages.outputs.page_url }}
+    steps:
+      - id: download-build-artifacts
+        name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{inputs.artifact-name}}
+          path: .pages
+          run-id: ${{inputs.run-id || github.run_id}}
+          github-token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
+      - id: upload-github-pages-artifacts
+        name: Upload GitHub Pages artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .pages
+      - id: deploy-github-pages
+        name: Deploy GitHub pages
+        uses: actions/deploy-pages@v4
+        with:
+          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
