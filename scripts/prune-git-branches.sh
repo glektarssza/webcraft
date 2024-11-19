@@ -77,7 +77,7 @@ for REMOTE in ${GIT_REMOTES[@]}; do
     if [[ $DRY_RUN == "true" ]]; then
         logInfo "Would have run 'git prune \"${REMOTE}\"'"
     else
-        PRUNED_BRANCHES=( $(git remote prune "${REMOTE}" | grep 'pruned' | awk 'gsub("[*\\[\\]]|pruned|[[:space:]]", "", $0)' | xargs ) )
+        PRUNED_BRANCHES=( $(git remote prune "${REMOTE}" | grep 'pruned' | awk "gsub(\"[*\\[\\]]|pruned|[[:space:]]|${REMOTE}\/\", \"\", \$0)" | xargs ) )
         if [[ $? != 0 ]]; then
             logError "Failed to prune remove '${REMOTE}'!"
             exit $?
@@ -86,7 +86,7 @@ for REMOTE in ${GIT_REMOTES[@]}; do
         if [[ ${#PRUNED_BRANCHES[@]} > 0 ]]; then
             logInfo "Founded candidate branches for removal:"
             for BRANCH in ${PRUNED_BRANCHES[@]}; do
-                logInfo "* ${BRANCH}"
+                logInfo "${BRANCH}"
             done
             logInfo "Removing pruned branches from '${REMOTE}'..."
             for BRANCH in ${PRUNED_BRANCHES[@]}; do
