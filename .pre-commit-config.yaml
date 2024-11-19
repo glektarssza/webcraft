@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://json.schemastore.org/pre-commit-config.json
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks.git
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: check-added-large-files
       - id: check-symlinks
@@ -17,7 +17,3 @@ repos:
       - id: fix-byte-order-marker
       - id: mixed-line-ending
       - id: trailing-whitespace
-  - repo: https://github.com/glektarssza/pre-commit-hooks.git
-    rev: c36a4dfb9119345efa7f4734c57d918b6b525d80
-    hooks:
-      - id: pnpm-lint-recurse
