@@ -21,3 +21,6 @@ repos:
     rev: c36a4dfb9119345efa7f4734c57d918b6b525d80
     hooks:
       - id: pnpm-lint-recurse
+      - id: pnpm-test
+        stages:
+          - pre-push
