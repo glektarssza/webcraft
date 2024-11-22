@@ -54,10 +54,15 @@ const config = defineConfig(({mode}) => {
             clearMocks: true,
             unstubGlobals: true,
             unstubEnvs: true,
-            dir: './tests/',
+            dir: path.resolve(__dirname, './tests/'),
             name: 'Webcraft - Logging Library',
             maxConcurrency: Math.max(Math.floor(os.cpus().length / 2), 1),
             reporters: 'default'
+        },
+        server: {
+            fs: {
+                strict: process.env['VITEST_VSCODE'] === undefined
+            }
         },
         plugins: [
             replacePlugin({
