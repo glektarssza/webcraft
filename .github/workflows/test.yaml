@@ -37,8 +37,6 @@ jobs:
         run: pnpm install
       - id: test
         name: Test
-        env:
-          EDGEDRIVER_VERSION: ${{vars.EDGEDRIVER_VERSION}}
         run: pnpm test
       - id: upload-artifacts
         name: Upload artifacts
