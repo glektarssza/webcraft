@@ -53,6 +53,11 @@ const config = defineConfig(({mode}) => {
             maxConcurrency: Math.max(Math.floor(os.cpus().length / 2), 1),
             reporters: 'default'
         },
+        server: {
+            fs: {
+                strict: process.env['VITEST_VSCODE'] === undefined
+            }
+        },
         plugins: [
             replacePlugin({
                 preventAssignment: true,
