@@ -11,7 +11,11 @@
  *
  * @internal
  */
-export const internals = {};
+export const internals = {
+    isNamespace,
+    isNamespaceComponent,
+    isNamespaceComponentArray
+};
 
 /**
  * A collection of external functions this module depends on.
@@ -91,6 +95,6 @@ export function isNamespaceComponentArray(
     return (
         typeof value === 'object' &&
         Array.isArray(value) &&
-        value.every(isNamespaceComponent)
+        value.every(internals.isNamespaceComponent)
     );
 }

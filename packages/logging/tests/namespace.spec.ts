@@ -1,9 +1,11 @@
 //-- NPM
 import {Faker, base, en, en_CA, en_US} from '@faker-js/faker';
-import {beforeAll, describe, expect, it} from 'vitest';
+import {createSandbox} from 'sinon';
+import {afterEach, beforeAll, describe, expect, it} from 'vitest';
 
 //-- Project Code
 import {
+    internals,
     isNamespace,
     isNamespaceComponent,
     isNamespaceComponentArray
@@ -17,6 +19,10 @@ const fakeData = new Faker({
 });
 
 describe('module:logging/namespace', (): void => {
+    const sinonSandbox = createSandbox();
+    afterEach((): void => {
+        sinonSandbox.restore();
+    });
     beforeAll((): void => {
         let seed = fakeData.seed();
         if (FAKER_SEED) {
@@ -159,9 +165,14 @@ describe('module:logging/namespace', (): void => {
         });
         it('should return `false` if the is an array but one of the components does not fulfill the `isNamespaceComponent` function', (): void => {
             //-- Given
+            const isNamespaceComponentStub = sinonSandbox.stub(
+                internals,
+                'isNamespaceComponent'
+            );
+            isNamespaceComponentStub.returns(true).onCall(1).returns(false);
             const nscArray = [
                 fakeData.string.alphanumeric(),
-                `${fakeData.string.alphanumeric()}:${fakeData.string.alphanumeric()}`
+                fakeData.string.alphanumeric()
             ];
 
             //-- When
