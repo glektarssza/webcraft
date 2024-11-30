@@ -14,7 +14,11 @@
 export const internals = {
     isNamespace,
     isNamespaceComponent,
-    isNamespaceComponentArray
+    isNamespaceComponentArray,
+    createEmptyNamespace,
+    createWildcardNamespace,
+    createNamespaceFromComponents,
+    createNamespaceFromComponentArray
 };
 
 /**
@@ -97,4 +101,63 @@ export function isNamespaceComponentArray(
         Array.isArray(value) &&
         value.every(internals.isNamespaceComponent)
     );
+}
+
+/**
+ * Create a new, empty {@link Namespace}.
+ *
+ * @returns The new, empty {@link Namespace}.
+ */
+export function createEmptyNamespace(): Namespace {
+    return '';
+}
+
+/**
+ * Create a new, purely wildcard {@link Namespace}.
+ *
+ * @returns The new, purely wildcard {@link Namespace}.
+ */
+export function createWildcardNamespace(): Namespace {
+    return NAMESPACE_WILDCARD;
+}
+
+/**
+ * Create a new {@link Namespace} from a collection of
+ * {@link NamespaceComponent | NamespaceComponents}.
+ *
+ * @param components - The {@link NamespaceComponent | NamespaceComponents} to
+ * create the new {@link Namespace} from.
+ *
+ * @returns The new {@link Namespace}.
+ */
+export function createNamespaceFromComponents(
+    ...components: NamespaceComponent[]
+): Namespace {
+    return components.join(NAMESPACE_COMPONENT_SEPARATOR);
+}
+
+/**
+ * Create a new {@link Namespace} from a {@link NamespaceComponentArray}.
+ *
+ * @param components - The {@link NamespaceComponentArray} to create the new
+ * {@link Namespace} from.
+ *
+ * @returns The new {@link Namespace}.
+ */
+export function createNamespaceFromComponentArray(
+    components: NamespaceComponentArray
+): Namespace {
+    return components.join(NAMESPACE_COMPONENT_SEPARATOR);
+}
+
+/**
+ * Split a {@link Namespace} into an array of
+ * {@link NamespaceComponent | NamespaceComponents}.
+ *
+ * @param namespace - The {@link Namespace} to split.
+ *
+ * @returns The array of {@link NamespaceComponent | NamespaceComponents}.
+ */
+export function splitNamespace(namespace: Namespace): NamespaceComponentArray {
+    return namespace.split(NAMESPACE_COMPONENT_SEPARATOR);
 }
