@@ -159,5 +159,8 @@ export function createNamespaceFromComponentArray(
  * @returns The array of {@link NamespaceComponent | NamespaceComponents}.
  */
 export function splitNamespace(namespace: Namespace): NamespaceComponentArray {
+    if (namespace === '') {
+        return [];
+    }
     return namespace.split(NAMESPACE_COMPONENT_SEPARATOR);
 }
