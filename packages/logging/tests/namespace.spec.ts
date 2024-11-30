@@ -5,10 +5,18 @@ import {afterEach, beforeAll, describe, expect, it} from 'vitest';
 
 //-- Project Code
 import {
+    createEmptyNamespace,
+    createNamespaceFromComponentArray,
+    createNamespaceFromComponents,
+    createWildcardNamespace,
     internals,
     isNamespace,
     isNamespaceComponent,
-    isNamespaceComponentArray
+    isNamespaceComponentArray,
+    NAMESPACE_COMPONENT_SEPARATOR,
+    NAMESPACE_WILDCARD,
+    NamespaceComponentArray,
+    splitNamespace
 } from '@src/namespace';
 
 /**
@@ -180,6 +188,108 @@ describe('module:logging/namespace', (): void => {
 
             //-- Then
             expect(result).to.be.false;
+        });
+    });
+    describe('.createEmptyNamespace()', (): void => {
+        it('should return an empty string', (): void => {
+            //-- Given
+
+            //-- When
+            const result = createEmptyNamespace();
+
+            //-- Then
+            expect(result).to.equal('');
+        });
+    });
+    describe('.createWildcardNamespace()', (): void => {
+        it('should return the `NAMESPACE_WILDCARD` constant', (): void => {
+            //-- Given
+
+            //-- When
+            const result = createWildcardNamespace();
+
+            //-- Then
+            expect(result).to.equal(NAMESPACE_WILDCARD);
+        });
+    });
+    describe('.createNamespaceFromComponents()', (): void => {
+        it('should create a namespace from the given components', (): void => {
+            //-- Given
+            const components = [
+                fakeData.string.alphanumeric(),
+                fakeData.string.alphanumeric()
+            ];
+
+            //-- When
+            const result = createNamespaceFromComponents(...components);
+
+            //-- Then
+            expect(result).to.equal(
+                components.join(NAMESPACE_COMPONENT_SEPARATOR)
+            );
+        });
+        it('should create an empty namespace when given an empty array', (): void => {
+            //-- Given
+            const components: NamespaceComponentArray = [];
+
+            //-- When
+            const result = createNamespaceFromComponents(...components);
+
+            //-- Then
+            expect(result).to.equal('');
+        });
+    });
+    describe('.createNamespaceFromComponentArray()', (): void => {
+        it('should create a namespace from the given components', (): void => {
+            //-- Given
+            const components = [
+                fakeData.string.alphanumeric(),
+                fakeData.string.alphanumeric()
+            ];
+
+            //-- When
+            const result = createNamespaceFromComponentArray(components);
+
+            //-- Then
+            expect(result).to.equal(
+                components.join(NAMESPACE_COMPONENT_SEPARATOR)
+            );
+        });
+        it('should create an empty namespace when given an empty array', (): void => {
+            //-- Given
+            const components: NamespaceComponentArray = [];
+
+            //-- When
+            const result = createNamespaceFromComponentArray(components);
+
+            //-- Then
+            expect(result).to.equal('');
+        });
+    });
+    describe('.splitNamespace()', (): void => {
+        it('should split a namespace into an array of components', (): void => {
+            //-- Given
+            const components = [
+                fakeData.string.alphanumeric(),
+                fakeData.string.alphanumeric()
+            ];
+            const namespace = components.join(NAMESPACE_COMPONENT_SEPARATOR);
+
+            //-- When
+            const result = splitNamespace(namespace);
+
+            //-- Then
+            expect(result).to.deep.equal(components);
+        });
+        it('should return an empty array when given an empty namespace', (): void => {
+            //-- Given
+            const namespace = '';
+
+            //-- When
+            const result = splitNamespace(namespace);
+
+            //-- Then
+            expect(result).to.deep.equal([]);
         });
     });
 });
