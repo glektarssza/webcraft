@@ -164,3 +164,34 @@ export function splitNamespace(namespace: Namespace): NamespaceComponentArray {
     }
     return namespace.split(NAMESPACE_COMPONENT_SEPARATOR);
 }
+
+/**
+ * Check whether a {@link NamespaceComponent} matches another
+ * {@link NamespaceComponent}.
+ *
+ * @param a - The first {@link NamespaceComponent} to check against.
+ * @param b - The second {@link NamespaceComponent} to check against.
+ *
+ * @returns Whether the {@link NamespaceComponent | NamespaceComponents} match.
+ */
+export function matchNamespaceComponent(
+    a: NamespaceComponent,
+    b: NamespaceComponent
+): boolean {
+    if (a === NAMESPACE_WILDCARD || b === NAMESPACE_WILDCARD) {
+        return true;
+    }
+    if (a.includes(NAMESPACE_WILDCARD)) {
+        const regex = new RegExp(
+            `^${a.replace(new RegExp(`.${NAMESPACE_WILDCARD}`, 'g'), '.*')}$`
+        );
+        return regex.test(b);
+    }
+    if (b.includes(NAMESPACE_WILDCARD)) {
+        const regex = new RegExp(
+            `^${b.replace(new RegExp(`.${NAMESPACE_WILDCARD}`, 'g'), '.*')}$`
+        );
+        return regex.test(a);
+    }
+    return a === b;
+}

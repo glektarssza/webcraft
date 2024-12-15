@@ -13,6 +13,7 @@ import {
     isNamespace,
     isNamespaceComponent,
     isNamespaceComponentArray,
+    matchNamespaceComponent,
     NAMESPACE_COMPONENT_SEPARATOR,
     NAMESPACE_WILDCARD,
     NamespaceComponentArray,
@@ -290,6 +291,78 @@ describe('module:logging/namespace', (): void => {
 
             //-- Then
             expect(result).to.deep.equal([]);
+        });
+    });
+    describe('.matchNamespaceComponent()', (): void => {
+        it('should return `true` if only the first namespace component is a pure wildcard', (): void => {
+            //-- Given
+            const a = NAMESPACE_WILDCARD;
+            const b = fakeData.string.alphanumeric();
+
+            //-- When
+            const result = matchNamespaceComponent(a, b);
+
+            //-- Then
+            expect(result).to.be.true;
+        });
+        it('should return `true` if only the second namespace component is a pure wildcard', (): void => {
+            //-- Given
+            const a = fakeData.string.alphanumeric();
+            const b = NAMESPACE_WILDCARD;
+
+            //-- When
+            const result = matchNamespaceComponent(a, b);
+
+            //-- Then
+            expect(result).to.be.true;
+        });
+        it('should return `true` if only the first namespace component contains a wildcard and the second namespace component matches the pattern', (): void => {
+            //-- Given
+            const prefix = fakeData.string.alphanumeric();
+            const suffix = fakeData.string.alphanumeric();
+            const a = `${prefix}${NAMESPACE_WILDCARD}${suffix}`;
+            const b = `${prefix}${fakeData.string.alphanumeric()}${suffix}`;
+
+            //-- When
+            const result = matchNamespaceComponent(a, b);
+
+            //-- Then
+            expect(result).to.be.true;
+        });
+        it('should return `true` if only the second namespace component contains a wildcard and the first namespace component matches the pattern', (): void => {
+            //-- Given
+            const prefix = fakeData.string.alphanumeric();
+            const suffix = fakeData.string.alphanumeric();
+            const a = `${prefix}${fakeData.string.alphanumeric()}${suffix}`;
+            const b = `${prefix}${NAMESPACE_WILDCARD}${suffix}`;
+
+            //-- When
+            const result = matchNamespaceComponent(a, b);
+
+            //-- Then
+            expect(result).to.be.true;
+        });
+        it('should return `true` if neither namespace component contains a wildcard and the two namespace components match', (): void => {
+            //-- Given
+            const a = fakeData.string.alphanumeric();
+            const b = a;
+
+            //-- When
+            const result = matchNamespaceComponent(a, b);
+
+            //-- Then
+            expect(result).to.be.true;
+        });
+        it('should return `false` if the two namespace components do not match', (): void => {
+            //-- Given
+            const a = fakeData.string.alphanumeric();
+            const b = fakeData.string.alphanumeric();
+
+            //-- When
+            const result = matchNamespaceComponent(a, b);
+
+            //-- Then
+            expect(result).to.be.false;
         });
     });
 });
