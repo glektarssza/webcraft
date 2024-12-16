@@ -18,7 +18,10 @@ export const internals = {
     createEmptyNamespace,
     createWildcardNamespace,
     createNamespaceFromComponents,
-    createNamespaceFromComponentArray
+    createNamespaceFromComponentArray,
+    splitNamespace,
+    matchNamespaceComponent,
+    matchNamespace
 };
 
 /**
@@ -194,4 +197,43 @@ export function matchNamespaceComponent(
         return regex.test(a);
     }
     return a === b;
+}
+
+/**
+ * Check whether a {@link Namespace} matches another {@link Namespace}.
+ *
+ * @param a - The first {@link Namespace} to check against.
+ * @param b - The second {@link Namespace} to check against.
+ *
+ * @returns Whether the {@link Namespace | Namespaces} match.
+ */
+export function matchNamespace(a: Namespace, b: Namespace): boolean {
+    const compsA = internals.splitNamespace(a);
+    const compsB = internals.splitNamespace(b);
+    if (compsA.length !== compsB.length) {
+        const lastCompA = compsA[compsA.length - 1];
+        const lastCompB = compsB[compsB.length - 1];
+        if (lastCompA === undefined || lastCompB === undefined) {
+            return false;
+        }
+        const longestLength = Math.max(compsA.length, compsB.length);
+        for (let i = 0; i < longestLength; i += 1) {
+            const compA = compsA[Math.min(i, compsA.length - 1)];
+            const compB = compsB[Math.min(i, compsB.length - 1)];
+            if (compA === undefined || compB === undefined) {
+                return false;
+            }
+            if (!internals.matchNamespaceComponent(compA, compB)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return compsA.every((compA, i) => {
+        const compB = compsB[i];
+        if (compB === undefined) {
+            return false;
+        }
+        return internals.matchNamespaceComponent(compA, compB);
+    });
 }

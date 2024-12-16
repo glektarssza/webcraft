@@ -13,6 +13,7 @@ import {
     isNamespace,
     isNamespaceComponent,
     isNamespaceComponentArray,
+    matchNamespace,
     matchNamespaceComponent,
     NAMESPACE_COMPONENT_SEPARATOR,
     NAMESPACE_WILDCARD,
@@ -360,6 +361,205 @@ describe('module:logging/namespace', (): void => {
 
             //-- When
             const result = matchNamespaceComponent(a, b);
+
+            //-- Then
+            expect(result).to.be.false;
+        });
+    });
+    describe('.matchNamespace()', (): void => {
+        it('should return `true` if the namespaces are of equal length, contain no wildcards, and match', (): void => {
+            //-- Given
+            const comps = fakeData.helpers.multiple(() =>
+                fakeData.string.alphanumeric()
+            );
+            const a = createNamespaceFromComponentArray(comps);
+            const b = createNamespaceFromComponentArray(comps);
+
+            //-- When
+            const result = matchNamespace(a, b);
+
+            //-- Then
+            expect(result).to.be.true;
+        });
+        it('should return `true` if the namespaces are of equal length, contain wildcards, and match', (): void => {
+            //-- Given
+            const prefixComps = fakeData.helpers.multiple(() =>
+                fakeData.string.alphanumeric()
+            );
+            const suffixComps = [fakeData.string.alphanumeric()];
+            const compsA = [...prefixComps, NAMESPACE_WILDCARD];
+            const compsB = [...prefixComps, ...suffixComps];
+            const a = createNamespaceFromComponentArray(compsA);
+            const b = createNamespaceFromComponentArray(compsB);
+
+            //-- When
+            const result = matchNamespace(a, b);
+
+            //-- Then
+            expect(result).to.be.true;
+        });
+        it('should return `true` if the namespaces are of equal length, one contain a wildcard, and match', (): void => {
+            //-- Given
+            const prefixComps = fakeData.helpers.multiple(() =>
+                fakeData.string.alphanumeric()
+            );
+            const suffixComps = fakeData.helpers.multiple(() =>
+                fakeData.string.alphanumeric()
+            );
+            const compsA = [...prefixComps, NAMESPACE_WILDCARD];
+            const compsB = [
+                ...prefixComps,
+                fakeData.string.alphanumeric(),
+                ...suffixComps
+            ];
+            const a = createNamespaceFromComponentArray(compsA);
+            const b = createNamespaceFromComponentArray(compsB);
+
+            //-- When
+            const result = matchNamespace(a, b);
+
+            //-- Then
+            expect(result).to.be.true;
+        });
+        it('should return `true` if the namespaces are of unequal length, contain wildcards, and match', (): void => {
+            //-- Given
+            const prefixComps = fakeData.helpers.multiple(
+                () => fakeData.string.alphanumeric(),
+                {
+                    count: 5
+                }
+            );
+            const suffixComps = fakeData.helpers.multiple(
+                () => fakeData.string.alphanumeric(),
+                {
+                    count: 5
+                }
+            );
+            const compsA = [...prefixComps, NAMESPACE_WILDCARD];
+            const compsB = [...prefixComps, NAMESPACE_WILDCARD, ...suffixComps];
+            const a = createNamespaceFromComponentArray(compsA);
+            const b = createNamespaceFromComponentArray(compsB);
+
+            //-- When
+            const result = matchNamespace(a, b);
+
+            //-- Then
+            expect(result).to.be.true;
+        });
+        it('should return `false` if the namespaces are of equal length, contain no wildcards, and do not match', (): void => {
+            //-- Given
+            const compsA = fakeData.helpers.multiple(() =>
+                fakeData.string.alphanumeric()
+            );
+            const compsB = fakeData.helpers.multiple(() =>
+                fakeData.string.alphanumeric()
+            );
+            const a = createNamespaceFromComponentArray(compsA);
+            const b = createNamespaceFromComponentArray(compsB);
+
+            //-- When
+            const result = matchNamespace(a, b);
+
+            //-- Then
+            expect(result).to.be.false;
+        });
+        it('should return `false` if the namespaces are of unequal length and contain no wildcards', (): void => {
+            //-- Given
+            const compsA = fakeData.helpers.multiple(
+                () => fakeData.string.alphanumeric(),
+                {
+                    count: 5
+                }
+            );
+            const compsB = fakeData.helpers.multiple(
+                () => fakeData.string.alphanumeric(),
+                {
+                    count: 7
+                }
+            );
+            const a = createNamespaceFromComponentArray(compsA);
+            const b = createNamespaceFromComponentArray(compsB);
+
+            //-- When
+            const result = matchNamespace(a, b);
+
+            //-- Then
+            expect(result).to.be.false;
+        });
+        it('should return `false` if the namespaces are of equal length, contain wildcards, and do not match', (): void => {
+            //-- Given
+            const prefixComps = fakeData.helpers.multiple(
+                () => fakeData.string.alphanumeric(),
+                {
+                    count: 5
+                }
+            );
+            const suffixCompsA = fakeData.helpers.multiple(
+                () => fakeData.string.alphanumeric(),
+                {
+                    count: 5
+                }
+            );
+            const suffixCompsB = fakeData.helpers.multiple(
+                () => fakeData.string.alphanumeric(),
+                {
+                    count: 5
+                }
+            );
+            const compsA = [
+                ...prefixComps,
+                NAMESPACE_WILDCARD,
+                ...suffixCompsA
+            ];
+            const compsB = [
+                ...prefixComps,
+                NAMESPACE_WILDCARD,
+                ...suffixCompsB
+            ];
+            const a = createNamespaceFromComponentArray(compsA);
+            const b = createNamespaceFromComponentArray(compsB);
+
+            //-- When
+            const result = matchNamespace(a, b);
+
+            //-- Then
+            expect(result).to.be.false;
+        });
+        it('should return `false` if the namespaces are of unequal length, contain wildcards, and do not match', (): void => {
+            //-- Given
+            const prefixComps = fakeData.helpers.multiple(
+                () => fakeData.string.alphanumeric(),
+                {
+                    count: 5
+                }
+            );
+            const suffixCompsA = fakeData.helpers.multiple(
+                () => fakeData.string.alphanumeric(),
+                {
+                    count: 5
+                }
+            );
+            const suffixCompsB = fakeData.helpers.multiple(
+                () => fakeData.string.alphanumeric(),
+                {
+                    count: 7
+                }
+            );
+            const compsA = [
+                ...prefixComps,
+                NAMESPACE_WILDCARD,
+                ...suffixCompsA
+            ];
+            const compsB = [
+                ...prefixComps,
+                NAMESPACE_WILDCARD,
+                ...suffixCompsB
+            ];
+            const a = createNamespaceFromComponentArray(compsA);
+            const b = createNamespaceFromComponentArray(compsB);
+
+            //-- When
+            const result = matchNamespace(a, b);
 
             //-- Then
             expect(result).to.be.false;
