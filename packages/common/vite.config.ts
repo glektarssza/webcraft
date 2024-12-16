@@ -6,13 +6,13 @@ import path from 'node:path';
 
 //-- NPM Packages
 import replacePlugin from '@rollup/plugin-replace';
-import {defineConfig} from 'vite';
+import {type UserWorkspaceConfig, defineProject} from 'vitest/config';
 
 /**
  * The ViteJS configuration.
  */
-const config = defineConfig(({mode}) => {
-    return {
+const config = defineProject(({mode}) => {
+    const conf: UserWorkspaceConfig = {
         mode,
         resolve: {
             extensions: ['.ts', '.js']
@@ -44,20 +44,13 @@ const config = defineConfig(({mode}) => {
                 provider: 'webdriverio',
                 headless: true
             },
-            coverage: {
-                all: true,
-                provider: 'istanbul',
-                reporter: ['text', 'html']
-            },
-            passWithNoTests: true,
             mockReset: true,
             clearMocks: true,
             unstubGlobals: true,
             unstubEnvs: true,
             dir: './tests/',
             name: 'Webcraft - Common Library',
-            maxConcurrency: Math.max(Math.floor(os.cpus().length / 2), 1),
-            reporters: 'default'
+            maxConcurrency: Math.max(Math.floor(os.cpus().length / 2), 1)
         },
         server: {
             fs: {
@@ -73,6 +66,7 @@ const config = defineConfig(({mode}) => {
             })
         ]
     };
+    return conf;
 });
 
 export default config;
