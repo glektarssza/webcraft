@@ -19,7 +19,8 @@
     },
     "type": "module",
     "scripts": {
-        "test": "vitest --run --passWithNoTests --coverage.enabled=true --coverage.provider=istanbul --coverage.all=true --coverage.reporter=html --coverage.reporter=text"
+        "test": "vitest --run --passWithNoTests --coverage.enabled=true --coverage.provider=istanbul --coverage.all=true --coverage.reporter=html --coverage.reporter=text",
+        "test:ui": "vitest --ui --passWithNoTests"
     },
     "devDependencies": {
         "@eslint/js": "^9.16.0",
