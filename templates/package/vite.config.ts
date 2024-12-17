@@ -6,13 +6,13 @@ import path from 'node:path';
 
 //-- NPM Packages
 import replacePlugin from '@rollup/plugin-replace';
-import {defineConfig} from 'vite';
+import {type UserWorkspaceConfig, defineProject} from 'vitest/config';
 
 /**
  * The ViteJS configuration.
  */
-const config = defineConfig(({mode}) => {
-    return {
+const config = defineProject(({mode}) => {
+    const conf: UserWorkspaceConfig = {
         mode,
         resolve: {
             extensions: ['.ts', '.js']
@@ -28,9 +28,9 @@ const config = defineConfig(({mode}) => {
             lib: {
                 entry: path.resolve(import.meta.dirname, './src/index.ts'),
                 formats: ['es', 'cjs', 'umd'],
-                name: 'webcraft-package-template',
+                name: 'webcraft-template',
                 fileName(format) {
-                    return `webcraft-package-template.${format}${mode !== 'development' ? '.min' : ''}.js`;
+                    return `webcraft-template.${format}${mode !== 'development' ? '.min' : ''}.js`;
                 }
             }
         },
@@ -48,10 +48,9 @@ const config = defineConfig(({mode}) => {
             clearMocks: true,
             unstubGlobals: true,
             unstubEnvs: true,
-            dir: './tests/',
-            name: 'Webcraft - Package Template',
-            maxConcurrency: Math.max(Math.floor(os.cpus().length / 2), 1),
-            reporters: 'default'
+            dir: path.resolve(__dirname, './tests/'),
+            name: 'Webcraft - Template Package',
+            maxConcurrency: Math.max(Math.floor(os.cpus().length / 2), 1)
         },
         server: {
             fs: {
@@ -67,6 +66,7 @@ const config = defineConfig(({mode}) => {
             })
         ]
     };
+    return conf;
 });
 
 export default config;
