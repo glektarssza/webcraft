@@ -1,3 +1,5 @@
 # Custom Dictionary Words
+eslintcache
 tseslint
+Vite
 webcraft
