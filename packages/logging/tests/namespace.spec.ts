@@ -31,7 +31,7 @@ const fakeData = new Faker({
 describe('module:logging/namespace', (): void => {
     const sinonSandbox = createSandbox();
     afterEach((): void => {
-        sinonSandbox.restore();
+        sinonSandbox.reset();
     });
     beforeAll((): void => {
         let seed = fakeData.seed();
