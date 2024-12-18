@@ -7,6 +7,7 @@
 !.vscode/extensions.json
 !.vscode/launch.json
 !.vscode/tasks.json
+!.vscode/*.code-snippets
 
 ## Vim ##
 ### Swap ###

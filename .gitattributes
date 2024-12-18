@@ -1,6 +1,44 @@
+# Treat all files as text with Unix-style line endings by default
+* text eol=lf
+
+# Treat .bat files as text with Windows-style line endings by default
+*.bat text eol=crlf
+
+# Treat .cmd files as text with Windows-style line endings by default
+*.cmd text eol=crlf
+
+# Treat .png files as binary by default
+*.png binary
+
+# Run .png files through Git LFS
 *.png filter=lfs diff=lfs merge=lfs -text
+
+# Treat .ico files as binary by default
+*.ico binary
+
+# Run .ico files through Git LFS
 *.ico filter=lfs diff=lfs merge=lfs -text
+
+# Treat .jpeg files as binary by default
+*.jpeg binary
+
+# Run .jpeg files through Git LFS
 *.jpeg filter=lfs diff=lfs merge=lfs -text
+
+# Treat .jpg files as binary by default
+*.jpg binary
+
+# Run .jpg files through Git LFS
 *.jpg filter=lfs diff=lfs merge=lfs -text
+
+# Treat .bmp files as binary by default
+*.bmp binary
+
+# Run .bmp files through Git LFS
 *.bmp filter=lfs diff=lfs merge=lfs -text
+
+# Treat .gif files as binary by default
+*.gif binary
+
+# Run .gif files through Git LFS
 *.gif filter=lfs diff=lfs merge=lfs -text
