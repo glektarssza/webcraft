@@ -17,6 +17,7 @@
         "type": "git",
         "url": "https://github.com/glektarssza/webcraft.git"
     },
+    "packageManager": "pnpm@10.2.0",
     "type": "module",
     "scripts": {
         "test": "vitest --run --passWithNoTests --coverage.enabled=true --coverage.provider=istanbul --coverage.all=true --coverage.reporter=html --coverage.reporter=text"
