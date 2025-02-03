@@ -1,0 +1,18 @@
+{
+    "id": "apt-p7zip-full",
+    "version": "0.0.1",
+    "name": "apt-p7zip-full",
+    "description": "Install the p7zip-full package using apt.",
+    "keywords": [
+        "7zip",
+        "archive",
+        "archiver",
+        "unarchiver",
+        "zip",
+        "7z",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ]
+}

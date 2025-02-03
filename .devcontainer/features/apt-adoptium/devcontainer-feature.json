@@ -1,0 +1,29 @@
+{
+    "id": "apt-adoptium",
+    "version": "0.0.1",
+    "name": "apt-adoptium",
+    "description": "Install the Adoptium Java packages using apt.",
+    "keywords": [
+        "java",
+        "adoptium",
+        "jre",
+        "jdk",
+        "jvm",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ],
+    "dependsOn": {
+        "./features/apt-gnupg2": {},
+        "./features/apt-wget": {},
+        "./features/apt-apt-transport-https": {}
+    },
+    "options": {
+        "packages": {
+            "type": "string",
+            "description": "A space-separated list of packages to install.",
+            "default": ""
+        }
+    }
+}

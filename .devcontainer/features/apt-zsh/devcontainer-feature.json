@@ -1,0 +1,18 @@
+{
+    "id": "apt-zsh",
+    "version": "0.0.1",
+    "name": "apt-zsh",
+    "description": "Install the zsh package using apt.",
+    "keywords": [
+        "zsh",
+        "shell",
+        "sh",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ],
+    "dependsOn": {
+        "./features/apt-ca-certificates": {}
+    }
+}

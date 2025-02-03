@@ -1,0 +1,44 @@
+{
+    "id": "create-user",
+    "version": "0.0.1",
+    "name": "Create user",
+    "description": "Create a new user on the system.",
+    "keywords": [
+        "create",
+        "user",
+        "linux"
+    ],
+    "options": {
+        "username": {
+            "type": "string",
+            "description": "The name of the user to create (must be a valid Unix username).",
+            "default": "devcontainer"
+        },
+        "user_uid": {
+            "type": "string",
+            "description": "The numerical uid to assign to the user.",
+            "default": "1000"
+        },
+        "user_gid": {
+            "type": "string",
+            "description": "The numerical gid to assign to the user.",
+            "default": "1000"
+        },
+        "user_shell": {
+            "type": "string",
+            "description": "The shell to give the user.",
+            "proposals": [
+                "/bin/bash",
+                "/bin/sh",
+                "/usr/bin/bash",
+                "/usr/bin/sh"
+            ],
+            "default": "/usr/bin/bash"
+        },
+        "create_home": {
+            "type": "boolean",
+            "description": "Whether to create a home directory for the user.",
+            "default": true
+        }
+    }
+}

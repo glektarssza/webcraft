@@ -1,0 +1,36 @@
+{
+    "id": "fnm",
+    "version": "0.0.1",
+    "name": "fnm",
+    "description": "Install fnm.",
+    "keywords": [
+        "fnm",
+        "nodejs",
+        "node",
+        "version",
+        "manager"
+    ],
+    "dependsOn": {
+        "./features/apt-gawk": {},
+        "./features/apt-curl": {},
+        "./features/apt-unzip": {},
+        "./features/apt-procps": {}
+    },
+    "options": {
+        "install_latest": {
+            "type": "boolean",
+            "description": "Whether to install the latest available version of NodeJS.",
+            "default": false
+        },
+        "install_latest_lts": {
+            "type": "boolean",
+            "description": "Whether to install the latest available LTS version of NodeJS.",
+            "default": false
+        },
+        "install_versions": {
+            "type": "string",
+            "description": "A space-separated list of NodeJS semver versions to install alongside fnm.",
+            "default": ""
+        }
+    }
+}

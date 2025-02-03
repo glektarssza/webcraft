@@ -1,0 +1,43 @@
+{
+    "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+    "name": "Main dev container",
+    "remoteUser": "vscode",
+    "runArgs": [
+        "-u",
+        "1000"
+    ],
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "hostRequirements": {
+        "cpus": 2,
+        "memory": "4gb",
+        "storage": "32gb"
+    },
+    "features": {
+        "./features/apt-locales": {
+            "default_locale": "en_CA.UTF-8"
+        },
+        "./features/apt-libarchive-tools": {},
+        "./features/create-user": {
+            "username": "vscode"
+        },
+        "./features/apt-zsh": {},
+        "./features/apt-p7zip-full": {},
+        "./features/pre-commit": {},
+        "./features/oh-my-zsh": {
+            "theme": "blinks_custom",
+            "plugins": "debian git git-lfs fnm node npm"
+        },
+        "./features/apt-git": {},
+        "./features/apt-git-lfs": {},
+        "./features/apt-sudo": {},
+        "./features/fnm": {}
+    },
+    "overrideFeatureInstallOrder": [
+        "./features/create-user",
+        "./features/oh-my-zsh",
+        "./features/fnm",
+        "./features/pre-commit"
+    ]
+}

@@ -1,0 +1,19 @@
+{
+    "id": "pre-commit",
+    "version": "0.0.1",
+    "name": "pre-commit",
+    "description": "Install pre-commit.",
+    "keywords": [
+        "pre-commit",
+        "git",
+        "hook",
+        "python",
+        "python3",
+        "debian",
+        "ubuntu",
+        "linux"
+    ],
+    "dependsOn": {
+        "./features/apt-python3-full": {}
+    }
+}

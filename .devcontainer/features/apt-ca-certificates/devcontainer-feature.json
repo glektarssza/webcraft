@@ -1,0 +1,15 @@
+{
+    "id": "apt-ca-certificates",
+    "version": "0.0.1",
+    "name": "apt-ca-certificates",
+    "description": "Install the ca-certificates package using apt.",
+    "keywords": [
+        "ca",
+        "certificates",
+        "ca-certificates",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ]
+}

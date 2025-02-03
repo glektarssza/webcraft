@@ -1,0 +1,17 @@
+{
+    "id": "apt-jq",
+    "version": "0.0.1",
+    "name": "apt-jq",
+    "description": "Install the jq package using apt.",
+    "keywords": [
+        "jq",
+        "json",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ],
+    "dependsOn": {
+        "./features/apt-ca-certificates": {}
+    }
+}

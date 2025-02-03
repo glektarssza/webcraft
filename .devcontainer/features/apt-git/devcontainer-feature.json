@@ -1,0 +1,17 @@
+{
+    "id": "apt-git",
+    "version": "0.0.1",
+    "name": "apt-git",
+    "description": "Install the git package using apt.",
+    "keywords": [
+        "git",
+        "scm",
+        "vcs",
+        "version",
+        "control",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ]
+}

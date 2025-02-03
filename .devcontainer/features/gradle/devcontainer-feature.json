@@ -1,0 +1,18 @@
+{
+    "id": "gradle",
+    "version": "0.0.1",
+    "name": "gradle",
+    "description": "Install Gradle.",
+    "keywords": [
+        "gradle",
+        "debian",
+        "ubuntu",
+        "linux"
+    ],
+    "dependsOn": {
+        "./features/apt-gawk": {},
+        "./features/apt-wget": {},
+        "./features/apt-p7zip-full": {},
+        "./features/apt-jq": {}
+    }
+}

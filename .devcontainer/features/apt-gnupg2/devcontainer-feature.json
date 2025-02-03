@@ -1,0 +1,17 @@
+{
+    "id": "apt-gnupg2",
+    "version": "0.0.1",
+    "name": "apt-gnupg2",
+    "description": "Install the gnupg2 package using apt.",
+    "keywords": [
+        "gnupg2",
+        "gnupg",
+        "gpg",
+        "gpg2",
+        "pgp",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ]
+}
