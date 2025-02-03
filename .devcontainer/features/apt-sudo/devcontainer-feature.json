@@ -1,0 +1,20 @@
+{
+    "id": "apt-sudo",
+    "version": "0.0.1",
+    "name": "apt-sudo",
+    "description": "Install the sudo package using apt.",
+    "keywords": [
+        "sudo",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ],
+    "options": {
+        "add_remote_user": {
+            "type": "boolean",
+            "description": "Add the remote user to the list of allowed sudoers.",
+            "default": true
+        }
+    }
+}

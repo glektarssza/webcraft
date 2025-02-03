@@ -1,0 +1,19 @@
+{
+    "id": "apt-procps",
+    "version": "0.0.1",
+    "name": "apt-procps",
+    "description": "Install the procps package using apt.",
+    "keywords": [
+        "procps",
+        "ps",
+        "list",
+        "process",
+        "pgrep",
+        "pkill",
+        "top",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ]
+}

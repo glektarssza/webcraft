@@ -1,0 +1,15 @@
+{
+    "id": "apt-apt-transport-https",
+    "version": "0.0.1",
+    "name": "apt-apt-transport-https",
+    "description": "Install the apt-transport-https package using apt.",
+    "keywords": [
+        "apt-transport-https",
+        "transport",
+        "https",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ]
+}

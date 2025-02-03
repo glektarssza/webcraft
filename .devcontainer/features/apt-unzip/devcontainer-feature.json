@@ -1,0 +1,15 @@
+{
+    "id": "apt-unzip",
+    "version": "0.0.1",
+    "name": "apt-unzip",
+    "description": "Install the unzip package using apt.",
+    "keywords": [
+        "unzip",
+        "archive",
+        "unarchiver",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ]
+}

@@ -1,0 +1,23 @@
+{
+    "id": "oh-my-zsh",
+    "version": "0.0.1",
+    "name": "oh-my-zsh",
+    "description": "Install the oh-my-zsh tooling.",
+    "dependsOn": {
+        "./features/apt-wget": {},
+        "./features/apt-zsh": {},
+        "./features/apt-git": {}
+    },
+    "options": {
+        "theme": {
+            "type": "string",
+            "description": "The theme to set.",
+            "default": "robbyrussell"
+        },
+        "plugins": {
+            "type": "string",
+            "description": "The plugins to enable (as a space-separated list).",
+            "default": "git"
+        }
+    }
+}

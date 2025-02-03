@@ -1,0 +1,24 @@
+{
+    "id": "apt-libarchive-tools",
+    "version": "0.0.1",
+    "name": "apt-libarchive-tools",
+    "description": "Install the libarchive-tools package using apt.",
+    "keywords": [
+        "libarchive",
+        "libarchive-tools",
+        "bsdtar",
+        "bsd",
+        "compression",
+        "compressor",
+        "archive",
+        "archiver",
+        "unarchiver",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ],
+    "dependsOn": {
+        "./features/apt-locales": {}
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "id": "apt-git-lfs",
+    "version": "0.0.1",
+    "name": "apt-git-lfs",
+    "description": "Install the git-lfs package using apt.",
+    "keywords": [
+        "git",
+        "git-lfs",
+        "lfs",
+        "large",
+        "file",
+        "scm",
+        "vcs",
+        "version",
+        "control",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ]
+}

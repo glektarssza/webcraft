@@ -1,0 +1,17 @@
+{
+    "id": "apt-gawk",
+    "version": "0.0.1",
+    "name": "apt-gawk",
+    "description": "Install the gawk package using apt.",
+    "keywords": [
+        "gawk",
+        "text",
+        "processing",
+        "gnu",
+        "awk",
+        "apt",
+        "debian",
+        "ubuntu",
+        "linux"
+    ]
+}
