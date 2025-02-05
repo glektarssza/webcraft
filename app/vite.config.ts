@@ -30,10 +30,10 @@ const config = defineProject(({mode}) => {
             },
             browser: {
                 enabled: true,
-                provider: 'webdriverio',
+                provider: 'playwright',
                 instances: [
                     {
-                        browser: 'edge',
+                        browser: 'chromium',
                         headless: true
                     }
                 ]

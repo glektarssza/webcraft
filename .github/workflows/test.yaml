@@ -34,6 +34,9 @@ jobs:
       - id: install-dependencies
         name: Install dependencies
         run: pnpm install
+      - id: install-playwright
+        name: Install Playwright
+        run: pnpm exec playwright install --with-deps
       - id: test
         name: Test
         run: pnpm test
