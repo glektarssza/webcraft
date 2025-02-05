@@ -40,9 +40,13 @@ const config = defineProject(({mode}) => {
             },
             browser: {
                 enabled: true,
-                name: 'edge',
-                provider: 'webdriverio',
-                headless: true
+                provider: 'playwright',
+                instances: [
+                    {
+                        browser: 'chromium',
+                        headless: true
+                    }
+                ]
             },
             mockReset: true,
             clearMocks: true,
