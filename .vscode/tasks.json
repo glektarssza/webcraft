@@ -22,7 +22,7 @@
             "runOptions": {
                 "instanceLimit": 1,
                 "reevaluateOnRerun": true,
-                "runOn": "folderOpen"
+                "runOn": "default"
             },
             "presentation": {
                 "echo": false,
