@@ -3,6 +3,8 @@ module.exports = {
     bracketSameLine: true,
     bracketSpacing: false,
     endOfLine: 'lf',
+    embeddedLanguageFormatting: 'auto',
+    experimentalTernaries: true,
     htmlWhitespaceSensitivity: 'css',
     jsxSingleQuote: true,
     overrides: [
@@ -17,6 +19,7 @@ module.exports = {
     proseWrap: 'preserve',
     quoteProps: 'as-needed',
     semi: true,
+    singleAttributePerLine: true,
     singleQuote: true,
     trailingComma: 'none',
     useTabs: false,
