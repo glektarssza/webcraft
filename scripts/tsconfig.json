@@ -1,0 +1,11 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "allowImportingTsExtensions": true,
+        "noEmit": true,
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "types": ["node"]
+    },
+    "exclude": ["node_modules"]
+}

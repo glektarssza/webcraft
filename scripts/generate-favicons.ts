@@ -1,0 +1,255 @@
+//-- NodeJS
+import child_process from 'node:child_process';
+import path from 'node:path';
+
+//-- NPM Packages
+import chalk from 'chalk';
+import {program} from 'commander';
+
+//-- Project Code
+import {
+    getVerboseEnabled,
+    logError,
+    logInfo,
+    logVerbose,
+    setVerboseEnabled
+} from './lib/logging.ts';
+
+/**
+ * The command line options.
+ */
+interface CLIOptions {
+    /**
+     * The sizes of favicons to generate.
+     */
+    sizes: number[];
+
+    /**
+     * Whether to output verbose logs.
+     */
+    verbose: boolean;
+}
+
+/**
+ * The root command.
+ */
+const command = program.createCommand();
+
+command
+    .name('generate-favicons')
+    .version(
+        '0.0.0',
+        '--version',
+        'Show the version information and then exit.'
+    )
+    .helpOption('--help, -h', 'Show the help information and then exit.')
+    .addHelpText(
+        'afterAll',
+        "Copyright (c) 2025 G'lek Tarssza, all rights reserved."
+    )
+    .option('--verbose, -v', 'Whether to output verbose logs.', false)
+    .option(
+        '--sizes, -s [sizes...]',
+        'The sizes of favicons to generate.',
+        (arg, prev: number[]) => {
+            if (command.getOptionValueSource('sizes') === 'default') {
+                prev.length = 0;
+                command.setOptionValueWithSource('sizes', prev, 'cli');
+            }
+            const size = parseInt(arg, 10);
+            if (!prev.includes(size)) {
+                prev.push(size);
+            }
+            return prev.sort((a, b) => b - a);
+        },
+        [256, 128, 64, 48, 32, 24, 16]
+    )
+    .argument(
+        '[input-image]',
+        'The path to the input image to generate favicons from.',
+        (value) => path.resolve(value),
+        path.resolve(import.meta.dirname, '../logo.svg')
+    )
+    .argument(
+        '[output-path]',
+        'The path to the location to store the generated favicons in.',
+        (value) => path.resolve(value),
+        path.resolve(import.meta.dirname, '../app/public/')
+    )
+    .showSuggestionAfterError(true)
+    .allowExcessArguments(false)
+    .allowUnknownOption(false)
+    .exitOverride((err): void => {
+        if (err.exitCode !== 0) {
+            process.stdout.write(`${chalk.redBright('Fatal error')}\n`);
+        }
+    })
+    .action(
+        async (
+            inputImagePath: string,
+            outputPath: string,
+            options: CLIOptions
+        ): Promise<void> => {
+            setVerboseEnabled(options.verbose);
+            if (getVerboseEnabled()) {
+                logInfo('Verbose logging enabled');
+            }
+            logInfo(
+                'Generating favicons from',
+                inputImagePath,
+                'to',
+                outputPath
+            );
+            logVerbose(
+                'Generating favicons at sizes',
+                options.sizes.join(', ')
+            );
+            const fullPNGProc = child_process.spawn(
+                'magick',
+                [
+                    '-background',
+                    'transparent',
+                    inputImagePath,
+                    '+repage',
+                    path.resolve(outputPath, 'logo.png')
+                ],
+                {
+                    shell: false,
+                    stdio: ['ignore', 'pipe', 'pipe'],
+                    windowsHide: true
+                }
+            );
+            logInfo('Generating full resolution PNG favicon...');
+            await new Promise<void>((resolve, reject): void => {
+                fullPNGProc.addListener('error', (err): void => {
+                    reject(err);
+                });
+                fullPNGProc.addListener('exit', (code, signal): void => {
+                    if (code !== 0) {
+                        reject(
+                            new Error(
+                                `ImageMagick exited with non-zero exit code "${code}"`
+                            )
+                        );
+                        return;
+                    }
+                    if (signal !== null) {
+                        reject(
+                            new Error(
+                                `ImageMagick was terminated with signal "${signal}"`
+                            )
+                        );
+                        return;
+                    }
+                    resolve();
+                });
+            }).catch((err: Error): void => {
+                logError(err.message);
+                throw new Error('Failed to generate PNG favicon!');
+            });
+            logInfo('Generating resized PNG favicons...');
+            await Promise.all(
+                options.sizes.map(async (size): Promise<void> => {
+                    const resizedPNGProc = child_process.spawn(
+                        'magick',
+                        [
+                            '-background',
+                            'transparent',
+                            inputImagePath,
+                            '-resize',
+                            `${size}x${size}`,
+                            '+repage',
+                            path.resolve(outputPath, `logo-${size}.png`)
+                        ],
+                        {
+                            shell: false,
+                            stdio: ['ignore', 'pipe', 'pipe'],
+                            windowsHide: true
+                        }
+                    );
+                    await new Promise<void>((resolve, reject): void => {
+                        resizedPNGProc.addListener('error', (err): void => {
+                            reject(err);
+                        });
+                        resizedPNGProc.addListener(
+                            'exit',
+                            (code, signal): void => {
+                                if (code !== 0) {
+                                    reject(
+                                        new Error(
+                                            `ImageMagick exited with non-zero exit code "${code}"`
+                                        )
+                                    );
+                                    return;
+                                }
+                                if (signal !== null) {
+                                    reject(
+                                        new Error(
+                                            `ImageMagick was terminated with signal "${signal}"`
+                                        )
+                                    );
+                                    return;
+                                }
+                                resolve();
+                            }
+                        );
+                    });
+                })
+            ).catch((err: Error): void => {
+                logError(err.message);
+                throw new Error('Failed to generate PNG favicon!');
+            });
+            const icoProc = child_process.spawn(
+                'magick',
+                [
+                    '-background',
+                    'transparent',
+                    inputImagePath,
+                    '-define',
+                    `icon:auto-resize=${options.sizes.join(',')}`,
+                    path.resolve(outputPath, 'logo.ico')
+                ],
+                {
+                    shell: false,
+                    stdio: ['ignore', 'pipe', 'pipe'],
+                    windowsHide: true
+                }
+            );
+            logInfo('Generating ICO favicon...');
+            await new Promise<void>((resolve, reject): void => {
+                icoProc.addListener('error', (err): void => {
+                    reject(err);
+                });
+                icoProc.addListener('exit', (code, signal): void => {
+                    if (code !== 0) {
+                        reject(
+                            new Error(
+                                `ImageMagick exited with non-zero exit code "${code}"`
+                            )
+                        );
+                        return;
+                    }
+                    if (signal !== null) {
+                        reject(
+                            new Error(
+                                `ImageMagick was terminated with signal "${signal}"`
+                            )
+                        );
+                        return;
+                    }
+                    resolve();
+                });
+            }).catch((err: Error): void => {
+                logError(err.message);
+                throw new Error('Failed to generate PNG favicon!');
+            });
+        }
+    )
+    .parseAsync()
+    .then((): void => {
+        process.stdout.write(`${chalk.greenBright('Success')}\n`);
+    })
+    .catch((err: Error): void => {
+        process.stdout.write(`${chalk.redBright('Fatal error')}\n`);
+        process.stdout.write(`${err.name}: ${err.message}\n`);
+    });
