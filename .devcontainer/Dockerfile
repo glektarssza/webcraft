@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:testing
 
 # Create our directory for custom zsh themes.
 RUN mkdir -p /usr/share/zsh-themes/
