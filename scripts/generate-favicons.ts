@@ -7,6 +7,7 @@ import chalk from 'chalk';
 import {program} from 'commander';
 
 //-- Project Code
+import {run} from './lib/child_proc.ts';
 import {
     getVerboseEnabled,
     logError,
@@ -104,7 +105,8 @@ command
                 'Generating favicons at sizes',
                 options.sizes.join(', ')
             );
-            const fullPNGProc = child_process.spawn(
+            logInfo('Generating full resolution PNG favicon...');
+            await run(
                 'magick',
                 [
                     '-background',
@@ -118,39 +120,14 @@ command
                     stdio: ['ignore', 'pipe', 'pipe'],
                     windowsHide: true
                 }
-            );
-            logInfo('Generating full resolution PNG favicon...');
-            await new Promise<void>((resolve, reject): void => {
-                fullPNGProc.addListener('error', (err): void => {
-                    reject(err);
-                });
-                fullPNGProc.addListener('exit', (code, signal): void => {
-                    if (code !== 0) {
-                        reject(
-                            new Error(
-                                `ImageMagick exited with non-zero exit code "${code}"`
-                            )
-                        );
-                        return;
-                    }
-                    if (signal !== null) {
-                        reject(
-                            new Error(
-                                `ImageMagick was terminated with signal "${signal}"`
-                            )
-                        );
-                        return;
-                    }
-                    resolve();
-                });
-            }).catch((err: Error): void => {
+            ).catch((err: Error): void => {
                 logError(err.message);
                 throw new Error('Failed to generate PNG favicon!');
             });
             logInfo('Generating resized PNG favicons...');
             await Promise.all(
                 options.sizes.map(async (size): Promise<void> => {
-                    const resizedPNGProc = child_process.spawn(
+                    await run(
                         'magick',
                         [
                             '-background',
@@ -166,40 +143,19 @@ command
                             stdio: ['ignore', 'pipe', 'pipe'],
                             windowsHide: true
                         }
-                    );
-                    await new Promise<void>((resolve, reject): void => {
-                        resizedPNGProc.addListener('error', (err): void => {
-                            reject(err);
-                        });
-                        resizedPNGProc.addListener(
-                            'exit',
-                            (code, signal): void => {
-                                if (code !== 0) {
-                                    reject(
-                                        new Error(
-                                            `ImageMagick exited with non-zero exit code "${code}"`
-                                        )
-                                    );
-                                    return;
-                                }
-                                if (signal !== null) {
-                                    reject(
-                                        new Error(
-                                            `ImageMagick was terminated with signal "${signal}"`
-                                        )
-                                    );
-                                    return;
-                                }
-                                resolve();
-                            }
+                    ).catch((err: Error): void => {
+                        logError(err.message);
+                        throw new Error(
+                            'Failed to generate resized PNG favicon!'
                         );
                     });
                 })
             ).catch((err: Error): void => {
                 logError(err.message);
-                throw new Error('Failed to generate PNG favicon!');
+                throw new Error('Failed to generate resized PNG favicons!');
             });
-            const icoProc = child_process.spawn(
+            logInfo('Generating ICO favicon...');
+            await run(
                 'magick',
                 [
                     '-background',
@@ -214,34 +170,9 @@ command
                     stdio: ['ignore', 'pipe', 'pipe'],
                     windowsHide: true
                 }
-            );
-            logInfo('Generating ICO favicon...');
-            await new Promise<void>((resolve, reject): void => {
-                icoProc.addListener('error', (err): void => {
-                    reject(err);
-                });
-                icoProc.addListener('exit', (code, signal): void => {
-                    if (code !== 0) {
-                        reject(
-                            new Error(
-                                `ImageMagick exited with non-zero exit code "${code}"`
-                            )
-                        );
-                        return;
-                    }
-                    if (signal !== null) {
-                        reject(
-                            new Error(
-                                `ImageMagick was terminated with signal "${signal}"`
-                            )
-                        );
-                        return;
-                    }
-                    resolve();
-                });
-            }).catch((err: Error): void => {
+            ).catch((err: Error): void => {
                 logError(err.message);
-                throw new Error('Failed to generate PNG favicon!');
+                throw new Error('Failed to generate ICO favicon!');
             });
         }
     )
