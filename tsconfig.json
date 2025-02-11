@@ -38,7 +38,7 @@
         "strictPropertyInitialization": true,
         "suppressExcessPropertyErrors": false,
         "suppressImplicitAnyIndexErrors": false,
-        "target": "ES2018",
+        "target": "ES2022",
         "useDefineForClassFields": true,
         "useUnknownInCatchVariables": true
     },
