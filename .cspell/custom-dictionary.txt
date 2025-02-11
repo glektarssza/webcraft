@@ -1,6 +1,7 @@
 # Custom Dictionary Words
 eslintcache
 favicons
+magick
 tseslint
 unstub
 Vite
