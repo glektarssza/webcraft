@@ -29,5 +29,15 @@
         <link rel="stylesheet" href="./src/scss/index.scss" />
         <script type="module" src="./src/ts/index.ts"></script>
     </head>
-    <body></body>
+    <body>
+        <div id="error-container" class="d-none">
+            <div id="error">
+                <h1 id="error-title" class="d-none"></h1>
+                <p id="error-desc" class="d-none"></p>
+                <div id="error-stack-container" class="d-none">
+                    <code id="error-stack"></code>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
