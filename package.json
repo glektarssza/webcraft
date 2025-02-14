@@ -20,11 +20,12 @@
     "packageManager": "pnpm@10.3.0+sha512.ee592eda8815a8a293c206bb0917c4bb0ff274c50def7cbc17be05ec641fc2d1b02490ce660061356bd0d126a4d7eb2ec8830e6959fb8a447571c631d5a2442d",
     "type": "module",
     "scripts": {
-        "generate-favicons": "pnpm -r --filter @webcraft/scripts run generate-favicons",
+        "dev": "pnpm -r --filter webcraft run dev",
         "test:base": "vitest",
         "test": "pnpm run test:base --run",
         "test:ci": "pnpm test --coverage.reporter=html --coverage.reporter=text",
-        "test:watch": "pnpm test:base --watch"
+        "test:watch": "pnpm test:base --watch",
+        "generate-favicons": "pnpm -r --filter @webcraft/scripts run generate-favicons"
     },
     "devDependencies": {
         "@eslint/js": "^9.20.0",
