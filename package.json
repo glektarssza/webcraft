@@ -24,8 +24,7 @@
         "test:base": "vitest",
         "test": "pnpm run test:base --run",
         "test:ci": "pnpm test --coverage.reporter=html --coverage.reporter=text",
-        "test:watch": "pnpm test:base --watch",
-        "generate-favicons": "pnpm -r --filter @webcraft/scripts run generate-favicons"
+        "test:watch": "pnpm test:base --watch"
     },
     "devDependencies": {
         "@eslint/js": "^9.20.0",
