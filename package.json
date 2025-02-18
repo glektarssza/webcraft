@@ -27,7 +27,13 @@
         "test:watch": "pnpm test:base --watch",
         "lint": "pnpm -r run lint",
         "lint:fix": "pnpm -r run lint:fix",
-        "lint:ci": "pnpm -r run lint:ci"
+        "lint:ci": "pnpm -r run lint:ci",
+        "eslint": "pnpm -r run eslint",
+        "eslint:fix": "pnpm -r run eslint:fix",
+        "eslint:ci": "pnpm -r run eslint:ci",
+        "prettier": "pnpm -r run prettier",
+        "prettier:fix": "pnpm -r run prettier:fix",
+        "prettier:ci": "pnpm -r run prettier:ci"
     },
     "devDependencies": {
         "@eslint/js": "^9.20.0",
