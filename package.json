@@ -24,7 +24,9 @@
         "test:base": "vitest",
         "test": "pnpm run test:base --run",
         "test:ci": "pnpm test --coverage.reporter=html --coverage.reporter=text",
-        "test:watch": "pnpm test:base --watch"
+        "test:watch": "pnpm test:base --watch",
+        "lint": "pnpm -r run lint",
+        "lint:ci": "pnpm -r run lint:ci"
     },
     "devDependencies": {
         "@eslint/js": "^9.20.0",
