@@ -26,6 +26,7 @@
         "test:ci": "pnpm test --coverage.reporter=html --coverage.reporter=text",
         "test:watch": "pnpm test:base --watch",
         "lint": "pnpm -r run lint",
+        "lint:fix": "pnpm -r run lint:fix",
         "lint:ci": "pnpm -r run lint:ci"
     },
     "devDependencies": {

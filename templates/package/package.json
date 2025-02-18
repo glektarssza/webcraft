@@ -42,6 +42,7 @@
         "test:ci": "vitest --run --coverage",
         "test:ui": "vitest --ui",
         "lint": "eslint --cache ./src/ ./tests/",
+        "lint:fix": "eslint --cache --fix ./src/ ./tests/",
         "lint:ci": "eslint ./src/ ./tests/",
         "build": "pnpm run build:all",
         "build:all": "pnpm run build:prod && pnpm run build:dev && pnpm run build:types",
