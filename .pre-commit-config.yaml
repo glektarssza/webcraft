@@ -25,5 +25,5 @@ repos:
   - repo: https://github.com/glektarssza/pre-commit-hooks.git
     rev: v0.4.0
     hooks:
-      - id: pnpm-lint-ci-recurse
+      - id: pnpm-lint-ci
       - id: pnpm-test

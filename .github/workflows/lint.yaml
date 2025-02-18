@@ -36,4 +36,4 @@ jobs:
         run: pnpm install
       - id: lint
         name: Lint
-        run: pnpm -r run lint:ci
+        run: pnpm run lint:ci
