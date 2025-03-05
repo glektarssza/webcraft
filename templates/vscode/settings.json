@@ -35,5 +35,6 @@
     "[github-actions-workflow]": {
         "editor.formatOnSave": true,
         "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+    },
+    "vitest.shellType": "terminal"
 }
