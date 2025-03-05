@@ -36,19 +36,18 @@
         "prettier:ci": "pnpm -r run prettier:ci"
     },
     "devDependencies": {
-        "@eslint/js": "^9.20.0",
-        "@types/eslint__js": "^8.42.3",
-        "@types/node": "^22.13.2",
-        "@vitest/coverage-istanbul": "^3.0.5",
-        "eslint": "^9.20.1",
-        "eslint-config-prettier": "^10.0.1",
+        "@eslint/js": "^9.21.0",
+        "@types/node": "^22.13.9",
+        "@vitest/coverage-istanbul": "^3.0.7",
+        "eslint": "^9.21.0",
+        "eslint-config-prettier": "^10.0.2",
         "eslint-plugin-tsdoc": "^0.4.0",
         "playwright": "^1.50.1",
-        "prettier": "^3.5.1",
-        "sass": "^1.84.0",
+        "prettier": "^3.5.3",
+        "sass": "^1.85.1",
         "ts-node": "^10.9.2",
-        "typescript": "^5.7.3",
-        "typescript-eslint": "8.24.0",
-        "vitest": "^3.0.5"
+        "typescript": "^5.8.2",
+        "typescript-eslint": "8.26.0",
+        "vitest": "^3.0.7"
     }
 }
