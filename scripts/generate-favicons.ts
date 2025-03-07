@@ -1,14 +1,12 @@
 //-- NPM packages
-import {supportsColorStderr, Chalk} from 'chalk';
+import {supportsColorStderr} from 'chalk';
 import {Command, CommanderError} from 'commander';
 
 //-- NodeJS
 import {inspect} from 'node:util';
 
-/**
- * The {@link Chalk} instance to use.
- */
-const chalk = new Chalk();
+//-- Project Code
+import * as logging from './lib/logging.ts';
 
 /**
  * The main CLI {@link Command}.
@@ -33,66 +31,6 @@ interface CLIOptions {
      * Whether to enable verbose logging.
      */
     enableVerboseLogging: boolean;
-}
-
-/**
- * Whether verbose logging is enabled.
- */
-let verboseLoggingEnabled: boolean = false;
-
-/**
- * Log an error message.
- *
- * @param message The message to log.
- * @param ex An optional exception to log with the message.
- */
-function logError(message: string, ex?: Error): void {
-    process.stderr.write(`[${chalk.ansi256(196)('ERROR')}] ${message}\n`);
-    if (ex) {
-        process.stderr.write(`${ex.name}: ${ex.message}\n`);
-    }
-}
-
-/**
- * Log a warning message.
- *
- * @param message The message to log.
- * @param ex An optional exception to log with the message.
- */
-function logWarning(message: string, ex?: Error): void {
-    process.stdout.write(`[${chalk.ansi256(208)('WARN')}] ${message}\n`);
-    if (ex) {
-        process.stdout.write(`${ex.name}: ${ex.message}\n`);
-    }
-}
-
-/**
- * Log an informational message.
- *
- * @param message The message to log.
- * @param ex An optional exception to log with the message.
- */
-function logInfo(message: string, ex?: Error): void {
-    process.stdout.write(`[${chalk.ansi256(111)('INFO')}] ${message}\n`);
-    if (ex) {
-        process.stdout.write(`${ex.name}: ${ex.message}\n`);
-    }
-}
-
-/**
- * Log an informational message.
- *
- * @param message The message to log.
- * @param ex An optional exception to log with the message.
- */
-function logVerbose(message: string, ex?: Error): void {
-    if (!verboseLoggingEnabled) {
-        return;
-    }
-    process.stdout.write(`[${chalk.ansi256(207)('VERBOSE')}] ${message}\n`);
-    if (ex) {
-        process.stdout.write(`${ex.name}: ${ex.message}\n`);
-    }
 }
 
 program.allowExcessArguments(false);
@@ -166,10 +104,11 @@ try {
     });
 } catch (ex) {
     if (ex instanceof CommanderError) {
+        //-- Does nothing
     } else if (ex instanceof Error) {
-        logError('Fatal error!', ex);
+        logging.error('Fatal error!', ex);
     } else {
-        logError('Fatal error!');
+        logging.error('Fatal error!');
         process.stderr.write(
             inspect(ex, {
                 compact: false,
@@ -195,10 +134,8 @@ if (opts.showVersion) {
     process.exit(0);
 }
 
-verboseLoggingEnabled = opts.enableVerboseLogging;
-if (verboseLoggingEnabled) {
-    logInfo('Verbose logging enabled');
-}
+logging.setVerboseLoggingEnabled(opts.enableVerboseLogging);
+logging.verbose('Verbose logging enabled');
 
 console.log(opts);
 
