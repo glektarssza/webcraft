@@ -24,9 +24,9 @@
         "lint": "pnpm run eslint && pnpm run prettier",
         "lint:fix": "pnpm run eslint:fix && pnpm run prettier:fix",
         "lint:ci": "pnpm run eslint:ci && pnpm run prettier:ci",
-        "eslint": "eslint --cache ./src/ ./tests/",
-        "eslint:fix": "eslint --cache --fix ./src/ ./tests/",
-        "eslint:ci": "eslint ./src/ ./tests/",
+        "eslint": "eslint --cache ./",
+        "eslint:fix": "eslint --cache --fix ./",
+        "eslint:ci": "eslint ./",
         "prettier": "prettier --config ../.prettierrc.json --ignore-path ../.prettierignore --ignore-path ../.gitignore --cache --check .",
         "prettier:fix": "prettier --config ../.prettierrc.json --ignore-path ../.prettierignore --ignore-path ../.gitignore --cache --write .",
         "prettier:ci": "prettier --config ../.prettierrc.json --ignore-path ../.prettierignore --ignore-path ../.gitignore --check ."
