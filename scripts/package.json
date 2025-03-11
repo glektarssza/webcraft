@@ -1,0 +1,45 @@
+{
+    "name": "@webcraft/scripts",
+    "description": "A collection of scripts used by the Webcraft project.",
+    "version": "0.0.0",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "private": true,
+    "author": {
+        "name": "G'lek Tarssza",
+        "email": "glek@glektarssza.com",
+        "url": "https://glektarssza.com"
+    },
+    "homepage": "https://glektarssza.github.io/webcraft/",
+    "bugs": {
+        "url": "https://github.com/glektarssza/webcraft/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/glektarssza/webcraft.git",
+        "directory": "./scripts/"
+    },
+    "packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3",
+    "type": "module",
+    "scripts": {
+        "lint": "pnpm run eslint && pnpm run prettier",
+        "lint:fix": "pnpm run eslint:fix && pnpm run prettier:fix",
+        "lint:ci": "pnpm run eslint:ci && pnpm run prettier:ci",
+        "eslint": "eslint --cache ./src/ ./tests/",
+        "eslint:fix": "eslint --cache --fix ./src/ ./tests/",
+        "eslint:ci": "eslint ./src/ ./tests/",
+        "prettier": "prettier --config ../.prettierrc.json --ignore-path ../.prettierignore --ignore-path ../.gitignore --cache --check .",
+        "prettier:fix": "prettier --config ../.prettierrc.json --ignore-path ../.prettierignore --ignore-path ../.gitignore --cache --write .",
+        "prettier:ci": "prettier --config ../.prettierrc.json --ignore-path ../.prettierignore --ignore-path ../.gitignore --check ."
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.21.0",
+        "@types/node": "^22.13.9",
+        "eslint": "^9.21.0",
+        "eslint-config-prettier": "^10.0.2",
+        "eslint-plugin-tsdoc": "^0.4.0",
+        "prettier": "^3.5.3",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.2",
+        "typescript-eslint": "8.26.0"
+    }
+}
