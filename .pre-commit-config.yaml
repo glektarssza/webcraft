@@ -25,5 +25,7 @@ repos:
   - repo: https://github.com/glektarssza/pre-commit-hooks.git
     rev: v0.4.0
     hooks:
-      - id: pnpm-lint-ci
+      - id: pnpm-lint
+        pass_filenames: false
       - id: pnpm-test
+        pass_filenames: false

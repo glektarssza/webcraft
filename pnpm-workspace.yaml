@@ -1,5 +1,6 @@
 packages:
   - ./app/
+  - ./scripts/
   - ./packages/*/
 onlyBuiltDependencies:
   - edgedriver
