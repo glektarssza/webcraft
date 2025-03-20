@@ -1,13 +1,8 @@
 //-- NPM Packages
-import {Chalk} from 'chalk';
 import {Command, Option} from 'commander';
-import {info} from 'node:console';
-import {inspect} from 'node:util';
 
-/**
- * The chalk instance for the script.
- */
-const chalk = new Chalk();
+//-- Project Code
+import {logInfo, logVerbose, setVerboseLoggingEnabled} from './lib/logging.ts';
 
 /**
  * The options exposed by the command-line interface.
@@ -71,21 +66,14 @@ if (opts.help) {
 }
 
 if (opts.version) {
-    info('v0.0.0');
+    logInfo('v0.0.0');
     process.exit(0);
 }
 
-if (opts.verbose) {
-    process.stdout.write(
-        `[${chalk.ansi256(207)('VERBOSE')}] Verbose logging enabled\n`
-    );
-}
+setVerboseLoggingEnabled(opts.verbose);
 
-process.stdout.write(
-    `${inspect(opts, {
-        compact: false,
-        colors: chalk.level > 0,
-        depth: Infinity,
-        showHidden: false
-    })}`
-);
+logVerbose('Arguments:', opts);
+
+if (opts.verbose) {
+    logVerbose('Verbose logging enabled');
+}
