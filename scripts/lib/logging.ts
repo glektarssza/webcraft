@@ -79,7 +79,7 @@ function formatObjects(data: unknown): string {
  */
 export function logError(...data: unknown[]): void {
     process.stderr.write(
-        `[${chalk.ansi256(196)('ERROR')}] ${data.map(formatObjects).join(' ')}`
+        `[${chalk.ansi256(196)('ERROR')}] ${data.map(formatObjects).join(' ')}\n`
     );
 }
 
@@ -90,7 +90,7 @@ export function logError(...data: unknown[]): void {
  */
 export function logWarning(...data: unknown[]): void {
     process.stdout.write(
-        `[${chalk.ansi256(208)('WARN')}] ${data.map(formatObjects).join(' ')}`
+        `[${chalk.ansi256(208)('WARN')}] ${data.map(formatObjects).join(' ')}\n`
     );
 }
 
@@ -101,7 +101,7 @@ export function logWarning(...data: unknown[]): void {
  */
 export function logInfo(...data: unknown[]): void {
     process.stdout.write(
-        `[${chalk.ansi256(117)('INFO')}] ${data.map(formatObjects).join(' ')}`
+        `[${chalk.ansi256(117)('INFO')}] ${data.map(formatObjects).join(' ')}\n`
     );
 }
 
@@ -115,6 +115,6 @@ export function logVerbose(...data: unknown[]): void {
         return;
     }
     process.stdout.write(
-        `[${chalk.ansi256(207)('VERBOSE')}] ${data.map(formatObjects).join(' ')}`
+        `[${chalk.ansi256(207)('VERBOSE')}] ${data.map(formatObjects).join(' ')}\n`
     );
 }
