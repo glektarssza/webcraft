@@ -44,5 +44,8 @@ export function namespaceFromComponents(...components: string[]): Namespace {
  * @returns The components of the namespace.
  */
 export function namespaceToComponents(namespace: Namespace): string[] {
+    if (namespace === '') {
+        return [];
+    }
     return namespace.split(NAMESPACE_COMPONENT_SEPARATOR);
 }
