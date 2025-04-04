@@ -52,6 +52,15 @@ describe('module:namespace', (): void => {
             //-- Then
             expect(r).toBe('a:b:c');
         });
+        it('should return an empty string when given no components', (): void => {
+            //-- Given
+
+            //-- When
+            const r = m.namespaceFromComponents();
+
+            //-- Then
+            expect(r).toBe('');
+        });
     });
     describe('.namespaceToComponents()', (): void => {
         it('should split a namespace into its components', (): void => {
@@ -63,6 +72,16 @@ describe('module:namespace', (): void => {
 
             //-- Then
             expect(r).toEqual(['a', 'b', 'c']);
+        });
+        it('should return an empty array when given an empty string', (): void => {
+            //-- Given
+            const namespace = '';
+
+            //-- When
+            const r = m.namespaceToComponents(namespace);
+
+            //-- Then
+            expect(r).toEqual([]);
         });
     });
 });
