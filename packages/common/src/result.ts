@@ -1,3 +1,9 @@
+/**
+ * A Rust-esque result object implementation.
+ *
+ * @module
+ */
+
 //-- Project Code
 import {Cloneable} from './cloneable';
 import {Mapper, Predicate, UnaryFunction} from './functionTypes';
