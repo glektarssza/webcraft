@@ -24,7 +24,10 @@ export class Result<S, E> implements Cloneable {
      * @returns The new instance.
      */
     public static ok<S, E>(value: S): Result<S, E> {
-        return new Result<S, E>(value, null);
+        const r = new Result<S, E>();
+        r._holdsSuccess = true;
+        r.successValue = value;
+        return r;
     }
 
     /**
@@ -36,18 +39,31 @@ export class Result<S, E> implements Cloneable {
      * @returns The new instance.
      */
     public static error<S, E>(value: E): Result<S, E> {
-        return new Result<S, E>(null, value);
+        const r = new Result<S, E>();
+        r._holdsError = true;
+        r.errorValue = value;
+        return r;
     }
+
+    /**
+     * Whether this instance holds a success value.
+     */
+    private _holdsSuccess: boolean;
+
+    /**
+     * Whether this instance holds an error value.
+     */
+    private _holdsError: boolean;
 
     /**
      * The success value held in this instance.
      */
-    private successValue: S | null;
+    private successValue?: S;
 
     /**
      * The error value held in this instance.
      */
-    private errorValue: E | null;
+    private errorValue?: E;
 
     /**
      * Create a new instance.
@@ -56,16 +72,21 @@ export class Result<S, E> implements Cloneable {
      * with.
      * @param errorValue - The error value to populate the new instance with.
      */
-    private constructor(successValue: S | null, errorValue: E | null) {
-        this.successValue = successValue;
-        this.errorValue = errorValue;
+    private constructor() {
+        this._holdsSuccess = false;
+        this._holdsError = false;
     }
 
     /**
      * @inheritdoc
      */
     public clone(): Result<S, E> {
-        return new Result<S, E>(this.successValue, this.errorValue);
+        const cloned = new Result<S, E>();
+        cloned._holdsSuccess = this._holdsSuccess;
+        cloned._holdsError = this._holdsError;
+        cloned.successValue = this.successValue;
+        cloned.errorValue = this.errorValue;
+        return cloned;
     }
 
     /**
@@ -75,7 +96,7 @@ export class Result<S, E> implements Cloneable {
      * otherwise.
      */
     public isOk(): boolean {
-        return this.successValue !== null;
+        return this._holdsSuccess;
     }
 
     /**
@@ -96,7 +117,7 @@ export class Result<S, E> implements Cloneable {
      * otherwise.
      */
     public isError(): boolean {
-        return this.errorValue !== null;
+        return this._holdsError;
     }
 
     /**
