@@ -23,7 +23,7 @@ export class Result<S, E> implements Cloneable {
      *
      * @returns The new instance.
      */
-    public static ok<S, E>(value: S): Result<S, E> {
+    public static ok<S, E>(this: void, value: S): Result<S, E> {
         const r = new Result<S, E>();
         r._holdsSuccess = true;
         r._successValue = value;
@@ -38,7 +38,7 @@ export class Result<S, E> implements Cloneable {
      *
      * @returns The new instance.
      */
-    public static error<S, E>(value: E): Result<S, E> {
+    public static error<S, E>(this: void, value: E): Result<S, E> {
         const r = new Result<S, E>();
         r._holdsError = true;
         r._errorValue = value;
