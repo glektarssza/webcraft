@@ -26,7 +26,7 @@ export class Result<S, E> implements Cloneable {
     public static ok<S, E>(value: S): Result<S, E> {
         const r = new Result<S, E>();
         r._holdsSuccess = true;
-        r.successValue = value;
+        r._successValue = value;
         return r;
     }
 
@@ -41,7 +41,7 @@ export class Result<S, E> implements Cloneable {
     public static error<S, E>(value: E): Result<S, E> {
         const r = new Result<S, E>();
         r._holdsError = true;
-        r.errorValue = value;
+        r._errorValue = value;
         return r;
     }
 
@@ -58,12 +58,12 @@ export class Result<S, E> implements Cloneable {
     /**
      * The success value held in this instance.
      */
-    private successValue?: S;
+    private _successValue?: S;
 
     /**
      * The error value held in this instance.
      */
-    private errorValue?: E;
+    private _errorValue?: E;
 
     /**
      * Create a new instance.
@@ -84,8 +84,8 @@ export class Result<S, E> implements Cloneable {
         const cloned = new Result<S, E>();
         cloned._holdsSuccess = this._holdsSuccess;
         cloned._holdsError = this._holdsError;
-        cloned.successValue = this.successValue;
-        cloned.errorValue = this.errorValue;
+        cloned._successValue = this._successValue;
+        cloned._errorValue = this._errorValue;
         return cloned;
     }
 
@@ -107,7 +107,7 @@ export class Result<S, E> implements Cloneable {
      * matches the given predicate; `false` otherwise.
      */
     public isOkAnd(predicate: Predicate<S>): boolean {
-        return this.isOk() && predicate(this.successValue!);
+        return this.isOk() && predicate(this._successValue!);
     }
 
     /**
@@ -128,7 +128,7 @@ export class Result<S, E> implements Cloneable {
      * matches the given predicate; `false` otherwise.
      */
     public isErrorAnd(predicate: Predicate<E>): boolean {
-        return this.isError() && predicate(this.errorValue!);
+        return this.isError() && predicate(this._errorValue!);
     }
 
     /**
@@ -144,7 +144,7 @@ export class Result<S, E> implements Cloneable {
      * otherwise.
      */
     public and<U>(other: Result<U, E>): Result<U, E> {
-        return this.isOk() ? other : Result.error<U, E>(this.errorValue!);
+        return this.isOk() ? other : Result.error<U, E>(this._errorValue!);
     }
 
     /**
@@ -176,7 +176,7 @@ export class Result<S, E> implements Cloneable {
      * otherwise.
      */
     public or<U>(other: Result<S, U>): Result<S, U> {
-        return this.isError() ? other : Result.ok<S, U>(this.successValue!);
+        return this.isError() ? other : Result.ok<S, U>(this._successValue!);
     }
 
     /**
@@ -209,8 +209,8 @@ export class Result<S, E> implements Cloneable {
      */
     public map<U>(mapper: Mapper<S, Result<U, E>>): Result<U, E> {
         return this.isOk() ?
-                mapper(this.successValue!)
-            :   Result.error<U, E>(this.errorValue!);
+                mapper(this._successValue!)
+            :   Result.error<U, E>(this._errorValue!);
     }
 
     /**
@@ -227,7 +227,7 @@ export class Result<S, E> implements Cloneable {
      * value held in this instance; the provided default value otherwise.
      */
     public mapOr<U>(mapper: Mapper<S, U>, defaultValue: U): U {
-        return this.isOk() ? mapper(this.successValue!) : defaultValue;
+        return this.isOk() ? mapper(this._successValue!) : defaultValue;
     }
 
     /**
@@ -246,8 +246,8 @@ export class Result<S, E> implements Cloneable {
      */
     public mapOrElse<U>(mapper: Mapper<S, U>, defaultValueFn: Mapper<E, U>): U {
         return this.isOk() ?
-                mapper(this.successValue!)
-            :   defaultValueFn(this.errorValue!);
+                mapper(this._successValue!)
+            :   defaultValueFn(this._errorValue!);
     }
 
     /**
@@ -264,8 +264,8 @@ export class Result<S, E> implements Cloneable {
      */
     public mapError<U>(mapper: Mapper<E, Result<S, U>>): Result<S, U> {
         return this.isError() ?
-                mapper(this.errorValue!)
-            :   Result.ok<S, U>(this.successValue!);
+                mapper(this._errorValue!)
+            :   Result.ok<S, U>(this._successValue!);
     }
 
     /**
@@ -279,7 +279,7 @@ export class Result<S, E> implements Cloneable {
      */
     public inspect(fn: UnaryFunction<S>): this {
         if (this.isOk()) {
-            fn(this.successValue!);
+            fn(this._successValue!);
         }
         return this;
     }
@@ -295,7 +295,7 @@ export class Result<S, E> implements Cloneable {
      */
     public inspectError(fn: UnaryFunction<E>): this {
         if (this.isError()) {
-            fn(this.errorValue!);
+            fn(this._errorValue!);
         }
         return this;
     }
