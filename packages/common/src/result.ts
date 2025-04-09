@@ -277,7 +277,7 @@ export class Result<S, E> implements Cloneable {
      *
      * @returns This instance.
      */
-    public inspect(fn: UnaryFunction<S>): this {
+    public inspectOk(fn: UnaryFunction<S>): this {
         if (this.isOk()) {
             fn(this._successValue!);
         }
