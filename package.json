@@ -24,6 +24,7 @@
         "test:base": "vitest",
         "test": "pnpm run test:base --run",
         "test:ci": "pnpm test --coverage.reporter=html --coverage.reporter=text",
+        "test:ui": "pnpm run test:base --ui --coverage.reporter=html",
         "test:watch": "pnpm test:base --watch",
         "lint": "pnpm -r run lint",
         "lint:fix": "pnpm -r run lint:fix",

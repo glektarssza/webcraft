@@ -52,7 +52,7 @@ const config = defineProject(({mode}) => {
             clearMocks: true,
             unstubGlobals: true,
             unstubEnvs: true,
-            dir: './tests/',
+            dir: path.resolve(__dirname, './tests/'),
             name: 'Webcraft - Common Library',
             maxConcurrency: Math.max(Math.floor(os.cpus().length / 2), 1)
         },
