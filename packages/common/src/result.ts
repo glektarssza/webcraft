@@ -5,8 +5,12 @@
  */
 
 //-- Project Code
-import {Cloneable} from './cloneable';
-import {Mapper, Predicate, UnaryFunction} from './functionTypes';
+import {type Cloneable} from './types/cloneable';
+import {
+    type Mapper,
+    type Predicate,
+    type UnaryFunction
+} from './types/functions';
 
 /**
  * A simple class ecapsulating a result of an operation.

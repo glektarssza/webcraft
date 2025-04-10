@@ -1,10 +1,9 @@
-export {type Cloneable} from './cloneable';
+export {type Cloneable} from './types/cloneable';
 export {
     type BinaryFunction,
-    type IndexedMapper,
-    type Mapper,
-    type Predicate,
     type TrinaryFunction,
-    type UnaryFunction
-} from './functionTypes';
+    type UnaryFunction,
+    type Predicate,
+    type Mapper
+} from './types/functions';
 export {Result} from './result';

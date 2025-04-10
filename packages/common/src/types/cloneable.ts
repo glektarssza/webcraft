@@ -1,4 +1,10 @@
 /**
+ * A module defining an interface for objects that can be cloned.
+ *
+ * @module
+ */
+
+/**
  * An interface for objects that can be cloned.
  */
 export interface Cloneable {
