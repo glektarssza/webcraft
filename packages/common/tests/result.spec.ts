@@ -4,7 +4,11 @@ import {Faker, base, en, en_CA, en_US} from '@faker-js/faker';
 
 //-- Project Code
 import * as m from '@src/result';
-import {Mapper, Predicate, UnaryFunction} from '@src/functionTypes';
+import {
+    type Mapper,
+    type Predicate,
+    type UnaryFunction
+} from '@src/types/functions';
 
 /**
  * The fake data provider.
