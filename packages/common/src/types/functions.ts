@@ -113,3 +113,41 @@ export type Mapper<V, R> = UnaryFunction<V, R>;
  * @returns The mapped value.
  */
 export type IndexedMapper<V, R> = TrinaryFunction<V, number, ArrayLike<V>, R>;
+
+/**
+ * A function that reduces a collection of values into a single value.
+ *
+ * @typeParam V - The type of the value that the collection contains.
+ * @typeParam R - The type of the value that the collection is being reduced to.
+ *
+ * @param value1 - The value currently being processed.
+ * @param value2 - The accumlated value of all previous iterations of the
+ * function.
+ *
+ * @returns The accumlated value of all iterations of the function.
+ */
+export type Reducer<V, R> = BinaryFunction<V, R, R>;
+
+/**
+ * A function that reduces a collection of values into a single value and also
+ * includes the index into as well as the array-like collection being reduced.
+ *
+ * @typeParam V - The type of the value that the collection contains.
+ * @typeParam R - The type of the value that the collection is being reduced to.
+ *
+ * @param value1 - The value currently being processed.
+ * @param value2 - The accumlated value of all previous iterations of the
+ * function.
+ * @param value3 - The index in the array-like collection which is currently
+ * being processed.
+ * @param value4 - The array-like collection which is currently being processed.
+ *
+ * @returns The accumlated value of all iterations of the function.
+ */
+export type IndexedReducer<V, R> = QuadrinaryFunction<
+    V,
+    R,
+    number,
+    ArrayLike<V>,
+    R
+>;
