@@ -4,6 +4,11 @@
 export type Namespace = string;
 
 /**
+ * A string that represents a component of a namespace.
+ */
+export type NamespaceComponent = string;
+
+/**
  * The character used to separate components in a namespace.
  */
 export const NAMESPACE_COMPONENT_SEPARATOR = ':';
