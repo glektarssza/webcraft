@@ -22,7 +22,6 @@
     A simple Minecraft clone built on web technologies.
 </p>
 
-<!-- omit in toc -->
 ## Table of Contents ##
 
 * [Webcraft](#webcraft)
