@@ -29,7 +29,10 @@ export const NAMESPACE_WILDCARD = '*';
 export function isNamespaceComponent(
     value: unknown
 ): value is NamespaceComponent {
-    return typeof value === 'string';
+    return (
+        typeof value === 'string' &&
+        !value.includes(NAMESPACE_COMPONENT_SEPARATOR)
+    );
 }
 
 /**
