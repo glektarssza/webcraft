@@ -47,22 +47,26 @@ export function isNamespace(value: unknown): value is Namespace {
 /**
  * Create a new {@link Namespace | namespace} from a list of components.
  *
- * @param components - The components of the namespace.
+ * @param components - The components of the {@link Namespace | namespace}.
  *
  * @returns The newly created namespace.
  */
-export function namespaceFromComponents(...components: string[]): Namespace {
+export function namespaceFromComponents(
+    ...components: NamespaceComponent[]
+): Namespace {
     return components.join(NAMESPACE_COMPONENT_SEPARATOR);
 }
 
 /**
  * Split a {@link Namespace | namespace} into its components.
  *
- * @param namespace - The namespace to split.
+ * @param namespace - The {@link Namespace | namespace} to split.
  *
- * @returns The components of the namespace.
+ * @returns The components of the {@link Namespace | namespace}.
  */
-export function namespaceToComponents(namespace: Namespace): string[] {
+export function namespaceToComponents(
+    namespace: Namespace
+): NamespaceComponent[] {
     if (namespace === '') {
         return [];
     }
