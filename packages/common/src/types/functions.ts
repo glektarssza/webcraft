@@ -97,3 +97,19 @@ export type Predicate<V> = UnaryFunction<V, boolean>;
  * @returns The mapped value.
  */
 export type Mapper<V, R> = UnaryFunction<V, R>;
+
+/**
+ * A function that maps one value type into another value type and also includes
+ * the index into as well as the array-like collection being mapped.
+ *
+ * @typeParam V - The type of the value that the function is mapping from.
+ * @typeParam R - The type of the value that the function is mapping into.
+ *
+ * @param value1 - The value to map into another type.
+ * @param value2 - The index in the array-like collection which is currently
+ * being processed.
+ * @param value3 - The array-like collection which is currently being processed.
+ *
+ * @returns The mapped value.
+ */
+export type IndexedMapper<V, R> = TrinaryFunction<V, number, ArrayLike<V>, R>;
