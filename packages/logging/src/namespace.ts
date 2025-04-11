@@ -19,6 +19,20 @@ export const NAMESPACE_COMPONENT_SEPARATOR = ':';
 export const NAMESPACE_WILDCARD = '*';
 
 /**
+ * Check whether a value is a {@link NamespaceComponent | namespace component}.
+ *
+ * @param value - The value to check.
+ *
+ * @returns `true` if the value is a
+ * {@link NamespaceComponent | namespace component}; `false` otherwise.
+ */
+export function isNamespaceComponent(
+    value: unknown
+): value is NamespaceComponent {
+    return typeof value === 'string';
+}
+
+/**
  * Check whether a value is a {@link Namespace | namespace}.
  *
  * @param value - The value to check.
