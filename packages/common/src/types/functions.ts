@@ -48,6 +48,29 @@ export type TrinaryFunction<V1, V2, V3, R = void> = (
 ) => R;
 
 /**
+ * A function that accepts four values and optionally returns a value.
+ *
+ * @typeParam V1 - The type of the first value accepted by the function.
+ * @typeParam V2 - The type of the second value accepted by the function.
+ * @typeParam V3 - The type of the third value accepted by the function.
+ * @typeParam V4 - The type of the fourth value accepted by the function.
+ * @typeParam R - The type of the value returned by the function.
+ *
+ * @param value1 - The first value accepted by the function.
+ * @param value2 - The second value accepted by the function.
+ * @param value3 - The third value accepted by the function.
+ * @param value4 - The fourth value accepted by the function.
+ *
+ * @returns An optional return value.
+ */
+export type QuadrinaryFunction<V1, V2, V3, V4, R = void> = (
+    value1: V1,
+    value2: V2,
+    value3: V3,
+    value4: V4
+) => R;
+
+/**
  * A function that accepts a value and returns whether that value matches some
  * condition.
  *
