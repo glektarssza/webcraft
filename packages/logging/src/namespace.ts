@@ -16,7 +16,7 @@ export const NAMESPACE_COMPONENT_SEPARATOR = ':';
 /**
  * The character used to indicate a wildcard in a namespace.
  */
-export const NAMESPACE_WILDCARD = '*';
+export const NAMESPACE_WILDCARD_SYMBOL = '*';
 
 /**
  * Check whether a value is a {@link NamespaceComponent | namespace component}.
@@ -33,6 +33,23 @@ export function isNamespaceComponent(
         typeof value === 'string' &&
         !value.includes(NAMESPACE_COMPONENT_SEPARATOR)
     );
+}
+
+/**
+ * Check if a {@link NamespaceComponent | namespace component} contains the
+ * {@link NAMESPACE_WILDCARD_SYMBOL | wildcard symbol}.
+ *
+ * @param component - The {@link NamespaceComponent | namespace component} to
+ * check.
+ *
+ * @returns `true` if the {@link NamespaceComponent | namespace component}
+ * contains the {@link NAMESPACE_WILDCARD_SYMBOL | wildcard symbol}; `false`
+ * otherwise.
+ */
+export function isWildcardNamespaceComponent(
+    component: NamespaceComponent
+): boolean {
+    return component.includes(NAMESPACE_WILDCARD_SYMBOL);
 }
 
 /**
