@@ -23,7 +23,8 @@ export type UnaryFunction<V, R = void> = (value: V) => R;
  * @typeParam V2 - The type of the second value accepted by the function.
  * @typeParam R - The type of the value returned by the function.
  *
- * @param value - The value accepted by the function.
+ * @param value1 - The first value accepted by the function.
+ * @param value2 - The second value accepted by the function.
  *
  * @returns An optional return value.
  */
@@ -37,7 +38,9 @@ export type BinaryFunction<V1, V2, R = void> = (value1: V1, value2: V2) => R;
  * @typeParam V3 - The type of the third value accepted by the function.
  * @typeParam R - The type of the value returned by the function.
  *
- * @param value - The value accepted by the function.
+ * @param value1 - The first value accepted by the function.
+ * @param value2 - The second value accepted by the function.
+ * @param value3 - The third value accepted by the function.
  *
  * @returns An optional return value.
  */
