@@ -169,6 +169,10 @@ importers:
         version: 3.1.1(@types/node@22.14.1)(@vitest/browser@3.1.1)(@vitest/ui@3.1.1)(msw@2.7.3(@types/node@22.14.1)(typescript@5.8.3))(sass@1.86.3)
 
   packages/logging:
+    dependencies:
+      '@webcraft/common':
+        specifier: workspace:*
+        version: link:../common
     devDependencies:
       '@eslint/js':
         specifier: ^9.24.0
@@ -1992,6 +1996,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-fetch@3.3.2:
     resolution: {integrity: sha512-dRB78srN/l6gqWulah9SrxeYnxeddIG30+GOqK/9OlLVyLg3HPnr6SqOWTWOXKRwC2eGYCkZ59NNuSgvSrpgOA==}
