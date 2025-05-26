@@ -70,24 +70,24 @@
         "@webcraft/common": "workspace:*"
     },
     "devDependencies": {
-        "@eslint/js": "^9.25.1",
-        "@faker-js/faker": "^9.7.0",
+        "@eslint/js": "^9.27.0",
+        "@faker-js/faker": "^9.8.0",
         "@rollup/plugin-replace": "^6.0.2",
-        "@types/node": "^22.15.3",
-        "@vitest/browser": "^3.1.2",
-        "@vitest/coverage-istanbul": "^3.1.2",
-        "@vitest/ui": "^3.1.2",
+        "@types/node": "^22.15.21",
+        "@vitest/browser": "^3.1.4",
+        "@vitest/coverage-istanbul": "^3.1.4",
+        "@vitest/ui": "^3.1.4",
         "del-cli": "^6.0.0",
-        "eslint": "^9.25.1",
-        "eslint-config-prettier": "^10.1.2",
+        "eslint": "^9.27.0",
+        "eslint-config-prettier": "^10.1.5",
         "eslint-plugin-tsdoc": "^0.4.0",
         "playwright": "^1.52.0",
         "prettier": "^3.5.3",
-        "sass": "^1.87.0",
+        "sass": "^1.89.0",
         "ts-node": "^10.9.2",
         "typescript": "^5.8.3",
-        "typescript-eslint": "8.31.1",
-        "vite": "^6.3.4",
-        "vitest": "^3.1.2"
+        "typescript-eslint": "8.32.1",
+        "vite": "^6.3.5",
+        "vitest": "^3.1.4"
     }
 }
