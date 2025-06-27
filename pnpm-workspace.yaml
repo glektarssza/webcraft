@@ -2,7 +2,9 @@ packages:
   - ./app/
   - ./scripts/
   - ./packages/*/
+
 onlyBuiltDependencies:
+  - '@parcel/watcher'
   - edgedriver
   - esbuild
   - geckodriver
