@@ -4,6 +4,8 @@
  * @module
  */
 
+import {arrays} from '@webcraft/common';
+
 /**
  * A string that represents a component of a
  * {@link Namespace | logging namespace}.
@@ -23,13 +25,13 @@ export type Namespace = string;
 export const NAMESPACE_COMPONENT_SEPARATOR = ':';
 
 /**
- * The string used to indicate a single wildcard in a
+ * The string used to indicate a single character wildcard in a
  * {@link Namespace | logging namespace}.
  */
 export const NAMESPACE_SINGLE_WILDCARD = '*';
 
 /**
- * The string used to indicate a multi-wildcard in a
+ * The string used to indicate a multiple character wildcard in a
  * {@link Namespace | logging namespace}.
  */
 export const NAMESPACE_MULTIPLE_WILDCARD = `${NAMESPACE_SINGLE_WILDCARD}${NAMESPACE_SINGLE_WILDCARD}`;
@@ -46,10 +48,7 @@ export const NAMESPACE_MULTIPLE_WILDCARD = `${NAMESPACE_SINGLE_WILDCARD}${NAMESP
 export function isNamespaceComponent(
     value: unknown
 ): value is NamespaceComponent {
-    return (
-        typeof value === 'string' &&
-        !value.includes(NAMESPACE_COMPONENT_SEPARATOR)
-    );
+    return typeof value === 'string' && namespaceComponentHasWildcard(value);
 }
 
 /**
@@ -62,6 +61,65 @@ export function isNamespaceComponent(
  */
 export function isNamespace(value: unknown): value is Namespace {
     return typeof value === 'string';
+}
+
+/**
+ * Check if a {@link NamespaceComponent | logging namespace component} has a
+ * {@link NAMESPACE_SINGLE_WILDCARD | single character wildcard character} or
+ * {@link NAMESPACE_MULTIPLE_WILDCARD | multiple character wildcard character} in
+ * it.
+ *
+ * @param component - The {@link NamespaceComponent | logging namespace component}
+ * to check.
+ *
+ * @returns `true` if the {@link NamespaceComponent | logging namespace component}
+ * has a {@link NAMESPACE_SINGLE_WILDCARD | single character wildcard character}
+ * or {@link NAMESPACE_MULTIPLE_WILDCARD | multiple character wildcard character}
+ * in it, `false` otherwise.
+ */
+export function namespaceComponentHasWildcard(
+    component: NamespaceComponent
+): boolean {
+    return component.includes(NAMESPACE_SINGLE_WILDCARD);
+}
+
+/**
+ * Check if a {@link NamespaceComponent | logging namespace component} has a
+ * {@link NAMESPACE_MULTIPLE_WILDCARD | single character wildcard character} in
+ * it.
+ *
+ * @param component - The {@link NamespaceComponent | logging namespace component}
+ * to check.
+ *
+ * @returns `true` if the {@link NamespaceComponent | logging namespace component}
+ * has a
+ * {@link NAMESPACE_SINGLE_WILDCARD | single character wildcard character} in
+ * it, `false` otherwise.
+ */
+export function namespaceComponentHasSingleCharacterWildcard(
+    component: NamespaceComponent
+): boolean {
+    return (
+        component.includes(NAMESPACE_SINGLE_WILDCARD) &&
+        !component.includes(NAMESPACE_MULTIPLE_WILDCARD)
+    );
+}
+
+/**
+ * Check if a {@link NamespaceComponent | logging namespace component} has a
+ * {@link NAMESPACE_MULTIPLE_WILDCARD | multi-character wildcard character} in it.
+ *
+ * @param component - The {@link NamespaceComponent | logging namespace component}
+ * to check.
+ *
+ * @returns `true` if the {@link NamespaceComponent | logging namespace component}
+ * has a {@link NAMESPACE_MULTIPLE_WILDCARD | multi-character wildcard character}
+ * in it, `false` otherwise.
+ */
+export function namespaceComponentHasMultiCharacterWildcard(
+    component: NamespaceComponent
+): boolean {
+    return component.includes(NAMESPACE_MULTIPLE_WILDCARD);
 }
 
 /**
@@ -114,5 +172,212 @@ export function extendNamespace(
 ): Namespace {
     return namespaceFromComponents(
         ...[...namespaceToComponents(namespace), ...components]
+    );
+}
+
+/**
+ * Options that control how two
+ * {@link NamespaceComponent | logging namespace components} are matched.
+ */
+export interface NamespaceComponentMatchOptions {
+    /**
+     * Whether to expand wildcards on the lefthand side of the match.
+     *
+     * @default true
+     */
+    expandLHSWildcards?: boolean;
+
+    /**
+     * Whether to expand wildcards on the righthand side of the match.
+     *
+     * @default true
+     */
+    expandRHSWildcards?: boolean;
+}
+
+/**
+ * Check whether two {@link NamespaceComponent | logging namespace components}
+ * match.
+ *
+ * @param lhs - The lefthand side of the check.
+ * @param rhs - The righthand side of the check.
+ * @param options - The options controlling the matching.
+ *
+ * @returns `true` if the two
+ * {@link NamespaceComponent | logging namespace components} match, `false`
+ * otherwise.
+ */
+export function namespaceComponentsMatch(
+    lhs?: NamespaceComponent | null,
+    rhs?: NamespaceComponent | null,
+    options?: NamespaceComponentMatchOptions
+): boolean {
+    const opts = {
+        expandLHSWildcards: true,
+        expandRHSWildcards: true,
+        ...options
+    };
+    if (lhs === undefined || rhs === undefined) {
+        if (lhs === undefined && rhs === undefined) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    if (lhs === null || rhs === null) {
+        if (lhs === null && rhs === null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    if (lhs === '' || rhs === '') {
+        if (lhs === '' && rhs === '') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    if (
+        !namespaceComponentHasWildcard(lhs) &&
+        !namespaceComponentHasWildcard(rhs)
+    ) {
+        return lhs === rhs;
+    } else if (
+        namespaceComponentHasWildcard(lhs) &&
+        !namespaceComponentHasWildcard(rhs) &&
+        opts.expandLHSWildcards
+    ) {
+        return new RegExp(
+            lhs
+                .replace(
+                    NAMESPACE_MULTIPLE_WILDCARD,
+                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
+                )
+                .replace(
+                    NAMESPACE_SINGLE_WILDCARD,
+                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
+                )
+        ).test(rhs);
+    } else if (
+        namespaceComponentHasWildcard(lhs) &&
+        !namespaceComponentHasWildcard(rhs)
+    ) {
+        return lhs === rhs;
+    } else if (
+        !namespaceComponentHasWildcard(lhs) &&
+        namespaceComponentHasWildcard(rhs) &&
+        opts.expandRHSWildcards
+    ) {
+        return new RegExp(
+            rhs
+                .replace(
+                    NAMESPACE_MULTIPLE_WILDCARD,
+                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
+                )
+                .replace(
+                    NAMESPACE_SINGLE_WILDCARD,
+                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
+                )
+        ).test(lhs);
+    } else if (
+        !namespaceComponentHasWildcard(lhs) &&
+        namespaceComponentHasWildcard(rhs)
+    ) {
+        return lhs === rhs;
+    } else if (
+        namespaceComponentHasWildcard(lhs) &&
+        namespaceComponentHasWildcard(rhs) &&
+        opts.expandLHSWildcards &&
+        opts.expandRHSWildcards
+    ) {
+        return (
+            new RegExp(
+                lhs
+                    .replace(
+                        NAMESPACE_MULTIPLE_WILDCARD,
+                        `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
+                    )
+                    .replace(
+                        NAMESPACE_SINGLE_WILDCARD,
+                        `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
+                    )
+            ).test(rhs) ||
+            new RegExp(
+                rhs
+                    .replace(
+                        NAMESPACE_MULTIPLE_WILDCARD,
+                        `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
+                    )
+                    .replace(
+                        NAMESPACE_SINGLE_WILDCARD,
+                        `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
+                    )
+            ).test(lhs)
+        );
+    } else if (
+        namespaceComponentHasWildcard(lhs) &&
+        namespaceComponentHasWildcard(rhs) &&
+        !opts.expandLHSWildcards &&
+        opts.expandRHSWildcards
+    ) {
+        return new RegExp(
+            rhs
+                .replace(
+                    NAMESPACE_MULTIPLE_WILDCARD,
+                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
+                )
+                .replace(
+                    NAMESPACE_SINGLE_WILDCARD,
+                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
+                )
+        ).test(lhs);
+    } else if (
+        namespaceComponentHasWildcard(lhs) &&
+        namespaceComponentHasWildcard(rhs) &&
+        opts.expandLHSWildcards &&
+        !opts.expandRHSWildcards
+    ) {
+        return new RegExp(
+            rhs
+                .replace(
+                    NAMESPACE_MULTIPLE_WILDCARD,
+                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
+                )
+                .replace(
+                    NAMESPACE_SINGLE_WILDCARD,
+                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
+                )
+        ).test(lhs);
+    }
+    return lhs === rhs;
+}
+
+/**
+ * Check whether two {@link Namespace | logging namespaces} match.
+ *
+ * @param lhs - The lefthand side of the check.
+ * @param rhs - The righthand side of the check.
+ * @param options - The options controlling the matching.
+ *
+ * @returns `true` if the two {@link Namespace | logging namespaces} match,
+ * `false` otherwise.
+ */
+export function namespacesMatch(
+    lhs: Namespace,
+    rhs: Namespace,
+    options?: NamespaceComponentMatchOptions
+) {
+    const opts = {
+        expandLHSWildcards: true,
+        expandRHSWildcards: true,
+        ...options
+    };
+    const components = arrays.zip(
+        namespaceToComponents(lhs),
+        namespaceToComponents(rhs)
+    );
+    return components.every(([lhs, rhs]) =>
+        namespaceComponentsMatch(lhs, rhs, opts)
     );
 }
