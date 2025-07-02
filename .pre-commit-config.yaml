@@ -23,7 +23,7 @@ repos:
         types: [batch]
       - id: trailing-whitespace
   - repo: https://github.com/glektarssza/pre-commit-hooks.git
-    rev: v0.4.0
+    rev: v0.9.1
     hooks:
       - id: pnpm-lint
         pass_filenames: false
