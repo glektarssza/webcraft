@@ -48,7 +48,10 @@ export const NAMESPACE_MULTIPLE_WILDCARD = `${NAMESPACE_SINGLE_WILDCARD}${NAMESP
 export function isNamespaceComponent(
     value: unknown
 ): value is NamespaceComponent {
-    return typeof value === 'string' && namespaceComponentHasWildcard(value);
+    return (
+        typeof value === 'string' &&
+        !value.includes(NAMESPACE_COMPONENT_SEPARATOR)
+    );
 }
 
 /**
@@ -77,9 +80,7 @@ export function isNamespace(value: unknown): value is Namespace {
  * or {@link NAMESPACE_MULTIPLE_WILDCARD | multiple character wildcard character}
  * in it, `false` otherwise.
  */
-export function namespaceComponentHasWildcard(
-    component: NamespaceComponent
-): boolean {
+export function componentHasWildcard(component: NamespaceComponent): boolean {
     return component.includes(NAMESPACE_SINGLE_WILDCARD);
 }
 
@@ -96,7 +97,7 @@ export function namespaceComponentHasWildcard(
  * {@link NAMESPACE_SINGLE_WILDCARD | single character wildcard character} in
  * it, `false` otherwise.
  */
-export function namespaceComponentHasSingleCharacterWildcard(
+export function componentHasSingleCharacterWildcard(
     component: NamespaceComponent
 ): boolean {
     return (
@@ -116,7 +117,7 @@ export function namespaceComponentHasSingleCharacterWildcard(
  * has a {@link NAMESPACE_MULTIPLE_WILDCARD | multi-character wildcard character}
  * in it, `false` otherwise.
  */
-export function namespaceComponentHasMultiCharacterWildcard(
+export function componentHasMultiCharacterWildcard(
     component: NamespaceComponent
 ): boolean {
     return component.includes(NAMESPACE_MULTIPLE_WILDCARD);
@@ -132,9 +133,7 @@ export function namespaceComponentHasMultiCharacterWildcard(
  *
  * @returns The final {@link Namespace | logging namespace}.
  */
-export function namespaceFromComponents(
-    ...components: NamespaceComponent[]
-): Namespace {
+export function fromComponents(...components: NamespaceComponent[]): Namespace {
     return components.join(NAMESPACE_COMPONENT_SEPARATOR);
 }
 
@@ -148,10 +147,10 @@ export function namespaceFromComponents(
  * @returns The final collection of
  * {@link NamespaceComponent | logging namespace components}.
  */
-export function namespaceToComponents(
-    namespace: Namespace
-): NamespaceComponent[] {
-    return namespace.split(NAMESPACE_COMPONENT_SEPARATOR);
+export function toComponents(namespace: Namespace): NamespaceComponent[] {
+    return namespace
+        .split(NAMESPACE_COMPONENT_SEPARATOR)
+        .filter((e) => e !== '');
 }
 
 /**
@@ -166,13 +165,11 @@ export function namespaceToComponents(
  *
  * @returns The extended {@link Namespace | logging namespace}.
  */
-export function extendNamespace(
+export function extend(
     namespace: Namespace,
     ...components: NamespaceComponent[]
 ): Namespace {
-    return namespaceFromComponents(
-        ...[...namespaceToComponents(namespace), ...components]
-    );
+    return fromComponents(...toComponents(namespace), ...components);
 }
 
 /**
@@ -207,7 +204,7 @@ export interface NamespaceComponentMatchOptions {
  * {@link NamespaceComponent | logging namespace components} match, `false`
  * otherwise.
  */
-export function namespaceComponentsMatch(
+export function componentsMatch(
     lhs?: NamespaceComponent | null,
     rhs?: NamespaceComponent | null,
     options?: NamespaceComponentMatchOptions
@@ -231,21 +228,11 @@ export function namespaceComponentsMatch(
             return false;
         }
     }
-    if (lhs === '' || rhs === '') {
-        if (lhs === '' && rhs === '') {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    if (
-        !namespaceComponentHasWildcard(lhs) &&
-        !namespaceComponentHasWildcard(rhs)
-    ) {
+    if (!componentHasWildcard(lhs) && !componentHasWildcard(rhs)) {
         return lhs === rhs;
     } else if (
-        namespaceComponentHasWildcard(lhs) &&
-        !namespaceComponentHasWildcard(rhs) &&
+        componentHasWildcard(lhs) &&
+        !componentHasWildcard(rhs) &&
         opts.expandLHSWildcards
     ) {
         return new RegExp(
@@ -259,14 +246,11 @@ export function namespaceComponentsMatch(
                     `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
                 )
         ).test(rhs);
-    } else if (
-        namespaceComponentHasWildcard(lhs) &&
-        !namespaceComponentHasWildcard(rhs)
-    ) {
+    } else if (componentHasWildcard(lhs) && !componentHasWildcard(rhs)) {
         return lhs === rhs;
     } else if (
-        !namespaceComponentHasWildcard(lhs) &&
-        namespaceComponentHasWildcard(rhs) &&
+        !componentHasWildcard(lhs) &&
+        componentHasWildcard(rhs) &&
         opts.expandRHSWildcards
     ) {
         return new RegExp(
@@ -280,14 +264,11 @@ export function namespaceComponentsMatch(
                     `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
                 )
         ).test(lhs);
-    } else if (
-        !namespaceComponentHasWildcard(lhs) &&
-        namespaceComponentHasWildcard(rhs)
-    ) {
+    } else if (!componentHasWildcard(lhs) && componentHasWildcard(rhs)) {
         return lhs === rhs;
     } else if (
-        namespaceComponentHasWildcard(lhs) &&
-        namespaceComponentHasWildcard(rhs) &&
+        componentHasWildcard(lhs) &&
+        componentHasWildcard(rhs) &&
         opts.expandLHSWildcards &&
         opts.expandRHSWildcards
     ) {
@@ -316,8 +297,8 @@ export function namespaceComponentsMatch(
             ).test(lhs)
         );
     } else if (
-        namespaceComponentHasWildcard(lhs) &&
-        namespaceComponentHasWildcard(rhs) &&
+        componentHasWildcard(lhs) &&
+        componentHasWildcard(rhs) &&
         !opts.expandLHSWildcards &&
         opts.expandRHSWildcards
     ) {
@@ -333,8 +314,8 @@ export function namespaceComponentsMatch(
                 )
         ).test(lhs);
     } else if (
-        namespaceComponentHasWildcard(lhs) &&
-        namespaceComponentHasWildcard(rhs) &&
+        componentHasWildcard(lhs) &&
+        componentHasWildcard(rhs) &&
         opts.expandLHSWildcards &&
         !opts.expandRHSWildcards
     ) {
@@ -363,7 +344,7 @@ export function namespaceComponentsMatch(
  * @returns `true` if the two {@link Namespace | logging namespaces} match,
  * `false` otherwise.
  */
-export function namespacesMatch(
+export function match(
     lhs: Namespace,
     rhs: Namespace,
     options?: NamespaceComponentMatchOptions
@@ -373,11 +354,6 @@ export function namespacesMatch(
         expandRHSWildcards: true,
         ...options
     };
-    const components = arrays.zip(
-        namespaceToComponents(lhs),
-        namespaceToComponents(rhs)
-    );
-    return components.every(([lhs, rhs]) =>
-        namespaceComponentsMatch(lhs, rhs, opts)
-    );
+    const components = arrays.zip(toComponents(lhs), toComponents(rhs));
+    return components.every(([lhs, rhs]) => componentsMatch(lhs, rhs, opts));
 }
