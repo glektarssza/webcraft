@@ -29,3 +29,5 @@ repos:
         pass_filenames: false
       - id: pnpm-test
         pass_filenames: false
+        stages:
+          - pre-push
