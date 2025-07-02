@@ -548,29 +548,36 @@ describe('module:namespace', (): void => {
             expect(r).to.be.false;
         });
         it(
-            'should return `true` if the lefthand component contains a multiple character wildcard, lefthand wildcard expansion is enabled, and they are equal'
+            'should return `true` if the lefthand component contains a multiple character wildcard, lefthand wildcard expansion is enabled, and they are equal',
+            {todo: true}
         );
         it(
-            'should return `false` if the lefthand component contains a multiple character wildcard, lefthand wildcard expansion is enabled, and they are not equal'
+            'should return `false` if the lefthand component contains a multiple character wildcard, lefthand wildcard expansion is enabled, and they are not equal',
+            {todo: true}
         );
         it(
-            'should return `true` if the righthand component contains a multiple character wildcard, righthand wildcard expansion is enabled, and they are equal'
+            'should return `true` if the righthand component contains a multiple character wildcard, righthand wildcard expansion is enabled, and they are equal',
+            {todo: true}
         );
         it(
-            'should return `false` if the righthand component contains a multiple character wildcard, righthand wildcard expansion is enabled, and they are not equal'
+            'should return `false` if the righthand component contains a multiple character wildcard, righthand wildcard expansion is enabled, and they are not equal',
+            {todo: true}
         );
         it(
-            'should return `true` if the lefthand component contains a multiple character wildcard, lefthand wildcard expansion is not enabled, and they are equal'
+            'should return `true` if the lefthand component contains a multiple character wildcard, lefthand wildcard expansion is not enabled, and they are equal',
+            {todo: true}
         );
         it(
-            'should return `false` if the lefthand component contains a multiple character wildcard, lefthand wildcard expansion is not enabled, and they are not equal'
+            'should return `false` if the lefthand component contains a multiple character wildcard, lefthand wildcard expansion is not enabled, and they are not equal',
+            {todo: true}
         );
         it(
-            'should return `true` if the righthand component contains a multiple character wildcard, righthand wildcard expansion is not enabled, and they are equal'
+            'should return `true` if the righthand component contains a multiple character wildcard, righthand wildcard expansion is not enabled, and they are equal',
+            {todo: true}
         );
         it(
-            'should return `false` if the righthand component contains a multiple character wildcard, righthand wildcard expansion is not enabled, and they are not equal'
+            'should return `false` if the righthand component contains a multiple character wildcard, righthand wildcard expansion is not enabled, and they are not equal',
+            {todo: true}
         );
     });
-    describe('.match()', (): void => {});
 });
