@@ -56,7 +56,7 @@ jobs:
           token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
       - id: install-dependencies
         name: Install dependencies
-        run: pnpm install
+        run: pnpm install --recursive
       - id: build
         name: Build
         run: pnpm -r --filter webcraft run build:${{inputs.build-config}}

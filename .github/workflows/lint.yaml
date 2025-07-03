@@ -33,7 +33,7 @@ jobs:
           token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
       - id: install-dependencies
         name: Install dependencies
-        run: pnpm install
+        run: pnpm install --recursive
       - id: build-app-dependencies
         name: Build app dependencies
         shell: bash

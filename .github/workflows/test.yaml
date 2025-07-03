@@ -33,7 +33,7 @@ jobs:
           token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
       - id: install-dependencies
         name: Install dependencies
-        run: pnpm install
+        run: pnpm install --recursive
       - id: install-playwright
         name: Install Playwright
         run: pnpm exec playwright install --with-deps
