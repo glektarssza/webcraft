@@ -34,6 +34,11 @@ jobs:
       - id: install-dependencies
         name: Install dependencies
         run: pnpm install
+      - id: build-app-dependencies
+        name: Build app dependencies
+        shell: bash
+        run: |
+          find . -maxdepth 2 -type d -ipath '*/packages/*' -exec pnpm run --recursive --filter "{}^..." build \;
       - id: lint
         name: Lint
         run: pnpm run lint:ci
