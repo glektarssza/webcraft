@@ -375,7 +375,7 @@ describe('module:namespace', (): void => {
                     }
                 })
                 .split('')
-                .splice(3, 1, m.NAMESPACE_SINGLE_WILDCARD)
+                .map((e, i) => (i === 3 ? m.NAMESPACE_SINGLE_WILDCARD : e))
                 .join('');
             const rhs = lhs.replace(
                 m.NAMESPACE_SINGLE_WILDCARD,
@@ -384,7 +384,8 @@ describe('module:namespace', (): void => {
 
             //-- When
             const r = m.componentsMatch(lhs, rhs, {
-                expandLHSWildcards: true
+                expandLHSWildcards: true,
+                expandRHSWildcards: false
             });
 
             //-- Then
@@ -400,13 +401,14 @@ describe('module:namespace', (): void => {
                     }
                 })
                 .split('')
-                .splice(3, 1, m.NAMESPACE_SINGLE_WILDCARD)
+                .map((e, i) => (i === 3 ? m.NAMESPACE_SINGLE_WILDCARD : e))
                 .join('');
             const rhs = `${faker.string.alphanumeric()}${lhs.replace(m.NAMESPACE_SINGLE_WILDCARD, '')}`;
 
             //-- When
             const r = m.componentsMatch(lhs, rhs, {
-                expandLHSWildcards: true
+                expandLHSWildcards: true,
+                expandRHSWildcards: false
             });
 
             //-- Then
@@ -422,7 +424,7 @@ describe('module:namespace', (): void => {
                     }
                 })
                 .split('')
-                .splice(3, 1, m.NAMESPACE_SINGLE_WILDCARD)
+                .map((e, i) => (i === 3 ? m.NAMESPACE_SINGLE_WILDCARD : e))
                 .join('');
             const lhs = rhs.replace(
                 m.NAMESPACE_SINGLE_WILDCARD,
@@ -431,7 +433,8 @@ describe('module:namespace', (): void => {
 
             //-- When
             const r = m.componentsMatch(lhs, rhs, {
-                expandRHSWildcards: true
+                expandRHSWildcards: true,
+                expandLHSWildcards: false
             });
 
             //-- Then
@@ -447,13 +450,14 @@ describe('module:namespace', (): void => {
                     }
                 })
                 .split('')
-                .splice(3, 1, m.NAMESPACE_SINGLE_WILDCARD)
+                .map((e, i) => (i === 3 ? m.NAMESPACE_SINGLE_WILDCARD : e))
                 .join('');
             const lhs = `${faker.string.alphanumeric()}${rhs.replace(m.NAMESPACE_SINGLE_WILDCARD, '')}`;
 
             //-- When
             const r = m.componentsMatch(lhs, rhs, {
-                expandRHSWildcards: true
+                expandRHSWildcards: true,
+                expandLHSWildcards: false
             });
 
             //-- Then
@@ -469,13 +473,14 @@ describe('module:namespace', (): void => {
                     }
                 })
                 .split('')
-                .splice(3, 1, m.NAMESPACE_SINGLE_WILDCARD)
+                .map((e, i) => (i === 3 ? m.NAMESPACE_SINGLE_WILDCARD : e))
                 .join('');
             const rhs = lhs;
 
             //-- When
             const r = m.componentsMatch(lhs, rhs, {
-                expandLHSWildcards: false
+                expandLHSWildcards: false,
+                expandRHSWildcards: false
             });
 
             //-- Then
@@ -491,13 +496,14 @@ describe('module:namespace', (): void => {
                     }
                 })
                 .split('')
-                .splice(3, 1, m.NAMESPACE_SINGLE_WILDCARD)
+                .map((e, i) => (i === 3 ? m.NAMESPACE_SINGLE_WILDCARD : e))
                 .join('');
             const rhs = faker.string.alphanumeric();
 
             //-- When
             const r = m.componentsMatch(lhs, rhs, {
-                expandLHSWildcards: false
+                expandLHSWildcards: false,
+                expandRHSWildcards: false
             });
 
             //-- Then
@@ -513,13 +519,14 @@ describe('module:namespace', (): void => {
                     }
                 })
                 .split('')
-                .splice(3, 1, m.NAMESPACE_SINGLE_WILDCARD)
+                .map((e, i) => (i === 3 ? m.NAMESPACE_SINGLE_WILDCARD : e))
                 .join('');
             const lhs = rhs;
 
             //-- When
             const r = m.componentsMatch(lhs, rhs, {
-                expandRHSWildcards: false
+                expandRHSWildcards: false,
+                expandLHSWildcards: false
             });
 
             //-- Then
@@ -535,49 +542,386 @@ describe('module:namespace', (): void => {
                     }
                 })
                 .split('')
-                .splice(3, 1, m.NAMESPACE_SINGLE_WILDCARD)
+                .map((e, i) => (i === 3 ? m.NAMESPACE_SINGLE_WILDCARD : e))
                 .join('');
             const lhs = faker.string.alphanumeric();
 
             //-- When
             const r = m.componentsMatch(lhs, rhs, {
+                expandRHSWildcards: false,
+                expandLHSWildcards: false
+            });
+
+            //-- Then
+            expect(r).to.be.false;
+        });
+        it('should return `true` if the left-hand component contains a multiple character wildcard, left-hand wildcard expansion is enabled, and they are equal', (): void => {
+            //-- Given
+            const lhs = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const rhs = lhs.replace(
+                m.NAMESPACE_MULTIPLE_WILDCARD,
+                faker.string.alphanumeric({
+                    length: {
+                        min: 3,
+                        max: 6
+                    }
+                })
+            );
+
+            //-- When
+            const r = m.componentsMatch(lhs, rhs, {
+                expandLHSWildcards: true,
+                expandRHSWildcards: false
+            });
+
+            //-- Then
+            expect(r).to.be.true;
+
+            //-- Given
+            const lhs2 = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const rhs2 = lhs2.replace(
+                m.NAMESPACE_MULTIPLE_WILDCARD,
+                faker.string.alphanumeric()
+            );
+
+            //-- When
+            const r2 = m.componentsMatch(lhs2, rhs2, {
+                expandLHSWildcards: true,
+                expandRHSWildcards: false
+            });
+
+            //-- Then
+            expect(r2).to.be.true;
+
+            //-- Given
+            const lhs3 = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const rhs3 = lhs3.replace(m.NAMESPACE_MULTIPLE_WILDCARD, '');
+
+            //-- When
+            const r3 = m.componentsMatch(lhs3, rhs3, {
+                expandLHSWildcards: true,
+                expandRHSWildcards: false
+            });
+
+            //-- Then
+            expect(r3).to.be.true;
+        });
+        it('should return `false` if the left-hand component contains a multiple character wildcard, left-hand wildcard expansion is enabled, and they are not equal', (): void => {
+            //-- Given
+            const lhs = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const rhs = `${faker.string.alphanumeric({
+                length: {
+                    min: 3,
+                    max: 6
+                }
+            })}${lhs.replace(m.NAMESPACE_MULTIPLE_WILDCARD, '')}`;
+
+            //-- When
+            const r = m.componentsMatch(lhs, rhs, {
+                expandLHSWildcards: true,
+                expandRHSWildcards: false
+            });
+
+            //-- Then
+            expect(r).to.be.false;
+
+            //-- Given
+            const lhs2 = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const rhs2 = `${faker.string.alphanumeric({
+                length: {
+                    min: 3,
+                    max: 6
+                }
+            })}${lhs2.replace(m.NAMESPACE_MULTIPLE_WILDCARD, '')}`;
+
+            //-- When
+            const r2 = m.componentsMatch(lhs2, rhs2, {
+                expandLHSWildcards: true,
+                expandRHSWildcards: false
+            });
+
+            //-- Then
+            expect(r2).to.be.false;
+        });
+        it('should return `true` if the right-hand component contains a multiple character wildcard, right-hand wildcard expansion is enabled, and they are equal', (): void => {
+            //-- Given
+            const rhs = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const lhs = rhs.replace(
+                m.NAMESPACE_MULTIPLE_WILDCARD,
+                faker.string.alphanumeric({
+                    length: {
+                        min: 3,
+                        max: 6
+                    }
+                })
+            );
+
+            //-- When
+            const r = m.componentsMatch(lhs, rhs, {
+                expandRHSWildcards: true,
+                expandLHSWildcards: false
+            });
+
+            //-- Then
+            expect(r).to.be.true;
+
+            //-- Given
+            const rhs2 = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const lhs2 = rhs2.replace(
+                m.NAMESPACE_MULTIPLE_WILDCARD,
+                faker.string.alphanumeric()
+            );
+
+            //-- When
+            const r2 = m.componentsMatch(lhs2, rhs2, {
+                expandRHSWildcards: true,
+                expandLHSWildcards: false
+            });
+
+            //-- Then
+            expect(r2).to.be.true;
+
+            //-- Given
+            const rhs3 = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const lhs3 = rhs3.replace(m.NAMESPACE_MULTIPLE_WILDCARD, '');
+
+            //-- When
+            const r3 = m.componentsMatch(lhs3, rhs3, {
+                expandRHSWildcards: true,
+                expandLHSWildcards: false
+            });
+
+            //-- Then
+            expect(r3).to.be.true;
+        });
+        it('should return `false` if the right-hand component contains a multiple character wildcard, right-hand wildcard expansion is enabled, and they are not equal', (): void => {
+            //-- Given
+            const rhs = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const lhs = `${faker.string.alphanumeric({
+                length: {
+                    min: 3,
+                    max: 6
+                }
+            })}${rhs.replace(m.NAMESPACE_MULTIPLE_WILDCARD, '')}`;
+
+            //-- When
+            const r = m.componentsMatch(lhs, rhs, {
+                expandRHSWildcards: true,
+                expandLHSWildcards: false
+            });
+
+            //-- Then
+            expect(r).to.be.false;
+
+            //-- Given
+            const rhs2 = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const lhs2 = `${faker.string.alphanumeric({
+                length: {
+                    min: 3,
+                    max: 6
+                }
+            })}${rhs2.replace(m.NAMESPACE_MULTIPLE_WILDCARD, '')}`;
+
+            //-- When
+            const r2 = m.componentsMatch(lhs2, rhs2, {
+                expandRHSWildcards: true,
+                expandLHSWildcards: false
+            });
+
+            //-- Then
+            expect(r2).to.be.false;
+        });
+        it('should return `true` if the left-hand component contains a multiple character wildcard, left-hand wildcard expansion is not enabled, and they are equal', (): void => {
+            //-- Given
+            const lhs = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const rhs = lhs;
+
+            //-- When
+            const r = m.componentsMatch(lhs, rhs, {
+                expandRHSWildcards: true,
+                expandLHSWildcards: false
+            });
+
+            //-- Then
+            expect(r).to.be.true;
+        });
+        it('should return `false` if the left-hand component contains a multiple character wildcard, left-hand wildcard expansion is not enabled, and they are not equal', (): void => {
+            //-- Given
+            const lhs = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const rhs = `${faker.string.alphanumeric({
+                length: {
+                    min: 3,
+                    max: 6
+                }
+            })}${lhs}`;
+
+            //-- When
+            const r = m.componentsMatch(lhs, rhs, {
+                expandLHSWildcards: false,
                 expandRHSWildcards: false
             });
 
             //-- Then
             expect(r).to.be.false;
         });
-        it(
-            'should return `true` if the left-hand component contains a multiple character wildcard, left-hand wildcard expansion is enabled, and they are equal',
-            {todo: true}
-        );
-        it(
-            'should return `false` if the left-hand component contains a multiple character wildcard, left-hand wildcard expansion is enabled, and they are not equal',
-            {todo: true}
-        );
-        it(
-            'should return `true` if the right-hand component contains a multiple character wildcard, right-hand wildcard expansion is enabled, and they are equal',
-            {todo: true}
-        );
-        it(
-            'should return `false` if the right-hand component contains a multiple character wildcard, right-hand wildcard expansion is enabled, and they are not equal',
-            {todo: true}
-        );
-        it(
-            'should return `true` if the left-hand component contains a multiple character wildcard, left-hand wildcard expansion is not enabled, and they are equal',
-            {todo: true}
-        );
-        it(
-            'should return `false` if the left-hand component contains a multiple character wildcard, left-hand wildcard expansion is not enabled, and they are not equal',
-            {todo: true}
-        );
-        it(
-            'should return `true` if the right-hand component contains a multiple character wildcard, right-hand wildcard expansion is not enabled, and they are equal',
-            {todo: true}
-        );
-        it(
-            'should return `false` if the right-hand component contains a multiple character wildcard, right-hand wildcard expansion is not enabled, and they are not equal',
-            {todo: true}
-        );
+        it('should return `true` if the right-hand component contains a multiple character wildcard, right-hand wildcard expansion is not enabled, and they are equal', (): void => {
+            //-- Given
+            const rhs = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const lhs = rhs;
+
+            //-- When
+            const r = m.componentsMatch(lhs, rhs, {
+                expandRHSWildcards: true,
+                expandLHSWildcards: false
+            });
+
+            //-- Then
+            expect(r).to.be.true;
+        });
+        it('should return `false` if the right-hand component contains a multiple character wildcard, right-hand wildcard expansion is not enabled, and they are not equal', (): void => {
+            //-- Given
+            const rhs = faker.string
+                .alphanumeric({
+                    length: {
+                        min: 5,
+                        max: 10
+                    }
+                })
+                .split('')
+                .map((e, i) => (i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e))
+                .join('');
+            const lhs = `${faker.string.alphanumeric({
+                length: {
+                    min: 3,
+                    max: 6
+                }
+            })}${rhs}`;
+
+            //-- When
+            const r = m.componentsMatch(lhs, rhs, {
+                expandLHSWildcards: false,
+                expandRHSWildcards: false
+            });
+
+            //-- Then
+            expect(r).to.be.false;
+        });
     });
 });
