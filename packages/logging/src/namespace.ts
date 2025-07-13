@@ -212,7 +212,7 @@ export function componentsMatch(
     const opts = {
         expandLHSWildcards: true,
         expandRHSWildcards: true,
-        ...options
+        ...(options ?? {})
     };
     if (lhs === undefined || rhs === undefined) {
         if (lhs === undefined && rhs === undefined) {
@@ -228,53 +228,31 @@ export function componentsMatch(
             return false;
         }
     }
-    if (!componentHasWildcard(lhs) && !componentHasWildcard(rhs)) {
-        return lhs === rhs;
-    } else if (
-        componentHasWildcard(lhs) &&
-        !componentHasWildcard(rhs) &&
-        opts.expandLHSWildcards
-    ) {
-        return new RegExp(
-            lhs
-                .replace(
-                    NAMESPACE_MULTIPLE_WILDCARD,
-                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
-                )
-                .replace(
-                    NAMESPACE_SINGLE_WILDCARD,
-                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
-                )
-        ).test(rhs);
-    } else if (componentHasWildcard(lhs) && !componentHasWildcard(rhs)) {
-        return lhs === rhs;
-    } else if (
-        !componentHasWildcard(lhs) &&
-        componentHasWildcard(rhs) &&
-        opts.expandRHSWildcards
-    ) {
-        return new RegExp(
-            rhs
-                .replace(
-                    NAMESPACE_MULTIPLE_WILDCARD,
-                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
-                )
-                .replace(
-                    NAMESPACE_SINGLE_WILDCARD,
-                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
-                )
-        ).test(lhs);
-    } else if (!componentHasWildcard(lhs) && componentHasWildcard(rhs)) {
-        return lhs === rhs;
-    } else if (
-        componentHasWildcard(lhs) &&
-        componentHasWildcard(rhs) &&
-        opts.expandLHSWildcards &&
-        opts.expandRHSWildcards
-    ) {
-        return (
-            new RegExp(
-                lhs
+    let i = 0;
+    if (componentHasWildcard(lhs)) {
+        i = i | 1;
+    }
+    if (componentHasWildcard(rhs)) {
+        i = i | 2;
+    }
+    if (opts.expandLHSWildcards) {
+        i = i | 4;
+    }
+    if (opts.expandRHSWildcards) {
+        i = i | 8;
+    }
+    switch (i) {
+        case 0:
+        //-- Fallthrough
+        case 1:
+        //-- Fallthrough
+        case 2:
+        //-- Fallthrough
+        case 1 | 2:
+            return lhs === rhs;
+        case 1 | 4:
+            return new RegExp(
+                `^${lhs
                     .replace(
                         NAMESPACE_MULTIPLE_WILDCARD,
                         `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
@@ -282,10 +260,11 @@ export function componentsMatch(
                     .replace(
                         NAMESPACE_SINGLE_WILDCARD,
                         `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
-                    )
-            ).test(rhs) ||
-            new RegExp(
-                rhs
+                    )}$`
+            ).test(rhs);
+        case 2 | 8:
+            return new RegExp(
+                `^${rhs
                     .replace(
                         NAMESPACE_MULTIPLE_WILDCARD,
                         `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
@@ -293,43 +272,57 @@ export function componentsMatch(
                     .replace(
                         NAMESPACE_SINGLE_WILDCARD,
                         `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
+                    )}$`
+            ).test(lhs);
+        case 1 | 2 | 4:
+            return new RegExp(
+                `^${rhs
+                    .replace(
+                        NAMESPACE_MULTIPLE_WILDCARD,
+                        `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
                     )
-            ).test(lhs)
-        );
-    } else if (
-        componentHasWildcard(lhs) &&
-        componentHasWildcard(rhs) &&
-        !opts.expandLHSWildcards &&
-        opts.expandRHSWildcards
-    ) {
-        return new RegExp(
-            rhs
-                .replace(
-                    NAMESPACE_MULTIPLE_WILDCARD,
-                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
-                )
-                .replace(
-                    NAMESPACE_SINGLE_WILDCARD,
-                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
-                )
-        ).test(lhs);
-    } else if (
-        componentHasWildcard(lhs) &&
-        componentHasWildcard(rhs) &&
-        opts.expandLHSWildcards &&
-        !opts.expandRHSWildcards
-    ) {
-        return new RegExp(
-            rhs
-                .replace(
-                    NAMESPACE_MULTIPLE_WILDCARD,
-                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
-                )
-                .replace(
-                    NAMESPACE_SINGLE_WILDCARD,
-                    `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
-                )
-        ).test(lhs);
+                    .replace(
+                        NAMESPACE_SINGLE_WILDCARD,
+                        `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
+                    )}$`
+            ).test(lhs);
+        case 1 | 2 | 8:
+            return new RegExp(
+                `^${rhs
+                    .replace(
+                        NAMESPACE_MULTIPLE_WILDCARD,
+                        `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
+                    )
+                    .replace(
+                        NAMESPACE_SINGLE_WILDCARD,
+                        `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
+                    )}$`
+            ).test(lhs);
+        case 1 | 2 | 4 | 8:
+            return (
+                new RegExp(
+                    `^${lhs
+                        .replace(
+                            NAMESPACE_MULTIPLE_WILDCARD,
+                            `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
+                        )
+                        .replace(
+                            NAMESPACE_SINGLE_WILDCARD,
+                            `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
+                        )}$`
+                ).test(rhs) ||
+                new RegExp(
+                    `^${rhs
+                        .replace(
+                            NAMESPACE_MULTIPLE_WILDCARD,
+                            `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
+                        )
+                        .replace(
+                            NAMESPACE_SINGLE_WILDCARD,
+                            `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
+                        )}$`
+                ).test(lhs)
+            );
     }
     return lhs === rhs;
 }
