@@ -365,7 +365,7 @@ describe('module:namespace', (): void => {
             //-- Then
             expect(r).to.be.false;
         });
-        it('should return `true` if the lefthand component contains a single character wildcard, lefthand wildcard expansion is enabled, and they are equal', (): void => {
+        it('should return `true` if the left-hand component contains a single character wildcard, left-hand wildcard expansion is enabled, and they are equal', (): void => {
             //-- Given
             const lhs = faker.string
                 .alphanumeric({
@@ -390,7 +390,7 @@ describe('module:namespace', (): void => {
             //-- Then
             expect(r).to.be.true;
         });
-        it('should return `false` if the lefthand component contains a single character wildcard, lefthand wildcard expansion is enabled, and they are not equal', (): void => {
+        it('should return `false` if the left-hand component contains a single character wildcard, left-hand wildcard expansion is enabled, and they are not equal', (): void => {
             //-- Given
             const lhs = faker.string
                 .alphanumeric({
@@ -412,7 +412,7 @@ describe('module:namespace', (): void => {
             //-- Then
             expect(r).to.be.false;
         });
-        it('should return `true` if the righthand component contains a single character wildcard, righthand wildcard expansion is enabled, and they are equal', (): void => {
+        it('should return `true` if the right-hand component contains a single character wildcard, right-hand wildcard expansion is enabled, and they are equal', (): void => {
             //-- Given
             const rhs = faker.string
                 .alphanumeric({
@@ -437,7 +437,7 @@ describe('module:namespace', (): void => {
             //-- Then
             expect(r).to.be.true;
         });
-        it('should return `false` if the righthand component contains a single character wildcard, righthand wildcard expansion is enabled, and they are not equal', (): void => {
+        it('should return `false` if the right-hand component contains a single character wildcard, right-hand wildcard expansion is enabled, and they are not equal', (): void => {
             //-- Given
             const rhs = faker.string
                 .alphanumeric({
@@ -459,7 +459,7 @@ describe('module:namespace', (): void => {
             //-- Then
             expect(r).to.be.false;
         });
-        it('should return `true` if the lefthand component contains a single character wildcard, lefthand wildcard expansion is not enabled, and they are equal', (): void => {
+        it('should return `true` if the left-hand component contains a single character wildcard, left-hand wildcard expansion is not enabled, and they are equal', (): void => {
             //-- Given
             const lhs = faker.string
                 .alphanumeric({
@@ -481,7 +481,7 @@ describe('module:namespace', (): void => {
             //-- Then
             expect(r).to.be.true;
         });
-        it('should return `false` if the lefthand component contains a single character wildcard, lefthand wildcard expansion is not enabled, and they are not equal', (): void => {
+        it('should return `false` if the left-hand component contains a single character wildcard, left-hand wildcard expansion is not enabled, and they are not equal', (): void => {
             //-- Given
             const lhs = faker.string
                 .alphanumeric({
@@ -503,7 +503,7 @@ describe('module:namespace', (): void => {
             //-- Then
             expect(r).to.be.false;
         });
-        it('should return `true` if the righthand component contains a single character wildcard, righthand wildcard expansion is not enabled, and they are equal', (): void => {
+        it('should return `true` if the right-hand component contains a single character wildcard, right-hand wildcard expansion is not enabled, and they are equal', (): void => {
             //-- Given
             const rhs = faker.string
                 .alphanumeric({
@@ -525,7 +525,7 @@ describe('module:namespace', (): void => {
             //-- Then
             expect(r).to.be.true;
         });
-        it('should return `false` if the righthand component contains a single character wildcard, righthand wildcard expansion is not enabled, and they are not equal', (): void => {
+        it('should return `false` if the right-hand component contains a single character wildcard, right-hand wildcard expansion is not enabled, and they are not equal', (): void => {
             //-- Given
             const rhs = faker.string
                 .alphanumeric({
@@ -548,35 +548,35 @@ describe('module:namespace', (): void => {
             expect(r).to.be.false;
         });
         it(
-            'should return `true` if the lefthand component contains a multiple character wildcard, lefthand wildcard expansion is enabled, and they are equal',
+            'should return `true` if the left-hand component contains a multiple character wildcard, left-hand wildcard expansion is enabled, and they are equal',
             {todo: true}
         );
         it(
-            'should return `false` if the lefthand component contains a multiple character wildcard, lefthand wildcard expansion is enabled, and they are not equal',
+            'should return `false` if the left-hand component contains a multiple character wildcard, left-hand wildcard expansion is enabled, and they are not equal',
             {todo: true}
         );
         it(
-            'should return `true` if the righthand component contains a multiple character wildcard, righthand wildcard expansion is enabled, and they are equal',
+            'should return `true` if the right-hand component contains a multiple character wildcard, right-hand wildcard expansion is enabled, and they are equal',
             {todo: true}
         );
         it(
-            'should return `false` if the righthand component contains a multiple character wildcard, righthand wildcard expansion is enabled, and they are not equal',
+            'should return `false` if the right-hand component contains a multiple character wildcard, right-hand wildcard expansion is enabled, and they are not equal',
             {todo: true}
         );
         it(
-            'should return `true` if the lefthand component contains a multiple character wildcard, lefthand wildcard expansion is not enabled, and they are equal',
+            'should return `true` if the left-hand component contains a multiple character wildcard, left-hand wildcard expansion is not enabled, and they are equal',
             {todo: true}
         );
         it(
-            'should return `false` if the lefthand component contains a multiple character wildcard, lefthand wildcard expansion is not enabled, and they are not equal',
+            'should return `false` if the left-hand component contains a multiple character wildcard, left-hand wildcard expansion is not enabled, and they are not equal',
             {todo: true}
         );
         it(
-            'should return `true` if the righthand component contains a multiple character wildcard, righthand wildcard expansion is not enabled, and they are equal',
+            'should return `true` if the right-hand component contains a multiple character wildcard, right-hand wildcard expansion is not enabled, and they are equal',
             {todo: true}
         );
         it(
-            'should return `false` if the righthand component contains a multiple character wildcard, righthand wildcard expansion is not enabled, and they are not equal',
+            'should return `false` if the right-hand component contains a multiple character wildcard, right-hand wildcard expansion is not enabled, and they are not equal',
             {todo: true}
         );
     });
