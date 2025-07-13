@@ -8,10 +8,6 @@
                 "id": "cloud-download",
                 "color": "terminal.ansiWhite"
             },
-            "group": {
-                "kind": "none",
-                "isDefault": true
-            },
             "hide": false,
             "isBackground": false,
             "promptOnClose": false,
@@ -140,10 +136,6 @@
                 "id": "trashcan",
                 "color": "terminal.ansiWhite"
             },
-            "group": {
-                "kind": "none",
-                "isDefault": false
-            },
             "hide": false,
             "isBackground": false,
             "promptOnClose": false,
@@ -173,10 +165,6 @@
                 "id": "trashcan",
                 "color": "terminal.ansiCyan"
             },
-            "group": {
-                "kind": "none",
-                "isDefault": false
-            },
             "hide": false,
             "isBackground": false,
             "promptOnClose": false,
@@ -205,10 +193,6 @@
             "icon": {
                 "id": "trashcan",
                 "color": "terminal.ansiGreen"
-            },
-            "group": {
-                "kind": "none",
-                "isDefault": false
             },
             "hide": false,
             "isBackground": false,
@@ -240,7 +224,7 @@
                 "color": "terminal.ansiWhite"
             },
             "group": {
-                "kind": "none",
+                "kind": "build",
                 "isDefault": false
             },
             "hide": false,
@@ -273,7 +257,7 @@
                 "color": "terminal.ansiCyan"
             },
             "group": {
-                "kind": "none",
+                "kind": "build",
                 "isDefault": false
             },
             "hide": false,
@@ -306,7 +290,7 @@
                 "color": "terminal.ansiGreen"
             },
             "group": {
-                "kind": "none",
+                "kind": "build",
                 "isDefault": false
             },
             "hide": false,
@@ -337,10 +321,6 @@
             "icon": {
                 "id": "search-fuzzy",
                 "color": "terminal.ansiYellow"
-            },
-            "group": {
-                "kind": "none",
-                "isDefault": false
             },
             "hide": false,
             "isBackground": false,
@@ -398,6 +378,52 @@
             "problemMatcher": []
         },
         {
+            "label": "pnpm:test:watch",
+            "detail": "Test the project using pnpm in watch mode.",
+            "icon": {
+                "id": "beaker",
+                "color": "terminal.ansiMagenta"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "hide": false,
+            "isBackground": true,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run test",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "always",
+                "focus": false,
+                "panel": "dedicated",
+                "showReuseMessage": false,
+                "clear": true
+            },
+            "problemMatcher": [
+                {
+                    "applyTo": "allDocuments",
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": "RERUN",
+                        "endsPattern": "Waiting for file changes"
+                    },
+                    "fileLocation": "autoDetect",
+                    "source": "pnpm:vitest",
+                    "severity": "info",
+                    "pattern": []
+                }
+            ]
+        },
+        {
             "label": "pnpm:test:ui",
             "detail": "Test the project in UI mode using pnpm.",
             "icon": {
@@ -433,13 +459,8 @@
                     "applyTo": "allDocuments",
                     "background": {
                         "activeOnStart": true,
-                        "beginsPattern": {
-                            "regexp": "RERUN\\s+(.+)",
-                            "file": 1
-                        },
-                        "endsPattern": {
-                            "regexp": "Waiting for file changes"
-                        }
+                        "beginsPattern": "RERUN",
+                        "endsPattern": "Waiting for file changes"
                     },
                     "fileLocation": "autoDetect",
                     "severity": "info",
@@ -463,10 +484,6 @@
             "icon": {
                 "id": "run",
                 "color": "terminal.ansiCyan"
-            },
-            "group": {
-                "kind": "none",
-                "isDefault": false
             },
             "hide": false,
             "isBackground": true,
@@ -493,12 +510,8 @@
                     "applyTo": "allDocuments",
                     "background": {
                         "activeOnStart": true,
-                        "beginsPattern": {
-                            "regexp": "this should never trigger"
-                        },
-                        "endsPattern": {
-                            "regexp": "ready in \\d+ ms"
-                        }
+                        "beginsPattern": "this should never trigger",
+                        "endsPattern": "ready in \\d+ ms"
                     },
                     "fileLocation": "autoDetect",
                     "severity": "info",
