@@ -178,14 +178,14 @@ export function extend(
  */
 export interface NamespaceComponentMatchOptions {
     /**
-     * Whether to expand wildcards on the lefthand side of the match.
+     * Whether to expand wildcards on the left-hand side of the match.
      *
      * @default true
      */
     expandLHSWildcards?: boolean;
 
     /**
-     * Whether to expand wildcards on the righthand side of the match.
+     * Whether to expand wildcards on the right-hand side of the match.
      *
      * @default true
      */
@@ -196,8 +196,8 @@ export interface NamespaceComponentMatchOptions {
  * Check whether two {@link NamespaceComponent | logging namespace components}
  * match.
  *
- * @param lhs - The lefthand side of the check.
- * @param rhs - The righthand side of the check.
+ * @param lhs - The left-hand side of the check.
+ * @param rhs - The right-hand side of the check.
  * @param options - The options controlling the matching.
  *
  * @returns `true` if the two
@@ -337,8 +337,8 @@ export function componentsMatch(
 /**
  * Check whether two {@link Namespace | logging namespaces} match.
  *
- * @param lhs - The lefthand side of the check.
- * @param rhs - The righthand side of the check.
+ * @param lhs - The left-hand side of the check.
+ * @param rhs - The right-hand side of the check.
  * @param options - The options controlling the matching.
  *
  * @returns `true` if the two {@link Namespace | logging namespaces} match,
