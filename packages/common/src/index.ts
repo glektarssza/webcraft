@@ -4,5 +4,5 @@
  * @module
  */
 
+export * from './result';
 export * as arrays from './arrays';
-export {Result} from './result';
