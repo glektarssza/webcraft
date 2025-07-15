@@ -16,6 +16,12 @@
             "url": "http://localhost:5173",
             "webRoot": "${workspaceFolder}",
             "preLaunchTask": "pnpm:dev"
+        },
+        {
+            "name": "Launch Vitest",
+            "request": "attach",
+            "type": "node",
+            "preLaunchTask": "pnpm:test:debug"
         }
     ]
 }

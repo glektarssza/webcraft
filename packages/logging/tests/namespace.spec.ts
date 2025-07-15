@@ -1289,4 +1289,69 @@ describe('module:namespace', (): void => {
             expect(r).to.be.false;
         });
     });
+    describe('.match()', (): void => {
+        it('should return `true` if two namespaces match', (): void => {
+            //-- Given
+            const lhsComps = faker.helpers.multiple(
+                () =>
+                    faker.string.alphanumeric({
+                        length: {
+                            min: 5,
+                            max: 10
+                        }
+                    }),
+                {
+                    count: 5
+                }
+            );
+            const rhsComps = Array.from(lhsComps);
+            const lhs = m.fromComponents(...lhsComps);
+            const rhs = m.fromComponents(...rhsComps);
+
+            //-- When
+            const r = m.match(lhs, rhs);
+
+            //-- Then
+            expect(r).to.be.true;
+
+            //-- Given
+            const lhsComps1 = faker.helpers.multiple(
+                () =>
+                    faker.string.alphanumeric({
+                        length: {
+                            min: 5,
+                            max: 10
+                        }
+                    }),
+                {
+                    count: 5
+                }
+            );
+            const rhsComps1 = Array.from(lhsComps1);
+            lhsComps1.splice(
+                2,
+                1,
+                lhsComps1[2]!
+                    .split('')
+                    .map((e, i) =>
+                        i === 3 ? m.NAMESPACE_MULTIPLE_WILDCARD : e
+                    )
+                    .join('')
+            );
+            const lhs1 = m.fromComponents(...lhsComps1);
+            const rhs1 = m.fromComponents(...rhsComps1);
+
+            console.debug(`LHS: ${lhs1}\n`);
+            console.debug(`RHS: ${rhs1}\n`);
+
+            //-- When
+            const r1 = m.match(lhs1, rhs1);
+
+            //-- Then
+            expect(r1).to.be.true;
+        });
+        it('should return `false` if two namespaces do not match', {
+            todo: true
+        });
+    });
 });
