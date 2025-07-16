@@ -50,7 +50,7 @@
                 "--no-file-parallelism",
                 "--inspect-brk"
             ],
-            "console": "integratedTerminal"
+            "console": "internalConsole"
         },
         {
             "name": "Launch Vitest in Browser Mode for Current File",
