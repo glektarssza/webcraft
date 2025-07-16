@@ -419,7 +419,16 @@
                     "fileLocation": "autoDetect",
                     "source": "pnpm:vitest",
                     "severity": "info",
-                    "pattern": []
+                    "pattern": [
+                        {
+                            "regexp": "(.+):(\\d+):(\\d+):\\s+(ERROR):\\s(.+)",
+                            "file": 1,
+                            "line": 2,
+                            "column": 3,
+                            "severity": 4,
+                            "message": 5
+                        }
+                    ]
                 }
             ]
         },
@@ -461,6 +470,61 @@
                         "activeOnStart": true,
                         "beginsPattern": "RERUN",
                         "endsPattern": "Waiting for file changes"
+                    },
+                    "fileLocation": "autoDetect",
+                    "severity": "info",
+                    "source": "vite",
+                    "pattern": [
+                        {
+                            "regexp": "(.+):(\\d+):(\\d+):\\s+(ERROR):\\s(.+)",
+                            "file": 1,
+                            "line": 2,
+                            "column": 3,
+                            "severity": 4,
+                            "message": 5
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "label": "pnpm:test:debug",
+            "detail": "Test the project in debug mode using pnpm.",
+            "icon": {
+                "id": "beaker",
+                "color": "terminal.ansiCyan"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "hide": false,
+            "isBackground": true,
+            "promptOnClose": false,
+            "dependsOrder": "sequence",
+            "dependsOn": ["pnpm:install"],
+            "type": "shell",
+            "command": "pnpm run test:debug",
+            "runOptions": {
+                "instanceLimit": 1,
+                "reevaluateOnRerun": true,
+                "runOn": "default"
+            },
+            "presentation": {
+                "echo": false,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "problemMatcher": [
+                {
+                    "applyTo": "allDocuments",
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": "this should never trigger",
+                        "endsPattern": "Debugger listening on"
                     },
                     "fileLocation": "autoDetect",
                     "severity": "info",

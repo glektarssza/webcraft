@@ -16,6 +16,119 @@
             "url": "http://localhost:5173",
             "webRoot": "${workspaceFolder}",
             "preLaunchTask": "pnpm:dev"
+        },
+        {
+            "name": "Launch Vitest",
+            "request": "launch",
+            "type": "node",
+            "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+            "args": ["run"],
+            "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+            "smartStep": true,
+            "autoAttachChildProcesses": true,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Launch Vitest for Current File",
+            "request": "launch",
+            "type": "node",
+            "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+            "args": ["run", "${relativeFile}"],
+            "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+            "smartStep": true,
+            "autoAttachChildProcesses": true,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Launch Vitest in Browser Mode",
+            "request": "launch",
+            "type": "node",
+            "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+            "args": [
+                "run",
+                "--browser",
+                "--no-file-parallelism",
+                "--inspect-brk"
+            ],
+            "console": "internalConsole"
+        },
+        {
+            "name": "Launch Vitest in Browser Mode for Current File",
+            "request": "launch",
+            "type": "node",
+            "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+            "args": [
+                "run",
+                "--browser",
+                "--no-file-parallelism",
+                "--inspect-brk",
+                "${relativeFile}"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Attach to Edge",
+            "port": 9229,
+            "request": "attach",
+            "type": "msedge",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Attach to Chrome",
+            "port": 9229,
+            "request": "attach",
+            "type": "chrome",
+            "webRoot": "${workspaceFolder}"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Launch Vitest and Edge",
+            "configurations": [
+                "Launch Vitest in Browser Mode",
+                "Attach to Edge"
+            ],
+            "stopAll": true,
+            "presentation": {
+                "order": 1,
+                "hidden": false
+            }
+        },
+        {
+            "name": "Launch Vitest and Chrome",
+            "configurations": [
+                "Launch Vitest in Browser Mode",
+                "Attach to Chrome"
+            ],
+            "stopAll": true,
+            "presentation": {
+                "order": 2,
+                "hidden": false
+            }
+        },
+        {
+            "name": "Launch Vitest and Edge for Current File",
+            "configurations": [
+                "Launch Vitest in Browser Mode for Current File",
+                "Attach to Edge"
+            ],
+            "stopAll": true,
+            "presentation": {
+                "order": 3,
+                "hidden": false
+            }
+        },
+        {
+            "name": "Launch Vitest and Chrome for Current File",
+            "configurations": [
+                "Launch Vitest in Browser Mode for Current File",
+                "Attach to Chrome"
+            ],
+            "stopAll": true,
+            "presentation": {
+                "order": 4,
+                "hidden": false
+            }
         }
     ]
 }

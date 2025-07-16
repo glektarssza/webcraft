@@ -33,10 +33,15 @@ jobs:
           token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
       - id: install-dependencies
         name: Install dependencies
-        run: pnpm install
+        run: pnpm install --recursive
       - id: install-playwright
         name: Install Playwright
         run: pnpm exec playwright install --with-deps
+      - id: build-app-dependencies
+        name: Build app dependencies
+        shell: bash
+        run: |
+          find . -maxdepth 2 -type d -ipath '*/packages/*' -exec pnpm run --recursive --filter "{}^..." build \;
       - id: test
         name: Test
         run: pnpm run test:ci

@@ -26,6 +26,7 @@
         "test:ci": "pnpm test --coverage.reporter=html --coverage.reporter=text",
         "test:ui": "pnpm run test:base --ui --coverage.reporter=html",
         "test:watch": "pnpm test:base --watch",
+        "test:debug": "pnpm test:base --no-file-parallelism --inspectBrk",
         "lint": "pnpm -r run lint",
         "lint:fix": "pnpm -r run lint:fix",
         "lint:ci": "pnpm -r run lint:ci",
