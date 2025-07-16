@@ -53,7 +53,7 @@ program
     .description('Generate application favicons.')
     .addHelpText(
         'afterAll',
-        "Copyright (c) 2025 G'lek Tarssza, all rights reserved."
+        "Copyright (c) 2024-2025 G'lek Tarssza, all rights reserved."
     );
 
 program
