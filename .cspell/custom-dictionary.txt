@@ -1,5 +1,6 @@
 # Custom Dictionary Words
 eslintcache
+emerg
 favicons
 ipath
 magick
