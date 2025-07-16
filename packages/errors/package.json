@@ -1,0 +1,90 @@
+{
+    "name": "@webcraft/errors",
+    "description": "An errors library for the Webcraft project.",
+    "version": "0.0.0",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "private": true,
+    "author": {
+        "name": "G'lek Tarssza",
+        "email": "glek@glektarssza.com",
+        "url": "https://glektarssza.com"
+    },
+    "homepage": "https://glektarssza.github.io/webcraft/",
+    "bugs": {
+        "url": "https://github.com/glektarssza/webcraft/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/glektarssza/webcraft.git",
+        "directory": "./packages/errors/"
+    },
+    "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
+    "type": "module",
+    "exports": {
+        "types": "./dist/types/index.d.ts",
+        "development": {
+            "import": "./dist/dev/webcraft-errors.es.js",
+            "require": "./dist/dev/webcraft-errors.cjs.js",
+            "default": "./dist/dev/webcraft-errors.umd.js"
+        },
+        "production": {
+            "import": "./dist/prod/webcraft-errors.es.min.js",
+            "require": "./dist/prod/webcraft-errors.cjs.min.js",
+            "default": "./dist/prod/webcraft-errors.umd.min.js"
+        },
+        "import": "./dist/prod/webcraft-errors.es.min.js",
+        "require": "./dist/prod/webcraft-errors.cjs.min.js",
+        "default": "./dist/prod/webcraft-errors.umd.min.js"
+    },
+    "scripts": {
+        "dev": "vite serve --mode development",
+        "test": "vitest --run --coverage",
+        "test:ci": "vitest --run --coverage",
+        "test:ui": "vitest --ui",
+        "lint": "pnpm run eslint && pnpm run prettier",
+        "lint:fix": "pnpm run eslint:fix && pnpm run prettier:fix",
+        "lint:ci": "pnpm run eslint:ci && pnpm run prettier:ci",
+        "eslint": "eslint --cache ./src/ ./tests/",
+        "eslint:fix": "eslint --cache --fix ./src/ ./tests/",
+        "eslint:ci": "eslint ./src/ ./tests/",
+        "prettier": "prettier --config ../../.prettierrc.json --ignore-path ../../.prettierignore --ignore-path ../../.gitignore --cache --check .",
+        "prettier:fix": "prettier --config ../../.prettierrc.json --ignore-path ../../.prettierignore --ignore-path ../../.gitignore --cache --write .",
+        "prettier:ci": "prettier --config ../../.prettierrc.json --ignore-path ../../.prettierignore --ignore-path ../../.gitignore --check .",
+        "build": "pnpm run build:all",
+        "build:all": "pnpm run build:prod && pnpm run build:dev && pnpm run build:types",
+        "build:prod": "vite build --mode production",
+        "build:dev": "vite build --mode development",
+        "build:types": "tsc --project ./src/tsconfig.json --emitDeclarationOnly --declaration --outDir ./dist/types/",
+        "clean": "pnpm run clean:all",
+        "clean:all": "del-cli \"./dist/\"",
+        "clean:prod": "del-cli \"./dist/prod/\"",
+        "clean:dev": "del-cli \"./dist/dev/\"",
+        "clean:types": "del-cli \"./dist/types/\"",
+        "rebuild": "pnpm run rebuild:all",
+        "rebuild:all": "pnpm run clean:all && pnpm run build:all",
+        "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod",
+        "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev",
+        "rebuild:types": "pnpm run clean:types && pnpm run build:types"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.29.0",
+        "@faker-js/faker": "^9.8.0",
+        "@rollup/plugin-replace": "^6.0.2",
+        "@types/node": "^24.0.4",
+        "@vitest/browser": "^3.2.4",
+        "@vitest/coverage-istanbul": "^3.2.4",
+        "@vitest/ui": "^3.2.4",
+        "del-cli": "^6.0.0",
+        "eslint": "^9.29.0",
+        "eslint-config-prettier": "^10.1.5",
+        "eslint-plugin-tsdoc": "^0.4.0",
+        "playwright": "^1.53.1",
+        "prettier": "^3.6.2",
+        "sass": "^1.89.2",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.3",
+        "typescript-eslint": "8.35.0",
+        "vite": "^7.0.0",
+        "vitest": "^3.2.4"
+    }
+}
