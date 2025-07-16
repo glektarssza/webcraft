@@ -212,7 +212,7 @@ export function componentsMatch(
     const opts = {
         expandLHSWildcards: true,
         expandRHSWildcards: true,
-        ...(options ?? {})
+        ...options
     };
     if (lhs === undefined || rhs === undefined) {
         if (lhs === undefined && rhs === undefined) {
@@ -249,8 +249,14 @@ export function componentsMatch(
         case 2:
         //-- Fallthrough
         case 1 | 2:
+        //-- Fallthrough
+        case 2 | 4:
             return lhs === rhs;
         case 1 | 4:
+        //-- Fallthrough
+        case 1 | 2 | 8:
+        //-- Fallthrough
+        case 1 | 4 | 8:
             return new RegExp(
                 `^${lhs
                     .replace(
@@ -263,30 +269,10 @@ export function componentsMatch(
                     )}$`
             ).test(rhs);
         case 2 | 8:
-            return new RegExp(
-                `^${rhs
-                    .replace(
-                        NAMESPACE_MULTIPLE_WILDCARD,
-                        `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
-                    )
-                    .replace(
-                        NAMESPACE_SINGLE_WILDCARD,
-                        `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
-                    )}$`
-            ).test(lhs);
+        //-- Fallthrough
         case 1 | 2 | 4:
-            return new RegExp(
-                `^${rhs
-                    .replace(
-                        NAMESPACE_MULTIPLE_WILDCARD,
-                        `[^${NAMESPACE_COMPONENT_SEPARATOR}]{0,}`
-                    )
-                    .replace(
-                        NAMESPACE_SINGLE_WILDCARD,
-                        `[^${NAMESPACE_COMPONENT_SEPARATOR}]{1}`
-                    )}$`
-            ).test(lhs);
-        case 1 | 2 | 8:
+        //-- Fallthrough
+        case 2 | 4 | 8:
             return new RegExp(
                 `^${rhs
                     .replace(
@@ -348,5 +334,6 @@ export function match(
         ...options
     };
     const components = arrays.zip(toComponents(lhs), toComponents(rhs));
+    console.debug(components);
     return components.every(([lhs, rhs]) => componentsMatch(lhs, rhs, opts));
 }

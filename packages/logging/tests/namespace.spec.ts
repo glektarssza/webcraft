@@ -312,7 +312,12 @@ describe('module:namespace', (): void => {
         });
         it('should return `false` if the one component is `undefined`', (): void => {
             //-- Given
-            const lhs = faker.string.alphanumeric();
+            const lhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
             const rhs = undefined;
 
             //-- When
@@ -334,7 +339,12 @@ describe('module:namespace', (): void => {
         });
         it('should return `false` if the one component is `null`', (): void => {
             //-- Given
-            const lhs = faker.string.alphanumeric();
+            const lhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
             const rhs = null;
 
             //-- When
@@ -345,7 +355,12 @@ describe('module:namespace', (): void => {
         });
         it('should return `true` if the neither component contains wildcards, both wildcard expansions are disabled, and they are equal', (): void => {
             //-- Given
-            const lhs = faker.string.alphanumeric();
+            const lhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
             const rhs = lhs;
 
             //-- When
@@ -359,8 +374,18 @@ describe('module:namespace', (): void => {
         });
         it('should return `false` if the neither component contains wildcards, both wildcard expansions are disabled, and they are not equal', (): void => {
             //-- Given
-            const lhs = faker.string.alphanumeric();
-            const rhs = faker.string.alphanumeric();
+            const lhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
+            const rhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
 
             //-- When
             const r = m.componentsMatch(lhs, rhs, {
@@ -373,7 +398,12 @@ describe('module:namespace', (): void => {
         });
         it('should return `true` if the neither component contains wildcards, both wildcard expansions are enabled, and they are equal', (): void => {
             //-- Given
-            const lhs = faker.string.alphanumeric();
+            const lhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
             const rhs = lhs;
 
             //-- When
@@ -387,8 +417,18 @@ describe('module:namespace', (): void => {
         });
         it('should return `false` if the neither component contains wildcards, both wildcard expansions are enabled, and they are not equal', (): void => {
             //-- Given
-            const lhs = faker.string.alphanumeric();
-            const rhs = faker.string.alphanumeric();
+            const lhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
+            const rhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
 
             //-- When
             const r = m.componentsMatch(lhs, rhs, {
@@ -401,7 +441,12 @@ describe('module:namespace', (): void => {
         });
         it('should return `true` if the neither component contains wildcards, left-hand wildcard expansions is enabled, and they are equal', (): void => {
             //-- Given
-            const lhs = faker.string.alphanumeric();
+            const lhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
             const rhs = lhs;
 
             //-- When
@@ -415,8 +460,18 @@ describe('module:namespace', (): void => {
         });
         it('should return `false` if the neither component contains wildcards, left-hand wildcard expansions is enabled, and they are not equal', (): void => {
             //-- Given
-            const lhs = faker.string.alphanumeric();
-            const rhs = faker.string.alphanumeric();
+            const lhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
+            const rhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
 
             //-- When
             const r = m.componentsMatch(lhs, rhs, {
@@ -429,7 +484,12 @@ describe('module:namespace', (): void => {
         });
         it('should return `true` if the neither component contains wildcards, right-hand wildcard expansions is enabled, and they are equal', (): void => {
             //-- Given
-            const lhs = faker.string.alphanumeric();
+            const lhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
             const rhs = lhs;
 
             //-- When
@@ -443,8 +503,18 @@ describe('module:namespace', (): void => {
         });
         it('should return `false` if the neither component contains wildcards, right-hand wildcard expansions is enabled, and they are not equal', (): void => {
             //-- Given
-            const lhs = faker.string.alphanumeric();
-            const rhs = faker.string.alphanumeric();
+            const lhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
+            const rhs = faker.string.alphanumeric({
+                length: {
+                    min: 5,
+                    max: 10
+                }
+            });
 
             //-- When
             const r = m.componentsMatch(lhs, rhs, {
@@ -1350,8 +1420,83 @@ describe('module:namespace', (): void => {
             //-- Then
             expect(r1).to.be.true;
         });
-        it('should return `false` if two namespaces do not match', {
-            todo: true
+        it('should return `false` if two namespaces do not match', (): void => {
+            //-- Given
+            const lhsComps = faker.helpers.multiple(
+                () =>
+                    faker.string.alphanumeric({
+                        length: {
+                            min: 5,
+                            max: 10
+                        }
+                    }),
+                {
+                    count: 5
+                }
+            );
+            const rhsComps = faker.helpers.multiple(
+                () =>
+                    faker.string.alphanumeric({
+                        length: {
+                            min: 5,
+                            max: 10
+                        }
+                    }),
+                {
+                    count: 5
+                }
+            );
+            const lhs = m.fromComponents(...lhsComps);
+            const rhs = m.fromComponents(...rhsComps);
+
+            //-- When
+            const r = m.match(lhs, rhs);
+
+            //-- Then
+            expect(r).to.be.false;
+
+            //-- Given
+            const lhsComps1 = faker.helpers.multiple(
+                () =>
+                    faker.string.alphanumeric({
+                        length: {
+                            min: 5,
+                            max: 10
+                        }
+                    }),
+                {
+                    count: 5
+                }
+            );
+            const rhsComps1 = Array.from(lhsComps1);
+            lhsComps1.splice(
+                2,
+                1,
+                lhsComps1[2]!
+                    .split('')
+                    .map((e, i) =>
+                        i === 3 ?
+                            faker.string.alphanumeric({
+                                length: {
+                                    min: 5,
+                                    max: 10
+                                }
+                            })
+                        :   e
+                    )
+                    .join('')
+            );
+            const lhs1 = m.fromComponents(...lhsComps1);
+            const rhs1 = m.fromComponents(...rhsComps1);
+
+            console.debug(`LHS: ${lhs1}\n`);
+            console.debug(`RHS: ${rhs1}\n`);
+
+            //-- When
+            const r1 = m.match(lhs1, rhs1);
+
+            //-- Then
+            expect(r1).to.be.false;
         });
     });
 });
