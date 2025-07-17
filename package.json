@@ -35,7 +35,22 @@
         "eslint:ci": "pnpm -r run eslint:ci",
         "prettier": "pnpm -r run prettier",
         "prettier:fix": "pnpm -r run prettier:fix",
-        "prettier:ci": "pnpm -r run prettier:ci"
+        "prettier:ci": "pnpm -r run prettier:ci",
+        "build": "pnpm run --recursive build",
+        "build:all": "pnpm run --recursive build:all",
+        "build:prod": "pnpm run --recursive build:prod",
+        "build:dev": "pnpm run --recursive build:dev",
+        "build:types": "pnpm run --recursive build:types",
+        "clean": "pnpm run --recursive clean",
+        "clean:all": "pnpm run --recursive clean:all",
+        "clean:prod": "pnpm run --recursive clean:prod",
+        "clean:dev": "pnpm run --recursive clean:dev",
+        "clean:types": "pnpm run --recursive clean:types",
+        "rebuild": "pnpm run --recursive rebuild",
+        "rebuild:all": "pnpm run --recursive rebuild:all",
+        "rebuild:prod": "pnpm run --recursive rebuild:prod",
+        "rebuild:dev": "pnpm run --recursive rebuild:dev",
+        "rebuild:types": "pnpm run rebuild:prod rebuild:types"
     },
     "devDependencies": {
         "@eslint/js": "^9.31.0",
