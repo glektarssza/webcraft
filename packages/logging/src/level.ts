@@ -4,6 +4,8 @@
  * @module
  */
 
+import {MapKeyNotFoundError} from '@webcraft/errors';
+
 /**
  * The name of a logging level.
  */
@@ -129,8 +131,9 @@ export function getValues(map: LevelMap): LevelValue[] {
 export function getValue(map: LevelMap, name: LevelName): LevelValue {
     const r = map[name];
     if (r === undefined) {
-        // TODO: Use a better error type
-        throw new Error(`No such value for key '${name.toString()}'`);
+        throw new MapKeyNotFoundError(
+            `No such logging level for for name '${name.toString()}'`
+        );
     }
     return r;
 }
