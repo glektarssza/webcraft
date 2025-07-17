@@ -28,9 +28,9 @@ const config = defineProject(({mode}) => {
             lib: {
                 entry: path.resolve(import.meta.dirname, './src/index.ts'),
                 formats: ['es', 'cjs', 'umd'],
-                name: 'webcraft-error',
+                name: 'webcraft-errors',
                 fileName(format) {
-                    return `webcraft-error.${format}${mode !== 'development' ? '.min' : ''}.js`;
+                    return `webcraft-errors.${format}${mode !== 'development' ? '.min' : ''}.js`;
                 }
             }
         },
@@ -53,7 +53,7 @@ const config = defineProject(({mode}) => {
             unstubGlobals: true,
             unstubEnvs: true,
             dir: path.resolve(__dirname, './tests/'),
-            name: 'Webcraft - Error Library',
+            name: 'Webcraft - Errors Library',
             maxConcurrency: Math.max(Math.floor(os.cpus().length / 2), 1)
         },
         server: {
