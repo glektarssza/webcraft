@@ -67,7 +67,8 @@
         "rebuild:types": "pnpm run clean:types && pnpm run build:types"
     },
     "dependencies": {
-        "@webcraft/common": "workspace:*"
+        "@webcraft/common": "workspace:*",
+        "@webcraft/errors": "workspace:*"
     },
     "devDependencies": {
         "@eslint/js": "^9.31.0",
