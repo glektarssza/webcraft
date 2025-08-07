@@ -1,0 +1,19 @@
+{
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+    "id": "html-dictionary",
+    "version": "0.2",
+    "name": "HTML Custom Dictionary Configuration",
+    "description": "Custom dictionary definition configuration for HTML.",
+    "readonly": true,
+    "dictionaryDefinitions": [
+        {
+            "name": "html-dictionary",
+            "description": "Html Dictionary",
+            "type": "S",
+            "useCompounds": false,
+            "noSuggest": true,
+            "path": "../dictionaries/html.txt"
+        }
+    ],
+    "dictionaries": ["html-dictionary"]
+}

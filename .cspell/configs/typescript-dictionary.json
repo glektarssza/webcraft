@@ -1,0 +1,19 @@
+{
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+    "id": "typescript-dictionary",
+    "version": "0.2",
+    "name": "TypeScript Custom Dictionary Configuration",
+    "description": "Custom dictionary definition configuration for TypeScript.",
+    "readonly": true,
+    "dictionaryDefinitions": [
+        {
+            "name": "typescript-dictionary",
+            "description": "Typescript Dictionary",
+            "type": "S",
+            "useCompounds": false,
+            "noSuggest": true,
+            "path": "../dictionaries/typescript.txt"
+        }
+    ],
+    "dictionaries": ["typescript-dictionary"]
+}
