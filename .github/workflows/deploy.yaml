@@ -43,7 +43,7 @@ jobs:
     steps:
       - id: download-build-artifacts
         name: Download build artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           name: ${{inputs.artifact-name}}
           path: .pages
