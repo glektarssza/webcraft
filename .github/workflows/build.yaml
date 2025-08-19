@@ -43,7 +43,7 @@ jobs:
           lfs: true
       - id: setup-pnpm
         name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: glektarssza/action-setup@chore/update-pnpm-dist
         with:
           run_install: false
       - id: setup-nodejs
