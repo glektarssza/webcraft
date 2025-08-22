@@ -1,9 +1,0 @@
-# Custom Dictionary Words
-eslintcache
-favicons
-ipath
-magick
-tseslint
-unstub
-Vite
-webcraft
