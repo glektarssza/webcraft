@@ -17,7 +17,7 @@
         "type": "git",
         "url": "https://github.com/glektarssza/webcraft.git"
     },
-    "packageManager": "pnpm@10.14.0",
+    "packageManager": "pnpm@10.15.0",
     "type": "module",
     "scripts": {
         "dev": "pnpm -r --filter webcraft run dev",
