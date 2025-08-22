@@ -78,7 +78,7 @@
         "eslint": "^9.33.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-tsdoc": "^0.4.0",
-        "playwright": "^1.54.2",
+        "playwright": "^1.55.0",
         "prettier": "^3.6.2",
         "sass": "^1.90.0",
         "ts-node": "^10.9.2",
