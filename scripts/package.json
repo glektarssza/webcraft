@@ -18,7 +18,7 @@
         "url": "https://github.com/glektarssza/webcraft.git",
         "directory": "./scripts/"
     },
-    "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
+    "packageManager": "pnpm@10.15.0",
     "type": "module",
     "scripts": {
         "lint": "pnpm run eslint && pnpm run prettier",
@@ -32,18 +32,18 @@
         "prettier:ci": "prettier --config ../.prettierrc.json --ignore-path ../.prettierignore --ignore-path ../.gitignore --check ."
     },
     "dependencies": {
-        "chalk": "^5.4.1",
+        "chalk": "^5.6.0",
         "commander": "^14.0.0"
     },
     "devDependencies": {
-        "@eslint/js": "^9.31.0",
-        "@types/node": "^24.0.14",
-        "eslint": "^9.31.0",
-        "eslint-config-prettier": "^10.1.5",
+        "@eslint/js": "^9.33.0",
+        "@types/node": "^24.3.0",
+        "eslint": "^9.33.0",
+        "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-tsdoc": "^0.4.0",
         "prettier": "^3.6.2",
         "ts-node": "^10.9.2",
-        "typescript": "^5.8.3",
-        "typescript-eslint": "8.37.0"
+        "typescript": "^5.9.2",
+        "typescript-eslint": "8.40.0"
     }
 }
