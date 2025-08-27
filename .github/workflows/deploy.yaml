@@ -51,7 +51,7 @@ jobs:
           github-token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
       - id: upload-github-pages-artifacts
         name: Upload GitHub Pages artifacts
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: .pages
       - id: deploy-github-pages
