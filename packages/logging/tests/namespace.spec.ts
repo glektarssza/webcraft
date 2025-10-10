@@ -1411,9 +1411,6 @@ describe('module:namespace', (): void => {
             const lhs1 = m.fromComponents(...lhsComps1);
             const rhs1 = m.fromComponents(...rhsComps1);
 
-            console.debug(`LHS: ${lhs1}\n`);
-            console.debug(`RHS: ${rhs1}\n`);
-
             //-- When
             const r1 = m.match(lhs1, rhs1);
 
@@ -1488,9 +1485,6 @@ describe('module:namespace', (): void => {
             );
             const lhs1 = m.fromComponents(...lhsComps1);
             const rhs1 = m.fromComponents(...rhsComps1);
-
-            console.debug(`LHS: ${lhs1}\n`);
-            console.debug(`RHS: ${rhs1}\n`);
 
             //-- When
             const r1 = m.match(lhs1, rhs1);
