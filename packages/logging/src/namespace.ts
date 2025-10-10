@@ -334,6 +334,5 @@ export function match(
         ...options
     };
     const components = arrays.zip(toComponents(lhs), toComponents(rhs));
-    console.debug(components);
     return components.every(([lhs, rhs]) => componentsMatch(lhs, rhs, opts));
 }
