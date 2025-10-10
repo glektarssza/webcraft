@@ -40,4 +40,4 @@ jobs:
         run: pnpm -r install
       - id: spell-check
         name: Spell Check
-        run: pnpm -r run cspell:ci
+        run: pnpm run cspell:ci
