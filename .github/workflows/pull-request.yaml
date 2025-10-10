@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     name: Build
+    permissions:
+      # -- Needed to checkout the repository
+      contents: read
     strategy:
       fail-fast: true
       matrix:
@@ -20,11 +23,17 @@ jobs:
       build-config: ${{matrix.build-config}}
   test:
     name: Test
+    permissions:
+      # -- Needed to checkout the repository
+      contents: read
     uses: ./.github/workflows/test.yaml
     secrets:
       github-token: ${{secrets.GITHUB_TOKEN}}
   lint:
     name: Lint
+    permissions:
+      # -- Needed to checkout the repository
+      contents: read
     uses: ./.github/workflows/lint.yaml
     secrets:
       github-token: ${{secrets.GITHUB_TOKEN}}

@@ -31,6 +31,9 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      # -- Needed to checkout the repository
+      contents: read
     outputs:
       artifact-id: ${{steps.upload-artifacts.outputs.artifact-id}}
       artifact-name: dist-${{inputs.build-config}}

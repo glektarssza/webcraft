@@ -11,6 +11,9 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    permissions:
+      # -- Needed to checkout the repository
+      contents: read
     steps:
       - id: checkout-repository
         name: Checkout repository
