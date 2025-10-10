@@ -1,5 +1,5 @@
 /**
- * A Rust-esque result object implementation.
+ * A Rust-like result object implementation.
  *
  * @module
  */
@@ -13,7 +13,7 @@ import {
 } from './types/functions';
 
 /**
- * A simple class ecapsulating a result of an operation.
+ * A simple class wrapping around the result of an operation.
  *
  * @typeParam S - The type of the success value.
  * @typeParam E - The type of the error value.

@@ -35,3 +35,8 @@ jobs:
     uses: ./.github/workflows/lint.yaml
     secrets:
       github-token: ${{secrets.GITHUB_TOKEN}}
+  spell-check:
+    name: Spell Check
+    uses: ./.github/workflows/spell-check.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}

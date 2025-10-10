@@ -1,0 +1,19 @@
+{
+    "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+    "id": "vscode-dictionary",
+    "version": "0.2",
+    "name": "VSCode Dictionary Configuration",
+    "description": "VSCode dictionary definition configuration for this project.",
+    "readonly": true,
+    "dictionaryDefinitions": [
+        {
+            "name": "vscode-dictionary",
+            "description": "Project Dictionary",
+            "type": "S",
+            "useCompounds": false,
+            "noSuggest": true,
+            "path": "../dictionaries/vscode.txt"
+        }
+    ],
+    "dictionaries": ["vscode-dictionary"]
+}

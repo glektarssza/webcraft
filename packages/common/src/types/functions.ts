@@ -66,7 +66,7 @@ export type TrinaryFunction<V1, V2, V3, R = void> = (
  *
  * @returns An optional return value.
  */
-export type QuadrinaryFunction<V1, V2, V3, V4, R = void> = (
+export type QuaternaryFunction<V1, V2, V3, V4, R = void> = (
     value1: V1,
     value2: V2,
     value3: V3,
@@ -121,10 +121,10 @@ export type IndexedMapper<V, R> = TrinaryFunction<V, number, ArrayLike<V>, R>;
  * @typeParam R - The type of the value that the collection is being reduced to.
  *
  * @param value1 - The value currently being processed.
- * @param value2 - The accumlated value of all previous iterations of the
+ * @param value2 - The accumulated value of all previous iterations of the
  * function.
  *
- * @returns The accumlated value of all iterations of the function.
+ * @returns The accumulated value of all iterations of the function.
  */
 export type Reducer<V, R> = BinaryFunction<V, R, R>;
 
@@ -136,15 +136,15 @@ export type Reducer<V, R> = BinaryFunction<V, R, R>;
  * @typeParam R - The type of the value that the collection is being reduced to.
  *
  * @param value1 - The value currently being processed.
- * @param value2 - The accumlated value of all previous iterations of the
+ * @param value2 - The accumulated value of all previous iterations of the
  * function.
  * @param value3 - The index in the array-like collection which is currently
  * being processed.
  * @param value4 - The array-like collection which is currently being processed.
  *
- * @returns The accumlated value of all iterations of the function.
+ * @returns The accumulated value of all iterations of the function.
  */
-export type IndexedReducer<V, R> = QuadrinaryFunction<
+export type IndexedReducer<V, R> = QuaternaryFunction<
     V,
     R,
     number,
