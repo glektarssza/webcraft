@@ -1,5 +1,10 @@
+edgedriver
 g'lek
+geckodriver
 glek
 glektarssza
+magick
+noarchive
 tarssza
+unstub
 webcraft
