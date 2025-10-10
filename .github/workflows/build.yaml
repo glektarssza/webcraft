@@ -39,8 +39,9 @@ jobs:
         name: Checkout repository
         uses: actions/checkout@v5
         with:
-          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
           lfs: true
+          submodules: recursive
+          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
       - id: setup-pnpm
         name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -56,7 +57,7 @@ jobs:
           token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
       - id: install-dependencies
         name: Install dependencies
-        run: pnpm install --recursive
+        run: pnpm -r install
       - id: build
         name: Build
         run: pnpm -r --filter webcraft run build:${{inputs.build-config}}
