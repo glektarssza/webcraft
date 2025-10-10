@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Spell Check
+on:
+  workflow_call:
+    secrets:
+      github-token:
+        description: |
+          The token to use for making authenticated requests to GitHub APIs.
+        required: true
+jobs:
+  spell-check:
+    name: Spell Check
+    runs-on: ubuntu-latest
+    permissions:
+      # -- Needed to checkout the repository
+      contents: read
+    steps:
+      - id: checkout-repository
+        name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          lfs: true
+          submodules: recursive
+          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
+      - id: setup-pnpm
+        name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+      - id: setup-nodejs
+        name: Setup NodeJS
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: ./pnpm-lock.yaml
+          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
+      - id: install-dependencies
+        name: Install dependencies
+        run: pnpm -r install
+      - id: spell-check
+        name: Spell Check
+        run: pnpm -r run cspell:ci
