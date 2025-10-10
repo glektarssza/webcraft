@@ -17,7 +17,7 @@ export type Zipped<T extends unknown[][]> = {[I in keyof T]: T[I][number]};
  *
  * @typeParam T - The type of elements in the arrays.
  *
- * @param arrs - The arrays to zip.
+ * @param arrays - The arrays to zip.
  *
  * @returns A new array containing the arrays, zipped together.
  */
