@@ -29,8 +29,11 @@ jobs:
       - lint
       - test
     permissions:
+      # -- Needed to checkout the repository
       contents: read
+      # -- Needed to write to GitHub Pages
       pages: write
+      # -- Needed to deploy to GitHub Pages
       id-token: write
     concurrency:
       group: deploy-github-pages

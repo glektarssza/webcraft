@@ -12,6 +12,9 @@ on:
 jobs:
   build:
     name: Build
+    permissions:
+      # -- Needed to checkout the repository
+      contents: read
     uses: ./.github/workflows/build.yaml
     secrets:
       github-token: ${{secrets.GITHUB_TOKEN}}
@@ -19,11 +22,17 @@ jobs:
       build-config: prod
   test:
     name: Test
+    permissions:
+      # -- Needed to checkout the repository
+      contents: read
     uses: ./.github/workflows/test.yaml
     secrets:
       github-token: ${{secrets.GITHUB_TOKEN}}
   lint:
     name: Lint
+    permissions:
+      # -- Needed to checkout the repository
+      contents: read
     uses: ./.github/workflows/lint.yaml
     secrets:
       github-token: ${{secrets.GITHUB_TOKEN}}
@@ -35,8 +44,11 @@ jobs:
       - lint
       - test
     permissions:
+      # -- Needed to checkout the repository
       contents: read
+      # -- Needed to write to GitHub Pages
       pages: write
+      # -- Needed to deploy to GitHub Pages
       id-token: write
     concurrency:
       group: deploy-github-pages

@@ -29,9 +29,12 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     permissions:
+      # -- Needed to checkout the repository
       contents: read
-      id-token: write
+      # -- Needed to write to GitHub Pages
       pages: write
+      # -- Needed to deploy to GitHub Pages
+      id-token: write
     concurrency:
       group: github-pages-deploy
       cancel-in-progress: false
