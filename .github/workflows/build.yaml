@@ -66,7 +66,7 @@ jobs:
         run: pnpm -r --filter webcraft run build:${{inputs.build-config}}
       - id: upload-artifacts
         name: Upload artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: dist-${{inputs.build-config}}
           path: ./app/dist/
