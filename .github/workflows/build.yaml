@@ -47,7 +47,7 @@ jobs:
           token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
       - id: setup-pnpm
         name: Setup pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
         with:
           run_install: false
       - id: setup-nodejs
