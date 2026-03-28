@@ -59,6 +59,6 @@ jobs:
           path: .pages
       - id: deploy-github-pages
         name: Deploy GitHub pages
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
         with:
           token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
